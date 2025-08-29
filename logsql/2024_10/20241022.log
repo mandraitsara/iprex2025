@@ -1,0 +1,24 @@
+2024-10-22 13:28:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-22 13:28:00;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-22 14:43:37;UPDATE `pe_abattoirs` SET `nom` = "AGROLINEVOL SRL" ,`genlot` = 70 ,`numagr` = "RO-705-CM" ,`date_maj` = "2024-10-22 14:43:37" ,`actif` = 1 ,`adresse` = "LOC.DORNESTI, FARA NUMAR, JUD" ,`cp` = 727210 ,`ville` = "SUCEAVA" ,`pays` = "ROUMANIE" ,`telephone` = "" ,`mobile` = "" ,`email` = "agrolineoffice@yahoo.com"  WHERE id = 69
+2024-10-22 14:43:47;UPDATE `pe_abattoirs` SET `nom` = "AGROLINEVOL SRL" ,`genlot` = 70 ,`numagr` = "RO-705-CM" ,`date_maj` = "2024-10-22 14:43:47" ,`actif` = 0 ,`adresse` = "LOC.DORNESTI, FARA NUMAR, JUD" ,`cp` = 727210 ,`ville` = "SUCEAVA" ,`pays` = "ROUMANIE" ,`telephone` = "" ,`mobile` = "" ,`email` = "agrolineoffice@yahoo.com"  WHERE id = 69
+2024-10-22 14:43:52;UPDATE `pe_abattoirs` SET `nom` = "AGROLINEVOL SRL" ,`genlot` = 70 ,`numagr` = "RO-705-CM" ,`date_maj` = "2024-10-22 14:43:52" ,`actif` = 1 ,`adresse` = "LOC.DORNESTI, FARA NUMAR, JUD" ,`cp` = 727210 ,`ville` = "SUCEAVA" ,`pays` = "ROUMANIE" ,`telephone` = "" ,`mobile` = "" ,`email` = "agrolineoffice@yahoo.com"  WHERE id = 69
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 0.27  WHERE `id` = 100293
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 2.99  WHERE `id` = 100292
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 2.3  WHERE `id` = 100290
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 3.76  WHERE `id` = 100288
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 3.97  WHERE `id` = 100287
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100286
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 5.01  WHERE `id` = 100285
+2024-10-22 14:45:50;UPDATE `pe_factures` SET `montant_interbev` = 6.9  WHERE `id` = 100284
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 2.16  WHERE `id` = 100280
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 4.32  WHERE `id` = 100278
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 6.82  WHERE `id` = 100277
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 4.25  WHERE `id` = 100276
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 5.14  WHERE `id` = 100275
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 0.52  WHERE `id` = 100274
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 0.14  WHERE `id` = 100273
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 0.45  WHERE `id` = 100271
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 1.12  WHERE `id` = 100270
+2024-10-22 14:45:51;UPDATE `pe_factures` SET `montant_interbev` = 0.65  WHERE `id` = 100269

@@ -1,0 +1,29 @@
+2024-09-24 14:26:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 14:26:10;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 14:26:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 14:26:39;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 14:26:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 14:27:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 14:27:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 14:28:21;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-09-24 14:30:00;UPDATE `pe_documents` SET `supprime` = 1  WHERE `id` = 543
+2024-09-24 14:30:09;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-09-24 14:30:22;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-09-24 15:09:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 15:09:31;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 15:09:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 15:09:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 15:09:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 15:09:31;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 15:28:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 15:28:47;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 15:47:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 15:47:08;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 15:47:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 16:05:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 16:05:53;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 16:24:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 16:24:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 16:24:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-24 16:24:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-24 16:24:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()

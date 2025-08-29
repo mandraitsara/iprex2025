@@ -1,0 +1,17 @@
+2024-07-30 08:24:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-30 08:24:01;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-30 08:24:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-30 08:24:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-30 08:24:27;DELETE FROM `pe_prp_op` WHERE `id` IN (2454)
+2024-07-30 08:24:27;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2454)
+2024-07-30 08:24:27;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-30 08:24:35;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2455
+2024-07-30 08:24:38;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2455
+2024-07-30 08:24:38;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2455, 8128)
+2024-07-30 08:24:40;UPDATE `pe_prp_op` SET `date` = "2024-07-30"  WHERE `id` = 2455
+2024-07-30 08:24:41;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2455
+2024-07-30 08:24:45;UPDATE `pe_prp_op` SET `t_surface` = 3 ,`t_surface_conforme` = 1  WHERE `id` = 2455
+2024-07-30 08:24:48;UPDATE `pe_prp_op` SET `t_camion` = 3 ,`t_camion_conforme` = 1  WHERE `id` = 2455
+2024-07-30 08:24:54;INSERT INTO `pe_pvisu_apres` (`commentaires`,`date`,`id_user`) VALUES ("" ,"2024-07-30" ,1 )
+2024-07-30 08:24:54;INSERT INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (645, 76, 1, 0, 0, 1, NOW()),(645, 74, 0, 0, 0, 1, NOW()) ON DUPLICATE KEY UPDATE `etat` = VALUES(`etat`), `id_pvisu_action` = VALUES(`id_pvisu_action`), `fiche_nc` = VALUES(`fiche_nc`), `id_user` = VALUES(`id_user`), `date` = VALUES(`date`)
+2024-07-30 08:44:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"

@@ -1,0 +1,21 @@
+.header h1 { font-size: 14px; }
+.header img.logo { width: 200px; }
+.header img.icones-nett { width: 150px; margin-top:5px;}
+.header img.logo-qse { width: 25px;}
+img.nett-materiel { width: 40px;}
+.text-bleu { color: #1e6abc; }
+.text-jaune { color: #bc8f1e; }
+.legendes h2 { font-size: 9px; color:#777;padding-bottom: 3px;}
+.legendes h3 { font-size: 9px; color: #bc8f1e;}
+.legendes table td { font-size: 9px; }
+.legendes table table td { vertical-align: middle; }
+.entete-table table td { font-size: 8px; text-align: center; background-color: #e5e5e5;padding:2px;}
+.entete-table table { border: 1px solid #777; border-left: none; border-top: none; }
+.entete-table table td  { border: 1px solid #777; border-right: none; border-bottom: none;}
+.bg-bleu { background-color: #1e6abc; color: #fff; }
+.bg-rouge { background-color: #bc1e1e; color: #fff; }
+.bg-gris { background-color: #ccc; }
+.bg-vert { background-color: #86ab8b; }
+.bg-jaune { background-color: #efe514; }
+.table-contenu { border: 1px solid #777; border-left: none; border-top: none; }
+.table-contenu td { font-size: 9px; border: 1px solid #777; padding:2px 4px; border-right: none; border-bottom: none; }

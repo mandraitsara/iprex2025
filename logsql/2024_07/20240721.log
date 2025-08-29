@@ -1,0 +1,13 @@
+2024-07-21 15:57:00;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 18:08:56;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 18:09:59;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 18:15:16;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 19:26:19;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 22:06:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-21 22:06:50;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-21 22:07:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-21 22:07:26;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-21 22:20:37;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 22:44:32;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 22:46:17;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-21 23:27:57;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)

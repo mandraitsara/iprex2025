@@ -1,0 +1,7 @@
+2024-10-08 11:17:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-08 11:17:33;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-08 11:17:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-08 11:17:55;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-10-08" )
+2024-10-08 11:17:55;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1110
+2024-10-08 11:17:55;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1110, 4, 1, 35, NOW()),(1110, 5, 1, 35, NOW()),(1110, 36, 1, 35, NOW()),(1110, 58, 1, 35, NOW()),(1110, 7, 1, 35, NOW()),(1110, 11, 1, 35, NOW()),(1110, 12, 1, 35, NOW()),(1110, 13, 1, 35, NOW()),(1110, 14, 1, 35, NOW()),(1110, 15, 1, 35, NOW()),(1110, 17, 1, 35, NOW()),(1110, 18, 1, 35, NOW()),(1110, 19, 1, 35, NOW()),(1110, 20, 1, 35, NOW()),(1110, 21, 1, 35, NOW()),(1110, 37, 1, 35, NOW()),(1110, 39, 1, 35, NOW()),(1110, 41, 1, 35, NOW()),(1110, 59, 1, 35, NOW()),(1110, 23, 1, 35, NOW()),(1110, 40, 1, 35, NOW()),(1110, 43, 1, 35, NOW()),(1110, 44, 1, 35, NOW()),(1110, 45, 1, 35, NOW()),(1110, 46, 1, 35, NOW()),(1110, 47, 1, 35, NOW()),(1110, 48, 1, 35, NOW()),(1110, 49, 1, 35, NOW()),(1110, 50, 1, 35, NOW()),(1110, 51, 1, 35, NOW()),(1110, 52, 1, 35, NOW()),(1110, 53, 1, 35, NOW()),(1110, 54, 1, 35, NOW()),(1110, 55, 1, 35, NOW())
+2024-10-08 11:17:55;UPDATE `pe_pvisu_avant` SET `commentaires` = "" ,`date` = "2024-10-08" ,`id_user` = 35  WHERE `id` = 1110

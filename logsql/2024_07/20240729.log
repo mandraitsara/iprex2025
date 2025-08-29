@@ -1,0 +1,653 @@
+2024-07-29 08:16:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 08:16:56;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-29 08:24:51;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 08:29:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 08:32:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 08:32:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 08:37:44;DELETE FROM `pe_prp_op` WHERE `id` IN (2421)
+2024-07-29 08:37:44;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2421)
+2024-07-29 08:37:44;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 08:41:02;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2422
+2024-07-29 08:41:11;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2422
+2024-07-29 08:41:11;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2422, 8116)
+2024-07-29 08:42:00;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2422
+2024-07-29 08:42:06;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2422
+2024-07-29 08:42:08;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2422
+2024-07-29 08:50:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 08:55:50;DELETE FROM `pe_prp_op` WHERE `id` IN (2422)
+2024-07-29 08:55:50;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2422)
+2024-07-29 08:55:50;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 08:55:52;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2423
+2024-07-29 08:55:55;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2423
+2024-07-29 08:55:55;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2423, 8116)
+2024-07-29 08:55:58;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2423
+2024-07-29 08:57:00;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2423
+2024-07-29 08:57:02;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2423
+2024-07-29 08:57:09;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2423
+2024-07-29 08:57:19;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2423
+2024-07-29 09:28:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:28:46;DELETE FROM `pe_prp_op` WHERE `id` IN (2423)
+2024-07-29 09:28:46;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2423)
+2024-07-29 09:28:46;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:28:51;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2424
+2024-07-29 09:28:54;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2424
+2024-07-29 09:28:54;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2424, 8116)
+2024-07-29 09:28:56;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2424
+2024-07-29 09:28:58;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2424
+2024-07-29 09:29:02;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2424
+2024-07-29 09:29:06;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2424
+2024-07-29 09:31:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:31:49;DELETE FROM `pe_prp_op` WHERE `id` IN (2424)
+2024-07-29 09:31:49;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2424)
+2024-07-29 09:31:49;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:31:51;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2425
+2024-07-29 09:31:54;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2425
+2024-07-29 09:31:54;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2425, 8116)
+2024-07-29 09:32:01;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2425
+2024-07-29 09:33:54;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2425
+2024-07-29 09:33:58;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2425
+2024-07-29 09:34:52;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2425
+2024-07-29 09:34:55;INSERT INTO `pe_pvisu_apres` (`commentaires`,`date`,`id_user`) VALUES ("" ,"2024-07-29" ,1 )
+2024-07-29 09:34:55;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:34:55;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:34:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:35:05;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:05;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:35:05;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:05;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:35:06;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:06;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:35:07;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:07;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:35:08;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:08;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:35:08;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:08;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:35:09;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:35:09;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:03;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:03;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:04;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:04;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:04;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:04;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:05;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:05;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:08;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:08;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:08;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:08;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:09;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:09;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:39:09;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:39:09;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:43:34;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:44:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:45:10;DELETE FROM `pe_prp_op` WHERE `id` IN (2425)
+2024-07-29 09:45:10;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2425)
+2024-07-29 09:45:10;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:45:12;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2426
+2024-07-29 09:45:15;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2426
+2024-07-29 09:45:15;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2426, 8116)
+2024-07-29 09:45:17;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2426
+2024-07-29 09:45:19;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2426
+2024-07-29 09:45:23;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2426
+2024-07-29 09:45:28;UPDATE `pe_prp_op` SET `t_camion` = 4 ,`t_camion_conforme` = 1  WHERE `id` = 2426
+2024-07-29 09:45:32;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:32;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:34;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:34;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:35;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:35;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:35;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:35;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:36;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:36;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:37;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:37;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:39;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:39;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:39;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:39;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:40;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:40;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:40;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:40;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:40;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:40;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:45:40;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:45:40;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:25;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:25;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:28;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:28;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:29;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:29;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:30;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:30;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:32;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:32;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:33;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:33;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:46:34;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:46:34;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:47:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:48:08;DELETE FROM `pe_prp_op` WHERE `id` IN (2426)
+2024-07-29 09:48:08;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2426)
+2024-07-29 09:48:08;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:48:11;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2427
+2024-07-29 09:48:14;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2427
+2024-07-29 09:48:14;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2427, 8118)
+2024-07-29 09:48:15;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2427
+2024-07-29 09:48:17;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2427
+2024-07-29 09:48:22;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2427
+2024-07-29 09:48:26;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2427
+2024-07-29 09:48:31;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:31;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:33;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:33;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:35;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:35;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:35;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:35;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:35;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:35;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:35;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:35;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:36;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:36;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:48:36;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:48:36;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:56:19;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:56:19;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:56:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:56:32;DELETE FROM `pe_prp_op` WHERE `id` IN (2427)
+2024-07-29 09:56:32;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2427)
+2024-07-29 09:56:32;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:56:34;DELETE FROM `pe_prp_op` WHERE `id` IN (2428)
+2024-07-29 09:56:34;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2428)
+2024-07-29 09:56:34;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:56:47;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2429
+2024-07-29 09:56:50;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2429
+2024-07-29 09:56:50;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2429, 8116)
+2024-07-29 09:56:54;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2429
+2024-07-29 09:56:56;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2429
+2024-07-29 09:57:00;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2429
+2024-07-29 09:57:06;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2429
+2024-07-29 09:57:10;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:10;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:12;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:12;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:12;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:12;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:13;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:13;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:14;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:14;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:14;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:14;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:15;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:15;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:16;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:16;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:16;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:16;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:18;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:18;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:18;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:18;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:18;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:18;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:18;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:18;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:18;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:57:18;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:57:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:57:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:58:10;DELETE FROM `pe_prp_op` WHERE `id` IN (2429)
+2024-07-29 09:58:10;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2429)
+2024-07-29 09:58:10;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:58:14;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2430
+2024-07-29 09:58:21;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2430
+2024-07-29 09:58:21;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2430, 8116)
+2024-07-29 09:58:23;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2430
+2024-07-29 09:58:27;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2430
+2024-07-29 09:58:30;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2430
+2024-07-29 09:58:35;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2430
+2024-07-29 09:58:38;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 09:58:38;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 09:58:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:59:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 09:59:33;DELETE FROM `pe_prp_op` WHERE `id` IN (2430)
+2024-07-29 09:59:33;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2430)
+2024-07-29 09:59:33;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 09:59:38;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2431
+2024-07-29 09:59:45;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2431
+2024-07-29 09:59:45;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2431, 8117)
+2024-07-29 09:59:46;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2431
+2024-07-29 09:59:49;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2431
+2024-07-29 09:59:53;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2431
+2024-07-29 09:59:56;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2431
+2024-07-29 10:00:01;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 10:00:01;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 10:02:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:03:00;DELETE FROM `pe_prp_op` WHERE `id` IN (2431)
+2024-07-29 10:03:00;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2431)
+2024-07-29 10:03:00;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:03:05;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2432
+2024-07-29 10:03:10;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2432
+2024-07-29 10:03:10;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2432, 8116)
+2024-07-29 10:03:16;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2432
+2024-07-29 10:03:17;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2432
+2024-07-29 10:03:21;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2432
+2024-07-29 10:03:25;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2432
+2024-07-29 10:03:29;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 10:03:29;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 10:03:34;UPDATE `pe_prp_op` SET `palettes_poids` = 20 ,`palettes_recues` = 0 ,`palettes_rendues` = 0  WHERE `id` = 2432
+2024-07-29 10:03:37;UPDATE `pe_prp_op` SET `crochets_recus` = 1 ,`crochets_rendus` = 0  WHERE `id` = 2432
+2024-07-29 10:03:40;UPDATE `pe_tiers` SET `solde_palettes` = 10 ,`solde_crochets` = 50  WHERE `id` = 231
+2024-07-29 10:03:40;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 231
+2024-07-29 10:03:40;UPDATE `pe_prp_op` SET `id_user` = 1 ,`date_add` = "2024-07-29 10:03:40"  WHERE `id` = 2432
+2024-07-29 10:03:43;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:03:46;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2433
+2024-07-29 10:03:56;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2433
+2024-07-29 10:03:56;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2433, 8117)
+2024-07-29 10:04:00;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2433
+2024-07-29 10:04:02;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2433
+2024-07-29 10:04:06;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2433
+2024-07-29 10:04:09;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2433
+2024-07-29 10:04:18;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 10:04:18;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 10:10:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:11:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:11:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:11:25;DELETE FROM `pe_prp_op` WHERE `id` IN (2433)
+2024-07-29 10:11:25;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2433)
+2024-07-29 10:11:25;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:11:28;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2434
+2024-07-29 10:11:31;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2434
+2024-07-29 10:11:31;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2434, 8118)
+2024-07-29 10:11:34;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2434
+2024-07-29 10:11:38;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2434
+2024-07-29 10:11:43;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2434
+2024-07-29 10:11:46;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2434
+2024-07-29 10:11:53;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 10:11:53;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW())
+2024-07-29 10:12:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:12:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:25:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:25:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:26:01;DELETE FROM `pe_prp_op` WHERE `id` IN (2434)
+2024-07-29 10:26:01;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2434)
+2024-07-29 10:26:01;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:26:03;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2435
+2024-07-29 10:26:05;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2435
+2024-07-29 10:26:05;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2435, 8118)
+2024-07-29 10:26:07;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2435
+2024-07-29 10:26:08;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2435
+2024-07-29 10:26:12;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2435
+2024-07-29 10:26:15;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2435
+2024-07-29 10:26:22;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 10:26:22;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 1, 0  , 0, 1, NOW())
+2024-07-29 10:32:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:34:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:36:42;DELETE FROM `pe_prp_op` WHERE `id` IN (2435)
+2024-07-29 10:36:42;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2435)
+2024-07-29 10:36:42;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:36:47;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2436
+2024-07-29 10:36:52;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2436
+2024-07-29 10:36:52;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2436, 8117)
+2024-07-29 10:37:01;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2436
+2024-07-29 10:37:04;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2436
+2024-07-29 10:37:08;UPDATE `pe_prp_op` SET `t_surface` = 3 ,`t_surface_conforme` = 1  WHERE `id` = 2436
+2024-07-29 10:37:11;UPDATE `pe_prp_op` SET `t_camion` = 3 ,`t_camion_conforme` = 1  WHERE `id` = 2436
+2024-07-29 10:37:19;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW())
+2024-07-29 10:45:34;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:45:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:45:38;DELETE FROM `pe_prp_op` WHERE `id` IN (2436)
+2024-07-29 10:45:38;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2436)
+2024-07-29 10:45:38;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:45:41;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2437
+2024-07-29 10:45:43;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2437
+2024-07-29 10:45:43;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2437, 8118)
+2024-07-29 10:45:48;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2437
+2024-07-29 10:45:50;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2437
+2024-07-29 10:46:07;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2437
+2024-07-29 10:46:12;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2437
+2024-07-29 10:46:17;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0  , 0, 1, NOW()),(644, 74, 1, 0  , 0, 1, NOW())
+2024-07-29 10:47:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:50:51;DELETE FROM `pe_prp_op` WHERE `id` IN (2437)
+2024-07-29 10:50:51;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2437)
+2024-07-29 10:50:52;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:50:53;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2438
+2024-07-29 10:51:05;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2438
+2024-07-29 10:51:05;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2438, 8118)
+2024-07-29 10:51:16;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2438
+2024-07-29 10:51:33;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2438
+2024-07-29 10:51:37;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2438
+2024-07-29 10:51:40;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2438
+2024-07-29 10:51:45;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW())
+2024-07-29 10:52:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:52:45;DELETE FROM `pe_prp_op` WHERE `id` IN (2438)
+2024-07-29 10:52:45;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2438)
+2024-07-29 10:52:45;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:52:46;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2439
+2024-07-29 10:52:49;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2439
+2024-07-29 10:52:49;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2439, 8118)
+2024-07-29 10:52:52;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2439
+2024-07-29 10:52:54;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2439
+2024-07-29 10:52:57;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2439
+2024-07-29 10:53:02;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2439
+2024-07-29 10:53:05;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 10:53:05;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 1, 0  , 0, 1, NOW())
+2024-07-29 10:59:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 10:59:14;DELETE FROM `pe_prp_op` WHERE `id` IN (2439)
+2024-07-29 10:59:14;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2439)
+2024-07-29 10:59:14;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 10:59:16;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2440
+2024-07-29 10:59:19;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2440
+2024-07-29 10:59:19;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2440, 8118)
+2024-07-29 10:59:21;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2440
+2024-07-29 10:59:22;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2440
+2024-07-29 11:23:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 11:23:33;DELETE FROM `pe_prp_op` WHERE `id` IN (2440)
+2024-07-29 11:23:33;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2440)
+2024-07-29 11:23:33;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 11:23:35;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2441
+2024-07-29 11:23:37;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2441
+2024-07-29 11:23:37;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2441, 8118)
+2024-07-29 11:23:39;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2441
+2024-07-29 11:23:40;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2441
+2024-07-29 11:23:44;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2441
+2024-07-29 11:23:48;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2441
+2024-07-29 11:23:52;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW()) ON DUPLICATE KEY UPDATE `etat` = VALUES(`etat`), `id_user` = VALUES(`id_user`), `date` = VALUES(`date`)
+2024-07-29 11:24:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 11:24:29;DELETE FROM `pe_prp_op` WHERE `id` IN (2441)
+2024-07-29 11:24:29;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2441)
+2024-07-29 11:24:29;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 11:24:32;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2442
+2024-07-29 11:24:35;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2442
+2024-07-29 11:24:35;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2442, 8118)
+2024-07-29 11:24:37;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2442
+2024-07-29 11:24:39;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2442
+2024-07-29 11:24:42;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2442
+2024-07-29 11:24:51;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2442
+2024-07-29 11:24:57;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0  , 0, 1, NOW()),(644, 74, 1, 0  , 0, 1, NOW()) ON DUPLICATE KEY UPDATE `etat` = VALUES(`etat`), `id_user` = VALUES(`id_user`), `date` = VALUES(`date`)
+2024-07-29 11:56:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 11:56:03;DELETE FROM `pe_prp_op` WHERE `id` IN (2442)
+2024-07-29 11:56:03;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2442)
+2024-07-29 11:56:03;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 11:56:04;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2443
+2024-07-29 11:56:08;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2443
+2024-07-29 11:56:08;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2443, 8117)
+2024-07-29 11:56:09;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2443
+2024-07-29 11:56:11;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2443
+2024-07-29 11:56:15;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2443
+2024-07-29 11:56:18;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2443
+2024-07-29 11:56:43;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 0, 0  , 0, 1, NOW()),(644, 74, 1, 0  , 0, 1, NOW())
+2024-07-29 13:09:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:10:12;DELETE FROM `pe_prp_op` WHERE `id` IN (2443)
+2024-07-29 13:10:12;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2443)
+2024-07-29 13:10:12;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 13:10:16;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2444
+2024-07-29 13:10:22;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2444
+2024-07-29 13:10:22;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2444, 8118)
+2024-07-29 13:10:28;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2444
+2024-07-29 13:10:31;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2444
+2024-07-29 13:10:34;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2444
+2024-07-29 13:10:39;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2444
+2024-07-29 13:10:45;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2444
+2024-07-29 13:10:55;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 13:10:55;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW())
+2024-07-29 13:11:00;UPDATE `pe_prp_op` SET `palettes_poids` = 1 ,`palettes_recues` = 0 ,`palettes_rendues` = 0  WHERE `id` = 2444
+2024-07-29 13:11:05;UPDATE `pe_prp_op` SET `crochets_recus` = 1 ,`crochets_rendus` = 0  WHERE `id` = 2444
+2024-07-29 13:11:16;UPDATE `pe_tiers` SET `solde_palettes` = 10 ,`solde_crochets` = 49  WHERE `id` = 231
+2024-07-29 13:11:16;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 231
+2024-07-29 13:11:16;UPDATE `pe_prp_op` SET `id_user` = 1 ,`date_add` = "2024-07-29 13:11:16"  WHERE `id` = 2444
+2024-07-29 13:11:23;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 13:11:25;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2445
+2024-07-29 13:16:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:16:49;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-29 13:17:13;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-29 13:17:28;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407103" ,0 ,1 ,"2024-07-29" )
+2024-07-29 13:17:50;UPDATE `pe_bl` SET `supprime` = 0 ,`num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`regroupement` = 0 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 1  WHERE id = 8126
+2024-07-29 13:17:55;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126)
+2024-07-29 13:18:07;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126)
+2024-07-29 13:18:16;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407104" ,0 ,1 ,"2024-07-29" )
+2024-07-29 13:19:03;UPDATE `pe_bl` SET `supprime` = 0 ,`num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`regroupement` = 0 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 1  WHERE id = 8127
+2024-07-29 13:19:05;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:19:36;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:20:03;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:21:38;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:22:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:22:21;DELETE FROM `pe_prp_op` WHERE `id` IN (2445)
+2024-07-29 13:22:21;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2445)
+2024-07-29 13:22:21;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 13:22:25;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2446
+2024-07-29 13:22:36;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:22:54;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407105" ,0 ,1 ,"2024-07-29" )
+2024-07-29 13:24:43;INSERT INTO `pe_palette_composition` (`id_palette`,`id_client`,`id_produit`,`id_lot_pdt_froid`,`id_frais`,`id_lot_pdt_negoce`,`id_lot_regroupement`,`poids`,`nb_colis`,`date`,`id_user`,`id_lot_hors_stock`,`archive`,`supprime`) VALUES (0 ,473 ,267 ,0 ,0 ,0 ,0 ,20 ,1 ,"2024-07-29 13:24:43" ,1 ,0 ,0 ,0 )
+2024-07-29 13:24:43;INSERT INTO `pe_bl_lignes` (`id_bl`,`id_compo`,`id_palette`,`id_produit`,`id_lot`,`numlot`,`poids`,`nb_colis`,`qte`,`pu_ht`,`tva`,`date_add`,`supprime`) VALUES (8128 ,88845 ,0 ,267 ,0 ,"" ,20 ,1 ,1 ,0 ,5.5 ,"2024-07-29 13:24:43" ,0 )
+2024-07-29 13:24:44;UPDATE `pe_bl` SET `id_tiers_facturation` = 473  WHERE id = 8128
+2024-07-29 13:24:54;UPDATE `pe_bl_lignes` SET `pu_ht` = 100  WHERE `id` = 74059
+2024-07-29 13:24:54;UPDATE `pe_bl` SET `supprime` = 0 ,`num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`regroupement` = 0 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 1  WHERE id = 8128
+2024-07-29 13:24:59;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:25:21;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:25:25;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:25:25;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 13:25:25;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 13:25:25;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 13:26:43;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:28:41;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:28:41;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:28:41;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 13:28:41;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 13:28:41;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 13:28:58;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:28:58;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 13:28:58;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 13:28:58;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 13:30:27;DELETE FROM `pe_prp_op` WHERE `id` IN (2446)
+2024-07-29 13:30:27;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2446)
+2024-07-29 13:30:27;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 13:30:29;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2447
+2024-07-29 13:30:33;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2447
+2024-07-29 13:30:33;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2447, 8117)
+2024-07-29 13:30:39;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2447
+2024-07-29 13:30:43;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2447
+2024-07-29 13:30:47;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2447
+2024-07-29 13:30:51;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2447
+2024-07-29 13:30:58;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW())
+2024-07-29 13:31:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:33:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:33:12;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-29 13:33:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:33:26;DELETE FROM `pe_prp_op` WHERE `id` IN (2447)
+2024-07-29 13:33:26;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2447)
+2024-07-29 13:33:26;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 13:33:29;UPDATE `pe_prp_op` SET `id_transporteur` = 136  WHERE `id` = 2448
+2024-07-29 13:33:37;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2448
+2024-07-29 13:33:37;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2448, 8119)
+2024-07-29 13:33:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 13:33:56;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-29 13:34:02;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 13:34:12;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:34:13;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 13:34:13;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 13:34:13;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 13:34:13;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 13:34:28;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:17:22;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:17:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 14:20:30;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:40:56;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:40:56;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 14:40:56;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 14:40:56;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 14:41:27;UPDATE `pe_bl` SET `num_cmd` = 123457 ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:41:27;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 14:41:27;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 14:41:27;UPDATE `pe_bl` SET `num_cmd` = 123457 ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 14:54:52;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:54:52;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 14:54:52;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 14:54:52;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 14:54:59;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 14:54:59;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 14:54:59;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 14:54:59;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 14:55:04;DELETE FROM `pe_prp_op` WHERE `id` IN (2448)
+2024-07-29 14:55:04;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2448)
+2024-07-29 14:55:04;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 14:55:08;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2449
+2024-07-29 15:06:49;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127)
+2024-07-29 15:06:55;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407106" ,0 ,1 ,"2024-07-29" )
+2024-07-29 15:06:59;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127,8129)
+2024-07-29 15:07:09;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:07:10;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:07:10;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 15:07:10;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 15:07:10;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 15:07:25;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:07:45;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127,8129)
+2024-07-29 15:07:49;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127,8129)
+2024-07-29 15:07:56;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:08:03;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:08:03;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 15:08:03;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 15:08:03;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 15:15:30;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:15:43;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:15:43;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 15:15:43;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 15:15:43;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 15:30:31;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:30:37;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:30:37;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 15:30:37;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 15:30:37;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 15:30:37;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8128
+2024-07-29 15:30:37;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88845)
+2024-07-29 15:30:37;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8128
+2024-07-29 15:33:13;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:33:13;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 15:33:13;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 15:33:13;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 15:33:13;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8128
+2024-07-29 15:33:13;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88845)
+2024-07-29 15:33:13;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8128
+2024-07-29 15:53:50;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127,8129)
+2024-07-29 15:54:01;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8128
+2024-07-29 15:54:01;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-29 15:54:01;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-29 15:54:01;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8128
+2024-07-29 15:54:01;UPDATE `pe_bl` SET `num_cmd` = "" ,`date` = "2024-07-29" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8128
+2024-07-29 15:54:01;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88845)
+2024-07-29 15:54:01;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8128
+2024-07-29 15:54:08;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127,8129)
+2024-07-29 15:59:53;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125,8126,8127,8129)
+2024-07-29 16:00:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:00:08;DELETE FROM `pe_prp_op` WHERE `id` IN (2449)
+2024-07-29 16:00:08;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2449)
+2024-07-29 16:00:08;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 16:00:34;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2450
+2024-07-29 16:00:56;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2450
+2024-07-29 16:00:56;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2450, 8117)
+2024-07-29 16:00:58;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2450
+2024-07-29 16:01:01;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2450
+2024-07-29 16:01:05;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2450
+2024-07-29 16:01:09;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2450
+2024-07-29 16:01:14;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 16:01:14;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW())
+2024-07-29 16:08:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:08:09;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-29 16:08:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:08:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:12:53;DELETE FROM `pe_prp_op` WHERE `id` IN (2450)
+2024-07-29 16:12:53;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2450)
+2024-07-29 16:12:53;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 16:13:43;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2451
+2024-07-29 16:13:46;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2451
+2024-07-29 16:13:46;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2451, 8128)
+2024-07-29 16:14:13;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2451
+2024-07-29 16:14:22;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2451
+2024-07-29 16:14:27;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2451
+2024-07-29 16:14:33;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2451
+2024-07-29 16:15:07;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 644
+2024-07-29 16:15:07;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0  , 0, 1, NOW()),(644, 74, 0, 0  , 0, 1, NOW())
+2024-07-29 16:15:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:15:21;DELETE FROM `pe_prp_op` WHERE `id` IN (2451)
+2024-07-29 16:15:21;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2451)
+2024-07-29 16:15:21;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 16:25:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:25:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:25:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:26:07;UPDATE `pe_lot_reception` SET `temp_d` = 1 ,`temp_m` = 1 ,`temp_f` = 1  WHERE `id` = 2253
+2024-07-29 16:26:07;UPDATE `pe_lots` SET `date_maj` = "2024-07-29- 16:26:07" ,`id_user_maj` = 1  WHERE `id` = 5799
+2024-07-29 16:26:08;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2253
+2024-07-29 16:26:08;UPDATE `pe_lots` SET `date_maj` = "2024-07-29- 16:26:08" ,`id_user_maj` = 1  WHERE `id` = 5799
+2024-07-29 16:26:14;UPDATE `pe_lot_reception` SET `observations` = "                                                                                                                                        " ,`conformite` = 0 ,`id_user` = 1 ,`date_confirmation` = "2024-07-29 16:26:14"  WHERE `id` = 2253
+2024-07-29 16:26:14;UPDATE `pe_lots` SET `date_maj` = "2024-07-29- 16:26:14" ,`id_user_maj` = 1  WHERE `id` = 5799
+2024-07-29 16:26:14;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-07-29" )
+2024-07-29 16:26:14;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1088
+2024-07-29 16:26:14;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1088, 75, 1, 1, NOW()),(1088, 73, 0, 1, NOW())
+2024-07-29 16:26:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:26:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:26:44;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:26:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:26:52;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-29 16:26:52;UPDATE `pe_lots` SET `date_maj` = "2024-07-29- 16:26:52" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-29 16:26:53;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-29 16:26:53;UPDATE `pe_lots` SET `date_maj` = "2024-07-29- 16:26:53" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-29 16:27:01;UPDATE `pe_lot_reception` SET `observations` = "                                                                    " ,`conformite` = 1 ,`id_user` = 1 ,`date_confirmation` = "2024-07-29 16:27:01"  WHERE `id` = 2252
+2024-07-29 16:27:01;UPDATE `pe_lots` SET `date_maj` = "2024-07-29- 16:27:01" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-29 16:27:01;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1088
+2024-07-29 16:27:01;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1088, 75, 1, 1, NOW()),(1088, 73, 1, 1, NOW())
+2024-07-29 16:27:07;UPDATE `pe_lot_reception` SET `crochets_recus` = 1 ,`crochets_rendus` = 0  WHERE `id` = 2252
+2024-07-29 16:27:53;UPDATE `pe_lot_reception` SET `id_transporteur` = 231  WHERE `id` = 2252
+2024-07-29 16:27:53;UPDATE `pe_tiers` SET `solde_crochets` = 50  WHERE `id` = 231
+2024-07-29 16:27:53;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 231
+2024-07-29 16:27:56;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (1 ,1 ,5796 )
+2024-07-29 16:27:56;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10821, 5796, 0)
+2024-07-29 16:27:56;DELETE FROM `pe_lot_vues` 
+						  WHERE `id_lot` = 5796 
+						  AND `id_vue` = 1
+2024-07-29 16:27:56;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5796, 2, "2024-07-29 16:27:56")
+2024-07-29 16:27:56;UPDATE `pe_lots` SET `date_reception` = "2024-07-29" ,`date_prod` = "2024-07-29 16:27:56" ,`date_atelier` = "2024-07-29 16:27:56"  WHERE `id` = 5796
+2024-07-29 16:27:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:37:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:37:50;DELETE FROM `pe_prp_op` WHERE `id` IN (2452)
+2024-07-29 16:37:50;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2452)
+2024-07-29 16:37:50;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 16:37:52;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2453
+2024-07-29 16:37:54;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2453
+2024-07-29 16:37:54;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2453, 8117)
+2024-07-29 16:37:55;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2453
+2024-07-29 16:37:56;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2453
+2024-07-29 16:38:01;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2453
+2024-07-29 16:38:04;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2453
+2024-07-29 16:38:07;INSERT INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW()) ON DUPLICATE KEY UPDATE `etat` = VALUES(`etat`), `id_pvisu_action` = VALUES(`id_pvisu_action`), `fiche_nc` = VALUES(`fiche_nc`), `id_user` = VALUES(`id_user`), `date` = VALUES(`date`)
+2024-07-29 16:38:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-29 16:38:47;DELETE FROM `pe_prp_op` WHERE `id` IN (2453)
+2024-07-29 16:38:47;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2453)
+2024-07-29 16:38:47;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-29 16:38:49;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2454
+2024-07-29 16:38:51;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2454
+2024-07-29 16:38:51;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2454, 8128)
+2024-07-29 16:38:53;UPDATE `pe_prp_op` SET `date` = "2024-07-29"  WHERE `id` = 2454
+2024-07-29 16:38:54;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2454
+2024-07-29 16:38:57;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2454
+2024-07-29 16:39:01;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2454
+2024-07-29 16:39:05;INSERT INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (644, 76, 1, 0, 0, 1, NOW()),(644, 74, 0, 0, 0, 1, NOW()) ON DUPLICATE KEY UPDATE `etat` = VALUES(`etat`), `id_pvisu_action` = VALUES(`id_pvisu_action`), `fiche_nc` = VALUES(`fiche_nc`), `id_user` = VALUES(`id_user`), `date` = VALUES(`date`)

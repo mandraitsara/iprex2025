@@ -1,0 +1,5 @@
+deny from all
+<Files ~ "(?i)^.*\.(jpg|jpeg|gif|png|bmp|tiff|svg|pdf|csv|mpeg|mp4|avi|mpg|wma|flv|webm|ico|xls|xlsx|doc|docx)$">
+	order deny,allow
+	allow from all
+</Files>

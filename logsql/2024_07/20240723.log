@@ -1,0 +1,1030 @@
+2024-07-23 07:05:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:05:52;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 07:05:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:06:13;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`) VALUES ("243930AFR" ,"2024-07-23 07:06:13" ,1 ,383 ,1 ,1 ,1 ,45 ,"2024-07-22" )
+2024-07-23 07:06:13;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5793 ,1 ,"2024-07-23 07:06:13" )
+2024-07-23 07:06:13;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`,`poids_abattoir`) VALUES ("243930AFRA" ,"2024-07-23 07:06:13" ,1 ,383 ,2 ,2 ,1 ,45 ,"2024-07-22" ,0 )
+2024-07-23 07:06:13;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5794 ,1 ,"2024-07-23 07:06:13" )
+2024-07-23 07:06:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:06:15;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 07:06:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:06:18;UPDATE `pe_lots` SET `composition_viande` = 2  WHERE `id` = 5793
+2024-07-23 07:06:20;UPDATE `pe_lots` SET `date_reception` = "2024-07-23" ,`date_maj` = "2024-07-23- 07:06:20" ,`id_user_maj` = 24  WHERE `id` = 5793
+2024-07-23 07:06:24;INSERT INTO `pe_lot_reception` (`id_lot`,`temp_d`,`temp_m`,`temp_f`) VALUES (5793 ,2 ,2 ,2 )
+2024-07-23 07:06:24;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 07:06:24" ,`id_user_maj` = 24  WHERE `id` = 5793
+2024-07-23 07:06:26;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2249
+2024-07-23 07:06:26;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 07:06:26" ,`id_user_maj` = 24  WHERE `id` = 5793
+2024-07-23 07:06:42;UPDATE `pe_lot_reception` SET `observations` = "" ,`conformite` = 1 ,`id_user` = 24 ,`date_confirmation` = "2024-07-23 07:06:42"  WHERE `id` = 2249
+2024-07-23 07:06:42;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 07:06:42" ,`id_user_maj` = 24  WHERE `id` = 5793
+2024-07-23 07:06:43;UPDATE `pe_lot_reception` SET `crochets_recus` = 0 ,`crochets_rendus` = 0  WHERE `id` = 2249
+2024-07-23 07:06:45;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (1 ,1 ,5793 )
+2024-07-23 07:06:45;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10817, 5793, 0)
+2024-07-23 07:06:45;DELETE FROM `pe_lot_vues` 
+						  WHERE `id_lot` = 5793 
+						  AND `id_vue` = 1
+2024-07-23 07:06:45;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5793, 2, "2024-07-23 07:06:45")
+2024-07-23 07:06:45;UPDATE `pe_lots` SET `date_reception` = "2024-07-23" ,`date_prod` = "2024-07-23 07:06:45" ,`date_atelier` = "2024-07-23 07:06:45"  WHERE `id` = 5793
+2024-07-23 07:06:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:07:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:07:20;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 07:07:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:07:25;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 07:07:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 07:07:31;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 08:23:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 08:23:13;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 08:23:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 08:28:28;DELETE FROM `pe_prp_op` WHERE `id` IN (2323)
+2024-07-23 08:28:28;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2323)
+2024-07-23 08:28:28;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-23 08:32:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 08:32:47;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 08:33:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 08:33:20;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 08:33:34;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115)
+2024-07-23 08:33:42;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:33:42;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:33:44;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:33:44;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74058
+2024-07-23 08:33:44;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 08:33:44;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 08:33:44;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 08:34:24;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:34:24;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:34:29;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:34:29;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74058
+2024-07-23 08:34:29;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 08:34:29;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 08:34:29;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 08:34:48;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:34:48;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:34:54;UPDATE `pe_bl_lignes` SET `id_pays` = 27  WHERE `id` = 74058
+2024-07-23 08:34:55;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:34:55;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 08:34:55;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 08:34:55;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 08:34:55;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 08:35:06;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115)
+2024-07-23 08:35:17;UPDATE `pe_palette_composition` SET `archive` = 0, `supprime` = 0 WHERE `id` IN (SELECT `id_compo` FROM `pe_bl_lignes` WHERE `id_bl` = 8113);DELETE FROM `pe_bl_lignes` WHERE `id_bl` = 8113;DELETE FROM `pe_bl` WHERE `id` = 8113;
+2024-07-23 08:35:17;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115)
+2024-07-23 08:35:51;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 08:35:51;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 08:35:53;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115)
+2024-07-23 08:36:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:36:01;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:36:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:36:01;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 08:36:01;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 08:36:01;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 08:36:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 08:36:38;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:36:38;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 08:36:38;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 08:36:38;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 08:36:38;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 08:36:41;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115)
+2024-07-23 08:37:06;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 08:37:06;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 08:37:06;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 08:37:06;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 08:37:06;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 08:37:07;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 08:37:07;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 08:38:04;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:38:04;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:38:07;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:38:07;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 08:38:07;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 08:38:07;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 08:38:07;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 08:40:18;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 08:40:18;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 08:40:18;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 08:40:18;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 08:40:18;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 08:40:46;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:40:46;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:43:53;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 08:43:53;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 08:46:03;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 08:46:03;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 0.06  WHERE `id` = 74055
+2024-07-23 08:46:03;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:20:00;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:20:00;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:20:00;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:20:00;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:20:00;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:28:55;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407097" ,0 ,1 ,"2024-07-23" )
+2024-07-23 09:30:17;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407098" ,0 ,1 ,"2024-07-23" )
+2024-07-23 09:30:32;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407099" ,0 ,1 ,"2024-07-23" )
+2024-07-23 09:30:58;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407100" ,0 ,1 ,"2024-07-23" )
+2024-07-23 09:31:12;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407101" ,0 ,1 ,"2024-07-23" )
+2024-07-23 09:31:20;INSERT INTO `pe_bl` (`num_bl`,`supprime`,`statut`,`date`) VALUES ("BL2407102" ,0 ,1 ,"2024-07-23" )
+2024-07-23 09:31:40;UPDATE `pe_bl` SET `supprime` = 0 ,`num_cmd` = 14 ,`date` = "2024-07-23" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`regroupement` = 0 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 1  WHERE id = 8125
+2024-07-23 09:31:43;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 09:32:00;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:32:00;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:32:02;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:32:02;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:32:03;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:32:03;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:32:03;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:33:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:34:17;UPDATE `pe_lots` SET `date_reception` = "2024-07-23" ,`date_maj` = "2024-07-23- 09:34:17" ,`id_user_maj` = 1  WHERE `id` = 5794
+2024-07-23 09:34:20;INSERT INTO `pe_lot_reception` (`id_lot`,`temp`) VALUES (5794 ,4 )
+2024-07-23 09:34:20;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 09:34:20" ,`id_user_maj` = 1  WHERE `id` = 5794
+2024-07-23 09:34:22;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2250
+2024-07-23 09:34:22;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 09:34:22" ,`id_user_maj` = 1  WHERE `id` = 5794
+2024-07-23 09:34:37;UPDATE `pe_lot_reception` SET `observations` = "" ,`conformite` = 0 ,`id_user` = 1 ,`date_confirmation` = "2024-07-23 09:34:37"  WHERE `id` = 2250
+2024-07-23 09:34:37;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 09:34:37" ,`id_user_maj` = 1  WHERE `id` = 5794
+2024-07-23 09:34:40;UPDATE `pe_lot_reception` SET `crochets_recus` = 10 ,`crochets_rendus` = 0  WHERE `id` = 2250
+2024-07-23 09:34:49;UPDATE `pe_lot_reception` SET `id_transporteur` = 231  WHERE `id` = 2250
+2024-07-23 09:34:49;UPDATE `pe_tiers` SET `solde_crochets` = 31  WHERE `id` = 231
+2024-07-23 09:34:49;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 231
+2024-07-23 09:34:52;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (1 ,1 ,5794 )
+2024-07-23 09:34:52;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10818, 5794, 0)
+2024-07-23 09:34:52;DELETE FROM `pe_lot_vues` 
+						  WHERE `id_lot` = 5794 
+						  AND `id_vue` = 1
+2024-07-23 09:34:52;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5794, 2, "2024-07-23 09:34:52")
+2024-07-23 09:34:52;UPDATE `pe_lots` SET `date_reception` = "2024-07-23" ,`date_prod` = "2024-07-23 09:34:52" ,`date_atelier` = "2024-07-23 09:34:52"  WHERE `id` = 5794
+2024-07-23 09:34:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:34:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:35:33;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:35:33;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:35:33;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:35:33;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:35:33;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:36:52;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:36:52;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:36:54;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:36:54;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:36:55;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:36:55;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:36:55;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:38:07;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:38:07;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:38:11;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:38:11;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:38:11;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:38:11;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:38:11;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:38:50;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:38:50;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:38:52;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:38:52;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:38:52;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:38:52;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:38:52;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:39:33;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:39:33;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:39:35;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:39:35;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:39:35;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:39:35;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:39:35;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:39:44;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:39:59;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:39:59;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:40:01;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:40:01;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:40:01;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:40:01;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:40:01;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:40:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:40:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:40:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:41:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:42:01;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:42:01;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:42:03;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:42:03;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:42:03;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:42:03;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:42:03;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:42:12;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:42:12;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:42:13;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:42:13;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:42:13;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:42:13;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:42:13;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:44:05;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:44:05;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:44:05;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:44:05;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:44:05;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:45:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:45:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:46:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:46:19;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 09:47:39;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:47:39;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:47:39;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:47:39;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:47:39;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:49:59;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:49:59;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:50:08;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:50:08;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:50:08;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:50:08;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:50:08;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:51:29;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:51:29;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:51:30;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:51:30;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:51:30;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:51:30;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:51:30;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:51:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:54:44;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:54:44;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:54:46;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:54:46;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:54:46;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:54:46;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:54:46;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:56:38;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 747 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:56:38;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`pu_ht` = 15 ,`qte` = 2 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74055
+2024-07-23 09:56:42;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:56:42;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:56:42;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:56:42;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:56:42;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:56:42;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8117
+2024-07-23 09:56:42;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (0,88840)
+2024-07-23 09:56:42;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8117
+2024-07-23 09:57:20;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:57:20;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:57:20;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:57:20;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:57:20;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:57:20;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8117
+2024-07-23 09:57:20;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (0,88840)
+2024-07-23 09:57:20;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8117
+2024-07-23 09:57:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:57:54;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 3.44  WHERE `id` = 100066
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 1.8  WHERE `id` = 100064
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 1.65  WHERE `id` = 100063
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 7.02  WHERE `id` = 100062
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 2.21  WHERE `id` = 100061
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 3.38  WHERE `id` = 100059
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 3.45  WHERE `id` = 100053
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 10.18  WHERE `id` = 100052
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 8.05  WHERE `id` = 100051
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 0.79  WHERE `id` = 100048
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 1.39  WHERE `id` = 100047
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 4.8  WHERE `id` = 100046
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 3.38  WHERE `id` = 100045
+2024-07-23 09:58:03;UPDATE `pe_factures` SET `montant_interbev` = 1.86  WHERE `id` = 100043
+2024-07-23 09:58:37;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:58:37;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:58:37;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:58:37;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:58:37;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:58:37;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8117
+2024-07-23 09:58:37;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (0,88840)
+2024-07-23 09:58:37;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8117
+2024-07-23 09:59:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:59:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:59:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 09:59:47;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 09:59:47;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 09:59:47;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 09:59:47;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 09:59:47;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 09:59:47;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8117
+2024-07-23 09:59:47;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (0,88840)
+2024-07-23 09:59:47;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8117
+2024-07-23 10:01:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:01:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:01:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:02:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:03:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:03:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:06:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:06:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:08:54;UPDATE `pe_bl` SET `num_cmd` = "s 37" ,`date` = "2022-09-13" ,`id_tiers_facturation` = 79 ,`id_tiers_livraison` = 79 ,`id_adresse_livraison` = 99 ,`id_tiers_transporteur` = 99 ,`date_livraison` = "2022-09-14"  WHERE id = 1792
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 262 ,`id_produit_bl` = 0 ,`id_lot` = 1791 ,`numlot` = "226036DUE256" ,`poids` = 318.1 ,`nb_colis` = 1 ,`pu_ht` = 1.9 ,`tva` = 5.5 ,`id_pays` = 10  WHERE `id` = 23459
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 262 ,`id_produit_bl` = 0 ,`id_lot` = 1761 ,`numlot` = "227035AUE255" ,`poids` = 172 ,`nb_colis` = 0 ,`pu_ht` = 1.9 ,`tva` = 5.5 ,`id_pays` = 10  WHERE `id` = 23460
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 262 ,`id_produit_bl` = 0 ,`id_lot` = 1768 ,`numlot` = "226035DUE255" ,`poids` = 61.17 ,`nb_colis` = 0 ,`pu_ht` = 1.9 ,`tva` = 5.5 ,`id_pays` = 10  WHERE `id` = 23461
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 32 ,`id_produit_bl` = 0 ,`id_lot` = 1770 ,`numlot` = "223936AFR255" ,`poids` = 25.65 ,`nb_colis` = 1 ,`pu_ht` = 5.2 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 23462
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 32 ,`id_produit_bl` = 0 ,`id_lot` = 1770 ,`numlot` = "223936AFR255" ,`poids` = 24.224 ,`nb_colis` = 1 ,`pu_ht` = 5.2 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 23463
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 32 ,`id_produit_bl` = 0 ,`id_lot` = 1770 ,`numlot` = "223936AFR255" ,`poids` = 23.138 ,`nb_colis` = 1 ,`pu_ht` = 5.2 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 23464
+2024-07-23 10:08:54;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 5238 ,`id_produit` = 262 ,`id_produit_bl` = 0 ,`id_lot` = 1800 ,`numlot` = 44797 ,`poids` = 370.83 ,`nb_colis` = 15 ,`pu_ht` = 1.9 ,`tva` = 5.5 ,`id_pays` = 26  WHERE `id` = 23465
+2024-07-23 10:08:54;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 79
+2024-07-23 10:08:54;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 79
+2024-07-23 10:08:54;UPDATE `pe_bl` SET `num_cmd` = "s 37" ,`date` = "2022-09-13" ,`id_tiers_facturation` = 79 ,`id_tiers_livraison` = 79 ,`id_adresse_livraison` = 99 ,`id_tiers_transporteur` = 99 ,`date_livraison` = "2022-09-14" ,`chiffrage` = 1  WHERE id = 1792
+2024-07-23 10:08:54;UPDATE `pe_bl` SET `num_cmd` = "s 37" ,`date` = "2022-09-13" ,`id_tiers_facturation` = 79 ,`id_tiers_livraison` = 79 ,`id_adresse_livraison` = 99 ,`id_tiers_transporteur` = 99 ,`date_livraison` = "2022-09-14" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 1792
+2024-07-23 10:08:54;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (36656,36654,36655,36660,36659)
+2024-07-23 10:08:54;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 1792
+2024-07-23 10:08:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:09:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:10:08;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 10:10:17;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_tiers_transporteur` = 136 ,`id_adresse_livraison` = 0 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:10:17;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74058
+2024-07-23 10:10:20;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:10:20;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:10:20;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:10:20;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:10:20;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:10:20;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:10:20;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:10:20;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:11:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:11:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:11:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:11:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:12:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:12:42;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:12:42;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:12:42;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:12:42;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:12:42;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:12:42;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:12:42;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:12:42;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:13:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:14:10;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:14:10;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:14:10;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:14:10;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:14:10;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:14:11;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:14:11;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:14:11;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:14:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:14:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:15:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:16:00;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:16:00;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:16:00;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:16:00;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:16:00;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:16:00;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:16:00;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:16:00;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:17:34;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:17:34;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:17:34;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:17:34;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:17:34;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:17:34;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:17:34;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:17:34;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:18:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:18:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:18:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:03;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:19:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:20:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:20:01;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:20:01;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:20:01;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:20:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:20:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:20:01;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:20:01;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:21:49;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:21:49;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:21:49;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:21:49;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:21:49;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:22:05;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:22:05;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:22:05;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:22:05;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:22:05;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:23:27;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:23:27;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:23:27;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:23:27;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:23:27;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:24:19;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:24:19;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:24:19;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:24:19;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:24:19;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:25:23;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:25:23;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:25:23;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:25:23;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:25:23;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:27:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:27:01;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:27:01;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:27:01;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:27:01;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:29:48;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:29:48;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:29:48;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:29:48;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:29:48;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:31:40;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:31:40;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:31:40;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:31:40;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:31:40;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:32:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:33:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:33:15;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:33:15;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:33:15;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:33:15;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:33:15;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:33:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:34:27;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:34:28;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:34:28;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:34:28;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:34:28;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:35:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:36:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:37:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:38:05;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:38:05;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:38:05;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:38:05;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:38:05;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:39:10;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:39:10;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:39:10;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:39:10;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:39:10;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:39:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:50;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:39:50;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:39:50;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:39:50;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:39:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:39:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:40:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:40:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:40:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 10:40:57;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:40:57;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:40:57;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:40:57;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:40:57;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:42:33;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:42:33;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:42:33;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:42:33;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:42:33;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:43:28;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:43:28;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:43:28;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:43:28;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:43:28;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:48:17;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:48:17;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:48:17;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:48:17;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:48:17;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 10:50:49;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 10:50:49;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 10:50:49;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 10:50:49;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 10:50:49;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 10:50:49;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 10:50:49;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 10:51:38;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 10:51:49;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:51:49;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 10:51:50;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:51:50;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 10:51:50;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 10:51:50;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 10:51:50;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 10:53:36;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:53:36;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 10:57:38;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:57:38;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 10:57:40;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:57:40;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 10:57:40;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 10:57:40;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 10:57:40;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 10:59:42;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:59:42;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 10:59:45;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:59:45;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 10:59:45;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 10:59:45;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 10:59:45;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 10:59:59;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 10:59:59;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 10:59:59;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 10:59:59;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 10:59:59;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:02:42;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:02:42;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 11:02:44;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:02:44;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:02:44;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:02:44;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:02:44;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:02:56;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:02:56;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 11:02:57;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:02:57;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:02:57;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:02:57;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:02:57;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:03:13;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:03:31;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:03:31;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 11:03:31;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:03:31;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:03:31;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:03:31;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:03:31;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:04:44;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:04:44;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 11:04:55;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:04:55;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`qte` = 1 ,`tva` = 5.5 ,`supprime` = 0  WHERE `id` = 74057
+2024-07-23 11:04:57;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:04:57;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:04:57;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:04:57;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:04:57;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:04:57;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8118
+2024-07-23 11:04:57;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88844)
+2024-07-23 11:04:57;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8118
+2024-07-23 11:05:32;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:05:32;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:05:32;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:05:32;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:05:32;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:05:32;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8118
+2024-07-23 11:05:32;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88844)
+2024-07-23 11:05:32;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8118
+2024-07-23 11:06:14;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:06:14;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:06:14;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:06:14;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:06:14;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:06:14;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8118
+2024-07-23 11:06:14;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88844)
+2024-07-23 11:06:14;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8118
+2024-07-23 11:07:38;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:07:38;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:07:38;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:07:38;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:07:38;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:07:38;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8118
+2024-07-23 11:07:38;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88844)
+2024-07-23 11:07:38;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8118
+2024-07-23 11:10:43;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:10:43;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:10:43;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:10:43;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:10:43;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 11:10:43;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8118
+2024-07-23 11:10:43;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88844)
+2024-07-23 11:10:43;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8118
+2024-07-23 11:12:08;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:12:25;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24"  WHERE id = 8119
+2024-07-23 11:12:25;UPDATE `pe_bl_lignes` SET `qte` = 1 ,`id_palette` = 10406 ,`id_produit` = 149 ,`id_produit_bl` = 0 ,`id_lot` = 5601 ,`numlot` = "243924AFRA" ,`poids` = 24 ,`nb_colis` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 27  WHERE `id` = 74058
+2024-07-23 11:12:25;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 224
+2024-07-23 11:12:25;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 224
+2024-07-23 11:12:25;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0  WHERE id = 8119
+2024-07-23 11:12:25;UPDATE `pe_bl` SET `num_cmd` = 0001 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 224 ,`id_tiers_livraison` = 224 ,`id_adresse_livraison` = 0 ,`id_tiers_transporteur` = 136 ,`date_livraison` = "2024-07-24" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8119
+2024-07-23 11:12:25;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (87026)
+2024-07-23 11:12:25;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8119
+2024-07-23 11:12:57;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:13:07;UPDATE `pe_bl` SET `num_cmd` = "s 28" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_tiers_transporteur` = 231 ,`id_adresse_livraison` = 35 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-07-23"  WHERE id = 8116
+2024-07-23 11:13:09;UPDATE `pe_bl` SET `num_cmd` = "s 28" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-23"  WHERE id = 8116
+2024-07-23 11:13:09;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:13:09;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:13:09;UPDATE `pe_bl` SET `num_cmd` = "s 28" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-23" ,`chiffrage` = 1  WHERE id = 8116
+2024-07-23 11:13:10;UPDATE `pe_bl` SET `num_cmd` = "s 28" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-23" ,`chiffrage` = 1 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8116
+2024-07-23 11:13:10;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (88839)
+2024-07-23 11:13:10;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8116
+2024-07-23 11:17:48;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:18:05;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 11:18:05;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 11:18:05;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 11:18:05;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 11:18:05;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 11:18:05;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0 ,`statut` = 2 ,`supprime` = 0  WHERE id = 8117
+2024-07-23 11:18:05;UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (0,88840)
+2024-07-23 11:18:05;UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = 8117
+2024-07-23 11:18:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:18:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:18:30;DELETE FROM `pe_prp_op` WHERE `id` IN (2324)
+2024-07-23 11:18:30;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2324)
+2024-07-23 11:18:30;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-23 11:18:32;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2325
+2024-07-23 11:19:11;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`,`date_reception`,`poids_abattoir`,`poids_reception`) VALUES ("247030BDE" ,"2024-07-23 11:19:11" ,1 ,287 ,1 ,1 ,4 ,69 ,"2024-07-23" ,"2024-07-23" ,279.4 ,279.4 )
+2024-07-23 11:19:11;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5795 ,1 ,"2024-07-23 11:19:11" )
+2024-07-23 11:19:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:19:27;UPDATE `pe_lots` SET `composition_viande` = 1  WHERE `id` = 5795
+2024-07-23 11:19:31;INSERT INTO `pe_lot_reception` (`id_lot`,`temp`) VALUES (5795 ,4 )
+2024-07-23 11:19:31;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 11:19:31" ,`id_user_maj` = 1  WHERE `id` = 5795
+2024-07-23 11:19:33;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2251
+2024-07-23 11:19:33;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 11:19:33" ,`id_user_maj` = 1  WHERE `id` = 5795
+2024-07-23 11:19:41;UPDATE `pe_lot_reception` SET `observations` = "" ,`conformite` = 0 ,`id_user` = 1 ,`date_confirmation` = "2024-07-23 11:19:41"  WHERE `id` = 2251
+2024-07-23 11:19:41;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 11:19:41" ,`id_user_maj` = 1  WHERE `id` = 5795
+2024-07-23 11:20:51;UPDATE `pe_lot_reception` SET `crochets_recus` = 10 ,`crochets_rendus` = 0  WHERE `id` = 2251
+2024-07-23 11:20:52;UPDATE `pe_lot_reception` SET `id_transporteur` = 231  WHERE `id` = 2251
+2024-07-23 11:20:52;UPDATE `pe_tiers` SET `solde_crochets` = 41  WHERE `id` = 231
+2024-07-23 11:20:52;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 231
+2024-07-23 11:20:54;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (1 ,1 ,5795 )
+2024-07-23 11:20:54;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10819, 5795, 0)
+2024-07-23 11:20:54;DELETE FROM `pe_lot_vues` 
+						  WHERE `id_lot` = 5795 
+						  AND `id_vue` = 1
+2024-07-23 11:20:54;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5795, 2, "2024-07-23 11:20:54")
+2024-07-23 11:20:54;UPDATE `pe_lots` SET `date_reception` = "2024-07-23" ,`date_prod` = "2024-07-23 11:20:54" ,`date_atelier` = "2024-07-23 11:20:54"  WHERE `id` = 5795
+2024-07-23 11:20:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:23:03;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:23:07;DELETE FROM `pe_prp_op` WHERE `id` IN (2325)
+2024-07-23 11:23:07;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2325)
+2024-07-23 11:23:07;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-23 11:23:09;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2326
+2024-07-23 11:23:14;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2326
+2024-07-23 11:23:14;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2326, 8117)
+2024-07-23 11:23:16;UPDATE `pe_prp_op` SET `date` = "2024-07-23"  WHERE `id` = 2326
+2024-07-23 11:23:19;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2326
+2024-07-23 11:23:30;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2326
+2024-07-23 11:23:35;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2326
+2024-07-23 11:24:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:24:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:24:37;DELETE FROM `pe_prp_op` WHERE `id` IN (2326)
+2024-07-23 11:24:37;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2326)
+2024-07-23 11:24:37;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-23 11:24:41;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2327
+2024-07-23 11:24:44;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2327
+2024-07-23 11:24:44;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2327, 8117)
+2024-07-23 11:24:47;UPDATE `pe_prp_op` SET `date` = "2024-07-23"  WHERE `id` = 2327
+2024-07-23 11:24:49;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2327
+2024-07-23 11:24:53;UPDATE `pe_prp_op` SET `t_surface` = 1 ,`t_surface_conforme` = 1  WHERE `id` = 2327
+2024-07-23 11:25:00;UPDATE `pe_prp_op` SET `t_camion` = 1 ,`t_camion_conforme` = 1  WHERE `id` = 2327
+2024-07-23 11:25:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:25:29;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:25:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:25:46;DELETE FROM `pe_prp_op` WHERE `id` IN (2327)
+2024-07-23 11:25:46;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2327)
+2024-07-23 11:25:46;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-07-23 11:25:51;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2328
+2024-07-23 11:25:53;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2328
+2024-07-23 11:25:53;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2328, 8117)
+2024-07-23 11:35:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 11:35:39;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 3.44  WHERE `id` = 100066
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 1.8  WHERE `id` = 100064
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 1.65  WHERE `id` = 100063
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 7.02  WHERE `id` = 100062
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 2.21  WHERE `id` = 100061
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 3.38  WHERE `id` = 100059
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 3.45  WHERE `id` = 100053
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 10.18  WHERE `id` = 100052
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 8.05  WHERE `id` = 100051
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 0.79  WHERE `id` = 100048
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 1.39  WHERE `id` = 100047
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 4.8  WHERE `id` = 100046
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 3.38  WHERE `id` = 100045
+2024-07-23 11:54:47;UPDATE `pe_factures` SET `montant_interbev` = 1.86  WHERE `id` = 100043
+2024-07-23 11:59:09;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:59:22;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30"  WHERE id = 8117
+2024-07-23 11:59:22;UPDATE `pe_bl_lignes` SET `id_palette` = 10596 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5789 ,`numlot` = "249530AES" ,`poids` = 120 ,`nb_colis` = 12 ,`qte` = 2 ,`pu_ht` = 15 ,`tva` = 5.5 ,`id_pays` = 5  WHERE `id` = 74055
+2024-07-23 11:59:22;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 473
+2024-07-23 11:59:22;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 473
+2024-07-23 11:59:22;UPDATE `pe_bl` SET `num_cmd` = 123456 ,`date` = "2024-07-22" ,`id_tiers_facturation` = 473 ,`id_tiers_livraison` = 473 ,`id_adresse_livraison` = 747 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-30" ,`chiffrage` = 0  WHERE id = 8117
+2024-07-23 11:59:39;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 11:59:57;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 11:59:57;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 11:59:58;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 11:59:58;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 11:59:58;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 12:00:33;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 12:00:59;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 12:00:59;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 12:00:59;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 12:00:59;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 12:00:59;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 12:06:46;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 12:06:46;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 12:06:46;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 12:06:46;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 12:06:46;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 12:07:01;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 12:07:01;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 12:07:01;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 12:07:01;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 12:07:01;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 12:17:42;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 12:17:57;UPDATE `pe_bl` SET `num_cmd` = "s 28" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-23"  WHERE id = 8116
+2024-07-23 12:17:57;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 12:17:57;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 12:17:57;UPDATE `pe_bl` SET `num_cmd` = "s 28" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-23" ,`chiffrage` = 1  WHERE id = 8116
+2024-07-23 12:18:51;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 12:19:04;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 12:19:04;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 12:19:04;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 12:19:04;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 12:19:04;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 12:19:53;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22"  WHERE id = 8118
+2024-07-23 12:19:53;UPDATE `pe_bl_lignes` SET `id_palette` = 10599 ,`id_produit` = 445 ,`id_produit_bl` = 0 ,`id_lot` = 5791 ,`numlot` = "HS_240722" ,`poids` = 10 ,`nb_colis` = 1 ,`qte` = 1 ,`pu_ht` = 10 ,`tva` = 5.5 ,`id_pays` = 1  WHERE `id` = 74057
+2024-07-23 12:19:53;UPDATE `pe_tiers` SET `id_langue` = 1  WHERE `id` = 37
+2024-07-23 12:19:53;UPDATE `pe_tiers_types` SET `id_famille` = 0 WHERE `id_tiers` = 37
+2024-07-23 12:19:53;UPDATE `pe_bl` SET `num_cmd` = "cde_240722_001" ,`date` = "2024-07-22" ,`id_tiers_facturation` = 37 ,`id_tiers_livraison` = 37 ,`id_adresse_livraison` = 35 ,`id_tiers_transporteur` = 231 ,`date_livraison` = "2024-07-22" ,`chiffrage` = 1  WHERE id = 8118
+2024-07-23 12:23:18;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)
+2024-07-23 13:25:48;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:16:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:16:28;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-07-23" )
+2024-07-23 14:16:28;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1085
+2024-07-23 14:16:28;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1085, 4, 1, 1, NOW()),(1085, 5, 1, 1, NOW()),(1085, 36, 1, 1, NOW()),(1085, 58, 1, 1, NOW()),(1085, 7, 1, 1, NOW()),(1085, 11, 1, 1, NOW()),(1085, 12, 1, 1, NOW()),(1085, 13, 1, 1, NOW()),(1085, 14, 1, 1, NOW()),(1085, 15, 1, 1, NOW()),(1085, 17, 1, 1, NOW()),(1085, 18, 1, 1, NOW()),(1085, 19, 1, 1, NOW()),(1085, 20, 1, 1, NOW()),(1085, 21, 1, 1, NOW()),(1085, 37, 1, 1, NOW()),(1085, 39, 1, 1, NOW()),(1085, 41, 1, 1, NOW()),(1085, 59, 1, 1, NOW()),(1085, 23, 1, 1, NOW()),(1085, 40, 1, 1, NOW()),(1085, 43, 1, 1, NOW()),(1085, 44, 1, 1, NOW()),(1085, 45, 1, 1, NOW()),(1085, 46, 1, 1, NOW()),(1085, 47, 1, 1, NOW()),(1085, 48, 1, 1, NOW()),(1085, 49, 1, 1, NOW()),(1085, 50, 1, 1, NOW()),(1085, 51, 1, 1, NOW()),(1085, 52, 1, 1, NOW()),(1085, 53, 1, 1, NOW()),(1085, 54, 1, 1, NOW()),(1085, 55, 1, 1, NOW())
+2024-07-23 14:16:28;UPDATE `pe_pvisu_avant` SET `commentaires` = "" ,`date` = "2024-07-23" ,`id_user` = 1  WHERE `id` = 1085
+2024-07-23 14:33:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:36:52;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`,`date_reception`,`poids_abattoir`,`poids_reception`) VALUES ("247030BFRA" ,"2024-07-23 14:36:52" ,1 ,287 ,2 ,2 ,1 ,69 ,"2024-07-23" ,"2024-07-23" ,279.4 ,279.4 )
+2024-07-23 14:36:52;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5796 ,1 ,"2024-07-23 14:36:52" )
+2024-07-23 14:36:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:37:04;INSERT INTO `pe_lot_reception` (`id_lot`,`temp`) VALUES (5796 ,4 )
+2024-07-23 14:37:04;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:37:04" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:37:06;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:37:06;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:37:06" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:37:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:37:26;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:37:26;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:37:26" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:37:28;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:37:28;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:37:28" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:37:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:38:00;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:38:00;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:38:00" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:38:02;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:38:02;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:38:02" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:40:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:40:19;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:40:19;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:40:19" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:40:21;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:40:21;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:40:21" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:40:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:41:19;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:41:19;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:41:19" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:41:23;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:41:23;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:41:23" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:41:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:42:10;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:42:10;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:42:10" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:42:13;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:42:13;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:42:13" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:42:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:44:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:44:21;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:44:21;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:44:21" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:44:23;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:44:23;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:44:23" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:44:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:44:52;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:44:52;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:44:52" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:44:53;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:44:53;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:44:53" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:45:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:45:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:45:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:45:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:45:18;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:45:18;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:45:18" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:45:19;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:45:19;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:45:19" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:45:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:46:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:46:10;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:46:10;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:46:10" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:46:12;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:46:12;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:46:12" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:46:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:46:34;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:46:34;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:46:34" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:46:35;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:46:35;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:46:35" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:46:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:47:04;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:47:04;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:47:04" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:47:05;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:47:05;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:47:05" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:47:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:48:01;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:48:02;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:48:01" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:48:03;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:48:03;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:48:03" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:48:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:49:05;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:49:05;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:49:05" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:49:06;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:49:06;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:49:06" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:51:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:51:55;UPDATE `pe_lot_reception` SET `temp` = 2  WHERE `id` = 2252
+2024-07-23 14:51:55;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:51:55" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:51:58;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:51:58;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:51:58" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:54:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:54:18;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:54:18;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:54:18" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:54:38;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:54:38;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:54:38" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:54:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:55:00;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:55:00;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:55:00" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:55:21;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:55:21;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:55:21" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:55:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:56:51;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:56:51;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:56:51" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:56:53;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:56:53;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:56:53" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:57:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:57:24;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:57:24;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:57:24" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:57:26;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:57:26;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:57:26" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:57:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:57:53;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:57:53;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:57:53" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:57:55;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:57:55;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:57:55" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:58:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 14:58:13;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 14:58:13;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:58:13" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 14:58:14;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 14:58:14;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 14:58:14" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:36:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:36:37;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 15:36:37;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:36:37" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:36:38;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:36:38;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:36:38" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:36:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:36:52;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 15:36:52;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:36:52" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:36:53;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:36:53;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:36:53" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:38:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:38:14;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 15:38:14;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:38:14" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:38:16;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:38:16;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:38:16" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:39:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:39:52;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 15:39:52;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:39:52" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:39:53;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:39:53;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:39:53" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:41:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:41:10;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 15:41:10;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:41:10" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:41:12;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:41:12;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:41:12" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:42:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:42:32;UPDATE `pe_lot_reception` SET `temp` = 4  WHERE `id` = 2252
+2024-07-23 15:42:32;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:42:32" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:42:34;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:42:34;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:42:34" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:49:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:49:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 15:50:06;UPDATE `pe_lot_reception` SET `temp` = 5  WHERE `id` = 2252
+2024-07-23 15:50:06;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:50:06" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 15:50:07;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 15:50:07;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 15:50:07" ,`id_user_maj` = 1  WHERE `id` = 5796
+2024-07-23 16:33:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:33:16;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 16:33:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:33:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 16:33:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:33:23;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 16:33:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:42:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:42:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 2.2  WHERE `id` = 6
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1737
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 1267
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 316
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1.5  WHERE `id` = 8
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 5
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1105
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 0.65  WHERE `id` = 9
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1738
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 2  WHERE `id` = 1337
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 2.4  WHERE `id` = 3
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 2003
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 4
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 315
+2024-07-23 16:43:09;UPDATE `pe_tarif_client` SET `prix` = 2.45  WHERE `id` = 1338
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 2.2  WHERE `id` = 6
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1737
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 1267
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 316
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 8
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 5
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1105
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 0.65  WHERE `id` = 9
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1738
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 2  WHERE `id` = 1337
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 2.4  WHERE `id` = 3
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 2003
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 4
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 315
+2024-07-23 16:43:20;UPDATE `pe_tarif_client` SET `prix` = 2.45  WHERE `id` = 1338
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 2.2  WHERE `id` = 6
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1737
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 1267
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 316
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 8
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 5
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1.05  WHERE `id` = 1105
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 0.7  WHERE `id` = 9
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1738
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 2  WHERE `id` = 1337
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 2.45  WHERE `id` = 3
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 2003
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 4
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 315
+2024-07-23 16:43:54;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 1338
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 2.2  WHERE `id` = 6
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1737
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 1267
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 316
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 8
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 5
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1.05  WHERE `id` = 1105
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 0.7  WHERE `id` = 9
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1  WHERE `id` = 1738
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 2  WHERE `id` = 1337
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 2.45  WHERE `id` = 3
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 2003
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1.55  WHERE `id` = 4
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 1.6  WHERE `id` = 315
+2024-07-23 16:43:55;UPDATE `pe_tarif_client` SET `prix` = 2.48  WHERE `id` = 1338
+2024-07-23 16:43:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:43:59;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 3.44  WHERE `id` = 100066
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 1.8  WHERE `id` = 100064
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 1.65  WHERE `id` = 100063
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 7.02  WHERE `id` = 100062
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 2.21  WHERE `id` = 100061
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 3.38  WHERE `id` = 100059
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 3.45  WHERE `id` = 100053
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 10.18  WHERE `id` = 100052
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 8.05  WHERE `id` = 100051
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 0.79  WHERE `id` = 100048
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 1.39  WHERE `id` = 100047
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 4.8  WHERE `id` = 100046
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 3.38  WHERE `id` = 100045
+2024-07-23 16:44:49;UPDATE `pe_factures` SET `montant_interbev` = 1.86  WHERE `id` = 100043
+2024-07-23 16:44:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:44:54;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 16:44:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:44:58;UPDATE `pe_lot_reception` SET `temp` = 2  WHERE `id` = 2252
+2024-07-23 16:44:58;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 16:44:58" ,`id_user_maj` = 24  WHERE `id` = 5796
+2024-07-23 16:44:59;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 16:44:59;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 16:44:59" ,`id_user_maj` = 24  WHERE `id` = 5796
+2024-07-23 16:45:03;INSERT INTO `pe_pvisu_apres` (`commentaires`,`date`,`id_user`) VALUES ("" ,"2024-07-23" ,24 )
+2024-07-23 16:45:03;UPDATE `pe_pvisu_apres` SET `commentaires` = "                                                                    " ,`date` = "2024-07-23" ,`id_user` = 24  WHERE `id` = 642
+2024-07-23 16:45:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:45:16;UPDATE `pe_lot_reception` SET `temp` = 2  WHERE `id` = 2252
+2024-07-23 16:45:16;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 16:45:16" ,`id_user_maj` = 24  WHERE `id` = 5796
+2024-07-23 16:45:17;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2252
+2024-07-23 16:45:17;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 16:45:17" ,`id_user_maj` = 24  WHERE `id` = 5796
+2024-07-23 16:46:02;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`) VALUES ("2453030BFN" ,"2024-07-23 16:46:02" ,1 ,287 ,1 ,1 ,24 ,52 ,"2024-07-23" )
+2024-07-23 16:46:02;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5799 ,1 ,"2024-07-23 16:46:02" )
+2024-07-23 16:46:02;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`,`poids_abattoir`) VALUES ("2453030BFNA" ,"2024-07-23 16:46:02" ,1 ,287 ,2 ,2 ,24 ,52 ,"2024-07-23" ,0 )
+2024-07-23 16:46:02;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5800 ,1 ,"2024-07-23 16:46:02" )
+2024-07-23 16:46:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:46:09;UPDATE `pe_lots` SET `composition_viande` = 2  WHERE `id` = 5799
+2024-07-23 16:46:10;UPDATE `pe_lots` SET `date_reception` = "2024-07-23" ,`date_maj` = "2024-07-23- 16:46:10" ,`id_user_maj` = 24  WHERE `id` = 5799
+2024-07-23 16:46:14;INSERT INTO `pe_lot_reception` (`id_lot`,`temp_d`,`temp_m`,`temp_f`) VALUES (5799 ,2 ,2 ,2 )
+2024-07-23 16:46:14;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 16:46:14" ,`id_user_maj` = 24  WHERE `id` = 5799
+2024-07-23 16:46:15;UPDATE `pe_lot_reception` SET `etat_visuel` = 1  WHERE `id` = 2253
+2024-07-23 16:46:15;UPDATE `pe_lots` SET `date_maj` = "2024-07-23- 16:46:15" ,`id_user_maj` = 24  WHERE `id` = 5799
+2024-07-23 16:46:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 16:46:29;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 17:00:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 17:00:24;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 17:00:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 17:00:25;UPDATE `pe_palette_composition` SET `supprime` = 1 WHERE `id_lot_hors_stock` > 0 AND `id` NOT IN
+                        ( SELECT `id_compo` FROM `pe_bl_lignes`) 
+                        AND  `id_lot_hors_stock` NOT IN (SELECT `id` FROM `pe_lots`)
+2024-07-23 17:05:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 17:05:08;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 19:19:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-23 19:19:58;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-23 19:20:01;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8105,8106,8107,8108,8109,8111,8112,8114,8115,8120,8121,8122,8123,8124,8125)

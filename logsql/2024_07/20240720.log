@@ -1,0 +1,15 @@
+2024-07-20 12:23:48;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 12:29:21;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 15:09:04;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 15:12:06;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 15:12:25;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 16:21:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-20 16:21:08;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-20 16:22:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-20 16:22:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-20 16:22:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-20 16:22:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-07-20 16:22:23;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-07-20 16:23:44;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 16:44:03;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-07-20 16:51:38;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)

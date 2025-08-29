@@ -1,0 +1,51 @@
+2024-08-20 08:39:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 08:39:53;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-20 08:57:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 08:57:07;DELETE FROM `pe_prp_op` WHERE `id` IN (2460)
+2024-08-20 08:57:07;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2460)
+2024-08-20 08:57:07;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 08:57:12;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2461
+2024-08-20 08:57:16;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2461
+2024-08-20 08:57:16;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2461, 8338)
+2024-08-20 09:11:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 09:34:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 09:34:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-20 09:34:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 09:34:47;DELETE FROM `pe_prp_op` WHERE `id` IN (2461)
+2024-08-20 09:34:47;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2461)
+2024-08-20 09:34:47;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 09:38:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 09:38:39;DELETE FROM `pe_prp_op` WHERE `id` IN (2462)
+2024-08-20 09:38:39;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2462)
+2024-08-20 09:38:39;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 09:38:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 10:06:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 10:06:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 10:07:06;DELETE FROM `pe_prp_op` WHERE `id` IN (2463)
+2024-08-20 10:07:06;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2463)
+2024-08-20 10:07:06;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 10:07:10;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2464
+2024-08-20 10:07:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 10:07:41;DELETE FROM `pe_prp_op` WHERE `id` IN (2464)
+2024-08-20 10:07:41;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2464)
+2024-08-20 10:07:41;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 10:07:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 10:49:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 10:49:43;DELETE FROM `pe_prp_op` WHERE `id` IN (2465)
+2024-08-20 10:49:43;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2465)
+2024-08-20 10:49:43;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 10:49:45;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2466
+2024-08-20 10:49:48;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2466
+2024-08-20 10:49:48;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2466, 8338)
+2024-08-20 11:02:10;UPDATE `pe_prp_op` SET `date` = "2024-08-20"  WHERE `id` = 2466
+2024-08-20 11:02:15;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2466
+2024-08-20 11:02:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-20 11:02:58;DELETE FROM `pe_prp_op` WHERE `id` IN (2466)
+2024-08-20 11:02:58;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` IN (2466)
+2024-08-20 11:02:58;INSERT INTO `pe_prp_op` (`id_user`) VALUES (0 )
+2024-08-20 11:03:00;UPDATE `pe_prp_op` SET `id_transporteur` = 231  WHERE `id` = 2467
+2024-08-20 11:03:05;DELETE FROM `pe_prp_bls` WHERE `id_prp_op` = 2467
+2024-08-20 11:03:05;INSERT IGNORE INTO `pe_prp_bls` (`id_prp_op`, `id_bl`) VALUES (2467, 8338)
+2024-08-20 11:14:14;UPDATE `pe_prp_op` SET `date` = "2024-08-20"  WHERE `id` = 2467
+2024-08-20 11:16:14;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2467
+2024-08-20 11:24:21;UPDATE `pe_prp_op` SET `cmd_conforme` = 1  WHERE `id` = 2467

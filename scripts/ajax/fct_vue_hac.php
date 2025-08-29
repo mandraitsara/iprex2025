@@ -1,0 +1,3859 @@
+<?php
+/*
+   _|_|_|  _|_|_|    _|
+ _|        _|    _|  _|        CBO FrameWork
+ _|        _|_|_|    _|        (c) 2018 Cédric Bouillon
+ _|        _|    _|  _|
+   _|_|_|  _|_|_|    _|_|_|_|
+--------------------------------------------------------
+Contrôleur Ajax STOCK PRODUITS
+------------------------------------------------------*/
+// 230719 : Changement des diamètres des plaquettes : Ferreux / non ferreux et inox
+
+// Initialisation du mode d'appel
+$mode       = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
+
+// Intégration de la configuration du FrameWork et des autorisations
+require_once '../php/config.php';
+
+$_SESSION['infodevvue'] = '';
+
+$fonctionNom = 'mode'.ucfirst($mode);
+if (function_exists($fonctionNom)) {
+	$fonctionNom();
+}
+
+/* ------------------------------------------
+FONCTION - Message d'erreur standard
+-------------------------------------------*/
+function erreur() {
+	?>
+	<div class="alert alert-danger text-center">
+		<i class="fa fa-exclamation-triangle fa-3x mb-2"></i><br>
+		<p>Erreur de récupération des données !</p>
+	</div>
+	<?php
+	exit;
+} // FIN fonctions
+
+
+/* ------------------------------------------
+MODE - Charge le contenu d'une étape de vue
+-------------------------------------------*/
+function modeChargeEtapeVue() {
+
+	global $cnx, $utilisateur;
+
+	$etape = isset($_REQUEST['etape']) ? intval($_REQUEST['etape']) : 0;
+	$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+
+    if ($utilisateur->isDev()) {
+        echo '<kbd>ETAPE ' . $etape.'</kbd><hr>';
+    }
+
+	// Si le suivi de nettoyage avant prod n'a pas été signé on bloque !
+	$pvisuManager = new PvisuAvantManager($cnx);
+	$pvisuAvant = $pvisuManager->getPvisuAvantJour('', false);
+
+	if (intval($pvisuAvant->getId()) == 0) {
+		$vuesManager = new VueManager($cnx);
+		$vueNet = $vuesManager->getVueByCode('net');
+		$url = $vueNet instanceof Vue ? $vueNet->getUrl() : '';
+		?>
+        <div class="alert alert-danger mt-3 text-center padding-50">
+            <i class="fa fa-exclamation-circle fa-5x"></i>
+            <p class="text-28">Contrôle avant production non signé !</p>
+            <p class="text-16">Effectuez le suivi de nettoyage et signez le contrôle avant de continer...</p>
+			<?php if ($url != '') { ?>
+                <div class="mt-2"><a href="<?php echo __CBO_ROOT_URL__.$url.'/avant'; ?>" class="btn btn-secondary btn-lg padding-20"><i class="fa fa-2x fa-clipboard-check mn-1"></i><br>Contrôle avant production</a></div>
+			<?php } ?>
+        </div>
+		<?php  exit; }
+
+	/** ----------------------------------------
+	 * Etape        : 0
+	 * Description  : Point d'entrée
+	 *  ----------------------------------- */
+
+	if ($etape == 0) { ?>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <i class="fa fa-fan gris-9 fa-6x"></i>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-5 offset-1">
+                <button type="button" class="btn btn-info btn-lg form-control btnNouvelleProd">
+                    <i class="fa fa-plus text-50 mb-3 mt-3"></i>
+                    <h3 class="mb-3">Nouvelle production&hellip;</h3>
+                </button>
+            </div>
+            <div class="col-5">
+                <button type="button" class="btn btn-secondary btn-lg form-control btnProdsEnCours">
+                    <i class="fa fa-stopwatch text-50 mb-3 mt-3"></i>
+                    <h3 class="mb-3">Productions en cours&hellip;</h3>
+                </button>
+            </div>
+        </div>
+	    <?php
+        exit;
+    } // FIN ETAPE
+
+	/** -----------------------------------------------
+	 * Etape        : 1
+	 * Description  : Liste des productions en cours
+	 *  -------------------------------------------- */
+	if ($etape == 1) {
+
+		// On récupère les productions
+		$froidManager = new FroidManager($cnx);
+		$params = [
+			'type_code'     => 'hac',   // Type de Froid
+			'statuts'       => '0,1',   // En cours ou bloqué
+			'lots_objets'   => true,    // On récupère les objets Lot
+			'nb_pdts'       => true     // On récupère le nombre de produits
+		];
+		$listeProdsEnCours = $froidManager->getFroidsListe($params);
+
+        if (empty($listeProdsEnCours)) { ?>
+            <div class="row mt-2 align-content-center">
+                <div class="col text-center">
+                    <div class="alert alert-secondary">
+
+                       <span class="fa-stack fa-2x mt-5">
+                           <i class="fas fa-fan fa-stack-1x"></i>
+                           <i class="fas fa-ban fa-stack-2x" style="color:Tomato"></i>
+                       </span>
+
+                        <h3 class="gris-7 mt-3 mb-5">Aucune production en cours&hellip;</h3>
+
+                        <button type="button" class="mb-5 btn btn-info btn-lg text-28 padding-top-15 padding-bottom-15 padding-left-50 padding-right-50 btnRetourEtape0">
+                            <i class="fa fa-undo text-22 mr-1"></i> Retour
+                        </button>
+
+                    </div> <!-- FIN alerte -->
+                </div> <!-- FIN col -->
+            </div> <!-- FIN row conteneur -->
+		<?php exit;
+        } // FIN aucune production en cours
+		?>
+
+        <div class="row">
+            <div class="col mt-3">
+                <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Productions en cours :</h4>
+            </div>
+        </div>
+        <?php
+		$i = 0;
+		foreach ($listeProdsEnCours as $froid) {			
+
+			if ($i % 4 == 0) { ?><div class="clearfix"></div><?php } $i++; // Gestion du retour à la ligne tous les 4 blocs
+			?>
+
+            <!-- Carte de l'OP de froid -->
+            <div class="card text-white bg-info mb-3 carte-hac d-inline-block mr-3" style="max-width: 20rem;" data-id-froid="<?php echo $froid->getId(); ?>" data-lot-froid="<?php echo $froid->getId_lot_pdt_froid(); ?>">
+
+                <!-- Header de la carte : identifiant de l'OP -->
+                <div class="card-header text-36"><?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?></div>
+
+                <!-- Corps de la carte : détails -->
+                <div class="card-body">
+
+					<?php
+					// Si le traitement n'a plus de produit, donc plus de lot... on propose de le supprimer
+					if (empty($froid->getLots())) { ?>
+
+                        <div class="alert alert-warning mb-3">
+                            <span class="fa-stack fa-lg mr-2">
+                               <i class="fas fa-box fa-stack-1x"></i>
+                               <i class="fas fa-ban fa-stack-2x" style="color:Tomato"></i>
+                           </span>
+                            Aucun produit
+                        </div>
+                        <button type="button" class="btn btn-danger btn-large padding-20-40 form-control btnSupprimerFroidVide" data-id-froid="<?php echo $froid->getId(); ?>"><i class="fa fa-trash-alt fa-lg mr-2"></i>Supprimer</button>
+
+						<?php
+						// Des produits sont associés au traitement...
+					} else { ?>
+
+                        <table class="w-100pc">
+                            <tr>
+                                <td>Lots :</td>
+                                <th class="text-right"><?php
+
+									// On gère l'espacement du premier pour les lignes de séparation
+									$premier = true;
+
+									// boucle sur les lots
+									foreach ($froid->getLots() as $froidLot) {
+
+										// Récupération des quantièmes en production du lot
+										//$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+										// On concatène les quantièmes de chaque lot
+							/*			foreach ($quantiemes as $quantieme) { */?><!--
+
+                                            <span class="badge badge-secondary text-16 w-100 <?php /*echo !$premier ? 'mt-1' : ''; */?>"><?php /*echo $froidLot->getNumlot(). $quantieme; */?></span>
+
+											--><?php /*$premier  = false;
+										} // FIN boucle quantièmes*/
+
+										// Si on a aucun quantième, on affiche simplement le lot...
+										//if (empty($quantiemes)) { 
+                                    ?>
+
+                                            <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+											<?php
+										//} // FIN test aucun quantième
+
+										$premier = false;
+									} // FIN boucle sur les lots
+									?>
+                            </tr>
+
+                            <tr>
+                                <td class="vmiddle nowrap">Produits :</td>
+                                <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                            </tr>
+
+                            <tr>
+                                <td class="vmiddle nowrap">Poids total :</td>
+                                <th class="text-right text-18"><?php
+									// Formatage CSS des décimales du poids
+									$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+									$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+									echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                            </tr>
+
+							<?php
+							// Si la congélation a commencée... (test sur présence d'une heure de début)
+							if ($froid->isEnCours()) { ?>
+
+                                <!-- Température de début -->
+                                <tr>
+                                    <td class="nowrap">Temp. début :</td>
+                                    <th class="text-right text-18">
+										<?php
+										// Echapement T° début inconnue ?!
+										if ($froid->getTemp_debut() == '') { echo $na; }
+										else {
+											$tempDebutHac       = number_format($froid->getTemp_debut(),3, '.', '');
+											$tempDebutHacArray  = explode('.', $tempDebutHac);
+											echo $tempDebutHacArray[0] . '.<span class="text-16">'.$tempDebutHacArray[1].'</span>'; ?> &deg;C
+											<?php
+										} // FIN test température de début renseignée ?>
+                                    </th>
+                                </tr>
+
+
+								<?php
+							} // FIN congélation commencée ?>
+
+                        </table>
+
+						<?php
+					} // FIN test produits associés au traitement
+					?>
+
+
+
+                </div> <!-- FIN body carte -->
+
+				<?php
+				// Variables footer de la carte
+				if ($froid->getStatut() == 1) {
+
+					$footerCardFa   = 'pause';
+					$footerCardTxt  = 'Bloquée';
+					$footerCardBg   = 'bg-danger';
+
+				} else if ($froid->isEnCours() && !$froid->isSortie()) {
+
+					$footerCardFa   = 'clock';
+					$footerCardTxt  = 'Démarré';
+					$footerCardBg   = 'bg-success';
+
+				} else if ($froid->isSortie()) {
+
+					$footerCardFa   = 'check-square';
+					$footerCardTxt  = 'Terminé';
+					$footerCardBg   = 'bg-primary';
+
+				} else {
+
+					$footerCardFa   = 'clipboard-list';
+					$footerCardTxt  = 'En préparation';
+					$footerCardBg   = '';
+				} // FIN variables foooter carte
+				?>
+
+                <!-- Footer de la carte : état du traitement -->
+                <div class="card-footer <?php echo $footerCardBg; ?>">
+                    <i class="fa fa-lg fa-<?php echo $footerCardFa; ?> mr-2"></i><?php echo $footerCardTxt; ?>
+                </div>
+
+            </div> <!-- FIN carte -->
+			<?php
+
+		} // FIN boucle
+
+		exit;
+	} // FIN ETAPE
+
+	/** -----------------------------------------------
+	 * Etape        : 2
+	 * Description  : Sélection du lot
+	 *  -------------------------------------------- */
+	if ($etape == 2) { ?>
+
+        <div class="row">
+            <div class="col mt-3">
+                <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Sélectionnez le lot concerné :</h4>
+            </div>
+        </div>
+
+        <?php
+
+		// On récupère la liste des lots de la vue Atelier (car tant qu'ils sont en atelier, ils sont dispo en OPs de Froid)
+		$lotsManager = new LotManager($cnx);
+		$listeLot    = $lotsManager->getListeLotsByVue('atl'); // On charge les lots dispo en atelier car ils y restent dès que la réception est terminée
+		
+
+		// Si aucun lot en atelier...
+		if (empty($listeLot)) { ?>
+
+            <div class="col alert alert-secondary mt-3 padding-50">
+                <h2 class="mb-0 text-secondary text-center"><i class="fa fa-exclamation-circle fa-2x mb-3"></i>
+                    <p>Aucun lot disponible&hellip;</p>
+                </h2>
+            </div>
+
+			<?php
+		}
+
+		// Boucle sur les lots en atelier -  Affichage des cartes LOT
+		foreach ($listeLot as $lotvue) {
+
+			// Récupération des quantièmes du lot
+			$quantiemes = $lotsManager->getLotQuantiemes($lotvue);
+
+			// Si on qu'un seul quantième, on le concatène avec le numéro du lot
+			if (count($quantiemes) == 1 && trim(strtolower($quantiemes[0])) != 'a') {
+				$lotvue->setNumlot($lotvue->getNumlot() . $quantiemes[0]);
+			} ?>
+
+
+            <div class="card text-white mb-3 carte-lot d-inline-block mr-3" style="max-width: 20rem;background-color: <?php echo $lotvue->getCouleur(); ?>" data-id-lot="<?php echo $lotvue->getId(); ?>" data-etape-suivante="2">
+
+                <div class="card-header text-36"><?php echo $lotvue->getNumlot(); ?></div>
+                <div class="card-body">
+
+                    <table>
+                        <tr>
+                            <td class="vmiddle">Espèce</td>
+                            <th><?php echo $lotvue->getNom_espece($na);?></th>
+                        </tr>
+                        <tr>
+                            <td class="vmiddle">Composition</td>
+                            <th><?php echo $lotvue->getComposition_viande_verbose() != '' ? ' '.strtoupper($lotvue->getComposition_viande_verbose()) : ''; ?></th>
+                        </tr>
+                        <tr>
+                            <td>Origine</td>
+                            <th><?php echo $lotvue->getNom_origine() != '' ? $lotvue->getNom_origine() : $na; ?></th>
+                        </tr>
+                        <tr>
+                            <td>Fournisseur</td>
+                            <th><?php echo $lotvue->getNom_fournisseur() != '' ? $lotvue->getNom_fournisseur() : $na; ?></th>
+                        </tr>
+                        <tr>
+                            <td>Abattoir</td>
+                            <th><?php echo $lotvue->getNom_abattoir() != '' ? $lotvue->getNom_abattoir() : $na ; ?><br><span class="texte-fin"><?php echo $lotvue->getNumagr_abattoir();?></span></th>
+                        </tr>
+                        <tr>
+                            <td>Réception</td>
+                            <th><?php
+								echo $lotvue->getDate_reception() != '' && $lotvue->getDate_reception() != '0000-00-00'
+									?  Outils::getDate_only_verbose($lotvue->getDate_reception(), true, false)
+									: $na;
+								?></th>
+                        </tr>
+                        <tr>
+                            <td>Poids</td>
+                            <th><?php
+								echo $lotvue->getPoids_reception() > 0
+									? number_format($lotvue->getPoids_reception(),3, '.', ' ') . ' kg'
+									: $na;
+								?></th>
+                        </tr>
+						<?php
+						// Si on a plusieurs quantièmes, on les liste ici pour info
+						if (count($quantiemes) > 1) { ?>
+
+                            <tr>
+                                <td>Quantièmes</td>
+                                <th><?php
+									foreach ($quantiemes as $quantieme) { ?>
+                                        <span class="mr-2"><?php echo $quantieme; ?></span>
+										<?php
+									} // FIN boucle quantièmes
+									?></th>
+                            </tr>
+
+							<?php
+							// Si il n'y en a qu'un, on l'affiche quand même ici
+						} else if (!empty($quantiemes)) { ?>
+
+                            <tr>
+                                <td>Quantième</td>
+                                <th><?php echo $quantiemes[0]; ?></th>
+                            </tr>
+
+							<?php
+						} // FIN test plusieurs quantiemes
+						?>
+                    </table>
+
+                </div> <!-- FIN body carte -->
+
+            </div> <!-- FIN carte -->
+
+
+        <?php
+		} // FIN boucle sur les lots
+
+
+		exit;
+	} // FIN ETAPE
+
+
+	/**
+	 * Etape : 21
+	 * Description : Lancer le controle Loma
+	 * Paramètres : Froid
+	 */
+
+	 if ($etape == 21) {
+		$froidManager = new FroidManager($cnx);
+		// Récupération des variables
+        $identifiant = isset($_REQUEST['id']) ? trim($_REQUEST['id']) : '';
+		
+		$identifiantArray = explode('|', $identifiant);
+        $id_froid = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;		
+        $id_lot_pdt_froid = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		if ($id_froid == 0) { erreurLot(); exit; }
+		$froid = $froidManager->getFroid($id_froid);
+		if (!$froid instanceof Froid) { erreurLot(); exit; }
+
+		// Aucun produit sélectioné : liste des produits
+		if ($id_lot_pdt_froid == 0) {
+			// On récupère les produits d'une op de froid (en param) ayant un loma à 1 et pour lesquels les tests n'ont pas été faits
+			$listeFroidProduitsLoma = $froidManager->getLomaAfaireFromFroid($froid);
+			// Si il y en a, on affiche la liste des produits sous forme de cartes
+			if (!empty($listeFroidProduitsLoma)) {?>
+
+                <div class="row mt-3 align-content-center">
+
+                    <div class="col text-center">
+
+                        <div class="alert alert-secondary">
+                            <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Produits à contrôler :</h4>
+                            <div class="row justify-content-md-center">
+
+								<?php
+								foreach ($listeFroidProduitsLoma as $froidProduit) {
+
+									$pdt = $froidProduit->getProduit();
+									if (!$pdt instanceof Produit) {
+										continue;
+									}
+
+									if (strlen($pdt->getNom()) > 46) {
+										$sizeTxt = 'text-16';
+									} else if (strlen($pdt->getNom()) > 38) {
+										$sizeTxt = 'text-18';
+									} else if (strlen($pdt->getNom()) > 30) {
+										$sizeTxt = 'text-20';
+									} else {
+										$sizeTxt = '';
+									}
+									?>
+
+                                    <div class="col-2 mb-3">
+                                        <div class="card bg-warning pointeur carte-pdt carte-pdt-loma"
+                                             data-id-lot-pdt-froid="<?php echo $froidProduit->getId_lot_pdt_froid(); ?>">
+
+                                            <div class="card-header">A contrôler</div>
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-0 <?php echo $sizeTxt; ?>"><?php echo $pdt->getNom(); ?></h4>
+                                            </div>
+                                            <div class="card-footer text-12">Lot <span
+                                                        class="badge badge-secondary text-16"><?php echo $froidProduit->getNumlot(); ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+									<?php
+								} // FIN boucle sur les familles de produits actives
+
+								?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<?php
+				// Sinon on dis ok et bouton next...
+			}
+			// Si un produit a été choisi
+		} else {
+			$test_avant_fe = $froid->getTest_avant_fe();
+			$test_avant_nfe = $froid->getTest_avant_nfe();
+			$test_avant_inox = $froid->getTest_avant_inox();			
+			
+			if($test_avant_fe > 0 && $test_avant_nfe > 0 && $test_avant_inox > 0){
+
+			$froidProduit = $froidManager->getFroidProduitObjetByIdLotPdtFroid($id_lot_pdt_froid);
+
+			if (!$froidProduit instanceof FroidProduit) { ?>
+                <div class="alert alert-danger"><h4>ERREUR !</h4><p>Instanciation du produit/froid impossible...</p><p><code>Code erreur : X4QZ3O2Q</code></p></div>
+				<?php exit; }
+
+			// Formulaire contrôle LOMA
+			?>
+            <form id="controleLoma">
+                <input type="hidden" name="id_lot_pdt_froid" value="<?php echo $id_lot_pdt_froid; ?>"/>
+                <input type="hidden" name="id_froid" value="<?php echo $id_froid; ?>"/>
+                <input type="hidden" name="mode" value="saveLoma"/>
+                <div class="row">
+                    <div class="col text-center">
+                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3 mt-3"></i>Surveillance du contrôle de détection métallique LOMA :</h4>
+                        <div class="badge badge-dark text-24 badge-pill mt-3"><?php echo $froidProduit->getProduit()->getNom(); ?></div>
+                    </div>
+                </div>
+                <div class="row mt-3 masque-clavier-virtuel">
+                    <div class="col-5"></div>
+                    <div class="col-2 ml-4 alert alert-dark row">
+                        <div class="col-12 text-center loma-test-btns">
+
+                            <h4>Test produit</h4>
+                            <p>Détection corps étranger</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="pdt" data-resultat="1"><i class="fa fa-exclamation-triangle fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="pdt" data-resultat="0"><i class="fa fa-check fa-lg"></i></button>
+
+                        </div>
+                        <div class="col-12 text-center">
+                            <p class="small pt-2 gris-7">Ne doit pas sonner pour être validé.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mt-3 loma-commentaires">
+                    <div class="col-6 offset-3">
+                        <div class="alert alert-secondary">
+                            <div class="row">
+                                <div class="col-9">
+                                    <label>Commentaires :</label>
+                                    <textarea name="commentaires" class="form-control" id="champ_clavier"></textarea>
+                                </div>
+                                <div class="col-3">
+                                    <label>&nbsp;</label>
+                                    <button type="button" class="btn btn-lg btn-info padding-20-10 form-control btn-valid-loma"><i class="fa fa-check fa-lg mb-2"></i><br/>Terminé</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="resultats-tests d-none">
+                    <input type="hidden" name="resultest_pdt"  value="-1" />
+                </div>
+            </form>
+			<?php
+		}else{
+				// Récupération des variables
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { erreurLot(); exit; }
+		$froidManager = new FroidManager($cnx);
+		
+		$froid = $froidManager->getFroid($id_froid);
+
+		if (!$froid instanceof Froid) { erreurLot(); exit; }
+		?>
+        <form id="controleLoma">
+            <input type="hidden" name="id_froid" value="<?php echo $froid->getId(); ?>"/>
+            <input type="hidden" name="mode" value="saveLomaAvant"/>
+            <div class="row">
+                <div class="col text-center header-loma">
+                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3 mt-3"></i>Surveillance du contrôle de détection métallique LOMA :</h4>
+                    <div class="badge badge-dark text-24 badge-pill mt-3">Passage des tests avant produits</div>
+                </div>
+            </div>
+            <div class="row mt-3 masque-clavier-virtuel">
+                <div class="col-6 offset-3 tests-plaquettes">
+                    <div class="alert alert-secondary row">
+                        <div class="col-4 text-center loma-test-btns">
+                            <h4>Test non ferreux</h4>
+                            <p>Taille : 2.5 mm</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                        </div>
+                        <div class="col-4 text-center loma-test-btns">
+                            <h4>Test inox</h4>
+                            <p>Taille : 3.0 mm</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="inox" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="inox" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                        </div>
+                        <div class="col-4 text-center loma-test-btns">
+                            <h4>Test ferreux</h4>
+                            <p>Taille : 2.0 mm</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="fe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="fe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                        </div>
+                        <div class="col-12 text-center">
+                            <p class="small pt-2 gris-7">Les tests doivent sonner pour être validés.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="resultats-tests d-none">
+                <input type="hidden" name="resultest_nfe"  value="-1" />
+                <input type="hidden" name="resultest_inox" value="-1" />
+                <input type="hidden" name="resultest_fe"   value="-1" />
+            </div>
+        </form>
+		<?php
+			}
+
+		} // FIN test produits loma
+	} // FIN ETAPE
+
+	/** ----------------------------------------
+	 * Etape        : 22
+	 * Description  : Sélection des produits
+	 * Paramètres   : Lot
+	 *  ----------------------------------- */
+	if ($etape == 22) {
+			
+	$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+	if ($id_froid == 0) { erreurLot(); exit; }
+	$froidManager = new FroidManager($cnx);
+		
+	$froid = $froidManager->getFroid($id_froid);
+	if (!$froid instanceof Froid) { erreurLot(); exit; }
+
+	?>
+		<form id="controleLoma">
+                    <input type="hidden" id="id_froid" name="id_froid" value="<?php echo $froid->getId(); ?>"/>
+                    <input type="hidden" name="mode" value="saveLomaApres"/>
+
+                    <div class="row">
+                        <div class="col text-center header-loma">
+                            <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3 mt-3"></i>Surveillance du contrôle de détection métallique LOMA :</h4>
+                            <div class="badge badge-dark text-24 badge-pill mt-3">Passage des tests après produits</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 masque-clavier-virtuel">
+
+                        <div class="col-6 offset-3 tests-plaquettes">
+
+                            <div class="alert alert-secondary row">
+
+
+                                <div class="col-4 text-center loma-test-btns">
+                                    <h4>Test non ferreux</h4>
+                                    <p>Taille : 2.5mm</p>
+                                    <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                                    <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                                </div>
+
+                                <div class="col-4 text-center loma-test-btns">
+                                    <h4>Test inox</h4>
+                                    <p>Taille : 3.0mm</p>
+                                    <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="inox" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                                    <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="inox" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                                </div>
+
+
+                                <div class="col-4 text-center loma-test-btns">
+                                    <h4>Test ferreux</h4>
+                                    <p>Taille : 2.0mm</p>
+                                    <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="fe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                                    <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="fe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <p class="small pt-2 gris-7">Les tests doivent sonner pour être validés.</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="resultats-tests d-none">
+                        <input type="hidden" name="resultest_nfe"  value="-1" />
+                        <input type="hidden" name="resultest_inox" value="-1" />
+                        <input type="hidden" name="resultest_fe"   value="-1" />
+                    </div>
+                </form>
+		<?php
+	}
+
+
+
+	/** ----------------------------------------
+	 * Etape        : 3
+	 * Description  : Sélection des produits
+	 * Paramètres   : Lot
+	 *  ----------------------------------- */
+	if ($etape == 3) {
+
+		// Vérification des variables - Lot requis
+		$identifiant = isset($_REQUEST['id']) ? trim($_REQUEST['id']) : '';		
+		$identifiantArray = explode('|', $identifiant);
+		$id_lot = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+		$id_pdt = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		$id_froid = isset($identifiantArray[2]) ? intval($identifiantArray[2]) : 0;
+
+		if ($id_lot == 0) { erreurLot(); exit; }
+		$lotsManager = new LotManager($cnx);
+		$lot =  $lotsManager->getLot($id_lot);
+		if (!$lot instanceof Lot) { erreurLot(); exit; }
+
+		// Liste des especes de produits actives correspondant à la composition du lot
+		$produitEspeceManager = new ProduitEspecesManager($cnx);
+
+		$espece = $produitEspeceManager->getProduitEspece($lot->getId_espece());
+		modeShowProduitsFamille($espece->getId(), $id_lot, false, $id_froid);
+
+		exit;
+
+	} // FIN ETAPE
+
+	/** ----------------------------------------
+	 * Etape        : 4
+	 * Description  : Poids du produit
+	 * Paramètres   : Produit / Lot / Froid (facultatif)
+	 *  ----------------------------------- */
+	if ($etape == 4) {
+
+		// Récupération des variables
+		$couplePdtLot = isset($_REQUEST['id']) ? $_REQUEST['id'] : '';
+		if ($couplePdtLot == '') { erreurLot(); exit; }
+		
+		// Array des données passées en paramètre (add)
+		$couplePdtLotArray = explode('|', $couplePdtLot);
+		$froidManager = new FroidManager($cnx);	
+        // Formatage des variables
+        $id_lot     = intval($couplePdtLotArray[0]);
+        $id_pdt     = intval($couplePdtLotArray[1]);
+        $id_froid   = intval($couplePdtLotArray[2]);
+
+        if ($id_pdt == 0 || $id_lot == 0) { erreurLot(); exit; }
+
+
+		$froidProduit = $id_froid > 0 ? $froidManager->getFroidProduitObjet($id_lot, $id_pdt, $id_froid) : false;
+
+
+		// Vérification du Lot
+		$lotsManager = new LotManager($cnx);
+		$lot = $lotsManager->getLot($id_lot);
+		if (!$lot instanceof Lot){ erreurLot(); exit; }
+
+		// Vérification du produit
+		$pdtManager = new ProduitManager($cnx);
+		$pdt = $pdtManager->getProduit($id_pdt);
+		if (!$pdt instanceof Produit){ erreurLot(); exit; }
+
+        $froid = $id_froid > 0 ? $froidManager->getFroid($id_froid) : false;
+
+        ?>
+        <div class="row mt-3 align-content-center">
+            <div class="col">
+                <div class="alert alert-dark">
+                    <h3 class="mb-0 text-40 text-center produit-add-upd" data-id-produit="<?php echo $pdt->getId(); ?>">
+						<?php
+						// On teste la présence du code barre généré en PNG, sinon on le crée
+						if (!file_exists(__CBO_ROOT_PATH__.'/img/barcodes/ean13/'.$pdt->getEan13().'.png')) {
+							$bc = new pi_barcode();
+							$bc->setCode($pdt->getEan13());
+							$bc->setType('EAN');
+							$bc->setSize(30, 150, 10);
+							$bc->setText('AUTO');
+							$bc->hideCodeType();
+							$bc->setColors('#123456', '#F9F9F9');
+							$bc->writeBarcodeFile(__CBO_ROOT_PATH__.'/img/barcodes/ean13/'.$pdt->getEan13().'.png');
+						}
+						echo '<span class="codebarimg"><img src="'.__CBO_ROOT_URL__.'img/barcodes/ean13/'.$pdt->getEan13().'.png"/></span>';
+						// Affichage du nom du produit
+						echo $pdt->getNom();
+						?>
+                        <!-- Bouton RETOUR adaptatif -->
+                        <button type="button" class="btn btn-danger btn-lg float-right <?php
+                        echo $froid instanceof Froid ? 'btnRetourEtape5' : 'btnRetourProduits';
+                        ?>" data-id-lot="<?php echo $id_lot; ?>"><i class="fa fa-undo mr-2"></i>Retour</button>
+                    </h3>
+                </div> <!-- FIN alerte -->
+
+            </div> <!-- FIN col -->
+        </div> <!-- FIN row -->
+
+        <!-- Row contenu -->
+        <div class="row mt-2 align-content-center">
+
+            <!-- bloc gauche : Pavé numérique -->
+            <div class="col-4 text-center">
+                <div class="alert alert-secondary">
+                    <div class="input-group clavier">
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="1">1</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="2">2</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="3">3</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="4">4</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="5">5</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="6">6</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="7">7</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="8">8</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="9">9</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark padding-15 btn-large" data-valeur=".">.</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary padding-15 btn-large" data-valeur="0">0</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-danger padding-15 btn-large" data-valeur="C"><i class="fa fa-backspace"></i></button></div>
+                        <div class="col-12"><button type="button" class="form-control mb-2 btn btn-success padding-15 btn-large btnValiderCode" data-valeur="V" data-id-pdt="<?php
+							echo $id_pdt; ?>" data-id-lot="<?php echo $id_lot; ?>"><i class="fa fa-check"></i></button>
+                        </div>
+                    </div>
+                </div> <!-- FIN alerte -->
+            </div> <!-- FIN bloc gauche -->
+
+            <!-- Bloc droite : Champs -->
+            <div class="col-8">
+                <div class="row">
+                    <div class="col">
+                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Poids en production :</h4>
+                    </div>
+                    <div class="col text-right">
+						<?php
+
+						// On contrôle l'ID froid et récupère l'objet FroidProduit
+						if ($id_froid > 0) {
+
+							if (isset($froidProduit) && $froidProduit instanceof FroidProduit) {
+								$froidPdt = $froidProduit;
+
+							} else {
+								$froidPdt = $froidManager->getFroidProduitObjet($id_lot, $id_pdt, $id_froid);
+							}
+
+						} // FIN test ID froid
+
+						// Test mode update pour intégration switch méthode d'ajout
+						if (isset($froidPdt) && $froidPdt instanceof FroidProduit) { ?>
+
+                            <div class="row">
+                                <div class="col mb-3">
+                                    <span class="mr-1">Méthode de mise à jour :</span>
+                                    <input type="checkbox" checked
+                                           class="togglemaster methode-maj"
+                                           data-toggle="toggle"
+                                           data-on="Ajout"
+                                           data-off="Total"
+                                           data-onstyle="secondary"
+                                           data-offstyle="info"
+                                           data-size="large"
+                                    />
+                                </div>
+                            </div>
+
+						<?php } // FIN test mode update pour intégration switch méthode d'ajout
+						?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Valeurs d'origine pour le mode upd -->
+                    <input type="hidden" id="inputIdProduit" value="<?php echo $pdt->getId(); ?>"/>
+                    <input type="hidden" id="inputIdLotPdtFroid" value="<?php echo isset($froidPdt) && $froidPdt instanceof FroidProduit ? $froidPdt->getId_lot_pdt_froid() : 0 ; ?>"/>
+                    <input type="hidden" id="forceSaveProduit" value=""/>
+
+                    <!-- Poids -->
+                    <div class="col-7">
+                        <div class="input-group">
+                             <span class="input-group-prepend">
+                                  <span class="input-group-text text-38 gris-9"><i class="fa fa-weight"></i></span>
+                            </span>
+                            <input type="text" class="form-control text-100 text-center inputPoidsPdt" name="poids_pdt" placeholder="0" value="<?php
+							if (isset($froidPdt) && $froidPdt instanceof FroidProduit) { echo $froidPdt->getPoids() > 0 ? $froidPdt->getPoids() : ''; } ?>" data-poids-defaut="<?php echo $pdt->getPoids(); ?>">
+                            <input type="hidden" name="poids_pdt_old" value="<?php if (isset($froidPdt) && $froidPdt instanceof FroidProduit) { echo $froidPdt->getPoids() > 0 ? $froidPdt->getPoids() : ''; } ?>">
+                            <span class="input-group-append">
+                                  <span class="input-group-text text-26"> kg</span>
+                            </span>
+                        </div>
+                    </div>
+                </div> <!-- FIN row -->
+
+                <!-- Affichage du poids par défaut du produit pour information -->
+                <div class="row">
+                    <div class="col mt-3">
+                        <div class="alert alert-default">
+                            <div class="row">
+                                <div class="col">
+                                    <i class="fa fa-info-circle fa-2x vmiddle mr-2 gris-9"></i>
+                                    <span class="text-14 vmiddle">Poids par défaut du produit : <strong class="text-18"><?php echo $pdt->getPoids(); ?></strong> kg.</span>
+                                    <span class="infoMajAjout alert alert-warning nomargin float-right text-14 hid">
+                                        <span class="doresetdeja"></span>
+                                        <span class="estimationtotal"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- FIN bloc droit -->
+        </div> <!-- FIN row contenu -->
+        <?php
+
+
+	} // FIN ETAPE
+
+	/** ----------------------------------------
+	 * Etape        : 5
+	 * Description  : Liste des produits du traitement
+	 * Paramètres   : Froid (id_froid)
+	 *  ----------------------------------- */
+    if ($etape == 5) {
+		$froidManager = new FroidManager($cnx);
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+        $froid = $froidManager->getFroid($id_froid);
+        if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$froid); }
+
+		showListeProduitsFroid($froid);
+
+	} // FIN ETAPE
+
+	/** ----------------------------------------
+	 * Etape        : 6
+	 * Description  : Température début
+	 * Paramètres   : Froid (id_froid)
+	 *  ----------------------------------- */
+    if ($etape == 6) {
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { exit('ERREUR ID FROID 0'); }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+		?>
+        <div class="row mt-5 align-content-center">
+
+            <!-- Bloc gauche : Pavé numérique -->
+            <div class="col-5 text-center">
+
+                <div class="alert alert-secondary">
+
+                    <div class="input-group clavier">
+
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="1">1</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="2">2</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="3">3</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="4">4</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="5">5</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="6">6</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="7">7</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="8">8</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="9">9</button></div>
+
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur=".">.</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="0">0</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur="+">+/-</i></button></div>
+
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-danger btn-large" data-valeur="C"><i class="fa fa-backspace"></i></button></div>
+                        <div class="col-8"><button type="button" class="form-control mb-2 btn btn-success btn-large btnValiderTempDebut" data-valeur="V" data-id-froid="<?php
+							echo $id_froid; ?>"><i class="fa fa-check"></i></button>
+                        </div>
+
+                    </div> <!-- FIN clavier -->
+                </div> <!-- FIN alerte -->
+            </div> <!-- FIN bloc gauche -->
+
+            <!-- Bloc droit : champ et consignes -->
+            <div class="col-7">
+
+                <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Température à l'entrée du hachage :</h4>
+
+                <!-- Champ T° -->
+                <div class="row">
+                    <div class="col-8">
+                        <div class="input-group">
+                        <span class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-thermometer-half text-50 gris-9 ml-2 mr-2"></i></span>
+                        </span>
+                            <input type="text" class="form-control text-100 text-center inputTempDebut" name="temp_debut" placeholder="0" value="">
+                            <span class="input-group-append">
+                              <span class="input-group-text text-36"> &deg;C</span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message d'erreur - masqué par défaut -->
+                <div class="d-none alert alert-danger tempInvalide mt-2">
+                    <i class="fa fa-exclamation-circle fa-3x float-left mr-3"></i> <strong>ATTENTION !</strong><p>Température invalide&hellip;</p>
+                </div>
+
+                <!-- Consignes -->
+				<?php
+				/*				$configManager = new ConfigManager($cnx);
+								$cgl_consignes_debut = $configManager->getConfig('cgl_consignes_debut');
+								if ($cgl_consignes_debut instanceof Config) {
+									if (strlen(trim($cgl_consignes_debut->getValeur())) > 0) { */?><!--
+
+                        <div class="row">
+                            <div class="col mt-3">
+                                <div class="alert alert-secondary">
+                                    <h5>Rappel des consignes</h5>
+                                    <div>
+										<?php /*echo $cgl_consignes_debut->getValeur(); */?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+					--><?php /*} // FIN test consigne non vide
+				} // FIN test instanciation de la configuration*/
+				?>
+
+            </div> <!-- FIN bloc droit -->
+
+        </div> <!-- FIN row conteneur -->
+		<?php
+	} // FIN ETAPE
+
+	/** ----------------------------------------
+	 * Etape        : 7
+	 * Description  : Température fin
+	 * Paramètres   : Froid (id_froid)
+	 *  ----------------------------------- */
+	if ($etape == 7) {
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { exit('ERREUR ID FROID 0'); }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+
+		?>
+        <div class="row mt-5 align-content-center">
+
+            <!-- Bloc gauche : Pavé numérique -->
+            <div class="col-5 text-center">
+
+                <div class="alert alert-secondary">
+
+                    <div class="input-group clavier">
+
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="1">1</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="2">2</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="3">3</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="4">4</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="5">5</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="6">6</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="7">7</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="8">8</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="9">9</button></div>
+
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur=".">.</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="0">0</button></div>
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur="+">+/-</i></button></div>
+
+                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-danger btn-large" data-valeur="C"><i class="fa fa-backspace"></i></button></div>
+                        <div class="col-8"><button type="button" class="form-control mb-2 btn btn-success btn-large btnValiderTempFin" data-valeur="V" data-id-froid="<?php
+							echo $id_froid; ?>"><i class="fa fa-check"></i></button>
+                        </div>
+
+                    </div> <!-- FIN clavier -->
+                </div> <!-- FIN alerte -->
+            </div> <!-- FIN bloc gauche -->
+
+            <!-- Bloc droit : champ et consignes -->
+            <div class="col-7">
+
+                <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Température en sortie du hachoir :</h4>
+
+                <!-- Champ T° -->
+                <div class="row">
+                    <div class="col-8">
+                        <div class="input-group">
+                        <span class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-thermometer-half text-50 gris-9 ml-2 mr-2"></i></span>
+                        </span>
+                            <input type="text" class="form-control text-100 text-center inputTempFin" name="temp_fin" placeholder="0" value="">
+                            <span class="input-group-append">
+                              <span class="input-group-text text-36"> &deg;C</span>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message d'erreur - masqué par défaut -->
+                <div class="d-none alert alert-danger tempInvalide mt-2">
+                    <i class="fa fa-exclamation-circle fa-3x float-left mr-3"></i> <strong>ATTENTION !</strong><p>Température invalide&hellip;</p>
+                </div>
+
+            </div> <!-- FIN bloc droit -->
+
+        </div> <!-- FIN row conteneur -->
+		<?php
+	} // FIN ETAPE
+
+	/** ----------------------------------------
+	 * Etape        : 8
+	 * Description  : Contrôle LOMA (Tests AVANT)
+	 * Paramètres   : Froid (id_froid)
+	 *  ----------------------------------- */
+    if ($etape == 8) {
+
+		// Récupération des variables
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { erreurLot(); exit; }
+		$froidManager = new FroidManager($cnx);
+		
+		$froid = $froidManager->getFroid($id_froid);
+
+		if (!$froid instanceof Froid) { erreurLot(); exit; }
+		?>
+        <form id="controleLoma">
+            <input type="hidden" name="id_froid" value="<?php echo $froid->getId(); ?>"/>
+            <input type="hidden" name="mode" value="saveLomaAvant"/>
+            <div class="row">
+                <div class="col text-center header-loma">
+                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3 mt-3"></i>Surveillance du contrôle de détection métallique LOMA :</h4>
+                    <div class="badge badge-dark text-24 badge-pill mt-3">Passage des tests avant produits</div>
+                </div>
+            </div>
+            <div class="row mt-3 masque-clavier-virtuel">
+                <div class="col-6 offset-3 tests-plaquettes">
+                    <div class="alert alert-secondary row">
+                        <div class="col-4 text-center loma-test-btns">
+                            <h4>Test non ferreux</h4>
+                            <p>Taille : 2.5 mm</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                        </div>
+                        <div class="col-4 text-center loma-test-btns">
+                            <h4>Test inox</h4>
+                            <p>Taille : 3.0 mm</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="inox" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="inox" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                        </div>
+                        <div class="col-4 text-center loma-test-btns">
+                            <h4>Test ferreux</h4>
+                            <p>Taille : 2.0 mm</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="fe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="fe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                        </div>
+                        <div class="col-12 text-center">
+                            <p class="small pt-2 gris-7">Les tests doivent sonner pour être validés.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="resultats-tests d-none">
+                <input type="hidden" name="resultest_nfe"  value="-1" />
+                <input type="hidden" name="resultest_inox" value="-1" />
+                <input type="hidden" name="resultest_fe"   value="-1" />
+            </div>
+        </form>
+		<?php
+		exit;
+	} // FIN ETAPE
+
+	/** -------------------------------------
+	 * Etape        : 81
+	 * Description  : Contrôle LOMA (Produits)
+	 * Paramètres   : Froid (id_froid)
+	 *  ----------------------------------- */
+    if ($etape == 81) {
+
+		$froidManager = new FroidManager($cnx);
+
+		// Récupération des variables
+        $identifiant = isset($_REQUEST['id']) ? trim($_REQUEST['id']) : '';
+		$identifiantArray = explode('|', $identifiant);
+        $id_froid = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+        $id_lot_pdt_froid = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		if ($id_froid == 0) { erreurLot(); exit; }
+		$froid = $froidManager->getFroid($id_froid);
+		if (!$froid instanceof Froid) { erreurLot(); exit; }
+
+		// Aucun produit sélectioné : liste des produits
+		if ($id_lot_pdt_froid == 0) {
+
+			// On récupère les produits d'une op de froid (en param) ayant un loma à 1 et pour lesquels les tests n'ont pas été faits
+			$listeFroidProduitsLoma = $froidManager->getLomaAfaireFromFroid($froid);
+
+			// Si il y en a, on affiche la liste des produits sous forme de cartes
+			if (!empty($listeFroidProduitsLoma)) { ?>
+
+                <div class="row mt-3 align-content-center">
+
+                    <div class="col text-center">
+
+                        <div class="alert alert-secondary">
+                            <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Produits à contrôler :</h4>
+                            <div class="row justify-content-md-center">
+
+								<?php
+								foreach ($listeFroidProduitsLoma as $froidProduit) {
+
+									$pdt = $froidProduit->getProduit();
+									if (!$pdt instanceof Produit) {
+										continue;
+									}
+
+									if (strlen($pdt->getNom()) > 46) {
+										$sizeTxt = 'text-16';
+									} else if (strlen($pdt->getNom()) > 38) {
+										$sizeTxt = 'text-18';
+									} else if (strlen($pdt->getNom()) > 30) {
+										$sizeTxt = 'text-20';
+									} else {
+										$sizeTxt = '';
+									}
+									?>
+
+                                    <div class="col-2 mb-3">
+                                        <div class="card bg-warning pointeur carte-pdt carte-pdt-loma"
+                                             data-id-lot-pdt-froid="<?php echo $froidProduit->getId_lot_pdt_froid(); ?>">
+
+                                            <div class="card-header">A contrôler</div>
+                                            <div class="card-body">
+                                                <h4 class="card-title mb-0 <?php echo $sizeTxt; ?>"><?php echo $pdt->getNom(); ?></h4>
+                                            </div>
+                                            <div class="card-footer text-12">Lot <span
+                                                        class="badge badge-secondary text-16"><?php echo $froidProduit->getNumlot(); ?></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+									<?php
+								} // FIN boucle sur les familles de produits actives
+
+								?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<?php
+
+				// Sinon on dis ok et bouton next...
+			} else {
+				?>
+                <form id="controleLoma">
+                    <input type="hidden" name="id_froid" value="<?php echo $froid->getId(); ?>"/>
+                    <input type="hidden" name="mode" value="saveLomaApres"/>
+
+                    <div class="row">
+                        <div class="col text-center header-loma">
+                            <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3 mt-3"></i>Surveillance du contrôle de détection métallique LOMA :</h4>
+                            <div class="badge badge-dark text-24 badge-pill mt-3">Passage des tests après produits</div>
+                        </div>
+                    </div>
+                    <div class="row mt-3 masque-clavier-virtuel">
+
+                        <div class="col-6 offset-3 tests-plaquettes">
+
+                            <div class="alert alert-secondary row">
+
+
+                                <div class="col-4 text-center loma-test-btns">
+                                    <h4>Test non ferreux</h4>
+                                    <p>Taille : 2.5mm</p>
+                                    <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                                    <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="nfe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                                </div>
+
+                                <div class="col-4 text-center loma-test-btns">
+                                    <h4>Test inox</h4>
+                                    <p>Taille : 3.0mm</p>
+                                    <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="inox" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                                    <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="inox" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                                </div>
+
+
+                                <div class="col-4 text-center loma-test-btns">
+                                    <h4>Test ferreux</h4>
+                                    <p>Taille : 2.0mm</p>
+                                    <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="fe" data-resultat="0"><i class="fa fa-times fa-lg"></i></button>
+                                    <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="fe" data-resultat="1"><i class="fa fa-check fa-lg"></i></button>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <p class="small pt-2 gris-7">Les tests doivent sonner pour être validés.</p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="resultats-tests d-none">
+                        <input type="hidden" name="resultest_nfe"  value="-1" />
+                        <input type="hidden" name="resultest_inox" value="-1" />
+                        <input type="hidden" name="resultest_fe"   value="-1" />
+                    </div>
+                </form>
+				<?php
+
+			} // FIN test lot pdt reçu
+
+			// Si un produit a été choisi
+		} else {
+
+
+			$froidProduit = $froidManager->getFroidProduitObjetByIdLotPdtFroid($id_lot_pdt_froid);
+			if (!$froidProduit instanceof FroidProduit) { ?>
+                <div class="alert alert-danger"><h4>ERREUR !</h4><p>Instanciation du produit/froid impossible...</p><p><code>Code erreur : X4QZ3O2Q</code></p></div>
+				<?php exit; }
+
+			// Formulaire contrôle LOMA
+			?>
+            <form id="controleLoma">
+                <input type="hidden" name="id_lot_pdt_froid" value="<?php echo $id_lot_pdt_froid; ?>"/>
+                <input type="hidden" name="id_froid" value="<?php echo $id_froid; ?>"/>
+                <input type="hidden" name="mode" value="saveLoma"/>
+                <div class="row">
+                    <div class="col text-center">
+                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3 mt-3"></i>Surveillance du contrôle de détection métallique LOMA :</h4>
+                        <div class="badge badge-dark text-24 badge-pill mt-3"><?php echo $froidProduit->getProduit()->getNom(); ?></div>
+                    </div>
+                </div>
+                <div class="row mt-3 masque-clavier-virtuel">
+                    <div class="col-5"></div>
+                    <div class="col-2 ml-4 alert alert-dark row">
+                        <div class="col-12 text-center loma-test-btns">
+
+                            <h4>Test produit</h4>
+                            <p>Détection corps étranger</p>
+                            <button type="button" class="btn btn-danger btn-lg text-center form-control mb-2 btn-loma padding-20-10 border-light" data-test="pdt" data-resultat="1"><i class="fa fa-exclamation-triangle fa-lg"></i></button>
+                            <button type="button" class="btn btn-success btn-lg text-center form-control btn-loma padding-20-10 border-light" data-test="pdt" data-resultat="0"><i class="fa fa-check fa-lg"></i></button>
+
+                        </div>
+                        <div class="col-12 text-center">
+                            <p class="small pt-2 gris-7">Ne doit pas sonner pour être validé.</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row mt-3 loma-commentaires">
+                    <div class="col-6 offset-3">
+                        <div class="alert alert-secondary">
+                            <div class="row">
+                                <div class="col-9">
+                                    <label>Commentaires :</label>
+                                    <textarea name="commentaires" class="form-control" id="champ_clavier"></textarea>
+                                </div>
+                                <div class="col-3">
+                                    <label>&nbsp;</label>
+                                    <button type="button" class="btn btn-lg btn-info padding-20-10 form-control btn-valid-loma"><i class="fa fa-check fa-lg mb-2"></i><br/>Terminé</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="resultats-tests d-none">
+                    <input type="hidden" name="resultest_pdt"  value="-1" />
+                </div>
+            </form>
+			<?php
+
+
+		} // FIN test produits loma
+
+	} // FIN ETAPE
+
+    /** -------------------------------------
+	 * Etape        : 9
+	 * Description  : Emballages - sélection lot
+	 * Paramètres   : Froid (id_froid)
+	 *  ----------------------------------- */
+    if ($etape == 9) {
+
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { exit('ERR ID FROID 0 !'); }
+
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+
+        // On sélectionne le lot concerné parmi ceux du traitement
+        ?>
+
+         <div class="row">
+            <div class="col mt-3">
+                <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Sélectionnez le lot concerné :</h4>
+            </div>
+        </div>
+
+        <?php
+
+		// On récupère la liste des lots de la vue Atelier (car tant qu'ils sont en atelier, ils sont dispo en OPs de Froid)
+		$lotsManager = new LotManager($cnx);
+		$listeLot = [];
+        foreach ($froid->getLots() as $lot) {
+			$listeLot[] = $lotsManager->getLot($lot->getId());
+		}
+
+		// Si aucun lot en atelier...
+		if (empty($listeLot)) { ?>
+
+            <div class="col alert alert-secondary mt-3 padding-50">
+                <h2 class="mb-0 text-secondary text-center"><i class="fa fa-exclamation-circle fa-2x mb-3"></i>
+                    <p>Aucun lot disponible dans ce traitement !</p>
+                </h2>
+            </div>
+
+			<?php
+		}
+
+		// Boucle sur les lots en atelier -  Affichage des cartes LOT
+		foreach ($listeLot as $lotvue) {
+
+			// Récupération des quantièmes du lot
+			$quantiemes = $lotsManager->getLotQuantiemes($lotvue);
+
+			// Si on qu'un seul quantième, on le concatène avec le numéro du lot
+			if (count($quantiemes) == 1 && trim(strtolower($quantiemes[0])) != 'a') {
+				$lotvue->setNumlot($lotvue->getNumlot() . $quantiemes[0]);
+			} ?>
+
+
+            <div class="card text-white mb-3 carte-lot d-inline-block mr-3" style="max-width: 20rem;background-color: <?php echo $lotvue->getCouleur(); ?>" data-id-lot="<?php echo $lotvue->getId(); ?>" data-etape-suivante="2">
+
+                <div class="card-header text-36"><?php echo $lotvue->getNumlot(); ?></div>
+                <div class="card-body">
+
+                    <table>
+                        <tr>
+                            <td class="vmiddle">Espèce</td>
+                            <th><?php echo $lotvue->getNom_espece($na);?></th>
+                        </tr>
+                        <tr>
+                            <td class="vmiddle">Composition</td>
+                            <th><?php echo $lotvue->getComposition_viande_verbose() != '' ? ' '.strtoupper($lotvue->getComposition_viande_verbose()) : ''; ?></th>
+                        </tr>
+                        <tr>
+                            <td>Origine</td>
+                            <th><?php echo $lotvue->getNom_origine() != '' ? $lotvue->getNom_origine() : $na; ?></th>
+                        </tr>
+                        <tr>
+                            <td>Fournisseur</td>
+                            <th><?php echo $lotvue->getNom_fournisseur() != '' ? $lotvue->getNom_fournisseur() : $na; ?></th>
+                        </tr>
+                        <tr>
+                            <td>Abattoir</td>
+                            <th><?php echo $lotvue->getNom_abattoir() != '' ? $lotvue->getNom_abattoir() : $na ; ?><br><span class="texte-fin"><?php echo $lotvue->getNumagr_abattoir();?></span></th>
+                        </tr>
+                        <tr>
+                            <td>Réception</td>
+                            <th><?php
+								echo $lotvue->getDate_reception() != '' && $lotvue->getDate_reception() != '0000-00-00'
+									?  Outils::getDate_only_verbose($lotvue->getDate_reception(), true, false)
+									: $na;
+								?></th>
+                        </tr>
+                        <tr>
+                            <td>Poids</td>
+                            <th><?php
+								echo $lotvue->getPoids_reception() > 0
+									? number_format($lotvue->getPoids_reception(),3, '.', ' ') . ' kg'
+									: $na;
+								?></th>
+                        </tr>
+						<?php
+						// Si on a plusieurs quantièmes, on les liste ici pour info
+						if (count($quantiemes) > 1) { ?>
+
+                            <tr>
+                                <td>Quantièmes</td>
+                                <th><?php
+									foreach ($quantiemes as $quantieme) { ?>
+                                        <span class="mr-2"><?php echo $quantieme; ?></span>
+										<?php
+									} // FIN boucle quantièmes
+									?></th>
+                            </tr>
+
+							<?php
+							// Si il n'y en a qu'un, on l'affiche quand même ici
+						} else if (!empty($quantiemes)) { ?>
+
+                            <tr>
+                                <td>Quantième</td>
+                                <th><?php echo $quantiemes[0]; ?></th>
+                            </tr>
+
+							<?php
+						} // FIN test plusieurs quantiemes
+						?>
+                    </table>
+
+                </div> <!-- FIN body carte -->
+
+            </div> <!-- FIN carte -->
+
+
+        <?php
+		} // FIN boucle sur les lots
+
+
+
+
+	} // FIN ETAPE
+
+	/** -------------------------------------
+	 * Etape        : 91
+	 * Description  : Emballages -
+	 * Paramètres   : Froid (id_froid)
+	 * Paramètres   : Lot (id_lot)
+	 *  ----------------------------------- */
+    if ($etape == 91) {
+
+		$lotManager = new LotManager($cnx);
+		$froidManager = new FroidManager($cnx);
+
+		// Récupération des variables
+		$identifiant = isset($_REQUEST['id']) ? trim($_REQUEST['id']) : '';
+		$identifiantArray = explode('|', $identifiant);
+		$id_lot = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+		$id_froid = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		if ($id_froid == 0 || $id_lot == 0) { exit('ERR ID'); }
+		$froid = $froidManager->getFroid($id_froid, true);
+		$lot = $lotManager->getLot($id_lot);
+		if (!$froid instanceof Froid || !$lot instanceof Lot) { exit('ERR OBJ'); }
+
+		$consommablesManager = new ConsommablesManager($cnx);
+		$consommablesManager->repareEnCours();
+        ?>
+        <div class="row mt-3 align-content-center">
+
+            <!-- ETIQUETTES -->
+
+            <div class="col-12 text-center" id="etiquettesAtl">
+                <div class="alert alert-secondary">
+                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Edition des étiquetages :</h4>
+                    <div class="row justify-content-md-center" id="containerCategories">
+
+						<?php
+						// On récupère les catégories de produit
+						$categoriesManager = new ProduitCategoriesManager($cnx);
+						$listeCategories = $categoriesManager->getListeProduitCategories();
+
+						// Boucle sur les catégories de produits
+						foreach ($listeCategories as $cate) { ?>
+
+                            <div class="col-2 mb-3">
+                                <button type="button" class="btn btn-large btn-primary form-control text-<?php
+								// On adapte la taille du texte en fonction de la longueur
+								echo strlen($cate->getNom()) > 22 ? '14 padding-20 line-height-30' : '20 padding-20-40';
+
+								?> text-uppercase btnCategorie" data-id-categorie="<?php echo $cate->getId(); ?>">
+									<?php echo $cate->getNom(); ?>
+                                </button>
+                            </div>
+
+							<?php
+						} // FIN boucle sur les catégories
+						?>
+                    </div>
+                    <div class="row justify-content-md-center" id="containerEtiquettesProduits"></div>
+
+                </div>
+            </div>
+
+            <!-- EMBALLAGES -->
+
+            <div class="col-12 text-center">
+                <div class="alert alert-secondary">
+                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Emballages disponibles en atelier Haché-piécé  :</h4>
+                    <div class="row" id="containerListeEmballages">
+						<?php
+						// Fonction déportée pour pagination Ajax
+						modeListeCartesEmballabe();
+						?>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <?php
+
+	} // FIN ETAPE
+
+
+} // FIN mode
+
+
+/* ------------------------------------------
+MODE - Charge le contenu du ticket
+-------------------------------------------*/
+function modeChargeTicket() {
+
+	global $cnx, $utilisateur;
+	$etape = isset($_REQUEST['etape']) ? intval($_REQUEST['etape']) : 0;
+	$id_froid       = isset($_REQUEST['id_froid'])  ? intval($_REQUEST['id_froid']) : 0;
+	$identifiant    = isset($_REQUEST['id'])        ? $_REQUEST['id']               : '';
+	$froidManager = new FroidManager($cnx);
+	$lotManager = new LotManager($cnx);
+
+	$err = '<span class="badge danger badge-pill text-14">ERREUR !</span>';
+    ?>
+    <input type="hidden" id="inputIdFroid" value="0"/>
+    <?php
+
+    $boutonEmballages = '  <button type="button" class="btn btn-secondary btn-lg form-control btnEmballages text-left margin-bottom-10 text-18 padding-20-10 margin-top-10">
+        <i class="fa fa-fw fa-lg fa-box-open vmiddle mr-2"></i>Emballages&hellip;
+    </button>';
+
+	if ($etape == 0) {
+
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) {
+            //echo $boutonEmballages;
+            echo ' ';
+            exit; }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) {
+            //echo $boutonEmballages;
+            echo ' ';
+            exit; }
+
+        if ($froid->getStatut() == 2) {
+            //echo $boutonEmballages;
+            echo ' ';
+            exit; }
+
+		$nbProduitsHachage = $froidManager->getNbProduitsFroid($froid);
+
+		?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+		<?php
+		// Si des produits sont associé au traitement
+		if ($nbProduitsHachage > 0) { ?>
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+					?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+							?>
+                        </th>
+                    </tr>
+
+                    <!-- Heure d'entrée  -->
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+
+				<?php
+				// Si le hachage est terminé (test sur présence d'une heure de sortie)
+				if ($froid->isSortie()) { ?>
+                    <tr>
+                        <!-- Heure de sortie -->
+                        <td class="nowrap vmiddle">Fin du hachage :</td>
+                        <th class="text-right text-16">
+							<?php
+							echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Temps de hachage :</td>
+                        <th class="text-right text-16">
+
+							<?php
+							// Calcul de l'intervale
+							$dateEntree     = new DateTime($froid->getDate_entree());
+							$dateNow        = new DateTime($froid->getDate_sortie());
+							$interval       = $dateEntree->diff($dateNow);
+
+							$jours  = (intval($interval->format('%d')));
+							$heures = (intval($interval->format('%h')));
+							$min    = (intval($interval->format('%i')));
+
+							if ($jours > 0) { $heures = $heures + 24; }
+							echo  $heures . ' h ' . $min . ' min.'; ?>
+                        </th>
+                    </tr>
+					<?php
+					if ($froid->getTemp_fin() != 0) { ?>
+
+                        <tr>
+                            <td class="nowrap">Temp. fin :</td>
+                            <th class="text-right text-18">
+								<?php
+								$tempFinHac       = number_format($froid->getTemp_fin(),3, '.', '');
+								$tempFinHacArray  = explode('.', $tempFinHac);
+								echo $tempFinHacArray[0] . '.<span class="text-16">'.$tempFinHacArray[1].'</span>'; ?> &deg;C
+                            </th>
+                        </tr>
+
+					<?php }
+				} ?>
+
+
+            </table>
+
+			<?php
+		} // FIN test des produits sont associés
+
+        //echo $boutonEmballages;
+
+		?>
+		
+		
+        <button type="button" class="btn btn-success <?php echo $froid->isEnCours() && !$froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnFinHachage text-center text-24 margin-top-25">
+            <i class="fa fa-flag-checkered vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Fin du hachage</p>
+        </button>
+
+        <button type="button" class="btn btn-success <?php echo $froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnCloturer text-center text-24 margin-top-25">
+            <i class="fa fa-clipboard-check vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Valider et clôturer</p>
+        </button>
+
+		<?php
+
+
+
+	} // FIN étape 0
+    if ($etape == 1) { ?>
+
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot="0">
+            &mdash;
+        </div>
+
+        <p class="mt-2 text-center">Sélectionnez une production&hellip;</p>
+        <?php // echo $boutonEmballages; ?>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape0 text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+
+        <?php
+	} // FIN étape 1
+    if ($etape == 2) {
+
+        $id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+        $froidManager = new FroidManager($cnx);
+        $froid = $id_froid > 0 ? $froidManager->getFroid($id_froid) : false;
+        if ($froid instanceof Froid) { ?>
+            <div class="alert bg-info text-24 text-center mb-1">
+                <i class="fa fa-fan text-20"></i>
+				<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+            </div>
+		<?php }
+
+        ?>
+
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot="0">
+            &mdash;
+        </div>
+        <input id="id_lot" type="hidden" value="0">
+        <input id="id_froid" type="hidden" value="<?php echo $id_froid; ?>">
+        <p class="mt-2 text-center">Sélectionnez un lot&hellip;</p>
+		<?php // echo $boutonEmballages; ?>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape<?php echo $froid instanceof Froid ? '5' : '0'; ?> text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+	<?php
+    } // FIN étape 2
+
+	if ($etape == 21) {
+
+        $id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+        $froidManager = new FroidManager($cnx);
+        $froid = $id_froid > 0 ? $froidManager->getFroid($id_froid) : false;
+        if ($froid instanceof Froid) { ?>
+            <div class="alert bg-info text-24 text-center mb-1">
+                <i class="fa fa-fan text-20"></i>
+				<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+            </div>
+		<?php }
+
+        ?>
+
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot="0">
+            &mdash;
+        </div>
+        <input id="id_lot" type="hidden" value="0">
+        <input id="id_froid" type="hidden" value="<?php echo $id_froid; ?>">
+        <p class="mt-2 text-center">Sélectionnez un lot&hellip;</p>
+		<?php // echo $boutonEmballages; ?>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape<?php echo $froid instanceof Froid ? '5' : '0'; ?> text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+	<?php
+    } // FIN étape 2
+
+	if ($etape == 22) {
+
+        $id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) {
+            //echo $boutonEmballages;
+            echo ' ';
+            exit; }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) {
+            //echo $boutonEmballages;
+            echo ' ';
+            exit; }
+
+        if ($froid->getStatut() == 2) {
+            //echo $boutonEmballages;
+            echo ' ';
+            exit; }
+
+		$nbProduitsHachage = $froidManager->getNbProduitsFroid($froid);
+
+		?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+		<?php
+		// Si des produits sont associé au traitement
+		if ($nbProduitsHachage > 0) { ?>
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+					?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+							?>
+                        </th>
+                    </tr>
+
+                    <!-- Heure d'entrée  -->
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+
+				<?php
+				// Si le hachage est terminé (test sur présence d'une heure de sortie)
+				if ($froid->isSortie()) { ?>
+                    <tr>
+                        <!-- Heure de sortie -->
+                        <td class="nowrap vmiddle">Fin du hachage :</td>
+                        <th class="text-right text-16">
+							<?php
+							echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Temps de hachage :</td>
+                        <th class="text-right text-16">
+
+							<?php
+							// Calcul de l'intervale
+							$dateEntree     = new DateTime($froid->getDate_entree());
+							$dateNow        = new DateTime($froid->getDate_sortie());
+							$interval       = $dateEntree->diff($dateNow);
+
+							$jours  = (intval($interval->format('%d')));
+							$heures = (intval($interval->format('%h')));
+							$min    = (intval($interval->format('%i')));
+
+							if ($jours > 0) { $heures = $heures + 24; }
+							echo  $heures . ' h ' . $min . ' min.'; ?>
+                        </th>
+                    </tr>
+					<?php
+					if ($froid->getTemp_fin() != 0) { ?>
+
+                        <tr>
+                            <td class="nowrap">Temp. fin :</td>
+                            <th class="text-right text-18">
+								<?php
+								$tempFinHac       = number_format($froid->getTemp_fin(),3, '.', '');
+								$tempFinHacArray  = explode('.', $tempFinHac);
+								echo $tempFinHacArray[0] . '.<span class="text-16">'.$tempFinHacArray[1].'</span>'; ?> &deg;C
+                            </th>
+                        </tr>
+
+					<?php }
+				} ?>
+
+
+            </table>
+
+			<?php
+		} // FIN test des produits sont associés
+
+        //echo $boutonEmballages;
+
+		?>
+		
+		
+        <button type="button" class="btn btn-success <?php echo $froid->isEnCours() && !$froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnFinHachage text-center text-24 margin-top-25">
+            <i class="fa fa-flag-checkered vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Fin du hachage</p>
+        </button>
+
+        <button type="button" class="btn btn-success <?php echo $froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnCloturer text-center text-24 margin-top-25">
+            <i class="fa fa-clipboard-check vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Valider et clôturer</p>
+        </button>
+	<?php
+    } // FIN étape 2
+
+
+
+
+    if ($etape == 3) {
+
+
+		$identifiantArray = explode('|', $identifiant);
+		$id_lot = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+		$id_pdt = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		$id_froid = isset($identifiantArray[2]) ? intval($identifiantArray[2]) : 0;
+		$froid = $id_froid > 0 ? $froidManager->getFroid($id_froid) : false;
+		$lot = $lotManager->getLot($id_lot);
+
+		if ($froid instanceof Froid) { ?>
+            <div class="alert bg-info text-24 text-center mb-1">
+                <i class="fa fa-fan text-20"></i>
+				<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+            </div>
+			<?php
+		} ?>
+        <!-- Affichage du numéro de lot sélectionné -->
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot=" <?php echo $lot->getId(); ?>">
+			<?php echo $lot->getNumlot(); ?>
+        </div>
+        <input id="id_lot" type="hidden" value="<?php echo $lot->getId(); ?>">
+        <input id="id_pdt" type="hidden" value="<?php echo isset($id_pdt) ? $id_pdt : '0'; ?>">
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <input id="id_lot_pdt_froid" type="hidden" value="<?php echo isset($froidProduit) && $froidProduit instanceOf FroidProduit ? $froidProduit->getId_lot_pdt_froid() : '0'; ?>">
+		<?php // echo $boutonEmballages; ?>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape<?php echo $froid instanceof Froid ? '5' : '0'; ?> text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+        <?php
+	} // FIN étape 3
+    if ($etape == 4) {
+
+
+		$identifiantArray = explode('|', $identifiant);
+		$id_lot = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+		$id_pdt = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		$id_froid = isset($identifiantArray[2]) ? intval($identifiantArray[2]) : 0;
+		$froid = $id_froid > 0 ? $froidManager->getFroid($id_froid) : false;
+		$froidProduit = $froidManager->getFroidProduitObjet($id_lot, $id_pdt, $id_froid);
+		$lot = $lotManager->getLot($id_lot);
+        if (!$lot instanceof Lot) { exit('ERR LOT'); }
+
+        if ($froid instanceof Froid) { ?>
+            <div class="alert bg-info text-24 text-center mb-1">
+                <i class="fa fa-fan text-20"></i>
+				<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+            </div>
+		<?php
+        }  ?>
+        <!-- Affichage du numéro de lot sélectionné -->
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot=" <?php echo $lot->getId(); ?>">
+            <?php echo $lot->getNumlot(); ?>
+        </div>
+
+        <input id="id_lot" type="hidden" value="<?php echo $lot->getId(); ?>">
+        <input id="id_pdt" type="hidden" value="<?php echo isset($id_pdt) ? $id_pdt : '0'; ?>">
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <input id="id_lot_pdt_froid" type="hidden" value="<?php echo isset($froidProduit) && $froidProduit instanceOf FroidProduit ? $froidProduit->getId_lot_pdt_froid() : '0'; ?>">
+		<?php // echo $boutonEmballages; ?>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape<?php echo $froid instanceof Froid ? '5' : '0'; ?> text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+
+		<?php
+
+	} // FIN étape 4
+    if ($etape == 5) {
+
+        $id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;		
+        if ($id_froid == 0) { exit('ERREUR ID FROID 0'); }
+        $froidManager = new FroidManager($cnx);
+        $froid = $froidManager->getFroid($id_froid, true);
+		$id_lot_pdt_froid = $froid->getId_lot_pdt_froid();
+		
+        if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+
+        $nbProduitsHachage = $froidManager->getNbProduitsFroid($froid);
+
+        ?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <input id="id_lot_pdt_froid" type="hidden" value="<?php echo $id_lot_pdt_froid = $id_lot_pdt_froid? $id_lot_pdt_froid : '0'; ?>">
+		
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+        <?php
+        // Si des produits sont associé au traitement
+        if ($nbProduitsHachage > 0) { ?>
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+                    ?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+                            ?>
+                        </th>
+                    </tr>
+
+                    <!-- Heure d'entrée  -->
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+
+					<?php
+					// Si le hachage est terminé (test sur présence d'une heure de sortie)
+					if ($froid->isSortie()) { ?>
+                        <tr>
+                            <!-- Heure de sortie -->
+                            <td class="nowrap vmiddle">Fin du hachage :</td>
+                            <th class="text-right text-16">
+                                <?php
+	    						echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="vmiddle">Temps de hachage :</td>
+                            <th class="text-right text-16">
+
+								<?php
+								// Calcul de l'intervale
+								$dateEntree     = new DateTime($froid->getDate_entree());
+								$dateNow        = new DateTime($froid->getDate_sortie());
+								$interval       = $dateEntree->diff($dateNow);
+
+								$jours  = (intval($interval->format('%d')));
+								$heures = (intval($interval->format('%h')));
+								$min    = (intval($interval->format('%i')));
+
+								if ($jours > 0) { $heures = $heures + 24; }
+								echo  $heures . ' h ' . $min . ' min.'; ?>
+                            </th>
+                        </tr>
+						<?php
+                        if ($froid->getTemp_fin() != 0) { ?>
+
+                            <tr>
+                                <td class="nowrap">Temp. fin :</td>
+                                <th class="text-right text-18">
+									<?php
+                                    $tempFinHac       = number_format($froid->getTemp_fin(),3, '.', '');
+                                    $tempFinHacArray  = explode('.', $tempFinHac);
+                                    echo $tempFinHacArray[0] . '.<span class="text-16">'.$tempFinHacArray[1].'</span>'; ?> &deg;C
+                                </th>
+                            </tr>
+
+						<?php }
+					} ?>
+
+
+            </table>
+
+        <?php
+			echo $boutonEmballages;
+		} // FIN test des produits sont associés
+       ?>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape0 text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+
+		<button type="button" class="btn btn-warning btn-lg form-control btnLomaEncours mt-3 text-center">
+            Détection LOMA sur le lot en cours
+        </button>
+        <button type="button" class="btn btn-warning btn-lg form-control btnLomaFin mt-3 text-center">
+            Contrôle LOMA - Fin du lot
+        </button>
+
+        <?php
+        if (!$froid->isEnCours()) { ?>
+            <button type="button" class="btn btn-secondary btn-lg form-control btnAjouterProduit text-left margin-bottom-10 text-18 padding-20-10 margin-top-10">
+                <i class="fa fa-fw fa-lg fa-plus-square vmiddle mr-2"></i>Ajouter un produit&hellip;
+            </button>
+		<?php }
+        ?>
+
+        <button type="button" class="btn btn-success <?php echo $nbProduitsHachage == 0 || $froid->isEnCours() ? 'd-none' : ''; ?> btn-lg form-control btnDebutHachage text-center text-24 margin-top-25">
+            <i class="fa fa-check vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Démarrer le hachage</p>
+        </button>
+
+        <button type="button" class="btn btn-success <?php echo $froid->isEnCours() && !$froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnFinHachage text-center text-24 margin-top-25">
+            <i class="fa fa-flag-checkered vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Fin du hachage</p>
+        </button>
+		<?php
+			$test_apres_fe = $froid->getTest_apres_fe();
+			$test_apres_nfe = $froid->getTest_apres_nfe();
+			$test_apres_inox = $froid->getTest_apres_inox();
+			
+		if($test_apres_fe > 0 && $test_apres_nfe > 0 && $test_apres_inox > 0){?>
+			<button type="button" class="btn btn-success <?php echo $froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnCloturer text-center text-24 margin-top-25">
+            <i class="fa fa-clipboard-check vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Valider et clôturer</p>
+        </button>
+		<?php
+			}
+		?>      
+
+        <?php
+	} // FIN étape 5
+    if ($etape == 6) {
+
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { exit('ERREUR ID FROID 0'); }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+
+		$nbProduitsHachage = $froidManager->getNbProduitsFroid($froid);
+
+		?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+		<?php
+		// Si des produits sont associé au traitement
+		if ($nbProduitsHachage > 0) { ?>
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+					?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+							?>
+                        </th>
+                    </tr>
+
+                    <!-- Heure d'entrée  -->
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+
+				<?php
+				// Si le hachage est terminé (test sur présence d'une heure de sortie)
+				if ($froid->isSortie()) { ?>
+                    <tr>
+                        <!-- Heure de sortie -->
+                        <td class="nowrap vmiddle">Fin du hachage :</td>
+                        <th class="text-right text-16">
+							<?php
+							echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Temps de hachage :</td>
+                        <th class="text-right text-16">
+
+							<?php
+							// Calcul de l'intervale
+							$dateEntree     = new DateTime($froid->getDate_entree());
+							$dateNow        = new DateTime($froid->getDate_sortie());
+							$interval       = $dateEntree->diff($dateNow);
+
+							$jours  = (intval($interval->format('%d')));
+							$heures = (intval($interval->format('%h')));
+							$min    = (intval($interval->format('%i')));
+
+							if ($jours > 0) { $heures = $heures + 24; }
+							echo  $heures . ' h ' . $min . ' min.'; ?>
+                        </th>
+                    </tr>
+					<?php
+				} ?>
+
+
+            </table>
+
+			<?php
+		} // FIN test des produits sont associés
+		// echo $boutonEmballages;
+
+
+	} // FIN étape 6
+	if ($etape == 7) {
+
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { exit('ERREUR ID FROID 0'); }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+
+		$nbProduitsHachage = $froidManager->getNbProduitsFroid($froid);
+
+		?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+		<?php
+		// Si des produits sont associé au traitement
+		if ($nbProduitsHachage > 0) { ?>
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+					?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+							?>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+
+				<?php
+				// Si le hachage est terminé (test sur présence d'une heure de sortie)
+				if ($froid->isSortie()) { ?>
+                    <tr>
+                        <!-- Heure de sortie -->
+                        <td class="nowrap vmiddle">Fin du hachage :</td>
+                        <th class="text-right text-16">
+							<?php
+							echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Temps de hachage :</td>
+                        <th class="text-right text-16">
+
+							<?php
+							// Calcul de l'intervale
+							$dateEntree     = new DateTime($froid->getDate_entree());
+							$dateNow        = new DateTime($froid->getDate_sortie());
+							$interval       = $dateEntree->diff($dateNow);
+
+							$jours  = (intval($interval->format('%d')));
+							$heures = (intval($interval->format('%h')));
+							$min    = (intval($interval->format('%i')));
+
+							if ($jours > 0) { $heures = $heures + 24; }
+							echo  $heures . ' h ' . $min . ' min.'; ?>
+                        </th>
+                    </tr>
+					<?php
+				} ?>
+
+
+            </table>
+
+			<?php
+		} // FIN test des produits sont associés
+
+		//echo $boutonEmballages;
+        ?>
+
+
+        <button type="button" class="btn btn-success <?php echo $nbProduitsHachage == 0 || $froid->isEnCours() ? 'd-none' : ''; ?> btn-lg form-control btnDebutHachage text-center text-24 margin-top-25">
+            <i class="fa fa-check vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Démarrer le hachage</p>
+        </button>
+
+        <button type="button" class="btn btn-success <?php echo $froid->isEnCours() && !$froid->isSortie() ? '' : 'd-none'; ?> btn-lg form-control btnFinHachage text-center text-24 margin-top-25">
+            <i class="fa fa-flag-checkered vmiddle text-40 vmiddle mb-2 mt-2"></i><p class="nomargin">Fin du hachage</p>
+        </button>
+
+		<?php
+	} // FIN étape 7
+    if ($etape == 8) {
+
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+		if ($id_froid == 0) { exit('ERREUR ID FROID 0'); }
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+
+		$nbProduitsHachage = $froidManager->getNbProduitsFroid($froid);
+
+		?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+		<?php
+		// Si des produits sont associé au traitement
+		if ($nbProduitsHachage > 0) { ?>
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+					?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+							?>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+				<?php
+				// Si le hachage est terminé (test sur présence d'une heure de sortie)
+				if ($froid->isSortie()) { ?>
+                    <tr>
+                        <!-- Heure de sortie -->
+                        <td class="nowrap vmiddle">Fin du hachage :</td>
+                        <th class="text-right text-16">
+							<?php
+							echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Temps de hachage :</td>
+                        <th class="text-right text-16">
+
+							<?php
+							// Calcul de l'intervale
+							$dateEntree     = new DateTime($froid->getDate_entree());
+							$dateNow        = new DateTime($froid->getDate_sortie());
+							$interval       = $dateEntree->diff($dateNow);
+
+							$jours  = (intval($interval->format('%d')));
+							$heures = (intval($interval->format('%h')));
+							$min    = (intval($interval->format('%i')));
+
+							if ($jours > 0) { $heures = $heures + 24; }
+							echo  $heures . ' h ' . $min . ' min.'; ?>
+                        </th>
+                    </tr>
+					<?php
+                    if ($froid->getTemp_fin() != 0) { ?>
+                        <tr>
+                            <td class="nowrap">Temp. fin :</td>
+                            <th class="text-right text-18">
+								<?php
+								$tempFinHac       = number_format($froid->getTemp_fin(),3, '.', '');
+								$tempFinHacArray  = explode('.', $tempFinHac);
+								echo $tempFinHacArray[0] . '.<span class="text-16">'.$tempFinHacArray[1].'</span>'; ?> &deg;C
+                            </th>
+                        </tr>
+					<?php }
+				} ?>
+            </table>
+
+			<?php
+		} // FIN test des produits sont associés
+		// echo $boutonEmballages;
+	} // FIN étape 8
+    if ($etape == 81) {
+
+		// Récupération des variables
+		$identifiant = isset($_REQUEST['id']) ? trim($_REQUEST['id']) : '';
+		$identifiantArray = explode('|', $identifiant);
+		$id_froid = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+		$id_lot_pdt_froid = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		if ($id_froid == 0) { erreurLot(); exit; }
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) { erreurLot(); exit; }
+        ?>
+        <input type="hidden" id="id_froid" value="<?php echo $id_froid; ?>" />
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+
+            <table>
+                <tr>
+                    <td>Lots :</td>
+                    <th class="text-right"><?php
+
+						// On gère l'espacement du premier pour les lignes de séparation
+						$premier = true;
+
+						// boucle sur les lots
+
+						foreach ($froid->getLots() as $froidLot) {
+
+							// Récupération des quantièmes en production du lot
+							$quantiemes = $froidManager->getQuantiemesLotFroid($froid->getId(), $froidLot);
+
+							// On concatène les quantièmes de chaque lot
+							foreach ($quantiemes as $quantieme) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(). $quantieme; ?></span>
+
+								<?php $premier  = false;
+							} // FIN boucle quantièmes
+
+							// Si on a aucun quantième, on affiche simplement le lot...
+							if (empty($quantiemes)) { ?>
+
+                                <span class="badge badge-secondary text-16 w-100 <?php echo !$premier ? 'mt-1' : ''; ?>"><?php echo $froidLot->getNumlot(); ?></span>
+
+								<?php
+							} // FIN test aucun quantième
+
+							$premier = false;
+						} // FIN boucle sur les lots
+						?>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Produits :</td>
+                    <th class="text-right"><span class="badge badge-info text-18"><?php echo $froid->getNb_produits(); ?></span></th>
+                </tr>
+
+                <tr>
+                    <td class="vmiddle nowrap">Poids total :</td>
+                    <th class="text-right text-18"><?php
+						// Formatage CSS des décimales du poids
+						$poidsTotalFroid        = number_format($froidManager->getPoidsFroid($froid),3, '.', '');
+						$poidsTotalFroidArray   = explode('.', $poidsTotalFroid);
+						echo $poidsTotalFroidArray[0] . '.<span class="text-16">'.$poidsTotalFroidArray[1].'</span>'; ?> kg</th>
+                </tr>
+
+				<?php
+				// Si le hachage a commencée... (test sur présence d'une heure de début)
+				if ($froid->isEnCours()) {
+					$na     = '<span class="badge badge-warning badge-pill text-14">Non renseigné</span>';
+					?>
+
+                    <!-- Température de début -->
+                    <tr>
+                        <td class="nowrap">Temp. début :</td>
+                        <th class="text-right text-18">
+							<?php
+							// Echapement T° début inconnue ?!
+							if ($froid->getTemp_debut() == '') { echo $na; }
+							else {
+								$tempDebutCgl       = number_format($froid->getTemp_debut(),3, '.', '');
+								$tempDebutCglArray  = explode('.', $tempDebutCgl);
+								echo $tempDebutCglArray[0] . '.<span class="text-16">'.$tempDebutCglArray[1].'</span>'; ?> &deg;C
+								<?php
+							} // FIN test température de début renseignée
+							?>
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td class="nowrap vmiddle">Début hachage :</td>
+                        <th class="text-right text-16"><?php
+							echo Outils::getDate_verbose($froid->getDate_entree(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+
+					<?php
+				} // FIN hachage commencé ?>
+
+				<?php
+				// Si le hachage est terminé (test sur présence d'une heure de sortie)
+				if ($froid->isSortie()) { ?>
+                    <tr>
+                        <!-- Heure de sortie -->
+                        <td class="nowrap vmiddle">Fin du hachage :</td>
+                        <th class="text-right text-16">
+							<?php
+							echo Outils::getDate_verbose($froid->getDate_sortie(), false, ' - ', true, true); ?>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Temps de hachage :</td>
+                        <th class="text-right text-16">
+
+							<?php
+							// Calcul de l'intervale
+							$dateEntree     = new DateTime($froid->getDate_entree());
+							$dateNow        = new DateTime($froid->getDate_sortie());
+							$interval       = $dateEntree->diff($dateNow);
+
+							$jours  = (intval($interval->format('%d')));
+							$heures = (intval($interval->format('%h')));
+							$min    = (intval($interval->format('%i')));
+
+							if ($jours > 0) { $heures = $heures + 24; }
+							echo  $heures . ' h ' . $min . ' min.'; ?>
+                        </th>
+                    </tr>
+					<?php
+					if ($froid->getTemp_fin() != 0) { ?>
+                        <tr>
+                            <td class="nowrap">Temp. fin :</td>
+                            <th class="text-right text-18">
+								<?php
+								$tempFinHac       = number_format($froid->getTemp_fin(),3, '.', '');
+								$tempFinHacArray  = explode('.', $tempFinHac);
+								echo $tempFinHacArray[0] . '.<span class="text-16">'.$tempFinHacArray[1].'</span>'; ?> &deg;C
+                            </th>
+                        </tr>
+					<?php }
+				} ?>
+            </table>
+
+			<?php
+		// echo $boutonEmballages;
+
+	} // FIN étape 81
+    if ($etape == 9) {
+
+		$id_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+        if ($id_froid == 0) { exit('ERR ID FROID 0 !'); }
+
+		$froidManager = new FroidManager($cnx);
+		$froid = $froidManager->getFroid($id_froid, true);
+		if (!$froid instanceof Froid) { exit('ERREUR INST OBJ FROID ID#'.$id_froid); }
+		?>
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot="0">
+            &mdash;
+        </div>
+        <p class="mt-2 text-center">Sélectionnez un lot&hellip;</p>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape5 text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+
+		<?php
+	} // FIN étape 9
+    if ($etape == 91) {
+
+		// Récupération des variables
+		$identifiant = isset($_REQUEST['id']) ? trim($_REQUEST['id']) : '';
+		$identifiantArray = explode('|', $identifiant);
+		$id_lot = isset($identifiantArray[0]) ? intval($identifiantArray[0]) : 0;
+		$id_froid = isset($identifiantArray[1]) ? intval($identifiantArray[1]) : 0;
+		if ($id_froid == 0 || $id_lot == 0) { erreurLot(); exit; }
+		$froid = $froidManager->getFroid($id_froid, true);
+        $lot = $lotManager->getLot($id_lot);
+		if (!$froid instanceof Froid || !$lot instanceof Lot) { erreurLot(); exit; }
+        ?>
+        <input id="id_lot" type="hidden" value="<?php echo $lot->getId(); ?>">
+        <input id="id_froid" type="hidden" value="<?php echo isset($id_froid) ? $id_froid : '0'; ?>">
+
+        <div class="alert bg-info text-24 text-center mb-1">
+            <i class="fa fa-fan text-20"></i>
+			<?php echo 'HAC'.sprintf("%04d", $froid->getId()); ?>
+        </div>
+        <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1" id="numLotTicket" data-id-lot=" <?php echo $lot->getId(); ?>">
+			<?php echo $lot->getNumlot(); ?>
+        </div>
+        <button type="button" class="btn btn-secondary btn-lg form-control btnRetourEtape5 text-left mt-1"><i class="fa fa-undo fa-lg vmiddle mr-2"></i>Retour</button>
+
+
+        <h4 class="margin-top-15 margin-bottom-0 nopadding">Défectueux :</h4>
+        <table id="ticketLotInfoStock" class="table-suivi-stock-emb"><?php showEmballagesDefectueux($lot->getId(), $froid->getId()); ?></table>
+
+        <h4 class="margin-top-15 margin-bottom-0 nopadding">Changements de rouleaux :</h4>
+        <table id="ticketLotInfoChmgt" class="table-suivi-stock-emb"><?php showEmballageChangeLot($lot->getId()); ?></table>
+
+        <?php
+		// On teste si le lot a déjà été validé pour le nettoyage pendant
+		$pvisuManager = new PvisuPendantManager($cnx);
+		$pvisu = $pvisuManager->getPvisuPendantJourByLot($lot);
+		if (!$pvisu instanceof PvisuPendant) { $pvisu = new PvisuPendant([]); }
+		$cssBtnValider = (int)$pvisu->getId() > 0 ? 'secondary' : 'info';
+		$txtBtnValider = (int)$pvisu->getId() > 0 ? ' Nettoyage validé' : ' Nettoyage à valider&hellip;';
+        ?>
+        <a href="<?php echo __CBO_ROOT_URL__;?>nettoyage/pendant-<?php echo (int)$lot->getId();?>" class="btn btn-<?php echo $cssBtnValider; ?> btn-lg mt-3 form-control text-left text-18">
+            <i class="fa fa-clipboard-check fa-fw vmiddle fa-lg mr-2 margin-top--5"></i>
+			<?php echo $txtBtnValider; ?>
+        </a>
+        <?php
+
+	} // FIN étape 91
+
+    ?>
+
+
+
+    <?php
+
+} // FIN mode
+
+
+/* ------------------------------------------
+MODE - Affiche les produits d'une famille
+-------------------------------------------*/
+function modeShowProduitsFamille($id_famille = 0, $id_lot = 0, $exit = true, $id_froid = 0) {
+
+	global $utilisateur, $cnx;
+
+	if ($id_famille == 0) { $id_famille = isset($_REQUEST['id_famille']) ? intval($_REQUEST['id_famille']) : 0; }
+	if ($id_lot     == 0) { $id_lot     = isset($_REQUEST['id_lot'])     ? intval($_REQUEST['id_lot'])     : 0; }
+	if ($id_famille == 0 || $id_lot == 0) { exit; }
+
+	$produitsManager    = new ProduitManager($cnx);
+	$familleManager     = new ProduitEspecesManager($cnx);
+	$froidManager       = new FroidManager($cnx);
+	$famille = $familleManager->getProduitEspece($id_famille);
+
+	if (!$famille instanceof ProduitEspece) { exit; }
+
+	// On récup les ID pdt de toute l'op de froid en cours, pour matcher ceux qui y sont déjà
+	//$id_froid       = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+
+	$idPdtsFroidLot = $id_froid > 0 ? $froidManager->getIdPdtsFroidLot($id_froid, $id_lot) : [];
+
+	// Préparation pagination (Ajax)
+	$nbResultPpage      = 15;
+	$page               = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+	$filtresPagination  = '?mode=showProduitsFamille&id_famille='.$id_famille.'&id_lot='.$id_lot;
+	$start              = ($page-1) * $nbResultPpage;
+
+	if ($utilisateur->isDev()) {
+		$_SESSION['infodevvue'].= 'Lot ['.$id_lot.']';
+		$_SESSION['infodevvue'].= '<br>Froid ['.$id_froid.']';
+		$_SESSION['infodevvue'].= '<br>ProduitEspece ['.$id_famille.']';
+	}
+
+	$params = [
+		'id_famille'        => $id_famille,
+		'start'             => $start,
+		'nb_result_page'    => $nbResultPpage,
+		'id_espece'         => $id_famille
+	];
+
+	$froidManager = new FroidManager($cnx);
+	$froidType = $froidManager->getFroidTypeByCode('hac');
+	if (intval($froidType) > 0) {
+		$params['vue'] = $froidType;
+	}
+
+	$liste_produits = $produitsManager->getListeProduits($params);
+
+	$nbResults  = $produitsManager->getNb_results();
+	$pagination = new Pagination($page);
+
+	$pagination->setUrl($filtresPagination);
+	$pagination->setNb_results($nbResults);
+	$pagination->setAjax_function(true);
+	$pagination->setNb_results_page($nbResultPpage);
+	$pagination->setNb_apres(2);
+	$pagination->setNb_avant(2);
+
+	if ($utilisateur->isDev()) {
+		$nPdt = isset($liste_produits) ? count($liste_produits) : 0;
+		$nPdtS = $nPdt > 1 ? 's' : '';
+		$nPdtDp= ' :';
+		if ($nPdt == 0) { $nPdt = 'Aucun'; $nPdtDp = '';}
+		$_SESSION['infodevvue'].= '<br>'.$nPdt.' produit'.$nPdtS.' trouvé'.$nPdtS.$nPdtDp;
+	}
+
+	?>
+
+    <div class="row mt-3 align-content-center">
+
+        <div class="col text-center">
+
+            <div class="alert alert-secondary">
+                <h4 class="<?php echo empty($liste_produits) ? 'd-none' : ''; ?>"><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Ajouter un produit  :</h4>
+                <div class="row">
+					<?php
+					$nbPdtOnThePage = count($liste_produits);
+
+					if (empty($liste_produits)) { ?>
+
+                        <div class="col-12 padding-50">
+
+                            <i class="fa fa-exclamation-circle fa-3x gris-9 mb-3"></i>
+                            <h5>Aucun produit disponible !</h5>
+                            <p><i>Famille <?php echo $famille->getNom();?> en haché piécé</i></p>
+                            <p>Contactez un administrateur...</p>
+                        </div>
+
+					<?php }
+
+					foreach ($liste_produits as $pdt) {
+
+						if ($utilisateur->isDev()) {
+							$_SESSION['infodevvue'].= '<br>Produit ['.$pdt->getId().']';
+							$_SESSION['infodevvue'].= in_array($pdt->getId(), $idPdtsFroidLot) ? ' (déjà dans le traitement)' : '';
+						}
+
+						if (strlen($pdt->getNom()) > 46) {		    $sizeTxt = 'text-16';
+						} else if (strlen($pdt->getNom()) > 38) {	$sizeTxt = 'text-18';
+						} else if (strlen($pdt->getNom()) > 30) {   $sizeTxt = 'text-20';
+						} else {        					        $sizeTxt = ''; }
+						?>
+
+                        <div class="col-2 mb-3">
+                            <div class="card bg-info text-white pointeur carte-pdt <?php
+							echo in_array($pdt->getId(), $idPdtsFroidLot) ? 'pdtDejaFroid' : ''; ?>" data-pdt-id="<?php echo $pdt->getId();?>" data-lot-id="<?php echo $id_lot;?>">
+
+								<?php if (in_array($pdt->getId(), $idPdtsFroidLot)) { ?>
+                                    <span class="iconDejaFroid badge badge-dark padding-5"><i class="fa fa-sign-in-alt fa-rotate-90 text-18"></i></span>
+								<?php } ?>
+                                <div class="card-header"><?php echo $famille->getNom(); ?></div>
+                                <div class="card-body">
+                                    <h4 class="card-title mb-0 <?php echo $sizeTxt; ?>"><?php echo $pdt->getNom();?></h4>
+                                </div>
+                                <div class="card-footer"><?php echo $pdt->getCode(); ?></div>
+                            </div>
+                        </div>
+
+						<?php
+					} // FIN boucle sur les familles de produits actives
+
+					// Pagination (aJax)
+					if (isset($pagination)) {
+						// Si on a moins de 3 blocs de libres à droite, on va a la ligne
+						$nbCasse = [4,5,10,11,16,17];
+						if (in_array($nbPdtOnThePage,$nbCasse)) { ?>
+                            <div class="clearfix"></div>
+						<?php }
+
+						$pagination->setNature_resultats('produit');
+						echo ($pagination->getPaginationBlocs());
+
+					} // FIN test pagination
+					?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<?php
+	if ($exit) { exit; }
+
+} // FIN mode
+
+/* ------------------------------------------
+FONCTION - Message d'erreur standard
+-------------------------------------------*/
+function erreurLot() {
+	?>
+    <div class="alert alert-danger text-center">
+        <i class="fa fa-exclamation-triangle fa-3x mb-2"></i><br>
+        <p>Erreur de récupération des données !</p>
+    </div>
+	<?php
+	exit;
+} // FIN fonctions
+
+
+/* ------------------------------------------
+MODE - Add/upd produit (poids) à la prod
+-------------------------------------------*/
+function modeSaveProduitHachePiece() {
+
+    global $cnx, $utilisateur;
+	$froidManager = new FroidManager($cnx);
+    $logsManager = new LogManager($cnx);
+
+	$id_type_froid = $froidManager->getFroidTypeByCode('hac');
+    if (intval($id_type_froid) == 0) { exit('-1'); }
+
+
+    $poids = isset($_REQUEST['poids']) ? floatval($_REQUEST['poids']) : 0;
+    $total = isset($_REQUEST['total']) && intval($_REQUEST['total']) == 1;
+    $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
+    $id_pdt = isset($_REQUEST['id_pdt']) ? intval($_REQUEST['id_pdt']) : 0;
+    $id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+    $id_lot_pdt_froid = isset($_REQUEST['id_lot_pdt_froid']) ? intval($_REQUEST['id_lot_pdt_froid']) : 0;
+
+    // Si le traitement n'existe pas, on le crée
+    if ($id_froid == 0) {
+        $froid = new Froid([]);
+		$froid->setSupprime(0);
+		$froid->setId_type($id_type_froid);
+		$froid->setStatut(0);
+        $id_froid = $froidManager->saveFroid($froid);
+        if (intval($id_froid) == 0) { exit('-2'); }
+        $log = new Log();
+        $log->setLog_type('info');
+        $log->setLog_texte("[HAC] Création du traitement froid ".$id_froid." par ajout d'un premier produit");
+		$logsManager->saveLog($log);
+
+		$froidProduit = new FroidProduit([]);
+		$froidProduit->setId_lot($id_lot);
+		$froidProduit->setId_pdt($id_pdt);
+		$froidProduit->setId_froid($id_froid);
+		$froidProduit->setPoids($poids);
+		$froidProduit->setDate_add(date('Y-m-d H:i:s'));
+		$froidProduit->setLoma(1);
+		$froidProduit->setUser_add($utilisateur->getId());
+		$id_lot_pdt_froid = $froidManager->saveFroidProduit($froidProduit);
+		if (!is_numeric($id_lot_pdt_froid)) { exit('ERR SAVE FROIDPDT'); }
+		$log = new Log();
+		$log->setLog_type('info');
+		$log->setLog_texte("[HAC] Premier ajout du produit id_lot_pdt_froid #".$id_lot_pdt_froid." au traitement froid ".$id_froid);
+		$logsManager->saveLog($log);
+
+		echo $id_froid;
+		exit;
+    }
+
+    // On crée le produitFroid si on est en création
+    if ($id_lot_pdt_froid == 0) {
+
+		$froidProduit = new FroidProduit([]);
+		$froidProduit->setId_lot($id_lot);
+		$froidProduit->setId_pdt($id_pdt);
+		$froidProduit->setId_froid($id_froid);
+		$froidProduit->setPoids($poids);
+		$froidProduit->setLoma(1);
+		$froidProduit->setDate_add(date('Y-m-d H:i:s'));
+		$froidProduit->setUser_add($utilisateur->getId());
+		$id_lot_pdt_froid = $froidManager->saveFroidProduit($froidProduit);
+		if (intval($id_lot_pdt_froid) == 0) {
+			exit('-3');
+		}
+		$log = new Log();
+		$log->setLog_type('info');
+		$log->setLog_texte("[HAC] Création du FroidProduit id_lot_pdt_frois #" . $id_lot_pdt_froid . " pour le produit #" . $id_pdt . " sur le lot #" . $id_lot . " dans le traitement haché #" . $id_froid . " pour " . $poids . " kg");
+		$logsManager->saveLog($log);
+		echo $id_froid;
+		exit;
+
+    // Si on a déjà un lot_pdt_froid, on viens rajouter ou remplacer
+	} else {
+
+        $froidProduit = $froidManager->getFroidProduitObjetByIdLotPdtFroid($id_lot_pdt_froid);
+        if (!$froidProduit instanceof FroidProduit) { exit('-4'); }
+
+        // En mode total avec un poids et sur le même lot, on ajoute...
+        if ($poids > 0 && $id_lot == $froidProduit->getId_lot()) {
+
+			$oldPoids = $froidProduit->getPoids();
+            // Si total, on remplace
+            if ($total) {
+				$newPoids = $poids;
+                $logTexte = "[HAC] Ecrasement du poids ".$oldPoids." kg déjà en production (mode ajout Total) pour ".$poids." kg sur l'id_lot_pdt_froid #".$id_lot_pdt_froid;
+            } else {
+
+				$newPoids = $oldPoids + $poids;
+				$logTexte = "[HAC] Ajout de ".$poids." kg aux ".$oldPoids." kg déjà en production sur l'id_lot_pdt_froid #".$id_lot_pdt_froid;
+            }
+
+
+            $froidProduit->setPoids($newPoids);
+			if (!$froidManager->saveFroidProduit($froidProduit)) { exit('ERR SAVE');}
+			$log = new Log();
+			$log->setLog_type('info');
+			$log->setLog_texte($logTexte);
+			$logsManager->saveLog($log);
+			echo $id_froid;
+            exit;
+        // En mode total sans poids, on supprime ce FroidProduit
+        } else if ($total && $poids == 0) {
+
+
+			if (!$froidManager->supprFroidProduit($froidProduit)) { exit('-5'); }
+			$log = new Log();
+			$log->setLog_type('warning');
+			$log->setLog_texte("[HAC] Suppression par poids à zéro en mode d'ajout total de l'id_lot_pdt_froid #".$id_lot_pdt_froid);
+			$logsManager->saveLog($log);
+			echo $id_froid;
+			exit;
+        // En mode ajout, ou en total mais sur un lot différent, on crée
+
+        } else {
+
+			$froidProduit = new FroidProduit([]);
+			$froidProduit->setId_lot($id_lot);
+			$froidProduit->setId_pdt($id_pdt);
+			$froidProduit->setId_froid($id_froid);
+			$froidProduit->setPoids($poids);
+			$froidProduit->setLoma(1);
+			$froidProduit->setDate_add(date('Y-m-d H:i:s'));
+			$froidProduit->setUser_add($utilisateur->getId());
+			$id_lot_pdt_froid = $froidManager->saveFroidProduit($froidProduit);
+			if (intval($id_lot_pdt_froid) == 0) {exit('-6');}
+			$log = new Log();
+			$log->setLog_type('info');
+			$log->setLog_texte("[HAC] Création du FroidProduit id_lot_pdt_frois #" . $id_lot_pdt_froid . " pour le produit #" . $id_pdt . " sur le lot #" . $id_lot . " dans le traitement haché #" . $id_froid . " pour " . $poids . " kg (depuis modif en mode ajout)");
+			$logsManager->saveLog($log);
+			echo $id_froid;
+            exit;
+        } // FIN test contexte ajout/total...
+
+    } // FIN ajout
+
+    exit($id_froid);
+
+
+} // FIN mode
+
+// Charge la liste des produits d'une production
+function showListeProduitsFroid(Froid $froid) {
+
+	global $cnx, $utilisateur;
+    if (!isset($froidManager)) {
+		$froidManager = new FroidManager($cnx);
+	}
+
+	$colonne    = isset($_REQUEST['colonne'])   ? trim(strtolower($_REQUEST['colonne']))    : 'pdt';
+	$sens       = isset($_REQUEST['sens'])      ? trim(strtolower($_REQUEST['sens']))       : 'asc';
+
+	// On récupèère les produits de la congélation
+	$pdtsFroid = $froidManager->getFroidProduits($froid, $colonne, $sens);
+
+	if (empty($pdtsFroid)) {
+		?>
+
+        <div class="alert alert-secondary mt-3 text-center">
+              <span class="fa-stack fa-2x mt-5">
+                   <i class="fas fa-box fa-stack-1x"></i>
+                   <i class="fas fa-ban fa-stack-2x" style="color:Tomato"></i>
+               </span>
+            <h3 class="gris-7 mt-3 mb-5">Aucun produit…</h3>
+        </div>
+
+		<?php exit;
+	} ?>
+    <table class="table admin table-front-tri mt-2 table-v-middle " data-id-froid="<?php echo $froid->getId(); ?>">
+        <thead>
+        <tr>
+            <th>Code</th>
+            <th class="position-relative padding-left-50 tri-produits" data-sens="<?php echo $sens; ?>" data-tri-actif="<?php echo $colonne == 'pdt' ? 1 : 0; ?>"><i class="fa fa-sort-alpha-<?php echo $sens == 'asc' ? 'down' : 'up'; ?> text-30 <?php echo $colonne == 'pdt' ? 'text-info-light' : 'gris-9'; ?> position-absolute abs-left-15 abs-top-10 "></i> Produit</th>
+            <th class="position-relative padding-left-50 tri-lots" data-sens="<?php echo $sens; ?>" data-tri-actif="<?php echo $colonne == 'lot' ? 1 : 0; ?>"><i class="fa fa-sort-numeric-<?php echo $sens == 'asc' ? 'down' : 'up'; ?> text-30 <?php echo $colonne == 'lot' ? 'text-info-light' : 'gris-9'; ?> position-absolute abs-left-15 abs-top-10"></i> Lot</th>
+            <th class="text-right pr-5">Poids total</th>
+            <th class="text-center w-50px <?php echo $froid->isEnCours() || $froid->isSortie() ? 'd-none' : ''; ?>">Supprimer</th>
+        </tr>
+        </thead>
+
+        <tbody>
+		<?php
+		// Boucle sur les produits de la congélation
+		foreach ($pdtsFroid as $pdtFroid) {
+			?>
+            <tr>
+                <td><code class="gris-5 text-12"><?php echo $pdtFroid->getProduit()->getCode(). '/' . $pdtFroid->getId_lot_pdt_froid();?></code></td>
+                <td class="text-20 nomProduitLigne"><?php echo $pdtFroid->getProduit()->getNom();?></td>
+                <td><span class="badge badge-secondary text-18" style="background-color: <?php
+					// On calcule un code hexa pour la couleur basé sur l'ID froid, et on le rend plus foncé de 20% pour être sûr qu'il soit un minimum visible...
+					$hexaLot = Outils::genereHexaCouleur($pdtFroid->getNumlot()); echo $hexaLot ;
+					?>;color:<?php echo Outils::isCouleurHexaClaire($hexaLot) ? '#000' : '#fff'; ?>"><?php echo $pdtFroid->getNumlot() . $pdtFroid->getQuantieme();?></span>
+                </td>
+                <td class="text-right text-16"><?php
+					echo number_format($pdtFroid->getPoids(),3,'.','');?> kg
+
+                    <!-- bouton Changer le poids -->
+                    <button type="button" class="btn ml-1 btnChangePoidsPdt btn-info <?php echo $froid->isEnCours() || $froid->isSortie() ? 'd-none' : ''; ?>" data-identifiant="<?php
+					$identifiant = $pdtFroid->getId_lot().'|'.$pdtFroid->getId_pdt().'|'.$pdtFroid->getId_froid();
+                    echo $identifiant; ?>"><i class="fa fa-edit"></i>
+                    </button>
+                </td>
+                <td <?php echo $froid->isEnCours() || $froid->isSortie() ? 'class="d-none"' : ''; ?>>
+                    <button type="button" class="btn btn-danger form-control btnSupprFroidProduit" data-id-pdt-lot="<?php echo $pdtFroid->getId_lot_pdt_froid(); ?>"><i class="fa fa-trash-alt"></i></button>
+                </td>
+
+            </tr>
+
+
+		<?php } // FIN boucle produits
+		?>
+
+        </tbody>
+    </table>
+    <?php
+
+} // FIN fonction
+
+// Supprime un produit du traitement
+function modeSupprFroidProduitHac() {
+
+    global $cnx;
+    $froidManager = new FroidManager($cnx);
+    $logsManager = new LogManager($cnx);
+
+    $id_lot_pdt_froid = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+    if ($id_lot_pdt_froid == 0) { exit('-1'); }
+
+    $froidProduit = $froidManager->getFroidProduitObjetByIdLotPdtFroid($id_lot_pdt_froid);
+    if (!$froidProduit instanceof FroidProduit) { exit('-2'); }
+
+    if (!$froidManager->supprFroidProduit($froidProduit)) { exit('-3'); }
+    $log = new Log();
+    $log->setLog_type('warning');
+    $log->setLog_texte("[HAC] Suppression du FroidProduit id_lot_pdt_froid #".$id_lot_pdt_froid." sur le traitement Haché-Piécé Froid ID#".$froidProduit->getId_froid());
+    $logsManager->saveLog($log);
+    exit('1');
+
+} // FIN mode
+
+// Enregistrement température et début hachage
+function modeSaveTempDebut() {
+
+	global $cnx, $utilisateur;
+
+	$logsManager = new LogManager($cnx);
+
+    $id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+    $temp_debut = isset($_REQUEST['temp_debut']) ? floatval($_REQUEST['temp_debut']) : 0.0;
+
+	if ($id_froid == 0) { echo '-1'; exit; }
+
+	$froidManager = new FroidManager($cnx);
+	$froid = $froidManager->getFroid($id_froid);
+	if (!$froid instanceof Froid) { echo '-2'; exit; }
+
+	$froid->setTemp_debut($temp_debut);
+	$froid->setDate_entree(date('Y-m-d H:i:s'));
+	$froid->setId_user_debut($utilisateur->getId());
+	$froid->setId_user_maj($utilisateur->getId());
+
+	if (!$froidManager->saveFroid($froid)) { echo '-3'; exit; }
+	echo 1;
+
+	// Log
+	$log = new Log([]);
+	$log->setLog_type('info');
+	$log->setLog_texte("[HAC] Départ du hachage et saisie de la température de début à " . $temp_debut . "°C pour l'OP Froid ID " . $id_froid) ;
+	$logsManager->saveLog($log);
+    exit;
+
+} // FIN mode
+
+// Enregistrement fin hachage
+function modeSaveFinHachage() {
+	global $cnx, $utilisateur;
+
+	$logsManager = new LogManager($cnx);
+
+	$id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+
+	if ($id_froid == 0) { echo '-1'; exit; }
+
+	$froidManager = new FroidManager($cnx);
+	$froid = $froidManager->getFroid($id_froid);
+	if (!$froid instanceof Froid) { echo '-2'; exit; }
+
+	$froid->setDate_sortie(date('Y-m-d H:i:s'));
+	$froid->setId_user_fin($utilisateur->getId());
+	$froid->setId_user_maj($utilisateur->getId());
+
+	if (!$froidManager->saveFroid($froid)) { echo '-3'; exit; }
+	echo 1;
+
+	// Log
+	$log = new Log([]);
+	$log->setLog_type('info');
+	$log->setLog_texte("[HAC] Fin du hachage pour l'OP Froid ID " . $id_froid) ;
+	$logsManager->saveLog($log);
+	exit;
+} // FIN mode
+
+// Enregistrement température fin
+function modeSaveTempFin() {
+
+	global $cnx, $utilisateur;
+
+	$logsManager = new LogManager($cnx);
+
+	$id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+	$temp_fin = isset($_REQUEST['temp_fin']) ? floatval($_REQUEST['temp_fin']) : 0.0;
+
+	if ($id_froid == 0) { echo '-1'; exit; }
+
+	$froidManager = new FroidManager($cnx);
+	$froid = $froidManager->getFroid($id_froid);
+	if (!$froid instanceof Froid) { echo '-2'; exit; }
+
+	$froid->setTemp_fin($temp_fin);
+	$froid->setId_user_maj($utilisateur->getId());
+
+	if (!$froidManager->saveFroid($froid)) { echo '-3'; exit; }
+	echo 1;
+
+	// Log
+	$log = new Log([]);
+	$log->setLog_type('info');
+	$log->setLog_texte("[HAC] Saisie de la température de fin à " . $temp_fin . "°C pour l'OP Froid ID " . $id_froid) ;
+	$logsManager->saveLog($log);
+	exit;
+
+} // FIN mode
+
+/* -------------------------------------------------
+MODE - Enregistre le controle loma (tests avant)
+--------------------------------------------------*/
+function modeSaveLomaAvant() {
+
+	global $cnx;
+
+	$logsManager = new LogManager($cnx);
+
+	$id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+	if ($id_froid == 0) { exit('ERR_IDFROID0'); }
+
+	$froidManager = new FroidManager($cnx);
+	$froid = $froidManager->getFroid($id_froid);
+	if (!$froid instanceof Froid) { exit('ERR_OBJFROID_'.$id_froid);}
+
+	$resultest_nfe  = isset($_REQUEST['resultest_nfe'])     ? intval($_REQUEST['resultest_nfe'])        : -1;  // 1 = OK
+	$resultest_fe   = isset($_REQUEST['resultest_fe'])      ? intval($_REQUEST['resultest_fe'])         : -1;  // 1 = OK
+	$resultest_inox = isset($_REQUEST['resultest_inox'])    ? intval($_REQUEST['resultest_inox'])       : -1;  // 1 = OK
+
+	$froid->setTest_avant_fe($resultest_fe);
+	$froid->setTest_avant_nfe($resultest_nfe);
+	$froid->setTest_avant_inox($resultest_inox);
+	if (!$froidManager->saveFroid($froid)) { exit('ERR_SAVEFROID_TESTSAPRES_'.$id_froid);}
+
+	// Log
+	$log = new Log([]);
+	$log->setLog_type('info');
+	$log->setLog_texte("[HAC] Enregistrement LOMA AVANT sur froid #".$id_froid) ;
+	$logsManager->saveLog($log);
+
+	echo '1';
+	exit;
+
+} // FIN mode
+
+
+/* ---------------------------------------------------------
+MODE -  Enregistre un contrôle Loma sur un produit
+----------------------------------------------------------*/
+function modeSaveLoma() {
+
+	global $cnx, $utilisateur;
+
+	$logsManager = new LogManager($cnx);
+
+	// Récupération des variables
+	$id_lot_pdt_froid   = isset($_REQUEST['id_lot_pdt_froid'])  ? intval($_REQUEST['id_lot_pdt_froid']) : 0;
+	if ($id_lot_pdt_froid == 0) { exit('CKAEIUYH'); }
+
+	$resultest_pdt  = isset($_REQUEST['resultest_pdt'])     ? intval($_REQUEST['resultest_pdt'])    : -1;   // 0 = OK
+
+	$controleOk = $resultest_pdt == 1;
+
+	$commentaires = isset($_REQUEST['commentaires']) ? trim(strip_tags(htmlspecialchars($_REQUEST['commentaires']))) : '';
+
+	// Ici on est ok... on procède
+	$lomaManager = new LomaManager($cnx);
+
+	// On tente de récupérer si un loma existe déjà pour ce produit dans cette op pour MAJ
+	$loma = $lomaManager->getLomaByIdLotPdtFroid($id_lot_pdt_froid);
+	if (!$loma instanceof Loma) {
+		$loma = new Loma([]);
+		$loma->setId_lot_pdt_froid($id_lot_pdt_froid);
+	}
+	$loma->setTest_pdt($resultest_pdt);
+	$loma->setCommentaire($commentaires);
+	$loma->setDate_test(date('Y-m-d H:i:s'));
+	$loma->setId_user_visa($utilisateur->getId());
+
+	$ressave = $lomaManager->saveLoma($loma);
+	if (is_numeric($ressave)) { $loma->setId($ressave); }
+
+	// SI le loma est bien enregistré en base, on enregistre la demande de validation admin + gestion alerte
+	if ($ressave) {
+
+		// Log
+		$log = new Log([]);
+		$log->setLog_type('info');
+		$log->setLog_texte("[HAC] Contrôle LOMA sur produit ID_LOT_PDT_FROID " . $id_lot_pdt_froid) ;
+		$logsManager->saveLog($log);
+
+		// Validation admin
+		$vueManager     = new VueManager($cnx);
+		$froidManager   = new FroidManager($cnx);
+
+		// On récupère l'objet de la Vue
+		$vue = $vueManager->getVueByCode('hac');
+		if (!$vue instanceof Vue) { exit('539O96ZH'); }
+		if (intval($loma->getId()) == 0) { exit('KY8210CH'); }
+
+		// On récupère le lot depuis le lotpdtfroid
+		$lotpdtFroid = $froidManager->getFroidProduitObjetByIdLotPdtFroid($id_lot_pdt_froid);
+		if (!$lotpdtFroid instanceof FroidProduit) { exit('D5ZTPV2H'); }
+		$id_lot = $lotpdtFroid->getId_lot();
+
+
+		$validation     = new Validation([]);
+		$validation->setType(3); // 3 = Loma
+		$validation->setId_vue($vue->getId());
+		$validation->setId_liaison($loma->getId());
+		$validationManager = new ValidationManager($cnx);
+		if ($validationManager->saveValidation($validation)) {
+			$validationManager->addValidationLot($validation, $id_lot);
+		}
+
+		// On vérifie que l'alerte est activée
+		$configManager    = new ConfigManager($cnx);
+		$activationAlerte = $configManager->getConfig('alerte4_actif');
+		if ($activationAlerte instanceof Config && intval($activationAlerte->getValeur()) == 1) {
+
+			// Si le test est pas glop...
+			if (!$controleOk) {
+
+				$texte = $resultest_pdt == 1 ? 'Contrôle LOMA positif sur produit' : 'Test non détecté';
+
+				$alerteManager = new AlerteManager($cnx);
+				$froidManager  = new FroidManager($cnx);
+				$id_froid_type = intval($froidManager->getFroidTypeByCode('srgv'));
+				$alerte = new Alerte([]);
+				$alerte->setId_lot($id_lot);
+				$alerte->setType(4);            // Type 3 = Loma
+				$alerte->setId_froid($lotpdtFroid->getId_froid());
+				$alerte->setId_froid_type($id_froid_type);
+				$alerte->setNumlot($lotpdtFroid->getNumlot());
+				$alerte->setDate(date('Y-m-d H:i:s'));
+				$alerte->setId_user($utilisateur->getId());
+				$alerte->setNom_user($utilisateur->getNomComplet());
+				$alerte->setValeur($texte);
+				if ($alerteManager->saveAlerte($alerte)) {
+					$alerteManager->envoiMailAlerte($alerte);
+				}
+
+			} // FIN test en alerte
+		} // FIN test alerte loma active
+
+	} // FIN test LOMA bien enregistré
+
+	echo $ressave ? '' : 'WFJZHB5H';
+
+	exit;
+
+} // FIN mode
+
+// Enregistre le loma après
+function modeSaveLomaApres() {
+
+	global $cnx;
+
+	$logsManager = new LogManager($cnx);
+	$froidManager = new FroidManager($cnx);
+
+	// Récupération des variables
+	$id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+
+	$froid = $froidManager->getFroid($id_froid);
+
+	if (!$froid instanceof Froid) { exit('ERR_OBJFROID_'.$id_froid);}
+
+	$resultest_nfe  = isset($_REQUEST['resultest_nfe'])     ? intval($_REQUEST['resultest_nfe'])        : -1;  // 1 = OK
+	$resultest_fe   = isset($_REQUEST['resultest_fe'])      ? intval($_REQUEST['resultest_fe'])         : -1;  // 1 = OK
+	$resultest_inox = isset($_REQUEST['resultest_inox'])    ? intval($_REQUEST['resultest_inox'])       : -1;  // 1 = OK
+
+	$froid->setTest_apres_fe($resultest_fe);
+	$froid->setTest_apres_nfe($resultest_nfe);
+	$froid->setTest_apres_inox($resultest_inox);
+	if (!$froidManager->saveFroid($froid)) { exit('ERR_SAVEFROID_TESTSAPRES_'.$id_froid);}
+
+	// Log
+	$log = new Log([]);
+	$log->setLog_type('info');
+	$log->setLog_texte("[HAC] Enregistrement LOMA APRES sur froid#".$id_froid) ;
+	$logsManager->saveLog($log);
+
+	echo '1';
+	exit;
+
+
+} // FIN mode
+
+// Clôture un traitement
+function modeClotureFroid() {
+	global $cnx,$utilisateur;
+
+	$logsManager = new LogManager($cnx);
+	$froidManager = new FroidManager($cnx);
+
+	// Récupération des variables
+	$id_froid = isset($_REQUEST['id_froid']) ? intval($_REQUEST['id_froid']) : 0;
+
+	$froid = $froidManager->getFroid($id_froid, true);
+
+	if (!$froid instanceof Froid) { exit('ERR_OBJFROID_'.$id_froid);}
+
+    $froid->setStatut(2);
+	$froid->setConformite(1);
+	$froid->setDate_controle(date('Y-m-d H:i:s'));
+	$froid->setId_visa_controleur($utilisateur->getId());
+    if (!$froidManager->saveFroid($froid)) { exit('ERR SAVE'); }
+
+	$vuesManager = new VueManager($cnx);
+	$vueRcp = $vuesManager->getVueByCode('hac');
+	if (!$vueRcp instanceof Vue) { exit; }
+
+	// Validation admin
+	$validation = new Validation([]);
+	$validation->setType(2); // 2 = Froid
+	$validation->setId_vue($vueRcp->getId());
+	$validation->setId_liaison($id_froid);
+	$validationManager = new ValidationManager($cnx);
+	if ($validationManager->saveValidation($validation)) {
+		$validationManager->addValidationLot($validation, $froid->getLots());
+	}
+
+	// Log
+	$log = new Log([]);
+	$log->setLog_type('info');
+	$log->setLog_texte("[HAC] Clôture du traitement froid#".$id_froid) ;
+	$logsManager->saveLog($log);
+
+    echo '1';
+    exit;
+
+} // FIN mode
+
+function modeListeCartesEmballabe() {
+	global $cnx;
+	$consommablesManager  = new ConsommablesManager($cnx);
+	$vuesManager        = new VueManager($cnx);
+	// Préparation pagination (Ajax)
+	$nbResultPpage      = 16;
+	$page               = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+	$filtresPagination  = '?mode=listeCartesEmballabe';
+	$start              = ($page-1) * $nbResultPpage;
+	$params = [
+		'id_vue'            => $vuesManager->getVueByCode('hac')->getId(),
+		'get_emb'           => true,
+		'has_encours'       => true,
+		'start'             => $start,
+		'nb_result_page'    => $nbResultPpage,
+		'lot_nonsuppr'      => true
+	];
+	$famillesListe = $consommablesManager->getListeConsommablesFamilles($params);
+	$nbResults  = $consommablesManager->getNb_results();
+	$pagination = new Pagination($page);
+	$pagination->setUrl($filtresPagination);
+	$pagination->setNb_results($nbResults);
+	$pagination->setAjax_function(true);
+	$pagination->setNb_results_page($nbResultPpage);
+	$pagination->setNb_apres(2);
+	$pagination->setNb_avant(2);
+	$nbPdtOnThePage = count($famillesListe);
+
+	foreach ($famillesListe as $fam) { ?>
+        <div class="col-2 mb-3">
+            <div class="card bg-secondary text-white carte-emb" data-id-fam="<?php echo $fam->getId();?>" data-id-emb-encours="<?php echo $fam->getEmb_encours() instanceof Consommable ? $fam->getEmb_encours()->getId() : 0; ?>">
+                <div class="card-header">
+					<?php echo $fam->getCode(); ?>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title mb-0"><?php echo $fam->getNom(); ?></h5>
+                    <span class="badge badge-dark text-16 d-block margin-top-15"><?php echo $fam->getEmb_encours() instanceof Consommable ? $fam->getEmb_encours()->getNumlot_frs() : '?'; ?>
+					<span class="text-12 margin-top-5 texte-fin d-block"><?php echo $fam->getEmb_encours() instanceof Consommable ? $fam->getEmb_encours()->getNom_frs() : ''; ?></span></span>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-danger padding-20-10 border-light form-control btn-emb-defectueux" data-id-emb="<?php
+							echo $fam->getEmb_encours() instanceof Consommable ? $fam->getEmb_encours()->getId() : '';?>"><i class="fa fa-exclamation-triangle fa-lg"></i></button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-info padding-20 border-light form-control btn-emb-change" data-id-old-emb="<?php echo $fam->getEmb_encours() instanceof Consommable ? $fam->getEmb_encours()->getId() : ''; ?>"><i class="fa fa-retweet fa-lg"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	<?php } // FIN boucle sur les emballages
+	// Pagination (aJax)
+	if (isset($pagination)) {
+		// Si on a moins de 3 blocs de libres à droite, on va a la ligne
+		$nbCasse = [4,5,10,11,16,17];
+		if (in_array($nbPdtOnThePage,$nbCasse)) { ?>
+            <div class="clearfix"></div>
+		<?php }
+		$pagination->setNature_resultats('produit');
+		echo ($pagination->getPaginationBlocs());
+	} // FIN test pagination
+
+} // FIN mode
+
+// Fonction déportée pour mise à jour du détail des changements de rouleaux d'emballage du lot
+function showEmballageChangeLot($id_lot) {
+	global
+	$cnx,
+	$consommablesManager;
+	if (!$consommablesManager instanceof ConsommablesManager) {
+		$consommablesManager = new ConsommablesManager($cnx);
+	}
+	// On récupère les changements de rouleaux du jour pour ce lot
+	$changements = $consommablesManager->getEmballagesChangementRouleauJour($id_lot);
+	if (!$changements || empty($changements)) { ?>
+        <tr>
+            <td colspan="2">Aucun changement aujourd'hui</td>
+        </tr>
+	<?php }
+	foreach ($changements as $donnees) {
+		?>
+        <tr>
+            <td><?php echo $donnees['nom']; ?></td>
+            <td class="text-right hook-badge-emb-ticket">
+                <span class="badge badge-info badge-pill text-16"><?php echo $donnees['nb']; ?></span>
+            </td>
+        </tr>
+		<?php
+	} // FIN boucle
+} // FIN fonction
+
+// Fonction déportée pour mise à jour du détail des rouleaux d'emballage du lot
+function showEmballagesDefectueux($id_lot, $id_froid) {
+	global
+	$cnx,
+	$consommablesManager;
+
+	if (!$consommablesManager instanceof ConsommablesManager) {
+		$consommablesManager = new ConsommablesManager($cnx);
+	}
+	// On récupère les emballages pour le lot
+	$emballagesLot = $consommablesManager->getListeEmballagesTicket(['id_lot' => $id_lot, 'id_froid' => $id_froid]);
+
+	// Si il n'y en a aucun encore, on associe tous les emballages « en cours » dont la famille est associée à la vue « Atelier ».
+	if (empty($emballagesLot)) {
+		$vueManager = new VueManager($cnx);
+		$lotManager = new LotManager($cnx);
+		$vueAtl = $vueManager->getVueByCode('hac');
+		if (!$vueAtl instanceof Vue) { ?><div class="alert alert-danger">Identification de la vue impossible.<br>Code Erreur : <code>U41ECPSH</code></div><?php  exit; }
+		$lot = $lotManager->getLot($id_lot);
+		if (!$lot instanceof Lot) { ?><div class="alert alert-danger">Identification du lot impossible.<br>Code Erreur : <code>CDLUUCVH</code></div><?php  exit; }
+		if ($consommablesManager->setEmballagesVue($vueAtl, $lot)) {
+			// Log
+			$log = new Log([]);
+			$log->setLog_type('info');
+			$log->setLog_texte("[HAC] Association des emballages au lot ID " . $id_lot) ;
+			$logsManager = new LogManager($cnx);
+			$logsManager->saveLog($log);
+		}
+	} // FIN test aucun emballage
+	$defectueux = $consommablesManager->getEmballagesDefectueuxJour($id_lot);
+	if (!$defectueux || empty($defectueux)) { ?>
+        <tr>
+            <td colspan="2">Aucun défectueux aujourd'hui</td>
+        </tr>
+	<?php }
+	foreach ($defectueux as $donnees) {
+		?>
+        <tr>
+            <td><?php echo $donnees['nom']; ?></td>
+            <td class="text-right hook-badge-emb-ticket">
+                <span class="badge badge-danger badge-pill text-16"><?php echo $donnees['qte']; ?></span>
+            </td>
+        </tr>
+		<?php
+	} // FIN boucle
+	return true;
+} // FIN fonction

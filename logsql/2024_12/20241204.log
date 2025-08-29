@@ -1,0 +1,130 @@
+2024-12-04 07:24:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-04 07:24:14;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-04 07:25:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-04 07:25:16;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-04 07:49:50;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,10 ,0 ,"2024-12-04 07:49:50" ,79 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 08:50:33;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =24
+2024-12-04 08:51:41;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,15 ,0 ,"2024-12-04 08:51:41" ,62 ,445 ,20 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 08:51:58;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =27
+2024-12-04 08:54:52;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =26
+2024-12-04 08:55:58;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =25
+2024-12-04 09:01:27;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =28
+2024-12-04 09:06:10;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,10 ,0 ,"2024-12-04 09:06:10" ,77 ,473 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:06:13;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =29
+2024-12-04 09:06:58;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =23
+2024-12-04 09:08:10;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,10 ,0 ,"2024-12-04 09:08:10" ,77 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:36:32;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =22
+2024-12-04 09:37:23;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =21
+2024-12-04 09:39:39;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =20
+2024-12-04 09:41:51;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =30
+2024-12-04 09:42:55;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =30
+2024-12-04 09:44:12;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (2 ,10 ,0 ,"2024-12-04 09:44:12" ,79 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:44:15;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =31
+2024-12-04 09:45:27;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,10 ,0 ,"2024-12-04 09:45:27" ,77 ,445 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:45:28;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =32
+2024-12-04 09:46:02;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =32
+2024-12-04 09:46:57;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (50 ,10 ,0 ,"2024-12-04 09:46:57" ,79 ,445 ,20 ,0 ,1 ,"" ,"2024-12-05" )
+2024-12-04 09:46:59;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =33
+2024-12-04 09:50:46;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,2 ,0 ,"2024-12-04 09:50:46" ,79 ,170 ,20 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:50:53;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =34
+2024-12-04 09:55:55;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,10 ,0 ,"2024-12-04 09:55:55" ,78 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:55:59;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =35
+2024-12-04 09:56:42;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,10 ,0 ,"2024-12-04 09:56:42" ,79 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:56:44;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =36
+2024-12-04 09:57:52;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,10 ,0 ,"2024-12-04 09:57:52" ,79 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:58:01;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =37
+2024-12-04 09:59:38;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 09:59:38" ,77 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 09:59:42;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =38
+2024-12-04 09:59:52;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =38
+2024-12-04 10:01:40;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,1 ,0 ,"2024-12-04 10:01:40" ,78 ,445 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:01:55;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =39
+2024-12-04 10:04:46;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,10 ,0 ,"2024-12-04 10:04:46" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:04:50;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =40
+2024-12-04 10:07:42;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,1 ,0 ,"2024-12-04 10:07:42" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:07:48;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =41
+2024-12-04 10:10:39;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =11
+2024-12-04 10:10:41;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =11
+2024-12-04 10:10:43;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =11
+2024-12-04 10:11:49;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:11:49" ,77 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:11:53;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =42
+2024-12-04 10:17:03;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,5 ,0 ,"2024-12-04 10:17:03" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:17:06;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =43
+2024-12-04 10:29:47;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (50 ,5 ,0 ,"2024-12-04 10:29:47" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-05" )
+2024-12-04 10:29:51;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =44
+2024-12-04 10:30:08;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (55 ,5 ,0 ,"2024-12-04 10:30:08" ,79 ,170 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:30:16;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:30:16" ,79 ,473 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:30:20;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =45
+2024-12-04 10:36:14;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (50 ,5 ,0 ,"2024-12-04 10:36:14" ,28 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:36:18;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =47
+2024-12-04 10:37:31;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =9
+2024-12-04 10:38:43;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,5 ,0 ,"2024-12-04 10:38:43" ,28 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:38:50;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =48
+2024-12-04 10:43:24;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:43:24" ,77 ,445 ,4 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:44:59;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,1 ,0 ,"2024-12-04 10:44:59" ,78 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:45:02;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =50
+2024-12-04 10:45:47;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:45:47" ,29 ,445 ,1 ,0 ,1 ,"" ,"2024-12-05" )
+2024-12-04 10:47:03;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:47:03" ,28 ,445 ,1 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:47:13;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =52
+2024-12-04 10:48:54;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =46
+2024-12-04 10:49:03;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:49:03" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-05" )
+2024-12-04 10:49:13;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:49:13" ,79 ,395 ,5 ,0 ,1 ,"" ,"2024-12-05" )
+2024-12-04 10:49:15;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =54
+2024-12-04 10:52:27;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =53
+2024-12-04 10:52:51;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:52:51" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:52:57;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 10:52:57" ,79 ,473 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 10:53:01;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =55
+2024-12-04 11:03:04;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =56
+2024-12-04 11:03:14;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 11:03:14" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 11:03:21;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 11:03:21" ,79 ,395 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 11:03:24;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =58
+2024-12-04 11:03:25;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =58
+2024-12-04 12:05:43;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,5 ,0 ,"2024-12-04 12:05:43" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:05:54;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =59
+2024-12-04 12:06:01;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =59
+2024-12-04 12:08:13;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,5 ,0 ,"2024-12-04 12:08:13" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:13:26;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 12:13:26" ,78 ,445 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:13:38;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,5 ,0 ,"2024-12-04 12:13:38" ,78 ,473 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:20:49;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,10 ,0 ,"2024-12-04 12:20:49" ,56 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:27:38;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (50 ,10 ,0 ,"2024-12-04 12:27:38" ,56 ,395 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:27:51;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,5 ,0 ,"2024-12-04 12:27:51" ,56 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:28:17;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,50 ,0 ,"2024-12-04 12:28:17" ,56 ,445 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 12:42:01;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,5 ,0 ,"2024-12-04 12:42:01" ,55 ,445 ,10 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:05:24;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =60
+2024-12-04 13:09:20;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =57
+2024-12-04 13:15:09;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (50 ,10 ,0 ,"2024-12-04 13:15:09" ,79 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:15:13;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =68
+2024-12-04 13:21:39;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,5 ,0 ,"2024-12-04 13:21:39" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:21:42;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =69
+2024-12-04 13:21:55;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (50 ,5 ,0 ,"2024-12-04 13:21:55" ,79 ,395 ,1 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:22:03;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,5 ,0 ,"2024-12-04 13:22:03" ,79 ,395 ,20 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:22:05;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =70
+2024-12-04 13:23:13;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 13:23:13" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:23:22;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =72
+2024-12-04 13:28:48;UPDATE `pe_negoce_produits` SET `nb_cartons` = 20 ,`poids` = 20 ,`num_lot` = "frbt" ,`dlc` = "2024-12-04"  WHERE `id_lot_pdt_negoce` = 71
+2024-12-04 13:28:57;UPDATE `pe_negoce_produits` SET `nb_cartons` = 20 ,`poids` = 150 ,`num_lot` = "frbt" ,`dlc` = "2024-12-04"  WHERE `id_lot_pdt_negoce` = 71
+2024-12-04 13:39:34;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =71
+2024-12-04 13:40:01;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =62
+2024-12-04 13:40:03;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =62
+2024-12-04 13:40:07;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =62
+2024-12-04 13:41:53;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 13:41:53" ,78 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:42:01;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (52 ,5 ,0 ,"2024-12-04 13:42:01" ,78 ,164 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:44:11;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 13:44:11" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:44:30;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,4 ,0 ,"2024-12-04 13:44:30" ,79 ,473 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 13:44:37;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =76
+2024-12-04 13:54:46;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,5 ,0 ,"2024-12-04 13:54:46" ,79 ,445 ,5 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 14:35:36;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =77
+2024-12-04 14:36:07;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =74
+2024-12-04 14:36:11;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =61
+2024-12-04 14:58:25;DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` =73
+2024-12-04 14:59:57;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (10 ,5 ,0 ,"2024-12-04 14:59:57" ,78 ,445 ,1 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 15:00:16;UPDATE `pe_negoce_produits` SET `nb_cartons` = 1 ,`poids` = 10 ,`num_lot` = "244947B" ,`dlc` = ""  WHERE `id_lot_pdt_negoce` = 78
+2024-12-04 15:01:45;UPDATE `pe_negoce_produits` SET `nb_cartons` = 5 ,`poids` = 5 ,`num_lot` = "BL12536254" ,`dlc` = ""  WHERE `id_lot_pdt_negoce` = 75
+2024-12-04 15:04:46;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (41 ,4 ,0 ,"2024-12-04 15:04:46" ,79 ,445 ,1 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 15:05:02;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (2 ,5 ,0 ,"2024-12-04 15:05:02" ,79 ,395 ,2 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 15:05:11;UPDATE `pe_negoce_produits` SET `nb_cartons` = 2 ,`poids` = 2 ,`num_lot` = "BL12536254" ,`dlc` = ""  WHERE `id_lot_pdt_negoce` = 80
+2024-12-04 15:07:26;UPDATE `pe_negoce_produits` SET `nb_cartons` = 2 ,`poids` = 2 ,`num_lot` = "BL12536254" ,`dlc` = ""  WHERE `id_lot_pdt_negoce` = 80
+2024-12-04 15:08:11;UPDATE `pe_negoce_produits` SET `nb_cartons` = 1 ,`poids` = 41 ,`num_lot` = "BL12536254" ,`dlc` = ""  WHERE `id_lot_pdt_negoce` = 79
+2024-12-04 15:08:54;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (20 ,1 ,0 ,"2024-12-04 15:08:54" ,79 ,445 ,1 ,0 ,1 ,"" ,"2024-12-04" )
+2024-12-04 15:09:00;UPDATE `pe_negoce_produits` SET `nb_cartons` = 1 ,`poids` = 20 ,`num_lot` = "dfd" ,`dlc` = "2024-12-04"  WHERE `id_lot_pdt_negoce` = 81
+2024-12-04 16:00:25;UPDATE `pe_negoce_produits` SET `nb_cartons` = 1 ,`poids` = 41 ,`num_lot` = "BL12536254" ,`dlc` = "2024-12-04"  WHERE `id_lot_pdt_negoce` = 79
+2024-12-04 16:02:49;INSERT INTO `pe_negoce_produits` (`poids`,`quantite`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (5 ,14 ,0 ,"2024-12-04 16:02:49" ,62 ,445 ,2 ,0 ,1 ,"" ,"2024-12-04" )

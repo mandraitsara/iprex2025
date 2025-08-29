@@ -1,0 +1,1 @@
+<?phprequire_once 'scripts/php/config.php';require_once 'scripts/php/check_admin.php';include('includes/header.php');$palettesManager = new PalettesManager($cnx);$palettesManager->updStatutToutesPalettes();echo 'OK';include('includes/footer.php');

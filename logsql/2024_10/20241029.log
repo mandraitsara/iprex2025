@@ -1,0 +1,67 @@
+2024-10-29 06:58:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 06:58:33;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-29 06:58:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 06:58:58;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-29 08:21:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 08:21:12;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-29 08:21:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 08:22:09;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-10-29" )
+2024-10-29 08:22:09;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1119
+2024-10-29 08:22:09;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1119, 4, 1, 1, NOW()),(1119, 5, 1, 1, NOW()),(1119, 36, 1, 1, NOW()),(1119, 58, 1, 1, NOW()),(1119, 7, 1, 1, NOW()),(1119, 11, 1, 1, NOW()),(1119, 12, 1, 1, NOW()),(1119, 13, 1, 1, NOW()),(1119, 14, 1, 1, NOW()),(1119, 15, 1, 1, NOW()),(1119, 17, 1, 1, NOW()),(1119, 18, 1, 1, NOW()),(1119, 19, 1, 1, NOW()),(1119, 20, 1, 1, NOW()),(1119, 21, 1, 1, NOW()),(1119, 37, 1, 1, NOW()),(1119, 39, 1, 1, NOW()),(1119, 41, 1, 1, NOW()),(1119, 59, 1, 1, NOW()),(1119, 23, 1, 1, NOW()),(1119, 40, 1, 1, NOW()),(1119, 43, 1, 1, NOW()),(1119, 44, 1, 1, NOW()),(1119, 45, 1, 1, NOW()),(1119, 46, 1, 1, NOW()),(1119, 47, 1, 1, NOW()),(1119, 48, 1, 1, NOW()),(1119, 49, 1, 1, NOW()),(1119, 50, 1, 1, NOW()),(1119, 51, 1, 1, NOW()),(1119, 52, 1, 1, NOW()),(1119, 53, 1, 1, NOW()),(1119, 54, 1, 1, NOW()),(1119, 55, 1, 1, NOW())
+2024-10-29 08:22:09;UPDATE `pe_pvisu_avant` SET `commentaires` = "lorem ipsum" ,`date` = "2024-10-29" ,`id_user` = 1  WHERE `id` = 1119
+2024-10-29 08:22:32;INSERT INTO `pe_nett_signatures` (`id_user`,`date`) VALUES (1 ,"2024-10-29 08:22:32" )
+2024-10-29 08:22:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 08:22:45;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-29 08:23:52;UPDATE `pe_nett_signatures` SET `id_validateur` = 1 ,`date_visa` = "2024-10-29 08-23-52"  WHERE `id` = 2360
+2024-10-29 08:25:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 08:25:30;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6414
+2024-10-29 08:25:30;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 08:25:30" ,`id_user_visa` = 1  WHERE `id` = 2819
+2024-10-29 08:25:30;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2819 )
+2024-10-29 08:25:30;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11260, 5677, 0)
+2024-10-29 08:25:35;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30673 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 08:25:35" ,`id_user_visa` = 1  WHERE `id` = 2817
+2024-10-29 08:25:35;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2817 )
+2024-10-29 08:25:35;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11261, 5678, 0)
+2024-10-29 08:25:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 08:25:43;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6553
+2024-10-29 08:25:43;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 08:25:43" ,`id_user_visa` = 1  WHERE `id` = 2856
+2024-10-29 08:25:43;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2856 )
+2024-10-29 08:25:43;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11262, 5678, 0)
+2024-10-29 08:25:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 08:26:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 10:42:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 10:42:28;INSERT INTO `pe_nett_signatures` (`id_user`,`date`) VALUES (1 ,"2024-10-29 10:42:28" )
+2024-10-29 10:42:45;DELETE FROM `pe_nett_signatures` WHERE `id` = 2360
+2024-10-29 10:42:56;UPDATE `pe_nett_signatures` SET `id_validateur` = 1 ,`date_visa` = "2024-10-29 10-42-56"  WHERE `id` = 2361
+2024-10-29 10:55:09;DELETE FROM `pe_nett_signatures` WHERE `id` = 2358
+2024-10-29 10:55:22;UPDATE `pe_nett_signatures` SET `id_validateur` = 1 ,`date_visa` = "2024-10-29 10-55-22"  WHERE `id` = 2359
+2024-10-29 13:58:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 13:58:38;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30718 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:58:38" ,`id_user_visa` = 1  WHERE `id` = 2823
+2024-10-29 13:58:38;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2823 )
+2024-10-29 13:58:38;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11263, 5694, 0)
+2024-10-29 13:58:39;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "303")
+2024-10-29 13:58:48;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 13:58:58;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6424
+2024-10-29 13:58:58;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:58:58" ,`id_user_visa` = 1  WHERE `id` = 2824
+2024-10-29 13:58:58;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2824 )
+2024-10-29 13:58:58;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11264, 5693, 0)
+2024-10-29 13:59:04;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30718 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:59:04" ,`id_user_visa` = 1  WHERE `id` = 2823
+2024-10-29 13:59:04;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2823 )
+2024-10-29 13:59:04;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11265, 5694, 0)
+2024-10-29 13:59:04;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "303")
+2024-10-29 13:59:23;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30718 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:59:23" ,`id_user_visa` = 1  WHERE `id` = 2823
+2024-10-29 13:59:23;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2823 )
+2024-10-29 13:59:23;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11266, 5694, 0)
+2024-10-29 13:59:23;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "303")
+2024-10-29 13:59:42;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30718 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:59:42" ,`id_user_visa` = 1  WHERE `id` = 2823
+2024-10-29 13:59:42;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2823 )
+2024-10-29 13:59:42;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11267, 5694, 0)
+2024-10-29 13:59:42;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "303")
+2024-10-29 13:59:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-29 13:59:51;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6430
+2024-10-29 13:59:51;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:59:51" ,`id_user_visa` = 1  WHERE `id` = 2825
+2024-10-29 13:59:51;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2825 )
+2024-10-29 13:59:51;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11268, 5694, 0)
+2024-10-29 13:59:57;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30718 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-29 13:59:57" ,`id_user_visa` = 1  WHERE `id` = 2823
+2024-10-29 13:59:57;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2823 )
+2024-10-29 13:59:57;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11269, 5694, 0)
+2024-10-29 13:59:57;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "303")

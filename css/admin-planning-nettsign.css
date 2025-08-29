@@ -1,0 +1,16 @@
+tr.plnet-futur {
+    opacity: 0.3;
+}
+
+tr:not(.plnet-futur).plnet-dimanche td {
+    background-color: #570000 !important;
+    color: #d5d5d5 !important;
+}
+
+tr.plnet-vide:not(.plnet-dimanche) td {
+    color: #777 !important;
+}
+
+table.table.admin tbody td {
+    border-bottom: 1px solid #aaa;
+}

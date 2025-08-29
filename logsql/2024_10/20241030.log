@@ -1,0 +1,64 @@
+2024-10-30 07:45:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 07:45:40;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-30 07:45:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 07:45:50;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-30 07:46:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 07:46:38;INSERT INTO `pe_consommables_defectueux` (`id_consommable`, `date`, `qte`, `id_lot`, `id_froid`) 
+						VALUES (440, CURDATE(), 1, 0, 0) ON DUPLICATE KEY UPDATE `qte` = `qte` + 1
+2024-10-30 07:46:40;INSERT INTO `pe_consommables_defectueux` (`id_consommable`, `date`, `qte`, `id_lot`, `id_froid`) 
+						VALUES (440, CURDATE(), 1, 0, 0) ON DUPLICATE KEY UPDATE `qte` = `qte` + 1
+2024-10-30 07:46:51;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 07:53:05;UPDATE `pe_produits` SET `poids` = 0 ,`nom_court` = "ANDOUILLE CHEVAL" ,`code` = 40200 ,`id_espece` = 2 ,`ean13` = 3700293551537 ,`ean14` = 93700293551530 ,`date_maj` = "2024-10-30 07:53:05" ,`actif` = 1 ,`nb_colis` = 0 ,`mixte` = 0 ,`ean7` = "" ,`ean7_type` = 0 ,`vrac` = 0 ,`id_client` = 0 ,`vendu_piece` = 1 ,`pdt_gros` = 0 ,`id_taxe` = 3 ,`stats` = 1 ,`id_pdt_emballage` = 1 ,`pcb` = 0 ,`poids_unitaire` = 0 ,`nomenclature` = 02050020 ,`nb_jours_dlc` = 15  WHERE `id` = 445
+2024-10-30 07:53:05;UPDATE `pe_produit_trad` SET `nom` = "ANDOUILLE CHEVAL"  WHERE `id_produit` = 445 AND `id_langue` = 1
+2024-10-30 07:53:05;DELETE FROM `pe_produit_trad` WHERE `id_produit` = 445 AND `id_langue` = 2
+2024-10-30 07:53:05;DELETE FROM `pe_produits_categories_pdt` WHERE `id_produit` = 445
+2024-10-30 07:53:05;DELETE FROM `pe_produits_emballages` WHERE `id_produit` = 445
+2024-10-30 07:53:05;INSERT IGNORE INTO `pe_produits_emballages` (`id_produit`, `id_famille_emballage`) VALUES (445, 7)
+2024-10-30 07:53:05;DELETE FROM `pe_produits_froid_types` WHERE `id_pdt` = 445
+2024-10-30 08:04:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 08:04:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:00:10;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-10-30 10:00:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:00:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:00:55;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-10-30" )
+2024-10-30 10:00:55;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1120
+2024-10-30 10:00:55;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1120, 4, 1, 1, NOW()),(1120, 5, 1, 1, NOW()),(1120, 36, 1, 1, NOW()),(1120, 58, 1, 1, NOW()),(1120, 7, 1, 1, NOW()),(1120, 11, 1, 1, NOW()),(1120, 12, 1, 1, NOW()),(1120, 13, 1, 1, NOW()),(1120, 14, 1, 1, NOW()),(1120, 15, 1, 1, NOW()),(1120, 17, 1, 1, NOW()),(1120, 18, 1, 1, NOW()),(1120, 19, 1, 1, NOW()),(1120, 20, 1, 1, NOW()),(1120, 21, 1, 1, NOW()),(1120, 37, 1, 1, NOW()),(1120, 39, 1, 1, NOW()),(1120, 41, 1, 1, NOW()),(1120, 59, 1, 1, NOW()),(1120, 23, 1, 1, NOW()),(1120, 40, 1, 1, NOW()),(1120, 43, 1, 1, NOW()),(1120, 44, 1, 1, NOW()),(1120, 45, 1, 1, NOW()),(1120, 46, 1, 1, NOW()),(1120, 47, 1, 1, NOW()),(1120, 48, 1, 1, NOW()),(1120, 49, 1, 1, NOW()),(1120, 50, 1, 1, NOW()),(1120, 51, 1, 1, NOW()),(1120, 52, 1, 1, NOW()),(1120, 53, 1, 1, NOW()),(1120, 54, 1, 1, NOW()),(1120, 55, 1, 1, NOW())
+2024-10-30 10:00:55;UPDATE `pe_pvisu_avant` SET `commentaires` = "YH" ,`date` = "2024-10-30" ,`id_user` = 1  WHERE `id` = 1120
+2024-10-30 10:00:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:01:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:01:14;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1120
+2024-10-30 10:01:14;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1120, 4, 1, 1, NOW()),(1120, 5, 1, 1, NOW()),(1120, 36, 1, 1, NOW()),(1120, 58, 1, 1, NOW()),(1120, 7, 1, 1, NOW()),(1120, 11, 1, 1, NOW()),(1120, 12, 1, 1, NOW()),(1120, 13, 1, 1, NOW()),(1120, 14, 1, 1, NOW()),(1120, 15, 1, 1, NOW()),(1120, 17, 1, 1, NOW()),(1120, 18, 1, 1, NOW()),(1120, 19, 1, 1, NOW()),(1120, 20, 1, 1, NOW()),(1120, 21, 1, 1, NOW()),(1120, 37, 1, 1, NOW()),(1120, 39, 1, 1, NOW()),(1120, 41, 1, 1, NOW()),(1120, 59, 1, 1, NOW()),(1120, 23, 1, 1, NOW()),(1120, 40, 1, 1, NOW()),(1120, 43, 1, 1, NOW()),(1120, 44, 1, 1, NOW()),(1120, 45, 1, 1, NOW()),(1120, 46, 1, 1, NOW()),(1120, 47, 1, 1, NOW()),(1120, 48, 1, 1, NOW()),(1120, 49, 1, 1, NOW()),(1120, 50, 1, 1, NOW()),(1120, 51, 1, 1, NOW()),(1120, 52, 1, 1, NOW()),(1120, 53, 1, 1, NOW()),(1120, 54, 1, 1, NOW()),(1120, 55, 1, 1, NOW())
+2024-10-30 10:01:14;UPDATE `pe_pvisu_avant` SET `commentaires` = "YH" ,`id_user` = 1  WHERE `id` = 1120
+2024-10-30 10:01:22;INSERT INTO `pe_pvisu_apres` (`commentaires`,`date`,`id_user`) VALUES ("" ,"2024-10-30" ,1 )
+2024-10-30 10:01:22;UPDATE `pe_pvisu_apres` SET `commentaires` = "U" ,`date` = "2024-10-30" ,`id_user` = 1  WHERE `id` = 657
+2024-10-30 10:01:22;DELETE FROM `pe_pvisu_apres_points` WHERE `id_pvisu_apres` = 657
+2024-10-30 10:01:22;INSERT IGNORE INTO `pe_pvisu_apres_points` (`id_pvisu_apres`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (657, 34, 1, 0, 0, 1, NOW()),(657, 35, 1, 0, 0, 1, NOW())
+2024-10-30 10:01:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:01:32;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30718 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-30 10:01:32" ,`id_user_visa` = 1  WHERE `id` = 2823
+2024-10-30 10:01:32;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2823 )
+2024-10-30 10:01:32;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11270, 5694, 0)
+2024-10-30 10:01:32;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "304")
+2024-10-30 10:02:36;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-10-30 10:02:44;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-10-30 10:02:57;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-10-30 10:04:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:04:06;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6430
+2024-10-30 10:04:06;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-30 10:04:06" ,`id_user_visa` = 1  WHERE `id` = 2825
+2024-10-30 10:04:06;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2825 )
+2024-10-30 10:04:06;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11271, 5694, 0)
+2024-10-30 10:04:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:04:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:04:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:04:52;UPDATE `pe_loma` SET `id_lot_pdt_froid` = 30674 ,`test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-10-30 10:04:52" ,`id_user_visa` = 1  WHERE `id` = 2818
+2024-10-30 10:04:52;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2818 )
+2024-10-30 10:04:52;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (11272, 5677, 0)
+2024-10-30 10:04:53;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "304")
+2024-10-30 10:04:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:04:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:05:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:05:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-30 10:08:30;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-10-30 10:33:52;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-10-30 10:41:24;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`chasse`,`num_bl`,`num_agrement`,`ddm_bl`,`dlc_bl`,`id_origine`,`nb_piece`,`id_espece`,`composition`,`poids_reception`) VALUES ("2024-10-30 10:41:24" ,1 ,50 ,0 ,"" ,"" ,"" ,"" ,29 ,0 ,1 ,1 ,10 )
+2024-10-30 10:41:24;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`chasse`,`num_bl`,`num_agrement`,`ddm_bl`,`dlc_bl`,`id_origine`,`nb_piece`,`id_espece`,`composition`,`poids_reception`) VALUES ("2024-10-30 10:41:24" ,1 ,50 ,0 ,"" ,"" ,"" ,"" ,29 ,0 ,2 ,2 ,10 )
+2024-10-30 10:44:25;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)

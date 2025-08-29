@@ -1,0 +1,18 @@
+2024-09-30 11:02:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-30 11:02:31;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-30 11:10:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-30 11:10:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-30 13:20:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-30 13:21:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-30 13:21:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-30 13:37:40;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`chasse`,`num_bl`,`num_agrement`,`ddm_bl`,`dlc_bl`,`id_origine`,`nb_piece`,`id_espece`,`composition`) VALUES ("2024-09-30 13:37:40" ,1 ,0 ,0 ,"" ,"" ,"" ,"" ,"" ,0 ,0 ,1 )
+2024-09-30 14:21:22;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`chasse`,`num_bl`,`num_agrement`,`ddm_bl`,`dlc_bl`,`id_origine`,`nb_piece`,`id_espece`,`composition`) VALUES ("2024-09-30 14:21:22" ,1 ,287 ,0 ,"" ,"" ,"" ,"" ,29 ,0 ,1 ,1 )
+2024-09-30 14:21:22;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`chasse`,`num_bl`,`num_agrement`,`ddm_bl`,`dlc_bl`,`id_origine`,`nb_piece`,`id_espece`,`composition`) VALUES ("2024-09-30 14:21:22" ,1 ,287 ,0 ,"" ,"" ,"" ,"" ,29 ,0 ,2 ,2 )
+2024-09-30 14:35:01;UPDATE `pe_lots_negoce` SET `visible` = 0  WHERE `id` = 33
+2024-09-30 14:35:02;UPDATE `pe_lots_negoce` SET `visible` = 1  WHERE `id` = 33
+2024-09-30 15:57:32;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`chasse`,`num_bl`,`num_agrement`,`ddm_bl`,`dlc_bl`,`id_origine`,`nb_piece`,`id_espece`,`composition`) VALUES ("2024-09-30 15:57:32" ,1 ,287 ,0 ,"" ,"" ,"" ,"" ,1 ,0 ,16 ,1 )
+2024-09-30 16:14:28;UPDATE `pe_lots_negoce` SET `num_bl` = "" ,`chasse` = 1 ,`ddm_bl` = "2024-09-30" ,`dlc_bl` = "2024-09-30" ,`id_origine` = 0  WHERE `id` = 34
+2024-09-30 16:44:36;UPDATE `pe_communications` SET `actif` = 1 ,`nom` = "INS26 ORDONNANCENCEMENT POLONAIS" ,`chemin` = "Specification/BELL"  WHERE `id` = 166
+2024-09-30 16:45:52;UPDATE `pe_communications` SET `actif` = 1 ,`nom` = "INS26 ORDONNANCENCEMENT POLONAIS" ,`chemin` = "Specification"  WHERE `id` = 165
+2024-09-30 16:48:30;INSERT INTO `pe_communications` (`nom`,`supprime`,`actif`,`date`,`id_vue`,`fichier`,`chemin`) VALUES ("nom" ,0 ,0 ,"2024-09-30 16:48:30" ,8 ,"20240930164830.pdf" ,"" )
+2024-09-30 16:48:30;UPDATE `pe_communications` SET `nom` = "nom" ,`supprime` = 0 ,`actif` = 0 ,`date` = "2024-09-30 16:48:30" ,`id_vue` = 8 ,`fichier` = "20240930164830.pdf" ,`chemin` = ""  WHERE `id` = 213

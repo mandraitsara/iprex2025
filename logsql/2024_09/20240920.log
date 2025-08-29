@@ -1,0 +1,7 @@
+2024-09-20 08:20:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-20 08:20:40;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-20 08:43:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-20 08:43:40;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-09-20 11:45:52;UPDATE `pe_incidents_types` SET `actif` = 0  WHERE `id` = 8
+2024-09-20 11:45:52;UPDATE `pe_incidents_types` SET `actif` = 1  WHERE `id` = 8
+2024-09-20 11:47:35;UPDATE `pe_communications` SET `actif` = 1 ,`nom` = "INS26 ORDONNANCENCEMENT POLONAIS" ,`chemin` = ""  WHERE `id` = 166

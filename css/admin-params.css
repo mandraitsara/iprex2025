@@ -1,0 +1,44 @@
+/**
+------------------------------------------------------------------------
+Feuille de style IPREX - Configuration BO
+
+Copyright (C) 2018 Intersed
+http://www.intersed.fr/
+------------------------------------------------------------------------
+
+@author    Cédric Bouillon
+@copyright Copyright (c) 2018 Intersed
+@version   1.0
+@since     2018
+
+------------------------------------------------------------------------
+ */
+@media only screen and (max-width: 1800px) {
+    .row-config-rcp .input-group-text {
+        padding: 10px !important;
+        font-size: 13px !important;
+    }
+    .row-config-rcp {
+        font-size: 14px;
+    }
+    
+    .cbo-responsive-masquespan {
+        display: none;
+    }
+    .row-config-temps .input-group-prepend {
+        display: none;
+    }
+    .row-config-temps .input-group-text {
+        padding: 10px !important;
+        font-size: 13px !important;
+    }
+    .row-config-temps {
+        font-size: 14px;
+    }
+
+}
+@media only screen and (max-width: 1300px) {
+    .input-group-append {
+        display: none;
+    }
+}

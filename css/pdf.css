@@ -1,0 +1,345 @@
+
+
+* { margin:0; padding: 0; }
+
+
+.page {
+    page-break-after: always;
+}
+
+#blhtml {
+    font-family: Calibri,helvetica neue,sans-serif;
+}
+
+
+.header { border-bottom: 2px solid #ccc; }
+.header img.logo { width: 200px; }
+.text-right { text-align: right; }
+.text-center { text-align: center; }
+.table { border-collapse: collapse;  width: 100% }
+.table th, .table td { padding:3px;font-size: 10px; }
+.table th { background:#555; color:#fff; font-weight: normal; }
+.table td { padding-bottom: 3px; border-bottom: 1px solid #ccc; }
+.table-donnees th { font-size: 11px; }
+.table-liste th { font-size: 9px; background-color: #d5d5d5; padding:3px; }
+.table-liste td { font-size: 9px; padding-top: 3px; padding-bottom: 3px; border-bottom: 1px solid #ccc;}
+.table-liste td.no-bb { border-bottom: none; padding-bottom: 0px; }
+.titre {
+    background-color: teal;
+    color: #fff;
+    padding: 3px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 14px;
+}
+.recap {
+    background-color: #ccc;
+    padding: 3px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 10px;
+}
+
+.w100 { width: 100%; }
+.w90 { width: 90%; }
+.w78 { width: 78%; }
+.w77 { width: 77%; }
+.w76 { width: 76%; }
+.w75 { width: 75%; }
+.w72 { width: 72%; }
+.w70 { width: 70%; }
+.w68 { width: 68%; }
+.w66 { width: 66%; }
+.w64 { width: 64%; }
+.w60 { width: 60%; }
+.w58 { width: 58%; }
+.w56 { width: 56%; }
+.w55 { width: 55%; }
+.w54 { width: 54%; }
+.w52 { width: 52%; }
+.w50 { width: 50%; }
+.w48 { width: 48%; }
+.w45 { width: 45%; }
+.w42 { width: 42%; }
+.w40 { width: 40%; }
+.w25 { width: 25%; }
+.w33 { width: 33%; }
+.w34 { width: 34%; }
+.w38 { width: 38%; }
+.w36 { width: 36%; }
+.w28 { width: 28%; }
+.w26 { width: 26%; }
+.w25 { width: 25%; }
+.w24 { width: 24%; }
+.w22 { width: 22%; }
+.w20 { width: 20%; }
+.w30 { width: 30%; }
+.w19 { width: 19%; }
+.w18 { width: 18%; }
+.w16 { width: 16%; }
+.w15 { width: 15%; }
+.w10 { width: 10%; }
+.w12 { width: 12%; }
+.w35 { width: 35%; }
+.w8 { width: 8%; }
+.w7 { width: 7%; }
+.w6 { width: 6%; }
+.w5 { width: 5%; }
+.w4 { width: 4%; }
+.w3 { width: 3%; }
+.w10 { width: 10%; }
+
+.text-6 { font-size: 6px; }
+.text-7 { font-size: 7px; }
+.text-8 { font-size: 8px; }
+.text-9 { font-size: 9px; }
+.text-10 { font-size: 10px; }
+.text-11 { font-size: 11px; }
+.text-12 { font-size: 12px; }
+.text-14 { font-size: 14px; }
+.text-16 { font-size: 16px; }
+.text-18 { font-size: 18px; }
+.text-20 { font-size: 20px; }
+.text-22 { font-size: 22px; }
+.text-40 { font-size: 40px; }
+
+.gris-3 { color:#333; }
+.gris-5 { color:#555; }
+.gris-7 { color:#777; }
+.gris-9 { color:#999; }
+.gris-c { color:#ccc; }
+.gris-d { color:#d5d5d5; }
+.gris-e { color:#e5e5e5; }
+
+.mt-0 { margin-top: 0px; }
+.mt-2 { margin-top: 2px; }
+.mt-5 { margin-top: 5px; }
+.mt-10 { margin-top: 10px; }
+.mt-12 { margin-top: 12px; }
+.mt-15 { margin-top: 15px; }
+.mt-20 { margin-top: 20px; }
+.mt-25 { margin-top: 25px; }
+.mt-50 { margin-top: 50px; }
+
+.mb-0 { margin-bottom: 0px; }
+.mb-2 { margin-bottom: 2px; }
+.mb-5 { margin-bottom: 5px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-15 { margin-bottom: 15px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-25 { margin-bottom: 25px; }
+.mb-50 { margin-bottom: 50px; }
+
+.mr-0 { margin-right: 0px; }
+.mr-2 { margin-right: 2px; }
+.mr-5 { margin-right: 5px; }
+.mr-10 { margin-right: 10px; }
+.mr-15 { margin-right: 15px; }
+.mr-20 { margin-right: 20px; }
+.mr-25 { margin-right: 25px; }
+.mr-50 { margin-right: 50px; }
+
+.ml-0 { margin-left: 0px; }
+.ml-2 { margin-left: 2px; }
+.ml-5 { margin-left: 5px; }
+.ml-10 { margin-left: 10px; }
+.ml-15 { margin-left: 15px; }
+.ml-20 { margin-left: 20px; }
+.ml-25 { margin-left: 25px; }
+.ml-50 { margin-left: 50px; }
+
+.pt-0 { padding-top: 0px; }
+.pt-2 { padding-top: 2px; }
+.pt-5 { padding-top: 5px; }
+.pt-10 { padding-top: 10px; }
+.pt-15 { padding-top: 15px; }
+.pt-20 { padding-top: 20px; }
+.pt-25 { padding-top: 25px; }
+.pt-50 { padding-top: 50px; }
+
+.pb-0 { padding-bottom: 0px; }
+.pb-2 { padding-bottom: 2px; }
+.pb-5 { padding-bottom: 5px; }
+.pb-10 { padding-bottom: 10px; }
+.pb-15 { padding-bottom: 15px; }
+.pb-20 { padding-bottom: 20px; }
+.pb-25 { padding-bottom: 25px; }
+.pb-50 { padding-bottom: 50px; }
+
+.pr-0 { padding-right: 0px; }
+.pr-2 { padding-right: 2px; }
+.pr-5 { padding-right: 5px; }
+.pr-10 { padding-right: 10px; }
+.pr-15 { padding-right: 15px; }
+.pr-20 { padding-right: 20px; }
+.pr-25 { padding-right: 25px; }
+.pr-50 { padding-right: 50px; }
+
+.pl-0 { padding-left: 0px; }
+.pl-2 { padding-left: 2px; }
+.pl-5 { padding-left: 5px; }
+.pl-10 { padding-left: 10px; }
+.pl-15 { padding-left: 15px; }
+.pl-20 { padding-left: 20px; }
+.pl-25 { padding-left: 25px; }
+.pl-50 { padding-left: 50px; }
+
+.p-5 { padding: 5px;}
+.p-5-5 { padding-top: 5px;padding-bottom: 5px;}
+
+.text-danger { color: #d9534f; }
+.border { border: 1px solid #999; }
+.vtop {vertical-align: top;}
+.text-left { text-align: left;}
+.grad { font-weight: bold; }
+.relative { position: relative;}
+.adresse {
+    border: 1px solid #333;
+    padding:19px;   /* 0.5 cm */
+    position: absolute; /*  Html2PDf de prends que des pixels ! */
+    top:85px;          /* 4 cm  - 1.5cm de marge haut = 150 - 56 */
+    left:356px;        /* 11 cm  - 1.5cm de marge haut = 412 - 56 */
+    width: 281px;       /* 8 cm  - 0.5 cm de padding */
+    max-width: 281px;   /* 8 cm  - 0.5 cm de padding = 112-19 */
+    min-height: 106px;  /* 3 cm  - 0.5 cm de padding = 112-29 */
+}
+
+#livraisonA {
+/*    padding:19px;
+    position: absolute;
+    top:220px;
+    left:338px;
+    width: 281px;
+    max-width: 281px;*/
+    padding-top: 5px;
+    font-size: 11px;
+}
+
+#livraisonA p {
+    font-size: 10px;
+}
+
+    /* DEBUG - La version HTML a un rendu différent O_o */
+.adresse.html {
+    min-height: 66px !important;
+    max-height: 66px !important;
+    height: 66px !important;
+}
+
+table.table-blfact td,
+table.table-blfact th {
+    padding:5px;
+    font-size: 9px;
+}
+
+table.table-blfact tr:not(.entete):not(.soustotal) td:first-child {
+    border-left: 1px solid #ccc;
+}
+table.table-blfact tr:not(.entete):not(.soustotal) td:last-child {
+    border-right: 1px solid #ccc;
+}
+table.table-blfact tr:not(.entete):not(.soustotal) td:not(:first-child) {
+    border-left: 1px dashed #ddd;
+}
+
+
+
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important; /* Chrome & Safari */
+        color-adjust: exact !important; /* Firefox */
+    }
+    table.table-blfact tr.entete td {
+        background: #ccc;
+        border-bottom:1px solid #777;
+    }
+    table.table-blfact tr.soustotal td {
+        background: #e5e5e5;
+    }
+
+}
+
+table tr td.noborder {
+    border:0 !important;
+    border-color: transparent;
+}
+
+.vmiddle {
+    vertical-align: middle;
+}
+
+
+
+.border-l { border-left: 1px solid #ccc; }
+.border-r { border-right: 1px solid #ccc; }
+.border-b { border-bottom: 1px solid #ccc; }
+.border-t { border-top: 1px solid #ccc; }
+.border-b-0 {border-bottom: 0 solid #fff; }
+
+.entete .border-l { border-left: 1px solid #999; }
+.entete .border-r { border-right: 1px solid #999; }
+.entete .border-b { border-bottom: 1px solid #999; }
+.entete .border-t { border-top: 1px solid #999; }
+
+table.nopadding.nomargin,
+table.nopadding.nomargin tr,
+table.nopadding.nomargin td {
+    margin :0;
+    padding :0;
+}
+.espace {
+    display: inline-block;
+    width: 15px;
+}
+
+
+.trptparent {
+    background-color: #ccc;
+}
+
+.numlotpvisu {
+    font-size: 18px;
+    background-color: #ccc;
+}
+
+
+table.admin {
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+table.admin td,
+table.admin th {
+    padding:4px 15px;
+    font-size: 14px;
+}
+
+table.admin th {
+    font-weight: normal;
+    background-color: #555;
+    color: #eee;
+}
+
+table.admin td {
+    border-bottom: 1px solid #ccc;
+}
+
+table.admin tbody tr:nth-child(even) td {
+    background-color: #e5e5e5;
+}
+
+table.admin tbody tr:nth-child(even) td.t-actions {
+    background-color: #d5d5d5;
+}
+
+
+table.compta th,
+table.compta td {
+    border:1px solid #ccc;
+    padding:3px;
+    font-size: 10px;
+}
+
+table.compta th {
+    background-color: #eee;
+    color: #000;
+}

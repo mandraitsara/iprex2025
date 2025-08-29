@@ -1,0 +1,45 @@
+2024-08-27 08:19:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:19:23;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-27 08:30:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:30:42;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-27 08:30:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:30:58;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-27 08:32:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:32:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:32:33;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-08-27" )
+2024-08-27 08:32:33;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1104
+2024-08-27 08:32:33;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1104, 4, 1, 1, NOW()),(1104, 5, 1, 1, NOW()),(1104, 36, 1, 1, NOW()),(1104, 58, 1, 1, NOW()),(1104, 7, 1, 1, NOW()),(1104, 11, 1, 1, NOW()),(1104, 12, 1, 1, NOW()),(1104, 13, 1, 1, NOW()),(1104, 14, 1, 1, NOW()),(1104, 15, 1, 1, NOW()),(1104, 17, 1, 1, NOW()),(1104, 18, 1, 1, NOW()),(1104, 19, 1, 1, NOW()),(1104, 20, 1, 1, NOW()),(1104, 21, 1, 1, NOW()),(1104, 37, 1, 1, NOW()),(1104, 39, 1, 1, NOW()),(1104, 41, 1, 1, NOW()),(1104, 59, 1, 1, NOW()),(1104, 23, 1, 1, NOW()),(1104, 40, 1, 1, NOW()),(1104, 43, 1, 1, NOW()),(1104, 44, 1, 1, NOW()),(1104, 45, 1, 1, NOW()),(1104, 46, 1, 1, NOW()),(1104, 47, 1, 1, NOW()),(1104, 48, 1, 1, NOW()),(1104, 49, 1, 1, NOW()),(1104, 50, 1, 1, NOW()),(1104, 51, 1, 1, NOW()),(1104, 52, 1, 1, NOW()),(1104, 53, 1, 1, NOW()),(1104, 54, 1, 1, NOW()),(1104, 55, 1, 1, NOW())
+2024-08-27 08:32:33;UPDATE `pe_pvisu_avant` SET `commentaires` = "" ,`date` = "2024-08-27" ,`id_user` = 1  WHERE `id` = 1104
+2024-08-27 08:32:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:32:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-27 08:33:09;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:33:53;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:35:05;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:36:16;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:37:07;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:37:56;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:39:14;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:43:52;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:44:26;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:47:13;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:48:22;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:49:28;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:50:03;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:51:25;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:53:43;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:54:45;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:55:43;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:56:54;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:58:12;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:58:31;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 08:59:10;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:00:12;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:04:46;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:06:05;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:06:57;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:13:37;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:13:48;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:14:58;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:16:00;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:16:40;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-27 09:18:46;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)

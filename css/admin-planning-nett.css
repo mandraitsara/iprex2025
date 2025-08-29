@@ -1,0 +1,29 @@
+#liste table.admin thead th {
+    text-align: center;
+    vertical-align: top;
+}
+
+#liste table.admin thead th:not(.t-actions) {
+    border-right: 1px solid #999;
+}
+
+#liste table.admin thead tr:not(:first-child) th {
+    border-top: 1px solid #999;
+    font-family: "Calibri Light", Calibri, Verdana, "Sans-serif";
+    font-weight: normal;
+}
+#liste table.admin tbody td.val {
+    text-align: center;
+    font-family: "Calibri Light", Calibri, Verdana, "Sans-serif";
+    font-weight: normal;
+    font-size: 12px;
+}
+
+#modalAddUpd .alertes-nett .bs-actionsbox .bs-select-all {
+    display: none;
+}
+
+#modalAddUpd .alertes-nett .bs-actionsbox .bs-deselect-all {
+    width: 100%;
+    text-align: left;
+}

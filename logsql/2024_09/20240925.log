@@ -1,0 +1,2 @@
+2024-09-25 11:16:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-09-25 11:16:03;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()

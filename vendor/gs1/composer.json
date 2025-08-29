@@ -1,0 +1,31 @@
+{
+  "name": "substacks/gs1_128",
+  "version": "1.0",
+  "description": "Generate GS1-128 standard barcode",
+  "keywords": [
+    "gs1",
+    "barcode",
+    "gs1-128"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "James Preus Jr",
+      "email": "james@jppreusdev.com",
+      "homepage": "https://jppreusdev.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "Ayeo\\Barcode\\": "src//"
+    }
+  }
+}

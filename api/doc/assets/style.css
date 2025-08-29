@@ -1,0 +1,138 @@
+.output {
+    padding: 20px;
+}
+
+code {
+    border-radius: 4px;
+}
+
+li {
+    padding: 2px;
+}
+
+blockquote {
+    margin-top: 5px !important;
+}
+
+h3 {
+    margin-bottom: 10px !important;
+}
+
+ul > li > ul {
+    list-style-type: disc;
+}
+
+.output blockquote {
+    color: #999;
+}
+
+em {
+    color: #577;
+}
+
+ul > li ul > li em {
+    color: #955;
+}
+
+.debug, .test {
+    font-family: "Source Code Pro", monospace;
+    background: #ccc;
+}
+
+.debug h1, .debug h2, .test h1, .test h2 {
+    margin:0;
+    font-weight: normal;
+    font-size: 1.3em;
+}
+
+.debug h2, .test h2 {
+    background-color: #555;
+    color: #ccc;
+    padding: 5px 10px;
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+.debug .error {
+    color: #900;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.debug .info {
+    color: #050;
+    font-size: .9em;
+}
+
+.debug .lignenb {
+    color: #777;
+    font-size: .8em;
+}
+
+.debug p {
+    margin: 4px 0;
+}
+
+.debug p .mode {
+    background: #555;
+    padding: 4px 8px;
+    margin-right: 5px;
+    border-radius: 3px;
+    font-size: .7em;
+    color: #ccc;
+    font-weight: normal;
+}
+
+.debug pre {
+    background-color: #333;
+    color: #ccc;
+    padding: 10px 20px;
+    border-radius: 3px;
+    margin-left: 20px;
+    width: auto;
+    display: inline-block;
+}
+
+.debug strong a {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.debug footer a {
+    display: inline-block;
+    margin-top: 15px;
+    background: rgba(41, 34, 90, 0.76);
+    padding: 4px 8px;
+    font-size: .8em;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 3px;
+}
+
+.test select {
+    width: 256px;
+}
+
+.test input[type=text] {
+    width: 250px;
+}
+
+.test input.court { width: 100px; }
+.test input.moyen { width: 150px; }
+.test input.long { width: 400px; }
+
+.test textarea {
+    width: 400px;
+    height: 100px;
+    resize: none;
+}
+
+.vtop {
+    vertical-align: top;
+    padding-top: 5px;
+}
+
+
+.test .label {
+    font-size: .8em;
+    padding-right: 10px;
+}

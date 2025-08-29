@@ -1,0 +1,65 @@
+## On accorde toujours l'accès à la page d'erreur pour l'affichage personnalisé de l'accès non autorisé
+
+<Files "index.php">
+Allow from All
+</Files>
+
+## URL Rewriting
+
+Options +FollowSymlinks
+RewriteEngine on
+
+## Chemin root
+
+## / en PROD sur la VM
+
+## /iprex en DEV sur intersed.info
+
+RewriteBase //
+
+## Redirection des répertoires d'URL rewrinting pour les vues
+
+RewriteRule ^reception/$ index.php?vue=rcp
+RewriteRule ^atelier/$ index.php?vue=atl
+RewriteRule ^hache-piece/$ index.php?vue=hac
+RewriteRule ^emballages/$ index.php?vue=emb
+RewriteRule ^consommables/$ index.php?vue=con
+RewriteRule ^congelation/$ index.php?vue=cgl
+RewriteRule ^surgelation-horizontale/$ index.php?vue=srgh
+RewriteRule ^surgelation-verticale/$ index.php?vue=srgv
+RewriteRule ^historique/$ index.php?vue=hist
+RewriteRule ^negoce/$ index.php?vue=neg
+RewriteRule ^scelles-colis/$ index.php?vue=sco
+RewriteRule ^stock-produits/$ index.php?vue=stk
+RewriteRule ^stock-frais/$ index.php?vue=sfr
+RewriteRule ^scan-frais/$ index.php?vue=scf
+RewriteRule ^expedition/$ index.php?vue=exp
+RewriteRule ^expedition/bt-([0-9]+)$ index.php?vue=exp&id_bl=$1 [QSA]
+RewriteRule ^nettoyage/$ index.php?vue=net
+RewriteRule ^nettoyage/avant$ index.php?vue=net&avant
+RewriteRule ^nettoyage/avantid-([0-9]+)$ index.php?vue=net&avantid=$1 [QSA]
+RewriteRule ^nettoyage/pendant-([0-9]+)$ index.php?vue=net&pendant=$1 [QSA]
+RewriteRule ^nettoyage/pendantid-([0-9]+)$ index.php?vue=net&pendantid=$1 [QSA]
+RewriteRule ^nettoyage/apresid-([0-9]+)$ index.php?vue=net&apresid=$1 [QSA]
+
+## Pour l'API et sa documentation
+
+RewriteRule ^api/((?!doc/).\*)$ api/api.php?mode=$1 [QSA]
+
+## Gestion des erreurs 404 sur les fichers .php et compatibilité avec l'URL rewriting
+
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . http://intersed.info/iprex/erreur.php?e=404
+
+## Pages d'erreurs personnalisées
+
+ErrorDocument 401 http://localhost/erreur.php?e=401
+ErrorDocument 403 http://localhost/erreur.php?e=403
+ErrorDocument 404 http://localhost/erreur.php?e=404
+ErrorDocument 500 http://localhost/erreur.php?e=500
+ErrorDocument 502 http://localhost/erreur.php?e=502
+ErrorDocument 503 http://localhost/erreur.php?e=503
+ErrorDocument 504 http://localhost/erreur.php?e=504
+
+## (c) Cédric Bouillon 2019 pour INTERSED

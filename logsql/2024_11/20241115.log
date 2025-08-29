@@ -1,0 +1,68 @@
+2024-11-15 07:13:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 07:13:24;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-11-15 07:22:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 07:33:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 07:42:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 07:46:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 07:46:15;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-11-15" )
+2024-11-15 07:46:15;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1132
+2024-11-15 07:46:15;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1132, 4, 1, 1, NOW()),(1132, 5, 1, 1, NOW()),(1132, 36, 1, 1, NOW()),(1132, 58, 1, 1, NOW()),(1132, 7, 1, 1, NOW()),(1132, 11, 1, 1, NOW()),(1132, 12, 1, 1, NOW()),(1132, 13, 1, 1, NOW()),(1132, 14, 1, 1, NOW()),(1132, 15, 1, 1, NOW()),(1132, 17, 1, 1, NOW()),(1132, 18, 1, 1, NOW()),(1132, 19, 1, 1, NOW()),(1132, 20, 1, 1, NOW()),(1132, 21, 1, 1, NOW()),(1132, 37, 1, 1, NOW()),(1132, 39, 1, 1, NOW()),(1132, 41, 1, 1, NOW()),(1132, 59, 1, 1, NOW()),(1132, 23, 1, 1, NOW()),(1132, 40, 1, 1, NOW()),(1132, 43, 1, 1, NOW()),(1132, 44, 1, 1, NOW()),(1132, 45, 1, 1, NOW()),(1132, 46, 1, 1, NOW()),(1132, 47, 1, 1, NOW()),(1132, 48, 1, 1, NOW()),(1132, 49, 1, 1, NOW()),(1132, 50, 1, 1, NOW()),(1132, 51, 1, 1, NOW()),(1132, 52, 1, 1, NOW()),(1132, 53, 1, 1, NOW()),(1132, 54, 1, 1, NOW()),(1132, 55, 1, 1, NOW())
+2024-11-15 07:46:15;UPDATE `pe_pvisu_avant` SET `commentaires` = "R" ,`date` = "2024-11-15" ,`id_user` = 1  WHERE `id` = 1132
+2024-11-15 07:54:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 07:54:12;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-11-15 08:13:29;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`,`poids_abattoir`,`poids_reception`) VALUES ("243046EFN" ,"2024-11-15 08:13:29" ,1 ,287 ,1 ,1 ,24 ,60 ,"2024-11-15" ,150 ,250 )
+2024-11-15 08:13:29;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5817 ,1 ,"2024-11-15 08:13:29" )
+2024-11-15 08:13:29;INSERT INTO `pe_lots` (`numlot`,`date_add`,`visible`,`id_fournisseur`,`id_espece`,`composition`,`id_origine`,`id_abattoir`,`date_abattage`,`poids_abattoir`,`poids_reception`) VALUES ("243046EFNA" ,"2024-11-15 08:13:29" ,1 ,287 ,2 ,2 ,24 ,60 ,"2024-11-15" ,0 ,250 )
+2024-11-15 08:13:29;INSERT INTO `pe_lot_vues` (`id_lot`,`id_vue`,`date_entree`) VALUES (5818 ,1 ,"2024-11-15 08:13:29" )
+2024-11-15 10:48:12;INSERT INTO `pe_tiers` (`nom`,`date_maj`,`actif`,`tva_intra`,`date_add`) VALUES ("TEST2024" ,"2024-11-15 10:48:12" ,0 ,"" ,"2024-11-15 10:48:12" )
+2024-11-15 10:48:12;INSERT INTO `pe_tiers_types` (`id_tiers`, `id_famille`, `type`) VALUES (474, 3, 2)
+2024-11-15 13:04:54;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_espece`) VALUES ("2024-11-15 13:04:54" ,1 ,0 ,"TEST2024" ,"" ,"" ,5 )
+2024-11-15 13:10:46;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_espece`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 13:10:46" ,1 ,49 ,"BL12536254" ,"2024-11-30" ,"2024-11-24" ,1 ,20 ,20 ,"2024-11-16" )
+2024-11-15 13:11:45;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_espece`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 13:11:45" ,1 ,44 ,"DFDFDDFDFD" ,"2024-11-30" ,"2024-11-23" ,5 ,20 ,15 ,"2024-11-16" )
+2024-11-15 13:42:33;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 13:42:33" ,`visible` = 1 ,`id_fournisseur` = 44 ,`num_bl` = "BL1520362" ,`ddm` = "2024-11-30" ,`dlc` = "2024-11-17" ,`id_pdt` = "" ,`id_espece` = 5 ,`poids_fournisseur` = 20 ,`poids_reception` = 15 ,`date_entree` = "2024-11-15"  WHERE `id` = 473
+2024-11-15 13:46:54;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 13:46:54" ,`visible` = 1 ,`id_fournisseur` = 434 ,`num_bl` = "BL2024DT" ,`ddm` = "2024-11-30" ,`dlc` = "2024-11-16" ,`id_espece` = 20 ,`poids_fournisseur` = 200 ,`poids_reception` = 201 ,`date_entree` = "2024-11-15"  WHERE `id` = 75
+2024-11-15 13:52:32;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 13:52:32" ,`visible` = 1 ,`id_fournisseur` = 44 ,`num_bl` = "BLI202436" ,`ddm` = "2024-11-14" ,`dlc` = "2024-11-16" ,`id_espece` = 16 ,`poids_fournisseur` = 20 ,`poids_reception` = 10 ,`date_entree` = "2024-11-15"  WHERE `id` = 473
+2024-11-15 13:54:46;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 13:54:46" ,`visible` = 1 ,`id_fournisseur` = 44 ,`num_bl` = "BLO1525365" ,`ddm` = "2024-11-21" ,`dlc` = "2024-11-30" ,`id_espece` = 1 ,`poids_fournisseur` = 50 ,`poids_reception` = 14 ,`date_entree` = "2024-11-16"  WHERE `id` = 445
+2024-11-15 13:57:43;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 13:57:43" ,`visible` = 1 ,`id_fournisseur` = 44 ,`num_bl` = "ODKDODFD15526DF" ,`ddm` = "2024-11-30" ,`dlc` = "2024-11-16" ,`id_espece` = 1 ,`poids_fournisseur` = 15 ,`poids_reception` = 20 ,`date_entree` = "2024-11-15"  WHERE `id` = 75
+2024-11-15 13:58:49;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 13:58:49" ,`visible` = 1 ,`id_fournisseur` = 50 ,`num_bl` = "DFQDFQDFDQFDQFDFAAA" ,`ddm` = "2024-11-30" ,`dlc` = "2024-11-16" ,`id_espece` = 1 ,`poids_fournisseur` = 50 ,`poids_reception` = 15 ,`date_entree` = "2024-11-15"  WHERE `id` = 75
+2024-11-15 14:33:20;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:33:20" ,`visible` = 1 ,`id_fournisseur` = 49 ,`num_bl` = "BL2520" ,`ddm` = "2024-11-30" ,`dlc` = "2024-11-10" ,`poids_fournisseur` = 50 ,`poids_reception` = 25 ,`date_entree` = "2024-11-03"  WHERE `id` = 473
+2024-11-15 14:37:05;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:37:05" ,`visible` = 1 ,`id_fournisseur` = 44 ,`num_bl` = "BL2024DT" ,`ddm` = "2024-11-30" ,`dlc` = "2024-11-10" ,`poids_fournisseur` = 50 ,`poids_reception` = 15 ,`date_entree` = "2024-11-15"  WHERE `id` = 75
+2024-11-15 14:39:53;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`) VALUES ("2024-11-15 14:39:53" ,1 ,0 ,"DFDFDFDQFDQF" ,"" ,"" )
+2024-11-15 14:41:49;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:41:49" ,`visible` = 1 ,`id_fournisseur` = 44 ,`num_bl` = "DFDFKO152536" ,`ddm` = "2024-11-29" ,`dlc` = "2024-11-30" ,`poids_fournisseur` = 15 ,`poids_reception` = 15 ,`date_entree` = "2024-11-16"  WHERE `id` = 395
+2024-11-15 14:42:37;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:42:37" ,`visible` = 1 ,`id_fournisseur` = 0 ,`num_bl` = "FDFQDFDQFQDFDQFDSQFDQ" ,`ddm` = "" ,`dlc` = ""  WHERE `id` = 395
+2024-11-15 14:43:25;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 14:43:25" ,1 ,44 ,"HYIIIIIIIIIIIIIIIIII" ,"2024-11-29" ,"2024-11-16" ,15 ,14 ,"2024-11-17" )
+2024-11-15 14:45:58;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:45:58" ,`visible` = 1 ,`id_fournisseur` = 49 ,`num_bl` = "TEST2514" ,`ddm` = "2024-12-28" ,`dlc` = "2024-11-30" ,`id_pdt` = "" ,`poids_fournisseur` = 25 ,`poids_reception` = 21 ,`date_entree` = "2024-11-16"  WHERE `id` = 395
+2024-11-15 14:46:51;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:46:51" ,`visible` = 1 ,`id_fournisseur` = 0 ,`num_bl` = "PPPPPPPPPPPPPP" ,`ddm` = "" ,`dlc` = "" ,`id_pdt` = ""  WHERE `id` = 75
+2024-11-15 14:48:06;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_pdt`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 14:48:06" ,1 ,49 ,"TEST253625" ,"2024-11-29" ,"2024-11-15" ,"" ,25 ,25 ,"2024-11-15" )
+2024-11-15 14:51:17;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:51:17" ,`visible` = 1 ,`id_fournisseur` = 49 ,`num_bl` = "TEST1512" ,`ddm` = "2024-11-22" ,`dlc` = "2024-11-16" ,`id_pdt` = "" ,`poids_fournisseur` = 25 ,`poids_reception` = 30 ,`date_entree` = "2024-11-15"  WHERE `id` = 75
+2024-11-15 14:54:55;UPDATE `pe_lots_negoce` SET `date_add` = "2024-11-15 14:54:55" ,`visible` = 1 ,`id_fournisseur` = 50 ,`num_bl` = "BL253630" ,`ddm` = "" ,`dlc` = "" ,`id_pdt` = ""  WHERE `id` = 445
+2024-11-15 14:55:41;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_pdt`) VALUES ("2024-11-15 14:55:41" ,1 ,0 ,"BL252525" ,"" ,"" ,"" )
+2024-11-15 14:57:39;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_pdt`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 14:57:39" ,1 ,49 ,"ESP152536" ,"2024-11-16" ,"2024-11-15" ,395 ,15 ,25 ,"2024-11-15" )
+2024-11-15 15:04:48;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-11-15 15:12:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 15:13:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 15:22:39;UPDATE `pe_lots_negoce` SET `visible` = 0  WHERE `id` = 47
+2024-11-15 15:22:40;UPDATE `pe_lots_negoce` SET `visible` = 1  WHERE `id` = 47
+2024-11-15 15:22:41;UPDATE `pe_lots_negoce` SET `visible` = 0  WHERE `id` = 46
+2024-11-15 15:22:41;UPDATE `pe_lots_negoce` SET `visible` = 1  WHERE `id` = 46
+2024-11-15 15:24:49;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_pdt`,`id_espece`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 15:24:49" ,1 ,49 ,"BL25152024" ,"2024-11-30" ,"2024-11-23" ,75 ,1 ,140 ,135 ,"2024-11-15" )
+2024-11-15 15:25:31;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_pdt`,`id_espece`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 15:25:31" ,1 ,49 ,"BL25152024" ,"2024-11-30" ,"2024-11-23" ,75 ,1 ,140 ,135 ,"2024-11-15" )
+2024-11-15 15:25:31;INSERT INTO `pe_lots_negoce` (`date_add`,`visible`,`id_fournisseur`,`num_bl`,`ddm`,`dlc`,`id_pdt`,`id_espece`,`poids_fournisseur`,`poids_reception`,`date_entree`) VALUES ("2024-11-15 15:25:31" ,1 ,49 ,"BL25152024" ,"2024-11-30" ,"2024-11-23" ,75 ,2 ,140 ,135 ,"2024-11-15" )
+2024-11-15 15:43:33;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 15:44:12;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024" ,`poids_fournisseur` = 150  WHERE `id` = 50
+2024-11-15 15:45:32;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024" ,`poids_fournisseur` = 200  WHERE `id` = 50
+2024-11-15 15:51:02;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024" ,`date_entree` = "2024-11-14"  WHERE `id` = 50
+2024-11-15 15:53:44;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 15:56:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 15:56:21;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-11-15 15:57:14;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 15:59:03;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 15:59:10;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 15:59:14;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 15:59:19;UPDATE `pe_lots_negoce` SET `num_bl` = "BL25152024"  WHERE `id` = 50
+2024-11-15 16:01:33;INSERT INTO `pe_negoce_produits` (`poids`,`id_palette`,`supprime`,`date_add`,`id_lot_negoce`,`id_pdt`,`nb_cartons`,`traite`,`user_add`,`num_lot`,`dlc`) VALUES (25 ,10604 ,0 ,"2024-11-15 16:01:33" ,50 ,393 ,1 ,0 ,1 ,"" ,"2024-11-15" )
+2024-11-15 16:34:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 16:34:31;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-11-15 16:34:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-11-15 16:34:41;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-11-15 16:34:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"

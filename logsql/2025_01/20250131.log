@@ -1,0 +1,24 @@
+2025-01-31 14:18:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 14:18:50;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2025-01-31 14:19:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 14:19:06;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2025-01-31 14:19:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 14:19:08;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2025-01-31 14:19:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 14:19:09;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2025-01-31 17:02:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:16;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2025-01-31 17:02:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2025-01-31 17:02:40;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2025-01-31" )
+2025-01-31 17:02:40;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1146
+2025-01-31 17:02:40;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1146, 4, 1, 1, NOW()),(1146, 5, 1, 1, NOW()),(1146, 36, 1, 1, NOW()),(1146, 58, 1, 1, NOW()),(1146, 7, 1, 1, NOW()),(1146, 11, 1, 1, NOW()),(1146, 12, 1, 1, NOW()),(1146, 13, 1, 1, NOW()),(1146, 14, 1, 1, NOW()),(1146, 15, 1, 1, NOW()),(1146, 17, 1, 1, NOW()),(1146, 18, 1, 1, NOW()),(1146, 19, 1, 1, NOW()),(1146, 20, 1, 1, NOW()),(1146, 21, 1, 1, NOW()),(1146, 37, 1, 1, NOW()),(1146, 39, 1, 1, NOW()),(1146, 41, 1, 1, NOW()),(1146, 59, 1, 1, NOW()),(1146, 23, 1, 1, NOW()),(1146, 40, 1, 1, NOW()),(1146, 43, 1, 1, NOW()),(1146, 44, 1, 1, NOW()),(1146, 45, 1, 1, NOW()),(1146, 46, 1, 1, NOW()),(1146, 47, 1, 1, NOW()),(1146, 48, 1, 1, NOW()),(1146, 49, 1, 1, NOW()),(1146, 50, 1, 1, NOW()),(1146, 51, 1, 1, NOW()),(1146, 52, 1, 1, NOW()),(1146, 53, 1, 1, NOW()),(1146, 54, 1, 1, NOW()),(1146, 55, 1, 1, NOW())
+2025-01-31 17:02:40;UPDATE `pe_pvisu_avant` SET `commentaires` = "" ,`date` = "2025-01-31" ,`id_user` = 1  WHERE `id` = 1146
+2025-01-31 17:02:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"

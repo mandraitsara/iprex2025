@@ -1,0 +1,9 @@
+2024-10-03 08:13:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-03 08:13:53;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-03 08:28:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-03 08:29:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-03 08:29:41;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-10-03 08:54:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-03 10:43:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-03 11:07:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-10-03 11:13:44;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)

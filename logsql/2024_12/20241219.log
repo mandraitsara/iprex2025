@@ -1,0 +1,309 @@
+2024-12-19 07:07:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-19 07:07:46;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-19 07:16:34;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-19 07:16:34;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-19 07:21:01;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8181,8254,8257,8259,8337,8339,8340,8341,8342,8343,8344,8345,8346,8347,8348,8349,8350,8351,8352,8353,8355,8356,8359,8360,8361,8362,8363,8364,8365,8370,8371,8375,8377,8380,8387,8388,8389,8390,8391,8392,8393,8394,8396,8397,8400,8401,8402,8404,8405,8407,8408,8409,8412,8413,8414,8416,8417,8418,8419,8420,8425,8428,8432,8434,8435,8436,8439,8440,8445,8447,8448,8449,8450,8452,8453,8455,8458,8459,8461,8462,8463,8464,8468,8470,8471,8473,8474,8475,8476,8479,8481,8483,8486,8395)
+2024-12-19 07:21:29;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 277 ,`id_tiers_livraison` = 277 ,`id_tiers_transporteur` = 112 ,`id_adresse_livraison` = 393 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-12-18"  WHERE id = 8487
+2024-12-19 07:22:24;INSERT INTO `pe_palettes` (`numero`,`date`,`id_user`,`statut`,`id_poids_palette`,`id_client`,`scan_frais`,`supprime`) VALUES (2 ,"2024-12-19 07:22:24" ,1 ,0 ,0 ,0 ,0 ,0 )
+2024-12-19 07:22:24;UPDATE `pe_negoce_produits` SET `id_palette` = 10665  WHERE `id_lot_pdt_negoce` = 132
+2024-12-19 07:22:24;INSERT INTO `pe_bl_lignes` (`id_produit`,`id_palette`,`numlot`,`id_lot`,`poids`,`nb_colis`,`id_compo`,`num_palette`,`id_bl`,`id_produit_bl`,`id_pdt_negoce`,`pu_ht`,`tva`,`qte`,`supprime`,`date_add`) VALUES (445 ,10665 ,2411251 ,0 ,10 ,10 ,0 ,2 ,8487 ,0 ,1 ,0 ,5.5 ,1 ,0 ,"2024-12-19 07:22:24" )
+2024-12-19 07:22:24;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 277 ,`id_tiers_livraison` = 277 ,`id_tiers_transporteur` = 112 ,`id_adresse_livraison` = 393 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-12-18"  WHERE id = 8487
+2024-12-19 07:22:49;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 277 ,`id_tiers_livraison` = 277 ,`id_tiers_transporteur` = 112 ,`id_adresse_livraison` = 393 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-12-18"  WHERE id = 8487
+2024-12-19 07:23:40;UPDATE `pe_bl_lignes` SET `pu_ht` = 0  WHERE `id` = 76106
+2024-12-19 07:23:48;UPDATE `pe_bl_lignes` SET `pu_ht` = 50  WHERE `id` = 76106
+2024-12-19 07:23:50;UPDATE `pe_tarif_client` SET `prix` = 50  WHERE `id` = 2093
+2024-12-19 07:24:13;UPDATE `pe_bl_lignes` SET `poids` = 500  WHERE `id` = 76105
+2024-12-19 07:24:23;UPDATE `pe_bl_lignes` SET `poids` = 500  WHERE `id` = 76105
+2024-12-19 07:24:30;UPDATE `pe_bl_lignes` SET `poids` = 15  WHERE `id` = 76105
+2024-12-19 07:24:49;UPDATE `pe_bl_lignes` SET `qte` = 2  WHERE `id` = 76105
+2024-12-19 07:31:32;UPDATE `pe_bl_lignes` SET `poids` = 5  WHERE `id` = 76105
+2024-12-19 07:31:38;UPDATE `pe_bl_lignes` SET `poids` = 14  WHERE `id` = 76105
+2024-12-19 07:31:43;UPDATE `pe_bl_lignes` SET `qte` = 200  WHERE `id` = 76105
+2024-12-19 07:32:15;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 277 ,`id_tiers_livraison` = 277 ,`id_tiers_transporteur` = 112 ,`id_adresse_livraison` = 393 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-12-18"  WHERE id = 8487
+2024-12-19 07:33:58;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 07:35:41;UPDATE `pe_bl_lignes` SET `qte` = 200  WHERE `id` = 76105
+2024-12-19 07:35:47;UPDATE `pe_bl_lignes` SET `qte` = 200  WHERE `id` = 76105
+2024-12-19 07:36:06;UPDATE `pe_bl_lignes` SET `qte` = 20  WHERE `id` = 76105
+2024-12-19 07:36:08;UPDATE `pe_bl_lignes` SET `poids` = 14  WHERE `id` = 76105
+2024-12-19 07:36:10;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:36:23;UPDATE `pe_bl_lignes` SET `poids` = 14  WHERE `id` = 76105
+2024-12-19 07:37:10;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 07:37:11;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 400 ,`qte` = 2 ,`poids` = 2.682  WHERE `id` = 100096
+2024-12-19 07:37:12;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 400 ,`qte` = 5 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 07:37:13;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 9.95 ,`qte` = 5 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 07:37:14;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 16 ,`qte` = 4 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 07:37:15;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 160.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 07:37:16;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 5.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 07:37:18;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 5.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 07:37:18;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:37:18;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 07:37:19;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 07:37:20;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 07:37:21;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 07:37:23;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 07:37:24;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 07:37:25;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 07:37:25;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 07:37:25;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 07:37:25;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:37:26;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:37:26;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:37:26;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 07:37:26;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 07:37:27;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 07:37:28;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 07:37:29;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 07:37:30;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 07:37:31;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 07:37:32;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 07:37:33;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:37:33;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:37:35;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 07:41:56;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 07:41:57;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 45 ,`qte` = 2 ,`poids` = 2.682  WHERE `id` = 100096
+2024-12-19 07:41:58;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 41 ,`qte` = 5 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 07:41:59;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 5.95 ,`qte` = 5 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 07:42:00;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 16 ,`qte` = 4 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 07:42:01;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 16.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 07:42:02;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 5.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 07:42:03;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 105.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 07:42:03;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:42:03;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 07:42:04;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 07:42:05;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 07:42:06;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 07:42:07;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 07:42:08;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 07:42:09;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 07:42:10;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 07:42:10;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 07:42:10;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:42:10;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:42:10;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:42:10;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 07:42:11;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 07:42:12;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 07:42:13;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 07:42:13;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 07:42:14;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 07:42:15;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 07:42:16;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 07:42:17;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 07:42:17;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 07:42:37;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 07:47:25;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:47:35;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:47:37;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:48:12;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:53:12;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:53:21;UPDATE `pe_bl_lignes` SET `qte` = 15  WHERE `id` = 76105
+2024-12-19 07:54:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-19 07:54:43;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-19 08:00:56;UPDATE `pe_bl_lignes` SET `qte` = 1  WHERE `id` = 76106
+2024-12-19 08:01:14;UPDATE `pe_bl_lignes` SET `qte` = 1  WHERE `id` = 76106
+2024-12-19 08:01:14;UPDATE `pe_bl_lignes` SET `qte` = 1  WHERE `id` = 76106
+2024-12-19 08:01:14;UPDATE `pe_bl_lignes` SET `qte` = 1  WHERE `id` = 76106
+2024-12-19 08:01:33;UPDATE `pe_bl` SET `num_cmd` = "" ,`id_tiers_facturation` = 277 ,`id_tiers_livraison` = 277 ,`id_tiers_transporteur` = 112 ,`id_adresse_livraison` = 393 ,`nom_client` = "" ,`statut` = 1 ,`supprime` = 0 ,`date_livraison` = "2024-12-18"  WHERE id = 8487
+2024-12-19 08:27:55;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:27:56;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 45 ,`qte` = 2 ,`poids` = 2.682  WHERE `id` = 100096
+2024-12-19 08:27:57;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 41 ,`qte` = 5 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 08:27:58;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 5.95 ,`qte` = 5 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 08:27:59;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 16 ,`qte` = 4 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 08:28:00;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 16.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 08:28:01;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 5.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 08:28:02;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 105.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 08:28:02;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:28:02;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:28:03;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:28:04;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:28:05;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:28:06;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:28:07;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:28:08;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:28:09;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:28:09;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:28:09;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:28:09;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:28:09;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:28:09;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:28:10;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:28:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:28:12;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:28:13;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:28:14;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:28:15;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:28:15;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:28:16;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:28:16;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 08:28:16;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:28:17;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:28:17;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:28:17;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:28:17;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:28:17;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:28:24;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 08:28:47;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:28:48;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 45 ,`qte` = 12 ,`poids` = 2.682  WHERE `id` = 100096
+2024-12-19 08:28:49;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 41 ,`qte` = 5 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 08:28:50;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 5.95 ,`qte` = 5 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 08:28:50;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 16 ,`qte` = 14 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 08:28:51;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 16.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 08:28:52;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 5.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 08:28:53;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 105.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 08:28:53;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:28:53;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:28:54;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:28:55;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:28:56;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:28:57;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:28:58;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:28:59;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:28:59;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:28:59;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:28:59;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:00;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:00;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:00;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:29:00;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:29:01;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:29:02;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:29:03;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:29:04;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:29:05;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:29:06;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:29:07;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:07;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:11;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 08:29:38;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:29:39;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 45 ,`qte` = 12 ,`poids` = 2.682  WHERE `id` = 100096
+2024-12-19 08:29:40;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 41 ,`qte` = 15 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 08:29:41;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 5.95 ,`qte` = 15 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 08:29:42;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 16 ,`qte` = 14 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 08:29:43;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 16.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 08:29:44;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 5.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 08:29:44;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 105.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 08:29:44;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:44;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:29:45;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:29:46;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:29:47;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:29:48;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:29:49;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:29:50;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:29:51;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:29:51;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:29:51;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:51;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:51;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:51;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:29:52;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:29:53;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:29:54;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:29:55;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:29:56;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:29:56;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:29:57;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:29:58;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:29:58;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 08:29:58;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:59;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:59;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:29:59;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:29:59;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:29:59;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:30:02;UPDATE `pe_factures` SET `montant_interbev` = 6.56  WHERE `id` = 100025
+2024-12-19 08:31:52;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:31:53;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 450 ,`qte` = 12 ,`poids` = 14  WHERE `id` = 100096
+2024-12-19 08:31:54;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 410 ,`qte` = 15 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 08:31:55;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 50.95 ,`qte` = 15 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 08:31:56;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 160 ,`qte` = 14 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 08:31:57;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 160.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 08:31:58;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 50.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 08:31:59;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 1050.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 08:31:59;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:31:59;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:32:00;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100096
+2024-12-19 08:32:01;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:32:02;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:32:03;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:32:03;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:32:04;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:32:05;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:32:05;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:32:05;UPDATE `pe_factures` SET `montant_interbev` = 6.56 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:32:05;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:32:05;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.08  WHERE `id` = 100025
+2024-12-19 08:32:05;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:32:06;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:32:07;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.25  WHERE `id` = 100096
+2024-12-19 08:32:08;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:32:09;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:32:10;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:32:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:32:12;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:32:13;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `montant_interbev` = 6.76  WHERE `id` = 100025
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `montant_interbev` = 6.76 ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:32:13;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:32:16;UPDATE `pe_factures` SET `montant_interbev` = 6.76  WHERE `id` = 100025
+2024-12-19 08:33:21;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:33:22;UPDATE `pe_facture_lignes` SET `designation` = "KIT ABATS CHEVAL<br/>Lot : 243927AFRA<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551605" ,`pu_ht` = 450 ,`qte` = 12 ,`poids` = 14  WHERE `id` = 100096
+2024-12-19 08:33:23;UPDATE `pe_facture_lignes` SET `designation` = "CERVELAS CHEVAL<br/>Lot : 2406243<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551575" ,`pu_ht` = 410 ,`qte` = 15 ,`poids` = 3.046  WHERE `id` = 100095
+2024-12-19 08:33:24;UPDATE `pe_facture_lignes` SET `designation` = "SAUCISSON ROUGE CHEVAL<br/>Lot : 2406232<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293550585" ,`pu_ht` = 50.95 ,`qte` = 15 ,`poids` = 21.33  WHERE `id` = 100094
+2024-12-19 08:33:25;UPDATE `pe_facture_lignes` SET `designation` = "MERLAN CHEVAL S/VIDE UE<br/>Lot : 249026AUE186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293503260" ,`pu_ht` = 160 ,`qte` = 14 ,`poids` = 3.108  WHERE `id` = 100093
+2024-12-19 08:33:25;UPDATE `pe_facture_lignes` SET `designation` = "POIRE CHEVAL<br/>Lot : 243927AFR186<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293510640" ,`pu_ht` = 160.5 ,`qte` = 1 ,`poids` = 5.8  WHERE `id` = 100092
+2024-12-19 08:33:26;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 50.8 ,`qte` = 1 ,`poids` = 182.5  WHERE `id` = 100091
+2024-12-19 08:33:27;UPDATE `pe_facture_lignes` SET `designation` = "DEMI CHEVAL CARCASSE<br/>Lot : 243927AFR185<br/>origine : UNION EUROPEENNE<br/>EAN : 3700293551599" ,`pu_ht` = 1050.8 ,`qte` = 1 ,`poids` = 146  WHERE `id` = 100090
+2024-12-19 08:33:27;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:33:27;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:33:28;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.25  WHERE `id` = 100096
+2024-12-19 08:33:29;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:33:30;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:33:31;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:33:32;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:33:33;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:33:34;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:33:34;UPDATE `pe_factures` SET `montant_interbev` = 6.76 ,`date` = "2024-07-04" ,`num_cmd` = ""  WHERE `id` = 100025
+2024-12-19 08:33:34;UPDATE `pe_factures` SET `montant_interbev` = 6.76 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:33:34;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:33:34;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`date` = "2024-07-04" ,`num_cmd` = "" ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:33:34;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:33:35;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 332
+2024-12-19 08:33:36;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.25  WHERE `id` = 100096
+2024-12-19 08:33:36;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.05  WHERE `id` = 100095
+2024-12-19 08:33:37;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.38  WHERE `id` = 100094
+2024-12-19 08:33:38;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.06  WHERE `id` = 100093
+2024-12-19 08:33:39;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.1  WHERE `id` = 100092
+2024-12-19 08:33:40;UPDATE `pe_facture_lignes` SET `montant_interbev` = 3.29  WHERE `id` = 100091
+2024-12-19 08:33:41;UPDATE `pe_facture_lignes` SET `montant_interbev` = 2.63  WHERE `id` = 100090
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `montant_interbev` = 6.76  WHERE `id` = 100025
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `montant_interbev` = 6.76 ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100025
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `montant_ht` = 2610.25 WHERE `id` = 100025
+2024-12-19 08:33:41;UPDATE `pe_factures` SET `montant_interbev` = 6.764 ,`total_ttc` = 2807.29  WHERE `id` = 100025
+2024-12-19 08:33:44;UPDATE `pe_factures` SET `montant_interbev` = 6.76  WHERE `id` = 100025
+2024-12-19 08:36:46;UPDATE `pe_factures` SET `montant_interbev` = 6.76  WHERE `id` = 100025

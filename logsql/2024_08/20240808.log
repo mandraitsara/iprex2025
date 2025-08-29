@@ -1,0 +1,298 @@
+2024-08-08 08:14:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:14:08;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-08 08:14:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:14:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:15:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:28:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:28:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:28:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:41:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:42:18;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-08-08" )
+2024-08-08 08:42:18;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1091
+2024-08-08 08:42:18;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1091, 4, 1, 1, NOW()),(1091, 5, 1, 1, NOW()),(1091, 36, 1, 1, NOW()),(1091, 58, 1, 1, NOW()),(1091, 7, 1, 1, NOW()),(1091, 11, 1, 1, NOW()),(1091, 12, 1, 1, NOW()),(1091, 13, 1, 1, NOW()),(1091, 14, 1, 1, NOW()),(1091, 15, 1, 1, NOW()),(1091, 17, 1, 1, NOW()),(1091, 18, 1, 1, NOW()),(1091, 19, 1, 1, NOW()),(1091, 20, 1, 1, NOW()),(1091, 21, 1, 1, NOW()),(1091, 37, 1, 1, NOW()),(1091, 39, 1, 1, NOW()),(1091, 41, 1, 1, NOW()),(1091, 59, 1, 1, NOW()),(1091, 23, 1, 1, NOW()),(1091, 40, 1, 1, NOW()),(1091, 43, 1, 1, NOW()),(1091, 44, 1, 1, NOW()),(1091, 45, 1, 1, NOW()),(1091, 46, 1, 1, NOW()),(1091, 47, 1, 1, NOW()),(1091, 48, 1, 1, NOW()),(1091, 49, 1, 1, NOW()),(1091, 50, 1, 1, NOW()),(1091, 51, 1, 1, NOW()),(1091, 52, 1, 1, NOW()),(1091, 53, 1, 1, NOW()),(1091, 54, 1, 1, NOW()),(1091, 55, 1, 1, NOW())
+2024-08-08 08:42:18;UPDATE `pe_pvisu_avant` SET `commentaires` = "" ,`date` = "2024-08-08" ,`id_user` = 1  WHERE `id` = 1091
+2024-08-08 08:42:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:43:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:43:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 08:43:19;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-08 08:44:10;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 09:34:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:34:14;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-08 09:40:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:41:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:41:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:41:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:41:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:42:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 09:42:48;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 09:48:06;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 09:49:58;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 10:06:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 10:07:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 10:12:44;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 10:22:18;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6553
+2024-08-08 10:22:18;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 10:22:18" ,`id_user_visa` = 1  WHERE `id` = 2856
+2024-08-08 10:22:18;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2856 )
+2024-08-08 10:22:18;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10844, 5678, 0)
+2024-08-08 13:40:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 13:42:53;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30673 ,0 ,"" ,"2024-08-08 13:42:53" ,1 )
+2024-08-08 13:42:53;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2863 )
+2024-08-08 13:42:53;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10845, 5678, 0)
+2024-08-08 13:43:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 13:43:37;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 13:43:40;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30674 ,0 ,"" ,"2024-08-08 13:43:40" ,1 )
+2024-08-08 13:43:40;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2864 )
+2024-08-08 13:43:40;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10846, 5677, 0)
+2024-08-08 13:43:41;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 13:44:52;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30674 ,1 ,"" ,"2024-08-08 13:44:52" ,1 )
+2024-08-08 13:44:52;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2865 )
+2024-08-08 13:44:52;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10847, 5677, 0)
+2024-08-08 13:44:52;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 13:46:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 13:46:59;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30673 ,0 ,"" ,"2024-08-08 13:46:59" ,1 )
+2024-08-08 13:46:59;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2866 )
+2024-08-08 13:46:59;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10848, 5678, 0)
+2024-08-08 13:47:12;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 13:48:48;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30673 ,0 ,"" ,"2024-08-08 13:48:48" ,1 )
+2024-08-08 13:48:48;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2867 )
+2024-08-08 13:48:48;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10849, 5678, 0)
+2024-08-08 13:55:16;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 14:20:30;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 14:21:37;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 14:23:22;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 14:23:42;UPDATE `pe_consommables` SET `stock_actuel` = 0 ,`consomme` = 1  WHERE `id` = 422
+2024-08-08 14:23:42;UPDATE `pe_consommables` SET `stock_actuel` = 1  WHERE `id` = 448
+2024-08-08 14:23:42;INSERT IGNORE INTO `pe_consommables_histo` (`id_consommable`, `stock_mouvement`, `date`, `user_id`, `id_vue`) 
+						VALUES (422, -1, "2024-08-08 14:23:42", 1, 2 )
+2024-08-08 14:23:42;UPDATE `pe_consommables` SET `encours` = 0 WHERE `id_famille` = 50
+2024-08-08 14:23:42;UPDATE `pe_consommables` SET `stock_actuel` = 1 ,`encours` = 1  WHERE `id` = 448
+2024-08-08 14:23:42;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null, `consomme` = 1 WHERE `id` = 422
+2024-08-08 14:23:42;UPDATE `pe_consommables` SET `id_precedent` = 422, `date_upd` = CURDATE(), `encours` = 1 WHERE `id` = 448
+2024-08-08 14:23:42;INSERT IGNORE INTO `pe_consommables_changements` (`id_consommable_famille`, `date`) VALUES (50, "2024-08-08");
+2024-08-08 14:23:42;INSERT IGNORE INTO `pe_emballages_prod` (`id_emballage_lot`, `id_lot`, `id_froid`) 
+						VALUES (448, 5678,0)
+2024-08-08 14:23:45;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 0  WHERE `id` = 6553
+2024-08-08 14:23:45;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 14:23:45" ,`id_user_visa` = 1  WHERE `id` = 2856
+2024-08-08 14:23:45;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2856 )
+2024-08-08 14:23:45;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10850, 5678, 0)
+2024-08-08 14:23:58;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 14:54:51;INSERT INTO `pe_consommables_defectueux` (`id_consommable`, `date`, `qte`, `id_lot`, `id_froid`) 
+						VALUES (435, CURDATE(), 1, 5678, 0) ON DUPLICATE KEY UPDATE `qte` = `qte` + 1
+2024-08-08 14:54:56;UPDATE `pe_consommables` SET `stock_actuel` = 0 ,`consomme` = 1  WHERE `id` = 435
+2024-08-08 14:54:56;UPDATE `pe_consommables` SET `stock_actuel` = 0  WHERE `id` = 298
+2024-08-08 14:54:56;INSERT IGNORE INTO `pe_consommables_histo` (`id_consommable`, `stock_mouvement`, `date`, `user_id`, `id_vue`) 
+						VALUES (435, -1, "2024-08-08 14:54:56", 1, 2 )
+2024-08-08 14:54:56;UPDATE `pe_consommables` SET `encours` = 0 WHERE `id_famille` = 59
+2024-08-08 14:54:56;UPDATE `pe_consommables` SET `stock_actuel` = 0 ,`encours` = 1  WHERE `id` = 298
+2024-08-08 14:54:56;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null, `consomme` = 1 WHERE `id` = 435
+2024-08-08 14:54:56;UPDATE `pe_consommables` SET `id_precedent` = 435, `date_upd` = CURDATE(), `encours` = 1 WHERE `id` = 298
+2024-08-08 14:54:56;INSERT IGNORE INTO `pe_consommables_changements` (`id_consommable_famille`, `date`) VALUES (59, "2024-08-08");
+2024-08-08 14:54:56;INSERT IGNORE INTO `pe_emballages_prod` (`id_emballage_lot`, `id_lot`, `id_froid`) 
+						VALUES (298, 5678,0)
+2024-08-08 14:55:00;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6553
+2024-08-08 14:55:00;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 14:55:00" ,`id_user_visa` = 1  WHERE `id` = 2856
+2024-08-08 14:55:00;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2856 )
+2024-08-08 14:55:00;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10851, 5678, 0)
+2024-08-08 14:56:18;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 15:29:14;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:33:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:33:36;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:43:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:43:04;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-08 15:43:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:43:32;INSERT INTO `pe_froid` (`id_type`,`id_user_maj`,`date_entree`) VALUES (6 ,1 ,"2024-08-08 15:43:32" )
+2024-08-08 15:43:32;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5695, 2, "2024-08-08 15:43:32")
+2024-08-08 15:43:32;INSERT INTO `pe_froid_produits` (`id_lot`,`id_pdt`,`id_froid`,`id_palette`,`date_add`,`user_add`) VALUES (5695 ,489 ,6561 ,0 ,"2024-08-08 15:43:32" ,1 )
+2024-08-08 15:43:32;UPDATE `pe_lots` SET `date_maj` = "2024-08-08 15:43:32"  WHERE `id` = 5695
+2024-08-08 15:43:32;UPDATE `pe_froid_produits` SET `id_lot` = 5695 ,`id_pdt` = 489 ,`id_froid` = 6561 ,`id_palette` = 0 ,`date_add` = "2024-08-08 15:43:32" ,`user_add` = 1 ,`poids` = 0 ,`nb_colis` = 0  WHERE `id_lot_pdt_froid` = 31161
+2024-08-08 15:43:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:43:39;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 15:43:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:43:53;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:44:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:44:13;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5693, "221")
+2024-08-08 15:44:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:44:19;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5731, "221")
+2024-08-08 15:45:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:45:44;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:46:16;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30674 ,0 ,"" ,"2024-08-08 15:46:16" ,1 )
+2024-08-08 15:46:16;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2868 )
+2024-08-08 15:46:16;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10852, 5677, 0)
+2024-08-08 15:46:16;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:46:23;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30674 ,0 ,"" ,"2024-08-08 15:46:23" ,1 )
+2024-08-08 15:46:23;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2869 )
+2024-08-08 15:46:23;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10853, 5677, 0)
+2024-08-08 15:46:23;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:46:35;UPDATE `pe_froid` SET `test_apres_fe` = 0 ,`test_apres_nfe` = 0 ,`test_apres_inox` = 0  WHERE `id` = 6414
+2024-08-08 15:46:35;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 15:46:35" ,`id_user_visa` = 1  WHERE `id` = 2819
+2024-08-08 15:46:35;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2819 )
+2024-08-08 15:46:35;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10854, 5677, 0)
+2024-08-08 15:46:40;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:47:07;UPDATE `pe_froid` SET `test_apres_fe` = 0 ,`test_apres_nfe` = 0 ,`test_apres_inox` = 0  WHERE `id` = 6414
+2024-08-08 15:47:07;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 15:47:07" ,`id_user_visa` = 1  WHERE `id` = 2819
+2024-08-08 15:47:07;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2819 )
+2024-08-08 15:47:07;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10855, 5677, 0)
+2024-08-08 15:47:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:47:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:48:25;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:48:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:48:33;INSERT INTO `pe_pvisu_pendant` (`commentaires`,`id_user`,`id_lot`,`date`) VALUES ("" ,1 ,5677 ,"2024-08-08" )
+2024-08-08 15:48:33;DELETE FROM `pe_pvisu_pendant_points` WHERE `id_pvisu_pendant` = 1795
+2024-08-08 15:48:33;INSERT IGNORE INTO `pe_pvisu_pendant_points` (`id_pvisu_pendant`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (1795, 24, 1, 0, 0, 1, NOW()),(1795, 25, 1, 0, 0, 1, NOW()),(1795, 26, 1, 0, 0, 1, NOW()),(1795, 27, 1, 0, 0, 1, NOW()),(1795, 28, 1, 0, 0, 1, NOW()),(1795, 29, 1, 0, 0, 1, NOW()),(1795, 30, 1, 0, 0, 1, NOW()),(1795, 31, 1, 0, 0, 1, NOW()),(1795, 32, 1, 0, 0, 1, NOW()),(1795, 33, 1, 0, 0, 1, NOW())
+2024-08-08 15:48:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:48:37;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:48:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:49:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:49:24;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:49:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:49:42;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:49:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:50:20;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:50:56;UPDATE `pe_consommables` SET `stock_actuel` = 1  WHERE `id` = 304
+2024-08-08 15:50:56;INSERT IGNORE INTO `pe_consommables_histo` (`id_consommable`, `stock_mouvement`, `date`, `user_id`, `id_vue`) 
+						VALUES (304, -1, "2024-08-08 15:50:56", 1, 2 )
+2024-08-08 15:50:56;UPDATE `pe_consommables` SET `encours` = 0 WHERE `id_famille` = 61
+2024-08-08 15:50:56;UPDATE `pe_consommables` SET `encours` = 1  WHERE `id` = 304
+2024-08-08 15:50:56;INSERT IGNORE INTO `pe_consommables_changements` (`id_consommable_famille`, `date`) VALUES (61, "2024-08-08");
+2024-08-08 15:51:01;UPDATE `pe_froid` SET `test_apres_fe` = 0 ,`test_apres_nfe` = 0 ,`test_apres_inox` = 0  WHERE `id` = 6414
+2024-08-08 15:51:01;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 15:51:01" ,`id_user_visa` = 1  WHERE `id` = 2819
+2024-08-08 15:51:01;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2819 )
+2024-08-08 15:51:01;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10856, 5677, 0)
+2024-08-08 15:51:04;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:51:34;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30674 ,0 ,"" ,"2024-08-08 15:51:34" ,1 )
+2024-08-08 15:51:34;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2870 )
+2024-08-08 15:51:34;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10857, 5677, 0)
+2024-08-08 15:51:34;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:51:46;UPDATE `pe_froid` SET `test_apres_fe` = 0 ,`test_apres_nfe` = 0 ,`test_apres_inox` = 0  WHERE `id` = 6414
+2024-08-08 15:51:46;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 15:51:46" ,`id_user_visa` = 1  WHERE `id` = 2819
+2024-08-08 15:51:46;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2819 )
+2024-08-08 15:51:46;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10858, 5677, 0)
+2024-08-08 15:51:48;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:52:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:53:06;UPDATE `pe_pvisu_pendant` SET `commentaires` = "UI"  WHERE `id` = 1795
+2024-08-08 15:53:06;DELETE FROM `pe_pvisu_pendant_points` WHERE `id_pvisu_pendant` = 1795
+2024-08-08 15:53:06;INSERT IGNORE INTO `pe_pvisu_pendant_points` (`id_pvisu_pendant`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (1795, 24, 1, 0, 0, 1, NOW()),(1795, 25, 1, 0, 0, 1, NOW()),(1795, 26, 1, 0, 0, 1, NOW()),(1795, 27, 1, 0, 0, 1, NOW()),(1795, 28, 1, 0, 0, 1, NOW()),(1795, 29, 1, 0, 0, 1, NOW()),(1795, 30, 1, 0, 0, 1, NOW()),(1795, 31, 1, 0, 0, 1, NOW()),(1795, 32, 1, 0, 0, 1, NOW()),(1795, 33, 1, 0, 0, 1, NOW())
+2024-08-08 15:53:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:53:15;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:53:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:54:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:54:10;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `stock_actuel` = 0 ,`consomme` = 1  WHERE `id` = 397
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `stock_actuel` = 1  WHERE `id` = 382
+2024-08-08 15:54:23;INSERT IGNORE INTO `pe_consommables_histo` (`id_consommable`, `stock_mouvement`, `date`, `user_id`, `id_vue`) 
+						VALUES (397, -1, "2024-08-08 15:54:23", 1, 2 )
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `encours` = 0 WHERE `id_famille` = 1
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `encours` = 1  WHERE `id` = 397
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `encours` = 0 WHERE `id_famille` = 1
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `stock_actuel` = 1 ,`encours` = 1  WHERE `id` = 382
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null, `consomme` = 1 WHERE `id` = 397
+2024-08-08 15:54:23;UPDATE `pe_consommables` SET `id_precedent` = 397, `date_upd` = CURDATE(), `encours` = 1 WHERE `id` = 382
+2024-08-08 15:54:23;INSERT IGNORE INTO `pe_consommables_changements` (`id_consommable_famille`, `date`) VALUES (1, "2024-08-08");
+2024-08-08 15:54:23;INSERT IGNORE INTO `pe_emballages_prod` (`id_emballage_lot`, `id_lot`, `id_froid`) 
+						VALUES (382, 5677,0)
+2024-08-08 15:54:27;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6414
+2024-08-08 15:54:27;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 15:54:27" ,`id_user_visa` = 1  WHERE `id` = 2819
+2024-08-08 15:54:27;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2819 )
+2024-08-08 15:54:27;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10859, 5677, 0)
+2024-08-08 15:54:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:54:48;INSERT INTO `pe_froid` (`supprime`,`id_type`,`statut`) VALUES (0 ,5 ,0 )
+2024-08-08 15:54:48;INSERT INTO `pe_froid_produits` (`id_lot`,`id_pdt`,`id_froid`,`poids`,`date_add`,`loma`,`user_add`) VALUES (5677 ,421 ,6562 ,1 ,"2024-08-08 15:54:48" ,1 ,1 )
+2024-08-08 15:55:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:55:19;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:55:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:56:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:56:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:56:24;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 15:57:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:57:11;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 15:58:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 15:58:24;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5677, "221")
+2024-08-08 16:02:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:10:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:10:39;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:17:32;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 16:19:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:19:38;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30673 ,0 ,"" ,"2024-08-08 16:19:38" ,1 )
+2024-08-08 16:19:38;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2871 )
+2024-08-08 16:19:38;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10860, 5678, 0)
+2024-08-08 16:20:01;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 16:21:06;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30673 ,0 ,"" ,"2024-08-08 16:21:06" ,1 )
+2024-08-08 16:21:06;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2872 )
+2024-08-08 16:21:06;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10861, 5678, 0)
+2024-08-08 16:21:15;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 16:21:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:21:38;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (30673 ,0 ,"" ,"2024-08-08 16:21:38" ,1 )
+2024-08-08 16:21:38;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2873 )
+2024-08-08 16:21:38;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10862, 5678, 0)
+2024-08-08 16:22:01;UPDATE `pe_bl_lignes` SET `supprime` = 1 WHERE `supprime` = 0  AND `id_bl` IN (SELECT `id` FROM `pe_bl` WHERE `supprime` = 1)
+2024-08-08 16:35:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:35:12;DELETE FROM `pe_pvisu_pendant_points` WHERE `id_pvisu_pendant` = 1795
+2024-08-08 16:35:12;INSERT IGNORE INTO `pe_pvisu_pendant_points` (`id_pvisu_pendant`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (1795, 24, 1, 0, 0, 1, NOW()),(1795, 25, 1, 0, 0, 1, NOW()),(1795, 26, 1, 0, 0, 1, NOW()),(1795, 27, 1, 0, 0, 1, NOW()),(1795, 28, 1, 0, 0, 1, NOW()),(1795, 29, 1, 0, 0, 1, NOW()),(1795, 30, 1, 0, 0, 1, NOW()),(1795, 31, 1, 0, 0, 1, NOW()),(1795, 32, 1, 0, 0, 1, NOW()),(1795, 33, 1, 0, 0, 1, NOW())
+2024-08-08 16:35:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:35:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:35:25;INSERT INTO `pe_pvisu_pendant` (`commentaires`,`id_user`,`id_lot`,`date`) VALUES ("" ,1 ,5695 ,"2024-08-08" )
+2024-08-08 16:35:25;DELETE FROM `pe_pvisu_pendant_points` WHERE `id_pvisu_pendant` = 1796
+2024-08-08 16:35:25;INSERT IGNORE INTO `pe_pvisu_pendant_points` (`id_pvisu_pendant`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (1796, 24, 1, 0, 0, 1, NOW()),(1796, 25, 1, 0, 0, 1, NOW()),(1796, 26, 1, 0, 0, 1, NOW()),(1796, 27, 1, 0, 0, 1, NOW()),(1796, 28, 1, 0, 0, 1, NOW()),(1796, 29, 1, 0, 0, 1, NOW()),(1796, 30, 1, 0, 0, 1, NOW()),(1796, 31, 1, 0, 0, 1, NOW()),(1796, 32, 1, 0, 0, 1, NOW()),(1796, 33, 1, 0, 0, 1, NOW())
+2024-08-08 16:35:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:36:44;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 16:36:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:37:18;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 16:37:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:37:38;INSERT INTO `pe_pvisu_pendant` (`commentaires`,`id_user`,`id_lot`,`date`) VALUES ("VH" ,1 ,5694 ,"2024-08-08" )
+2024-08-08 16:37:38;DELETE FROM `pe_pvisu_pendant_points` WHERE `id_pvisu_pendant` = 1797
+2024-08-08 16:37:38;INSERT IGNORE INTO `pe_pvisu_pendant_points` (`id_pvisu_pendant`, `id_point_controle`, `etat`, `id_pvisu_action`, `fiche_nc`, `id_user`, `date`) VALUES (1797, 24, 1, 0, 0, 1, NOW()),(1797, 25, 1, 0, 0, 1, NOW()),(1797, 26, 1, 0, 0, 1, NOW()),(1797, 27, 1, 0, 0, 1, NOW()),(1797, 28, 1, 0, 0, 1, NOW()),(1797, 29, 1, 0, 0, 1, NOW()),(1797, 30, 1, 0, 0, 1, NOW()),(1797, 31, 1, 0, 0, 1, NOW()),(1797, 32, 1, 0, 0, 1, NOW()),(1797, 33, 1, 0, 0, 1, NOW())
+2024-08-08 16:37:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:38:22;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 16:38:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:40:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:40:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:41:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:41:04;INSERT INTO `pe_froid` (`id_type`,`id_user_maj`,`date_entree`) VALUES (6 ,1 ,"2024-08-08 16:41:04" )
+2024-08-08 16:41:04;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5796, 2, "2024-08-08 16:41:04")
+2024-08-08 16:41:04;INSERT INTO `pe_froid_produits` (`id_lot`,`id_pdt`,`id_froid`,`id_palette`,`date_add`,`user_add`) VALUES (5796 ,488 ,6563 ,0 ,"2024-08-08 16:41:04" ,1 )
+2024-08-08 16:41:04;UPDATE `pe_lots` SET `date_maj` = "2024-08-08 16:41:04"  WHERE `id` = 5796
+2024-08-08 16:41:04;UPDATE `pe_froid_produits` SET `id_lot` = 5796 ,`id_pdt` = 488 ,`id_froid` = 6563 ,`id_palette` = 0 ,`date_add` = "2024-08-08 16:41:04" ,`user_add` = 1 ,`poids` = 0 ,`nb_colis` = 0  WHERE `id_lot_pdt_froid` = 31163
+2024-08-08 16:41:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:41:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:45:56;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 16:46:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:46:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:46:13;INSERT IGNORE INTO `pe_lot_quantieme` (`id_lot`, `quantieme`) VALUES(5694, "221")
+2024-08-08 16:46:19;UPDATE `pe_froid` SET `test_apres_fe` = 0 ,`test_apres_nfe` = 0 ,`test_apres_inox` = 0  WHERE `id` = 6430
+2024-08-08 16:46:19;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 16:46:19" ,`id_user_visa` = 1  WHERE `id` = 2825
+2024-08-08 16:46:19;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2825 )
+2024-08-08 16:46:19;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10863, 5694, 0)
+2024-08-08 16:46:43;UPDATE `pe_froid` SET `test_avant_fe` = 0 ,`test_avant_nfe` = 0 ,`test_avant_inox` = 0  WHERE `id` = 6563
+2024-08-08 16:46:43;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (31163 ,1 ,"OK" ,"2024-08-08 16:46:43" ,1 )
+2024-08-08 16:46:43;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2874 )
+2024-08-08 16:46:43;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10864, 5796, 0)
+2024-08-08 16:46:44;INSERT IGNORE INTO `pe_emballages_prod` (`id_emballage_lot`, `id_lot`, `id_froid`) VALUES (144, 5796,0),(210, 5796,0),(219, 5796,0),(231, 5796,0),(298, 5796,0),(304, 5796,0),(354, 5796,0),(382, 5796,0),(401, 5796,0),(429, 5796,0),(441, 5796,0),(444, 5796,0),(446, 5796,0),(448, 5796,0),(455, 5796,0),(457, 5796,0),(458, 5796,0)
+2024-08-08 16:46:50;INSERT INTO `pe_froid` (`id_type`,`id_user_maj`,`date_entree`) VALUES (6 ,1 ,"2024-08-08 16:46:50" )
+2024-08-08 16:46:50;INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES (5796, 2, "2024-08-08 16:46:50")
+2024-08-08 16:46:50;INSERT INTO `pe_froid_produits` (`id_lot`,`id_pdt`,`id_froid`,`id_palette`,`date_add`,`user_add`) VALUES (5796 ,489 ,6564 ,0 ,"2024-08-08 16:46:50" ,1 )
+2024-08-08 16:46:50;UPDATE `pe_lots` SET `date_maj` = "2024-08-08 16:46:50"  WHERE `id` = 5796
+2024-08-08 16:46:50;UPDATE `pe_froid_produits` SET `id_lot` = 5796 ,`id_pdt` = 489 ,`id_froid` = 6564 ,`id_palette` = 0 ,`date_add` = "2024-08-08 16:46:50" ,`user_add` = 1 ,`poids` = 0 ,`nb_colis` = 0  WHERE `id_lot_pdt_froid` = 31164
+2024-08-08 16:46:55;UPDATE `pe_froid` SET `test_apres_fe` = 0 ,`test_apres_nfe` = 0 ,`test_apres_inox` = 0  WHERE `id` = 6564
+2024-08-08 16:46:55;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (31164 ,0 ,"" ,"2024-08-08 16:46:55" ,1 )
+2024-08-08 16:46:55;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2875 )
+2024-08-08 16:46:55;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10865, 5796, 0)
+2024-08-08 16:47:05;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6564
+2024-08-08 16:47:05;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 16:47:05" ,`id_user_visa` = 1  WHERE `id` = 2875
+2024-08-08 16:47:05;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2875 )
+2024-08-08 16:47:05;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10866, 5796, 0)
+2024-08-08 16:47:14;UPDATE `pe_froid` SET `test_apres_fe` = 1 ,`test_apres_nfe` = 1 ,`test_apres_inox` = 1  WHERE `id` = 6564
+2024-08-08 16:47:14;UPDATE `pe_loma` SET `test_pdt` = 0 ,`commentaire` = "" ,`date_test` = "2024-08-08 16:47:14" ,`id_user_visa` = 1  WHERE `id` = 2875
+2024-08-08 16:47:14;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2875 )
+2024-08-08 16:47:14;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10867, 5796, 0)
+2024-08-08 16:47:26;INSERT INTO `pe_loma` (`id_lot_pdt_froid`,`test_pdt`,`commentaire`,`date_test`,`id_user_visa`) VALUES (31163 ,0 ,"" ,"2024-08-08 16:47:26" ,1 )
+2024-08-08 16:47:26;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (3 ,2 ,2876 )
+2024-08-08 16:47:26;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10868, 5796, 0)
+2024-08-08 16:47:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:47:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:47:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:48:09;UPDATE `pe_froid` SET `statut` = 2 ,`conformite` = 1 ,`date_controle` = "2024-08-08 16:48:09" ,`id_visa_controleur` = 1  WHERE `id` = 6549
+2024-08-08 16:48:09;INSERT INTO `pe_validations` (`type`,`id_vue`,`id_liaison`) VALUES (2 ,17 ,6549 )
+2024-08-08 16:48:09;INSERT IGNORE INTO `pe_validations_lots` (`id_validation`, `id_lot`, `negoce`) VALUES  (10869, 5694, 0)
+2024-08-08 16:48:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:48:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-08 16:48:52;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"

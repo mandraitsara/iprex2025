@@ -1,0 +1,547 @@
+2024-12-26 10:13:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:13:50;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:14:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:14:10;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:14:34;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (4,42,112,203,308,310,411,717,1814,1881,2223,2230,2318,3271,3464,3615,4473,4530,5295,6608,6780,6799,7749,7849,8387,8396,65,88,195,285,380,1040,2132,2687,2714,4526,5376,5481,5874,6926,7369,8361,8377,199,641,1101,2201,2210,2238,2304,3273,3360,3635,3653,4531,5083,5941,8356,8359,8392,111,287,731,957,1514,2713,4439,5554,6004,6322,7575,8344,8353,8390,72,176,274,336,403,1571,2039,2146,3526,3983,4308,4737,5095,5411,5948,8061,8092,8347,8395,8404,8407,3,40,85,248,282,298,307,718,719,720,1378,2145,3098,3204,3707,3794,4209,4223,4703,4720,5415,6121,8349,8397,191,236,237,275,402,512,1125,2195,2585,2588,3042,3062,4233,5413,5631,8028,8043,8257,8345,8375,8401,9,10,139,140,160,202,211,722,797,1038,1343,1533,2004,2354,2694,2911,4232,4472,4713,6570,7713,8352,8371,8394,108,147,196,379,510,521,568,1642,1929,2041,2133,2584,3155,3215,5150,5423,5689,6163,7641,7747,8046,8351,8380,8391,96,174,502,856,1143,1565,1943,2184,2216,2508,2681,3643,3711,4307,4463,4514,4976,5492,7004,8035,8337,93,150,247,251,252,1144,1771,1860,3804,3982,4336,5054,5253,5486,5914,6464,8041,8254,8341,8355,8365,8370,8400,51,80,366,401,569,716,1110,1243,2106,2646,2692,3007,3267,3449,3965,4711,5669,6160,6506,6712,8026,8259,8388,8405,173,343,404,407,691,721,1087,1142,1676,2042,2529,3706,4679,6379,6800,8363,182,284,409,527,715,730,2197,2275,2706,3479,3688,3888,4112,4557,5632,6118,8343,8346,8348,8360,8389,86,301,534,1062,1832,1992,2040,2205,3003,3080,3081,5124,5812,6260,7256,7610,8339,8342,8350,8362,8364,8402,8409,1,53,81,84,168,276,311,367,692,1041,2290,4474,4568,4816,5334,5714,6068,7856,8181,8340,8393,8408)
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:14:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:15:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:15:57;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:16:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:16:05;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:16:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:16:10;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:16:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:16:14;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:17:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:17:54;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:17:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:17:59;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:19:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:19:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:19:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:19:21;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:19:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:19:24;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:19:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:19:27;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:19:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:19:56;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:19:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:19:58;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:20:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:20:00;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:20:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:20:02;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:21:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:21:49;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:21:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:21:53;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:24:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:38;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:24:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:44;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:48;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:50;UPDATE `pe_palette_composition` SET `supprime` = 1 WHERE `id_lot_hors_stock` > 0 AND `id` NOT IN
+                        ( SELECT `id_compo` FROM `pe_bl_lignes`) 
+                        AND  `id_lot_hors_stock` NOT IN (SELECT `id` FROM `pe_lots`)
+2024-12-26 10:24:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:24:59;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:25;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:25:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:34;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:43;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:25:53;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:25:53;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:26:08;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5"  WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_facture_lignes` SET `designation` = "ANDOUILLE CHEVAL<br/>Lot : 1s96239DUE<br/>origine : ALLEMAGNE<br/>EAN : 3700293551537" ,`pu_ht` = 11 ,`qte` = 1 ,`poids` = 32  WHERE `id` = 16354
+2024-12-26 10:26:11;UPDATE `pe_facture_lignes` SET `designation` = "ANDOUILLE CHEVAL<br/>Lot : 1s96239DUE<br/>origine : ALLEMAGNE<br/>EAN : 3700293551537" ,`pu_ht` = 2 ,`qte` = 1 ,`poids` = 12  WHERE `id` = 16353
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 37
+2024-12-26 10:26:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.58  WHERE `id` = 16354
+2024-12-26 10:26:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.22  WHERE `id` = 16353
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_interbev` = 0.8 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5"  WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_interbev` = 0.8 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5" ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5" ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 37
+2024-12-26 10:26:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.58  WHERE `id` = 16354
+2024-12-26 10:26:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.22  WHERE `id` = 16353
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:26:11;UPDATE `pe_factures` SET `montant_interbev` = 0.8 ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:26:12;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:26:12;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:26:12;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100341
+2024-12-26 10:26:12;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:26:12;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:26:13;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:30:55;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:32:40;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:33:51;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:33:57;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:34:00;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:34:03;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:34:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:34:48;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:39:06;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:39:16;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:39:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:39:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:39:48;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:40:05;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5"  WHERE `id` = 100341
+2024-12-26 10:40:31;UPDATE `pe_facture_lignes` SET `designation` = "ANDOUILLE CHEVAL<br/>Lot : 1s96239DUE<br/>origine : ALLEMAGNE<br/>EAN : 3700293551537" ,`pu_ht` = 11 ,`qte` = 1 ,`poids` = 32  WHERE `id` = 16354
+2024-12-26 10:40:31;UPDATE `pe_facture_lignes` SET `designation` = "ANDOUILLE CHEVAL<br/>Lot : 1s96239DUE<br/>origine : ALLEMAGNE<br/>EAN : 3700293551537" ,`pu_ht` = 2 ,`qte` = 1 ,`poids` = 12  WHERE `id` = 16353
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:40:31;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 37
+2024-12-26 10:40:31;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.58  WHERE `id` = 16354
+2024-12-26 10:40:31;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.22  WHERE `id` = 16353
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `montant_interbev` = 0.8 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5"  WHERE `id` = 100341
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `montant_interbev` = 0.8 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5" ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`date` = "2024-12-20" ,`num_cmd` = "TEST20DEC5" ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:40:31;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 37
+2024-12-26 10:40:32;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.58  WHERE `id` = 16354
+2024-12-26 10:40:32;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.22  WHERE `id` = 16353
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `montant_interbev` = 0.8 ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `montant_ht` = 0 WHERE `id` = 100341
+2024-12-26 10:40:32;UPDATE `pe_factures` SET `montant_interbev` = 0.792 ,`total_ttc` = 52.84  WHERE `id` = 100341
+2024-12-26 10:40:33;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:40:33;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:40:33;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:40:33;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:40:33;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:40:33;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:40:34;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:42:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:36;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:42:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:43:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:44:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:44:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.8  WHERE `id` = 100341
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100340
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100338
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100337
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.62  WHERE `id` = 100336
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100331
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.92  WHERE `id` = 100330
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.4  WHERE `id` = 100326
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 1.14  WHERE `id` = 100324
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100322
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100321
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100320
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100319
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.04  WHERE `id` = 100318
+2024-12-26 10:52:26;UPDATE `pe_factures` SET `montant_interbev` = 0.07  WHERE `id` = 100317
+2024-12-26 10:52:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:52:28;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 10:52:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:52:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:54:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:56:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:57:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 10:57:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:02:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:03:35;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:14:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:26:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:26:18;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 11:26:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:26:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:31:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 09:34:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 09:34:10;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 09:37:40;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 09:39:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:41:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:45:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:53:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:53:36;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1144
+2024-12-26 11:53:36;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1144, 4, 1, 1, NOW()),(1144, 5, 1, 1, NOW()),(1144, 36, 1, 1, NOW()),(1144, 58, 1, 1, NOW()),(1144, 7, 1, 1, NOW()),(1144, 11, 1, 1, NOW()),(1144, 12, 1, 1, NOW()),(1144, 13, 1, 1, NOW()),(1144, 14, 1, 1, NOW()),(1144, 15, 1, 1, NOW()),(1144, 17, 1, 1, NOW()),(1144, 18, 1, 1, NOW()),(1144, 19, 1, 1, NOW()),(1144, 20, 1, 1, NOW()),(1144, 21, 1, 1, NOW()),(1144, 37, 1, 1, NOW()),(1144, 39, 1, 1, NOW()),(1144, 41, 1, 1, NOW()),(1144, 59, 1, 1, NOW()),(1144, 23, 1, 1, NOW()),(1144, 40, 1, 1, NOW()),(1144, 43, 1, 1, NOW()),(1144, 44, 1, 1, NOW()),(1144, 45, 1, 1, NOW()),(1144, 46, 1, 1, NOW()),(1144, 47, 1, 1, NOW()),(1144, 48, 1, 1, NOW()),(1144, 49, 1, 1, NOW()),(1144, 50, 1, 1, NOW()),(1144, 51, 1, 1, NOW()),(1144, 52, 1, 1, NOW()),(1144, 53, 1, 1, NOW()),(1144, 54, 1, 1, NOW()),(1144, 55, 1, 1, NOW())
+2024-12-26 11:53:36;UPDATE `pe_pvisu_avant` SET `commentaires` = "uuu" ,`id_user` = 1  WHERE `id` = 1144
+2024-12-26 11:53:40;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1144
+2024-12-26 11:53:40;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1144, 4, 1, 1, NOW()),(1144, 5, 1, 1, NOW()),(1144, 36, 1, 1, NOW()),(1144, 58, 1, 1, NOW()),(1144, 7, 1, 1, NOW()),(1144, 11, 1, 1, NOW()),(1144, 12, 1, 1, NOW()),(1144, 13, 1, 1, NOW()),(1144, 14, 1, 1, NOW()),(1144, 15, 1, 1, NOW()),(1144, 17, 1, 1, NOW()),(1144, 18, 1, 1, NOW()),(1144, 19, 1, 1, NOW()),(1144, 20, 1, 1, NOW()),(1144, 21, 1, 1, NOW()),(1144, 37, 1, 1, NOW()),(1144, 39, 1, 1, NOW()),(1144, 41, 1, 1, NOW()),(1144, 59, 1, 1, NOW()),(1144, 23, 1, 1, NOW()),(1144, 40, 1, 1, NOW()),(1144, 43, 1, 1, NOW()),(1144, 44, 1, 1, NOW()),(1144, 45, 1, 1, NOW()),(1144, 46, 1, 1, NOW()),(1144, 47, 1, 1, NOW()),(1144, 48, 1, 1, NOW()),(1144, 49, 1, 1, NOW()),(1144, 50, 1, 1, NOW()),(1144, 51, 1, 1, NOW()),(1144, 52, 1, 1, NOW()),(1144, 53, 1, 1, NOW()),(1144, 54, 1, 1, NOW()),(1144, 55, 1, 1, NOW())
+2024-12-26 11:53:40;UPDATE `pe_pvisu_avant` SET `commentaires` = "uuu" ,`id_user` = 1  WHERE `id` = 1144
+2024-12-26 11:53:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:57:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:57:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:57:18;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1144
+2024-12-26 11:57:18;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1144, 4, 1, 1, NOW()),(1144, 5, 1, 1, NOW()),(1144, 36, 1, 1, NOW()),(1144, 58, 1, 1, NOW()),(1144, 7, 1, 1, NOW()),(1144, 11, 1, 1, NOW()),(1144, 12, 1, 1, NOW()),(1144, 13, 1, 1, NOW()),(1144, 14, 1, 1, NOW()),(1144, 15, 1, 1, NOW()),(1144, 17, 1, 1, NOW()),(1144, 18, 1, 1, NOW()),(1144, 19, 1, 1, NOW()),(1144, 20, 1, 1, NOW()),(1144, 21, 1, 1, NOW()),(1144, 37, 1, 1, NOW()),(1144, 39, 1, 1, NOW()),(1144, 41, 1, 1, NOW()),(1144, 59, 1, 1, NOW()),(1144, 23, 1, 1, NOW()),(1144, 40, 1, 1, NOW()),(1144, 43, 1, 1, NOW()),(1144, 44, 1, 1, NOW()),(1144, 45, 1, 1, NOW()),(1144, 46, 1, 1, NOW()),(1144, 47, 1, 1, NOW()),(1144, 48, 1, 1, NOW()),(1144, 49, 1, 1, NOW()),(1144, 50, 1, 1, NOW()),(1144, 51, 1, 1, NOW()),(1144, 52, 1, 1, NOW()),(1144, 53, 1, 1, NOW()),(1144, 54, 1, 1, NOW()),(1144, 55, 1, 1, NOW())
+2024-12-26 11:57:18;UPDATE `pe_pvisu_avant` SET `commentaires` = "uuu" ,`id_user` = 1  WHERE `id` = 1144
+2024-12-26 11:59:45;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 11:59:48;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:00:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:00:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:01:02;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:01:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:01:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:01:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:01:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:01:48;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 12:03:07;UPDATE `pe_produits` SET `poids` = 0 ,`nom_court` = "ANDOUILLE CHEVAL2" ,`code` = 40200 ,`id_espece` = 2 ,`ean13` = 3700293551537 ,`ean14` = 93700293551530 ,`date_maj` = "2024-12-26 12:03:07" ,`actif` = 1 ,`nb_colis` = 12 ,`mixte` = 0 ,`ean7` = "" ,`ean7_type` = 0 ,`vrac` = 0 ,`id_client` = 0 ,`vendu_piece` = 0 ,`pdt_gros` = 0 ,`id_taxe` = 3 ,`stats` = 1 ,`id_pdt_emballage` = 1 ,`pcb` = 0 ,`poids_unitaire` = 0 ,`nomenclature` = 02050020 ,`vendu_negoce` = 1 ,`nb_jours_dlc` = 15  WHERE `id` = 445
+2024-12-26 12:03:07;UPDATE `pe_produit_trad` SET `nom` = "ANDOUILLE CHEVAL"  WHERE `id_produit` = 445 AND `id_langue` = 1
+2024-12-26 12:03:07;DELETE FROM `pe_produit_trad` WHERE `id_produit` = 445 AND `id_langue` = 2
+2024-12-26 12:03:07;DELETE FROM `pe_produits_categories_pdt` WHERE `id_produit` = 445
+2024-12-26 12:03:07;DELETE FROM `pe_produits_emballages` WHERE `id_produit` = 445
+2024-12-26 12:03:07;INSERT IGNORE INTO `pe_produits_emballages` (`id_produit`, `id_famille_emballage`) VALUES (445, 7)
+2024-12-26 12:03:07;DELETE FROM `pe_produits_froid_types` WHERE `id_pdt` = 445
+2024-12-26 12:03:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:05;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 13:13:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:25;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:13:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:03;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:03;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-12-26 13:14:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:08;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:10;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:14:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:16:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:16:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:17:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:17:20;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:17:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:17:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:19:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:19:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:19:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:33;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:42;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:51;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:54;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:21:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:47;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:22:51;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:23:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:23:17;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:23:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:24:18;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:24:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:25:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:34:38;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:38:32;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:38:56;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:38:57;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:39:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:40:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:42:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:42:31;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:43:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:43:50;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:44:55;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:45:00;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:45:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:46:43;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:46:49;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:47:41;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:48:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:48:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:48:58;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:49:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:57:46;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:58:00;INSERT INTO `pe_pvisu_avant` (`commentaires`,`date`) VALUES ("" ,"2024-12-26" )
+2024-12-26 13:58:00;DELETE FROM `pe_pvisu_avant_points` WHERE `id_pvisu_avant` = 1145
+2024-12-26 13:58:00;INSERT IGNORE INTO `pe_pvisu_avant_points` (`id_pvisu_avant`, `id_point_controle`, `etat`, `id_user`, `date`) VALUES (1145, 4, 1, 1, NOW()),(1145, 5, 1, 1, NOW()),(1145, 36, 1, 1, NOW()),(1145, 58, 1, 1, NOW()),(1145, 7, 1, 1, NOW()),(1145, 11, 1, 1, NOW()),(1145, 12, 1, 1, NOW()),(1145, 13, 1, 1, NOW()),(1145, 14, 1, 1, NOW()),(1145, 15, 1, 1, NOW()),(1145, 17, 1, 1, NOW()),(1145, 18, 1, 1, NOW()),(1145, 19, 1, 1, NOW()),(1145, 20, 1, 1, NOW()),(1145, 21, 1, 1, NOW()),(1145, 37, 1, 1, NOW()),(1145, 39, 1, 1, NOW()),(1145, 41, 1, 1, NOW()),(1145, 59, 1, 1, NOW()),(1145, 23, 1, 1, NOW()),(1145, 40, 1, 1, NOW()),(1145, 43, 1, 1, NOW()),(1145, 44, 1, 1, NOW()),(1145, 45, 1, 1, NOW()),(1145, 46, 1, 1, NOW()),(1145, 47, 1, 1, NOW()),(1145, 48, 1, 1, NOW()),(1145, 49, 1, 1, NOW()),(1145, 50, 1, 1, NOW()),(1145, 51, 1, 1, NOW()),(1145, 52, 1, 1, NOW()),(1145, 53, 1, 1, NOW()),(1145, 54, 1, 1, NOW()),(1145, 55, 1, 1, NOW())
+2024-12-26 13:58:00;UPDATE `pe_pvisu_avant` SET `commentaires` = "salut" ,`date` = "2024-12-26" ,`id_user` = 1  WHERE `id` = 1145
+2024-12-26 13:58:01;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:58:04;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:58:05;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:58:06;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:58:07;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 13:58:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:01:09;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:01:11;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:01:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:01:13;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:01:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:01:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:12;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:14;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:15;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:16;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:19;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:21;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:22;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:23;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:24;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:26;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:27;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:28;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:29;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:30;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-12-26 14:05:30;UPDATE `pe_palette_composition` SET `supprime` = 1 WHERE `id_lot_hors_stock` > 0 AND `id` NOT IN
+                        ( SELECT `id_compo` FROM `pe_bl_lignes`) 
+                        AND  `id_lot_hors_stock` NOT IN (SELECT `id` FROM `pe_lots`)

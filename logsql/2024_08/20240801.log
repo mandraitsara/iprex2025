@@ -1,0 +1,163 @@
+2024-08-01 22:26:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-01 22:26:37;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-01 22:28:37;UPDATE `pe_langues` SET `actif` = 1 WHERE `iso` = "FR"
+2024-08-01 22:28:37;UPDATE `pe_consommables` SET `id_precedent` = 0, `date_upd` = null WHERE `date_upd` < CURDATE()
+2024-08-01 22:28:47;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8181,8254,8257,8259)
+2024-08-01 22:29:09;UPDATE `pe_bl` SET `statut` = 2  WHERE id = 8329
+2024-08-01 22:29:09;INSERT INTO `pe_factures` (`date_add`,`date`,`id_tiers_livraison`,`id_tiers_facturation`,`id_tiers_transporteur`,`id_adresse_facturation`,`id_adresse_livraison`,`montant_ht`,`num_cmd`,`num_facture`) VALUES ("2024-08-01 22:29:09" ,"2024-08-01" ,350 ,350 ,95 ,0 ,526 ,499.525 ,"s.31" ,"FA2408009" )
+2024-08-01 22:29:09;DELETE FROM `pe_bl_facture` WHERE `id_facture` = 100290 OR `id_bl` IN (8329)
+2024-08-01 22:29:09;INSERT IGNORE INTO `pe_bl_facture` (`id_bl`, `id_facture`) VALUES (8329, 100290)
+2024-08-01 22:29:09;DELETE FROM `pe_facture_lignes` WHERE `id_facture` = 100290
+2024-08-01 22:29:10;INSERT INTO `pe_facture_lignes` (`id_facture`,`date_add`,`pu_ht`,`pa_ht`,`nb_colis`,`poids`,`tva`,`qte`,`numlot`,`id_produit`,`id_pays`,`tarif_interbev`,`id_frs`,`vendu_piece`) VALUES (100290 ,"2024-08-01 22:29:09" ,3.25 ,0 ,1 ,120.5 ,5.5 ,1 ,"249031AUE214" ,39 ,10 ,0.012 ,0 ,0 )
+2024-08-01 22:29:10;INSERT IGNORE INTO `pe_facture_ligne_bl` (`id_ligne_bl`, `id_ligne_facture`) VALUES (75967, 101518)
+2024-08-01 22:29:11;INSERT INTO `pe_facture_lignes` (`id_facture`,`date_add`,`pu_ht`,`pa_ht`,`nb_colis`,`poids`,`tva`,`qte`,`numlot`,`id_produit`,`id_pays`,`tarif_interbev`,`id_frs`,`vendu_piece`) VALUES (100290 ,"2024-08-01 22:29:10" ,2.45 ,0 ,1 ,42 ,5.5 ,1 ,"242031AES214" ,241 ,10 ,0.018 ,0 ,0 )
+2024-08-01 22:29:11;INSERT IGNORE INTO `pe_facture_ligne_bl` (`id_ligne_bl`, `id_ligne_facture`) VALUES (75968, 101519)
+2024-08-01 22:29:11;INSERT INTO `pe_facture_lignes` (`id_facture`,`date_add`,`pu_ht`,`pa_ht`,`nb_colis`,`poids`,`tva`,`qte`,`numlot`,`id_produit`,`id_pays`,`tarif_interbev`,`id_frs`,`vendu_piece`) VALUES (100290 ,"2024-08-01 22:29:11" ,5 ,0 ,1 ,4.93 ,5.5 ,1 ,"242030AESA" ,452 ,10 ,0.018 ,0 ,1 )
+2024-08-01 22:29:11;INSERT IGNORE INTO `pe_facture_ligne_bl` (`id_ligne_bl`, `id_ligne_facture`) VALUES (75978, 101520)
+2024-08-01 22:29:11;UPDATE `pe_factures` SET `montant_interbev` = 2.29074 WHERE `id` = 100290
+2024-08-01 22:29:11;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 350
+2024-08-01 22:29:11;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:29:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 350 ,`id_tiers_facturation` = 350 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 526 ,`id_adresse_livraison` = 526 ,`montant_ht` = 499.525 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408009" ,`montant_interbev` = 2.291  WHERE `id` = 100290
+2024-08-01 22:29:13;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.09  WHERE `id` = 101520
+2024-08-01 22:29:14;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.76  WHERE `id` = 101519
+2024-08-01 22:29:15;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.45  WHERE `id` = 101518
+2024-08-01 22:29:15;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:29:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 350 ,`id_tiers_facturation` = 350 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 526 ,`id_adresse_livraison` = 526 ,`montant_ht` = 499.525 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408009" ,`montant_interbev` = 2.3  WHERE `id` = 100290
+2024-08-01 22:29:15;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:29:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 350 ,`id_tiers_facturation` = 350 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 526 ,`id_adresse_livraison` = 526 ,`montant_ht` = 499.525 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408009" ,`montant_interbev` = 2.3 ,`total_ttc` = 529.43  WHERE `id` = 100290
+2024-08-01 22:29:15;UPDATE `pe_factures` SET `montant_ht` = 499.53 WHERE `id` = 100290
+2024-08-01 22:29:15;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:29:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 350 ,`id_tiers_facturation` = 350 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 526 ,`id_adresse_livraison` = 526 ,`montant_ht` = 499.525 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408009" ,`montant_interbev` = 2.291 ,`total_ttc` = 529.43  WHERE `id` = 100290
+2024-08-01 22:29:15;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100290
+2024-08-01 22:29:15;UPDATE `pe_palette_composition` SET `archive` = 1 WHERE `id` IN (90594,90595,90605)
+2024-08-01 22:29:15;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8181,8254,8257,8259)
+2024-08-01 22:29:29;UPDATE `pe_factures` SET `montant_interbev` = 2.3  WHERE `id` = 100290
+2024-08-01 22:31:53;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8181,8254,8257,8259)
+2024-08-01 22:32:09;UPDATE `pe_bl` SET `statut` = 2  WHERE id = 8330
+2024-08-01 22:32:09;INSERT INTO `pe_factures` (`date_add`,`date`,`id_tiers_livraison`,`id_tiers_facturation`,`id_tiers_transporteur`,`id_adresse_facturation`,`id_adresse_livraison`,`montant_ht`,`num_cmd`,`num_facture`) VALUES ("2024-08-01 22:32:09" ,"2024-08-01" ,378 ,378 ,95 ,0 ,578 ,189.975 ,"s.31" ,"FA2408010" )
+2024-08-01 22:32:09;DELETE FROM `pe_bl_facture` WHERE `id_facture` = 100291 OR `id_bl` IN (8330)
+2024-08-01 22:32:09;INSERT IGNORE INTO `pe_bl_facture` (`id_bl`, `id_facture`) VALUES (8330, 100291)
+2024-08-01 22:32:09;DELETE FROM `pe_facture_lignes` WHERE `id_facture` = 100291
+2024-08-01 22:32:10;INSERT INTO `pe_facture_lignes` (`id_facture`,`date_add`,`pu_ht`,`pa_ht`,`nb_colis`,`poids`,`tva`,`qte`,`numlot`,`id_produit`,`id_pays`,`tarif_interbev`,`id_frs`,`vendu_piece`) VALUES (100291 ,"2024-08-01 22:32:09" ,2.45 ,0 ,1 ,75.5 ,5.5 ,1 ,"242031AES214" ,241 ,10 ,0.018 ,0 ,0 )
+2024-08-01 22:32:10;INSERT IGNORE INTO `pe_facture_ligne_bl` (`id_ligne_bl`, `id_ligne_facture`) VALUES (75969, 101521)
+2024-08-01 22:32:11;INSERT INTO `pe_facture_lignes` (`id_facture`,`date_add`,`pu_ht`,`pa_ht`,`nb_colis`,`poids`,`tva`,`qte`,`numlot`,`id_produit`,`id_pays`,`tarif_interbev`,`id_frs`,`vendu_piece`) VALUES (100291 ,"2024-08-01 22:32:10" ,5 ,0 ,1 ,3.94 ,5.5 ,1 ,"242030AESA" ,452 ,10 ,0.018 ,0 ,1 )
+2024-08-01 22:32:11;INSERT IGNORE INTO `pe_facture_ligne_bl` (`id_ligne_bl`, `id_ligne_facture`) VALUES (75979, 101522)
+2024-08-01 22:32:11;UPDATE `pe_factures` SET `montant_interbev` = 1.42992 WHERE `id` = 100291
+2024-08-01 22:32:11;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 22:32:11;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:32:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 378 ,`id_tiers_facturation` = 378 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 578 ,`id_adresse_livraison` = 578 ,`montant_ht` = 189.975 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408010" ,`montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:32:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 22:32:12;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 22:32:12;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:32:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 378 ,`id_tiers_facturation` = 378 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 578 ,`id_adresse_livraison` = 578 ,`montant_ht` = 189.975 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408010" ,`montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:32:12;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:32:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 378 ,`id_tiers_facturation` = 378 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 578 ,`id_adresse_livraison` = 578 ,`montant_ht` = 189.975 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408010" ,`montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:32:12;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:32:12;UPDATE `pe_factures` SET `date_add` = "2024-08-01 22:32:09" ,`date` = "2024-08-01" ,`id_tiers_livraison` = 378 ,`id_tiers_facturation` = 378 ,`id_tiers_transporteur` = 95 ,`id_adresse_facturation` = 578 ,`id_adresse_livraison` = 578 ,`montant_ht` = 189.975 ,`num_cmd` = "s.31" ,`num_facture` = "FA2408010" ,`montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:32:12;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 22:32:12;UPDATE `pe_palette_composition` SET `archive` = 1 WHERE `id` IN (90596,90606)
+2024-08-01 22:32:12;UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (1,3,4,9,10,40,42,51,53,65,72,80,81,84,85,86,88,93,96,108,111,112,139,140,147,150,160,168,173,174,176,182,191,195,196,199,202,203,211,236,237,247,248,251,252,274,275,276,282,284,285,287,298,301,307,308,310,311,336,343,366,367,379,380,401,402,403,404,407,409,411,502,510,512,521,527,534,568,569,641,691,692,715,716,717,718,719,720,721,722,730,731,797,856,957,1038,1040,1041,1062,1087,1101,1110,1125,1142,1143,1144,1243,1343,1378,1514,1533,1565,1571,1642,1676,1771,1814,1832,1860,1881,1929,1943,1992,2004,2039,2040,2041,2042,2106,2132,2133,2145,2146,2184,2195,2197,2201,2205,2210,2216,2223,2230,2238,2275,2290,2304,2318,2354,2508,2529,2584,2585,2588,2646,2681,2687,2692,2694,2706,2713,2714,2911,3003,3007,3042,3062,3080,3081,3098,3155,3204,3215,3267,3271,3273,3360,3449,3464,3479,3526,3615,3635,3643,3653,3688,3706,3707,3711,3794,3804,3888,3965,3982,3983,4112,4209,4223,4232,4233,4307,4308,4336,4439,4463,4472,4473,4474,4514,4526,4530,4531,4557,4568,4679,4703,4711,4713,4720,4737,4816,4976,5054,5083,5095,5124,5150,5253,5295,5334,5376,5411,5413,5415,5423,5481,5486,5492,5554,5631,5632,5669,5689,5714,5812,5874,5914,5941,5948,6004,6068,6118,6121,6160,6163,6260,6322,6379,6464,6506,6570,6608,6712,6780,6799,6800,6926,7004,7256,7369,7575,7610,7641,7713,7747,7749,7849,7856,8026,8028,8035,8041,8043,8046,8061,8092,8181,8254,8257,8259)
+2024-08-01 22:32:22;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:35:10;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 22:35:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 22:35:12;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:35:12;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:35:13;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:48:37;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 22:48:38;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 22:48:38;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 22:48:38;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:48:38;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:48:39;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:48:39;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:48:39;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 22:48:39;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:48:39;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:48:39;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:51:41;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 22:51:41;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 22:51:42;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:51:42;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:51:43;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:59:04;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 22:59:05;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 22:59:05;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 22:59:05;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 22:59:06;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:11:25;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 23:11:26;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 23:11:28;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 23:11:28;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:11:28;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:11:28;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:11:28;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:11:28;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 23:11:28;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:11:29;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:11:29;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:24:52;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 23:24:53;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 23:24:53;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 23:24:53;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:24:53;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:24:54;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:24:54;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:24:54;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 23:24:54;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:24:54;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:24:57;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:25:11;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 23:25:12;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 23:25:13;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:25:13;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:26:10;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 23:26:10;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 23:26:11;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:26:11;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:26:12;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:38:07;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 23:38:08;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 23:38:09;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:38:09;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:38:12;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:39:41;UPDATE `pe_tiers` SET `tva` = 1 WHERE `id` = 378
+2024-08-01 23:39:41;UPDATE `pe_facture_lignes` SET `montant_interbev` = 0.07  WHERE `id` = 101522
+2024-08-01 23:39:45;UPDATE `pe_facture_lignes` SET `montant_interbev` = 1.36  WHERE `id` = 101521
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `date_envoi` = NULL WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_ht` = 189.98 WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_interbev` = 1.43 ,`total_ttc` = 201.94  WHERE `id` = 100291
+2024-08-01 23:39:45;UPDATE `pe_factures` SET `montant_interbev` = 1.43  WHERE `id` = 100291
