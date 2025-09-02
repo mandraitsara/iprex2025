@@ -145,15 +145,40 @@ class ProduitManager {
 		$orderby_champ = isset($params['orderby_champ']) ? $params['orderby_champ'] : 't.`nom`';
 		$orderby_sens = isset($params['orderby_sens']) ? $params['orderby_sens'] : 'ASC';
 
-		$query_liste = 'SELECT SQL_CALC_FOUND_ROWS p.`id`, t.`nom`, p.`nom_court`, p.`code`, p.`ean13`, p.`ean14`, p.`id_espece`, p.`poids`, p.`actif`, p.`supprime`, p.`date_add`, p.`date_maj`, f.`nom` AS nom_espece, p.`nb_colis`, p.`nb_colis`, p.`vendu_negoce`, p.`nb_jours_dlc`, p.`mixte`, p.`palette_suiv`,
-		p.`ean7`, p.`ean7_type`, p.`vrac`, p.`id_client`,p.`vendu_piece`, p.`id_poids_palette`, p.`nomenclature`,fp.`id_lot_pdt_froid`
-							FROM `pe_produits` p 
-								LEFT JOIN `pe_produits_especes` f ON f.`id` = p.`id_espece` 
-								LEFT JOIN  `pe_froid_produits` fp ON fp.`id_pdt` = p.`id` 								
-								LEFT JOIN `pe_produit_trad` t ON t.`id_produit` = p.`id` AND t.`id_langue` = 1 ';
+		$query_liste = 'SELECT SQL_CALC_FOUND_ROWS 
+							p.`id`,
+							p.`pcb`, 
+							t.`nom`, 
+							p.`nom_court`, 
+							p.`code`, 
+							p.`ean13`, 
+							p.`ean14`, 
+							p.`id_espece`, 
+							p.`poids`, 
+							p.`actif`, 
+							p.`supprime`, 
+							p.`date_add`, 
+							p.`date_maj`, 
+							f.`nom` AS nom_espece, 
+							p.`nb_colis`,  
+							p.`vendu_negoce`, 
+							p.`nb_jours_dlc`, 
+							p.`mixte`, 
+							p.`palette_suiv`,
+							p.`ean7`, 
+							p.`ean7_type`, 
+							p.`vrac`, 
+							p.`id_client`,
+							p.`vendu_piece`, 
+							p.`id_poids_palette`, 
+							p.`nomenclature`
+						FROM 
+							`pe_produits` p 
+							LEFT JOIN `pe_produits_especes` f ON f.`id` = p.`id_espece` 
+							LEFT JOIN `pe_produit_trad` t ON t.`id_produit` = p.`id` AND t.`id_langue` = 1 ';
 		$query_liste.= $filtre_vue != 0 ? ' LEFT JOIN `pe_produits_froid_types` pft ON pft.`id_pdt` = p.`id` ' : '';
 		$query_liste.= '	WHERE 1 = 1 ';
-		//ajout de left join sur la ligne 153 
+
 		// Filtres
 		$query_liste.= $filtre_nom   != ''  ? 'AND (LOWER(t.`nom`) LIKE "%'.$filtre_nom.'%"  OR p.`code` LIKE "%'.$filtre_nom.'%" OR p.`ean13` LIKE "%'.$filtre_nom.'%" OR p.`ean14` LIKE "%'.$filtre_nom.'%") ' : '';
 		$query_liste.= $filtre_nom_court != ''  ? 'AND TRIM(LOWER(p.`nom_court`)) = "'.trim(strtolower($filtre_nom_court)).'" ' : '';

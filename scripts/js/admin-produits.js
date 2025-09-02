@@ -1,1 +1,421 @@
-/** ------------------------------------------------------------------------ JS - Produits Copyright (C) 2018 Intersed http://www.intersed.fr/ ------------------------------------------------------------------------ @author    Cédric Bouillon @copyright Copyright (c) 2018 Intersed @version   1.0 @since     2018 ------------------------------------------------------------------------ */$(document).ready(function() {    "use strict";    // Affiche la liste des produits (aJax)    chargeListeProduits();    // Export PDF    $('.btnExportPdf').click(function() {        var objetDomBtnExport = $(this);        objetDomBtnExport.find('i').removeClass('fa-file-pdf').addClass('fa-spin fa-spinner');        objetDomBtnExport.attr('disabled', 'disabled');        $.fn.ajax({            'script_execute': 'fct_produits.php',            'arguments': 'mode=exportPdf&type=produits',            'callBack' : function (url_fichier) {                objetDomBtnExport.find('i').removeClass('fa-spin fa-spinner').addClass('fa-file-pdf');                objetDomBtnExport.prop('disabled', false);                $('#lienPdf').attr('href', url_fichier);                $('#lienPdf')[0].click();            } // FIN callBack        }); // FIN ajax    }); // FIN bouton PDF    // Chargement du contenu de la modale Produit à son ouverture    $('#modalProduit').on('show.bs.modal', function (e) {        // On récupère l'ID de l'utilisateur.        var produit_id = e.relatedTarget.attributes['data-produit-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-produit-id'].value);        // On récupère le contenu de la modale        $.fn.ajax({            'script_execute': 'fct_produits.php',            'arguments': 'mode=modalProduit&id=' + produit_id,            'callBack': function (retour) {                // On intègre les différents contenus                var retours = retour.toString().split('^');                var titre = retours[0];                var body = retours[1];                var footer = retours[2];                $('#modalProduitTitre').html(titre);                $('#modalProduitBody').html(body);                $('#modalProduitFooter').html(footer);                // Initialisation des outils JS                $('.selectpicker').selectpicker('render');                $('.togglemaster').bootstrapToggle();                $('.togglemaster').bootstrapToggle();                $("input[type=checkbox].icheck").iCheck(                    {checkboxClass: "icheckbox_square-blue"}                );                $('[data-toggle="tooltip"]').tooltip();                // Appel au listener de la modale                produitModalListener();            } // FIN Callback        }); // FIN aJax    }); // Fin chargement du contenu de la modale    // Recherche    $('.btnRecherche').click(function() {        goRecherche();    }); // FIN bouton recherche    $('form#filtres input[type=text]').keyup(function (e) {        var code = (e.keyCode ? e.keyCode : e.which);        if (code === 13) {            e.preventDefault();            goRecherche();        }    });    // Nettoyage du contenu de la modale Détails à sa fermeture    $('#modalProduit').on('hidden.bs.modal', function (e) {        $('#modalProduitTitre').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');        $('#modalProduitBody').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');        $('#modalProduitFooter').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');    }); // FIN fermeture modale Détails    $('#filtres').attr('action', 'javascript:void(0);');}); // FIN ready/** ****************************************** * Listener de la modale produit ****************************************** */function produitModalListener() {    // --------------------------------    // Reset de la palette suivante    // --------------------------------    $('.btnResetPaletteSuiv').off("click.btnResetPaletteSuiv").on("click.btnResetPaletteSuiv", function(e) {        e.preventDefault();        if (!confirm("Confirmez...\r\nRéinitialisez le prochain numéro de palette à 1 pour ce produit ?")) { return false; }        var id_produit = parseInt($('#input_id').val());        if (isNaN(id_produit)) { return false; }        $.fn.ajax({            'script_execute': 'fct_produits.php',            'arguments': 'mode=razPaletteSuiv&id_produit='+id_produit,            'callBack': function (retour) {                retour+='';                if (parseInt(retour) === 1) {                    $('.btnResetPaletteSuiv').parents('.input-group').find('input').val('1');                    $('.btnResetPaletteSuiv').addClass('disabled');                    $('.btnResetPaletteSuiv').attr('disabled', 'disabled');                    $('.btnResetPaletteSuiv').removeClass('btnResetPaletteSuiv');                } else {                    alert('Echec de la réinitialisaiton !');                    return false;                }            } // FIN callback        }); // FIN aJax    }); // FIN raz palette suiv    // --------------------------------    // Bouton Enregistrer    // --------------------------------    $('.btnSaveProduit').off("click.btnsaveproduit").on("click.btnsaveproduit", function(e) {        e.preventDefault();        // Si le bloc d'alerte de doublon affiché, on le masque (réinitialisation)        if (!$('.doublon').hasClass('d-none')) {            $('.doublon').addClass('d-none')        } // FIN test bloc alerte doublon affiché        // Initialisation des variables        var erreurs             = false;        // On vérifie le select de l'espèce des produits        if (isNaN(parseInt($('#input_espece').val()))) {            // On affiche l'invalidité sur le champ correspondant (Bootstrap) pendant 3 secondes            $('#input_espece_feedback').addClass('is-invalid');            setTimeout(function(){                $('#input_espece_feedback').removeClass('is-invalid');            }, 3000);            // On déclare l'erreur            erreurs = true;        }        // Si pas d'erreur jusque là on continue...        if (erreurs === false) {            // Vérification qu'il n'existe pas déjà avec un des eans similaires            var pdt_id         = parseInt($('#input_id').val());            var pdt_ean13      = $('#input_ean13').val();            var pdt_ean14      = $('#input_ean14').val();            var pdt_ean7       = $('#input_ean7').val();            $.fn.ajax({                'script_execute': 'fct_produits.php',                'arguments': 'mode=checkExisteDeja&id='+pdt_id+'&ean13='+pdt_ean13+'&ean14='+pdt_ean14+'&ean7='+pdt_ean7,                'callBack': function (retour) {                    // Si on trouve une concordance déjà enregistrée                    if (parseInt(retour) === 1) {                        // On affiche le message de doublon                        if ($('.doublon').hasClass('d-none')) {                            $('.doublon').removeClass('d-none')                        }                        // Sinon, on peux valider l'enregistrement                    } else {                        // Si on a changé un EAN, on confirme                        var old_ean13 = $('#input_ean13').data('old').toString();                        var old_ean14 = $('#input_ean14').data('old').toString();                        var old_ean7 = $('#input_ean7').data('old').toString();                        var new_ean13 = $('#input_ean13').val();                        var new_ean14 = $('#input_ean14').val();                        var new_ean7 = $('#input_ean7').val();                        if ((old_ean13 !== '' && old_ean13 !== new_ean13) || (old_ean14 !== '' && old_ean14 !== new_ean14) || (old_ean7 !== '' && old_ean7 !== new_ean7)){                            if (!confirm("EAN MODIFIÉ !\r\nEtes-vous sur de vouloir appliquer ces changements d'EAN ?")) { return false;}                        }                        goAddUpd();                    } // FIN test retour aJax de nom/numagr déjà attribué                } // FIN callback            }); // FIN aJax        } // FIN test pas d'erreur        return false;    }); // FIN bouton Enregistrer    // --------------------------------    // Bouton Supprimer    // --------------------------------    $('.btnSupprimeProduit').off("click.btnSupprimeProduit").on("click.btnSupprimeProduit", function(e) {        e.preventDefault();        // Si on ne trouve pas l'ID de l'produit, on ne va pas plus loin...        if ( $('#formProduitAddUpd').find('input[name=produit_id]') === undefined) { return false; }        // On initialise, formate et contrôle l'ID de l'produit        var id_produit = parseInt($('#formProduitAddUpd').find('input[name=produit_id]').val());        if (id_produit === 0) { return false; }        // Message de confirmation        var texte = "ATTENTION !\r\nVous allez supprimer un code produit de l'intranet.\r\nContinuer ?";        if (!confirm(texte)) { return false; }        // Confirmation OK, on supprime l'produit (aJax)        $.fn.ajax({            'script_execute': 'fct_produits.php',            'arguments': 'mode=supprProduit&id_produit='+id_produit,            'callBack': function () {                // On recharge la liste à jour des produits et on ferme la modale.                chargeListeProduits();                $('#modalProduit').modal('hide');            } // FIN callback        }); // FIN ajax        return false;    }); // FIN bouton supprime    // Si on change le type d'EAN7 pour un nouveau produit, on remplis automatiquement les valeurs calculés    $('.ean7type-npdt').change(function() {        var ean = '';        // Prix        if ($(this).prop('checked')) {            ean = $('#input_ean7').data('ean7-prix');        // Poids        } else {            ean = $('#input_ean7').data('ean7-poids');        } // FIN test type        $('#input_ean7').val(ean);    }); // FIN changement de type d'EAN pour les nouveaux produits} // FIN listener/** ****************************************** * Affiche la liste des produits ****************************************** */function chargeListeProduits() {    "use strict";    // Récupération des filtres et de la pagination    var page = parseInt($('.pagination li.active a').text());    if (isNaN(page) || page === 0) { page = 1; }    var filtre_espece   = parseInt($('select[name=filtre_espece]').val());    var filtre_vues     = parseInt($('select[name=filtre_vues]').val());    var filtre_actif    = parseInt($('select[name=filtre_actif]').val());    var filtre_categorie = parseInt($('select[name=filtre_categorie]').val());    var filtre_nom      = $('input[name=filtre_nom]').val();    var filtre_nom_court      = $('input[name=filtre_nom_court]').val();    var orderby_champ = $('input[name=orderby_champ]').val();    var orderby_sens = $('input[name=orderby_sens]').val();    if (isNaN(filtre_espece)  || filtre_espece === 0) { filtre_espece   = ''; }    if (isNaN(filtre_vues)    || filtre_vues === 0)   { filtre_vues     = ''; }    if (isNaN(filtre_actif)   || filtre_actif === 0)  { filtre_actif    = ''; }    if (isNaN(filtre_categorie)   || filtre_categorie === 0)  { filtre_categorie    = ''; }    if (filtre_nom === undefined) { filtre_nom = ''; }    if (isNaN(filtre_nom_court)   || filtre_nom_court === '')  { filtre_nom_court    = ''; }    $.fn.ajax({        'script_execute': 'fct_produits.php',        'arguments': 'mode=showListeProduits&page='+page+'&filtre_espece='+filtre_espece+'&filtre_vues='+filtre_vues+'&filtre_actif='+filtre_actif+'&filtre_nom='+filtre_nom+'&filtre_categorie='+filtre_categorie+'&filtre_nom_court='+filtre_nom_court+'&orderby_champ='+orderby_champ+'&orderby_sens='+orderby_sens,        'return_id': 'listeProduits',        'done': function () {            listeProduitsListener();        } // FIN Callback    }); // FIN ajax    return true;} // FIN fonction/** ****************************************** * Listener de la liste des produits ****************************************** */function listeProduitsListener() {    // Tri    $('.orderby').off("click.orderby").on("click.orderby", function(e) {        e.preventDefault();        var champ = $(this).data('champ');        var champ_actuel = $('input[name=orderby_champ]').val();        var sens_actuel = $('input[name=orderby_sens]').val();        if (champ === champ_actuel) {            var sens = sens_actuel ===  'ASC' ? 'DESC' : 'ASC';            $('input[name=orderby_sens]').val(sens);            chargeListeProduits();        } else {            $('input[name=orderby_champ]').val(champ);            chargeListeProduits();        }        return false;    });    // Pagination Ajax    $(document).on('click','#listeProduits .pagination li a',function(){        if ($(this).attr('data-url') === undefined) { return false; }        // on affiche le loading d'attente        $('#listeProduits').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');        // on fait l'appel ajax qui va rafraichir la liste        $.fn.ajax({script_execute:'fct_produits.php'+$(this).attr('data-url'),return_id:'listeProduits'});        // on désactive le lien hypertexte        return false;    }); // FIN pagination ajax} // FIN listener/** ****************************************** * Valide l'enregistrement ****************************************** */function goAddUpd () {    $.fn.ajax({        'script_execute': 'fct_produits.php',        'form_id': 'formProduitAddUpd',        'callBack': function () {            // on recharge la liste à jour et on ferme la modale            chargeListeProduits();            $('#modalProduit').modal('hide');        } // FIN callback    }); // FIN ajax    return false;} // FIN fonction/** ****************************************** * Recherche ****************************************** */function goRecherche(e) {    "use strict";    $.fn.ajax({        'script_execute': 'fct_produits.php',        'form_id': 'filtres',        'return_id': 'listeProduits',        'callBack': function (retour) {            listeProduitsListener();        } // FIN Callback    }); // FIN ajax} // FIN fonction
+/**
+ ------------------------------------------------------------------------
+ JS - Produits
+
+ Copyright (C) 2018 Intersed
+ http://www.intersed.fr/
+ ------------------------------------------------------------------------
+
+ @author    Cédric Bouillon
+ @copyright Copyright (c) 2018 Intersed
+ @version   1.0
+ @since     2018
+
+ ------------------------------------------------------------------------
+ */
+$(document).ready(function() {
+    "use strict";
+
+    // Affiche la liste des produits (aJax)
+    chargeListeProduits();
+
+    // Export PDF
+    $('.btnExportPdf').click(function() {
+
+        var objetDomBtnExport = $(this);
+        objetDomBtnExport.find('i').removeClass('fa-file-pdf').addClass('fa-spin fa-spinner');
+        objetDomBtnExport.attr('disabled', 'disabled');
+
+        $.fn.ajax({
+            'script_execute': 'fct_produits.php',
+            'arguments': 'mode=exportPdf&type=produits',
+            'callBack' : function (url_fichier) {
+                objetDomBtnExport.find('i').removeClass('fa-spin fa-spinner').addClass('fa-file-pdf');
+                objetDomBtnExport.prop('disabled', false);
+
+                $('#lienPdf').attr('href', url_fichier);
+                $('#lienPdf')[0].click();
+
+            } // FIN callBack
+        }); // FIN ajax
+
+    }); // FIN bouton PDF
+
+    // Chargement du contenu de la modale Produit à son ouverture
+    $('#modalProduit').on('show.bs.modal', function (e) {
+
+        // On récupère l'ID de l'utilisateur.
+        var produit_id = e.relatedTarget.attributes['data-produit-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-produit-id'].value);
+
+        // On récupère le contenu de la modale
+        $.fn.ajax({
+            'script_execute': 'fct_produits.php',
+            'arguments': 'mode=modalProduit&id=' + produit_id,
+            'callBack': function (retour) {
+
+                // On intègre les différents contenus
+                var retours = retour.toString().split('^');
+                var titre = retours[0];
+                var body = retours[1];
+                var footer = retours[2];
+
+                $('#modalProduitTitre').html(titre);
+                $('#modalProduitBody').html(body);
+                $('#modalProduitFooter').html(footer);
+
+                // Initialisation des outils JS
+                $('.selectpicker').selectpicker('render');
+                $('.togglemaster').bootstrapToggle();
+                $('.togglemaster').bootstrapToggle();
+                $("input[type=checkbox].icheck").iCheck(
+                    {checkboxClass: "icheckbox_square-blue"}
+                );
+                $('[data-toggle="tooltip"]').tooltip();
+
+                // Appel au listener de la modale
+                produitModalListener();
+
+            } // FIN Callback
+        }); // FIN aJax
+    }); // Fin chargement du contenu de la modale
+
+
+
+
+    // Recherche
+    $('.btnRecherche').click(function() {
+
+        goRecherche();
+
+
+    }); // FIN bouton recherche
+
+    $('form#filtres input[type=text]').keyup(function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code === 13) {
+            e.preventDefault();
+
+            goRecherche();
+        }
+    });
+
+    // Nettoyage du contenu de la modale Détails à sa fermeture
+    $('#modalProduit').on('hidden.bs.modal', function (e) {
+
+        $('#modalProduitTitre').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
+        $('#modalProduitBody').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
+        $('#modalProduitFooter').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
+
+    }); // FIN fermeture modale Détails
+
+
+    $('#filtres').attr('action', 'javascript:void(0);');
+
+}); // FIN ready
+
+/** ******************************************
+ * Listener de la modale produit
+ ****************************************** */
+function produitModalListener() {
+
+    // --------------------------------
+    // Reset de la palette suivante
+    // --------------------------------
+    $('.btnResetPaletteSuiv').off("click.btnResetPaletteSuiv").on("click.btnResetPaletteSuiv", function(e) {
+
+        e.preventDefault();
+
+        if (!confirm("Confirmez...\r\nRéinitialisez le prochain numéro de palette à 1 pour ce produit ?")) { return false; }
+
+        var id_produit = parseInt($('#input_id').val());
+        if (isNaN(id_produit)) { return false; }
+
+
+        $.fn.ajax({
+            'script_execute': 'fct_produits.php',
+            'arguments': 'mode=razPaletteSuiv&id_produit='+id_produit,
+            'callBack': function (retour) {
+                retour+='';
+
+                if (parseInt(retour) === 1) {
+
+                    $('.btnResetPaletteSuiv').parents('.input-group').find('input').val('1');
+                    $('.btnResetPaletteSuiv').addClass('disabled');
+                    $('.btnResetPaletteSuiv').attr('disabled', 'disabled');
+                    $('.btnResetPaletteSuiv').removeClass('btnResetPaletteSuiv');
+
+
+                } else {
+                    alert('Echec de la réinitialisaiton !');
+                    return false;
+                }
+
+            } // FIN callback
+        }); // FIN aJax
+
+    }); // FIN raz palette suiv
+
+    // --------------------------------
+    // Bouton Enregistrer
+    // --------------------------------
+    $('.btnSaveProduit').off("click.btnsaveproduit").on("click.btnsaveproduit", function(e) {
+
+        e.preventDefault();
+
+        // Si le bloc d'alerte de doublon affiché, on le masque (réinitialisation)
+        if (!$('.doublon').hasClass('d-none')) {
+            $('.doublon').addClass('d-none')
+        } // FIN test bloc alerte doublon affiché
+
+        // Initialisation des variables
+        var erreurs             = false;
+
+
+        // On vérifie le select de l'espèce et le champ code des produits
+        var codeValide = validateInput('#input_code', '#input_code_feedback');
+        var especeValide = validateInput('#input_espece', '#input_espece_feedback');
+
+        erreurs = (codeValide || especeValide) ? true : false;
+
+
+        // Si pas d'erreur jusque là on continue...
+        if (erreurs === false) {
+
+            // Vérification qu'il n'existe pas déjà avec un des eans similaires
+
+            var pdt_id         = parseInt($('#input_id').val());
+            var pdt_ean13      = $('#input_ean13').val();
+            var pdt_ean14      = $('#input_ean14').val();
+            var pdt_ean7       = $('#input_ean7').val();
+
+            $.fn.ajax({
+                'script_execute': 'fct_produits.php',
+                'arguments': 'mode=checkExisteDeja&id='+pdt_id+'&ean13='+pdt_ean13+'&ean14='+pdt_ean14+'&ean7='+pdt_ean7,
+                'callBack': function (retour) {
+
+                    // Si on trouve une concordance déjà enregistrée
+                    if (parseInt(retour) === 1) {
+
+                        // On affiche le message de doublon
+                        if ($('.doublon').hasClass('d-none')) {
+                            $('.doublon').removeClass('d-none')
+                        }
+
+                        // Sinon, on peux valider l'enregistrement
+                    } else {
+
+
+                        // Si on a changé un EAN, on confirme
+                        var old_ean13 = $('#input_ean13').data('old').toString();
+                        var old_ean14 = $('#input_ean14').data('old').toString();
+                        var old_ean7 = $('#input_ean7').data('old').toString();
+
+                        var new_ean13 = $('#input_ean13').val();
+                        var new_ean14 = $('#input_ean14').val();
+                        var new_ean7 = $('#input_ean7').val();
+
+                        if ((old_ean13 !== '' && old_ean13 !== new_ean13) || (old_ean14 !== '' && old_ean14 !== new_ean14) || (old_ean7 !== '' && old_ean7 !== new_ean7)){
+                            if (!confirm("EAN MODIFIÉ !\r\nEtes-vous sur de vouloir appliquer ces changements d'EAN ?")) { return false;}
+                        }
+
+                        goAddUpd();
+                    } // FIN test retour aJax de nom/numagr déjà attribué
+                } // FIN callback
+            }); // FIN aJax
+
+        } // FIN test pas d'erreur
+
+        function validateInput(inputEspeceSelector, inputEspeceFeedbackSelector) {
+            var inputEspece = $(inputEspeceSelector);
+            var inputEspeceFeedback = $(inputEspeceFeedbackSelector);
+            var value = inputEspece.val();
+
+            if (value === '') {
+                inputEspeceFeedback.addClass('is-invalid');     
+                setTimeout(function() {
+                    inputEspeceFeedback.removeClass('is-invalid');
+                }, 3000);
+                return true;
+            }
+            return false
+        }
+
+        return false;
+
+    }); // FIN bouton Enregistrer
+
+
+    // --------------------------------
+    // Bouton Supprimer
+    // --------------------------------
+    $('.btnSupprimeProduit').off("click.btnSupprimeProduit").on("click.btnSupprimeProduit", function(e) {
+
+        e.preventDefault();
+
+        // Si on ne trouve pas l'ID de l'produit, on ne va pas plus loin...
+        if ( $('#formProduitAddUpd').find('input[name=produit_id]') === undefined) { return false; }
+
+        // On initialise, formate et contrôle l'ID de l'produit
+        var id_produit = parseInt($('#formProduitAddUpd').find('input[name=produit_id]').val());
+        if (id_produit === 0) { return false; }
+
+        // Message de confirmation
+        var texte = "ATTENTION !\r\nVous allez supprimer un code produit de l'intranet.\r\nContinuer ?";
+        if (!confirm(texte)) { return false; }
+
+        // Confirmation OK, on supprime l'produit (aJax)
+        $.fn.ajax({
+            'script_execute': 'fct_produits.php',
+            'arguments': 'mode=supprProduit&id_produit='+id_produit,
+            'callBack': function () {
+
+                // On recharge la liste à jour des produits et on ferme la modale.
+                chargeListeProduits();
+                $('#modalProduit').modal('hide');
+
+            } // FIN callback
+        }); // FIN ajax
+        return false;
+    }); // FIN bouton supprime
+
+    // Si on change le type d'EAN7 pour un nouveau produit, on remplis automatiquement les valeurs calculés
+    $('.ean7type-npdt').change(function() {
+
+        var ean = '';
+        // Prix
+        if ($(this).prop('checked')) {
+            ean = $('#input_ean7').data('ean7-prix');
+        // Poids
+        } else {
+            ean = $('#input_ean7').data('ean7-poids');
+        } // FIN test type
+        $('#input_ean7').val(ean);
+
+    }); // FIN changement de type d'EAN pour les nouveaux produits
+
+
+} // FIN listener
+
+
+/** ******************************************
+ * Affiche la liste des produits
+ ****************************************** */
+function chargeListeProduits() {
+    "use strict";
+    // Récupération des filtres et de la pagination
+    var page = parseInt($('.pagination li.active a').text());
+    if (isNaN(page) || page === 0) { page = 1; }
+
+    var filtre_espece   = parseInt($('select[name=filtre_espece]').val());
+    var filtre_vues     = parseInt($('select[name=filtre_vues]').val());
+    var filtre_actif    = parseInt($('select[name=filtre_actif]').val());
+    var filtre_categorie = parseInt($('select[name=filtre_categorie]').val());
+    var filtre_nom      = $('input[name=filtre_nom]').val();
+    var filtre_nom_court      = $('input[name=filtre_nom_court]').val();
+    var orderby_champ = $('input[name=orderby_champ]').val();
+    var orderby_sens = $('input[name=orderby_sens]').val();
+
+    if (isNaN(filtre_espece)  || filtre_espece === 0) { filtre_espece   = ''; }
+    if (isNaN(filtre_vues)    || filtre_vues === 0)   { filtre_vues     = ''; }
+    if (isNaN(filtre_actif)   || filtre_actif === 0)  { filtre_actif    = ''; }
+    if (isNaN(filtre_categorie)   || filtre_categorie === 0)  { filtre_categorie    = ''; }
+    if (filtre_nom === undefined) { filtre_nom = ''; }
+    if (isNaN(filtre_nom_court)   || filtre_nom_court === '')  { filtre_nom_court    = ''; }
+
+    $.fn.ajax({
+        'script_execute': 'fct_produits.php',
+        'arguments': 'mode=showListeProduits&page='+page+'&filtre_espece='+filtre_espece+'&filtre_vues='+filtre_vues+'&filtre_actif='+filtre_actif+'&filtre_nom='+filtre_nom+'&filtre_categorie='+filtre_categorie+'&filtre_nom_court='+filtre_nom_court+'&orderby_champ='+orderby_champ+'&orderby_sens='+orderby_sens,
+        'return_id': 'listeProduits',
+        'done': function () {
+
+            listeProduitsListener();
+
+        } // FIN Callback
+    }); // FIN ajax
+
+    return true;
+
+} // FIN fonction
+
+/** ******************************************
+ * Listener de la liste des produits
+ ****************************************** */
+function listeProduitsListener() {
+
+    // Tri
+    $('.orderby').off("click.orderby").on("click.orderby", function(e) {
+
+        e.preventDefault();
+        var champ = $(this).data('champ');
+        var champ_actuel = $('input[name=orderby_champ]').val();
+        var sens_actuel = $('input[name=orderby_sens]').val();
+        if (champ === champ_actuel) {
+            var sens = sens_actuel ===  'ASC' ? 'DESC' : 'ASC';
+            $('input[name=orderby_sens]').val(sens);
+            chargeListeProduits();
+        } else {
+            $('input[name=orderby_champ]').val(champ);
+            chargeListeProduits();
+        }
+        return false;
+    });
+
+
+    // Pagination Ajax
+    $(document).on('click','#listeProduits .pagination li a',function(){
+
+        if ($(this).attr('data-url') === undefined) { return false; }
+
+        // on affiche le loading d'attente
+        $('#listeProduits').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
+
+        // on fait l'appel ajax qui va rafraichir la liste
+        $.fn.ajax({script_execute:'fct_produits.php'+$(this).attr('data-url'),return_id:'listeProduits'});
+
+        // on désactive le lien hypertexte
+        return false;
+
+    }); // FIN pagination ajax
+
+} // FIN listener
+
+/** ******************************************
+ * Valide l'enregistrement
+ ****************************************** */
+
+function goAddUpd () {
+
+
+    $.fn.ajax({
+        'script_execute': 'fct_produits.php',
+        'form_id': 'formProduitAddUpd',
+        'callBack': function () {
+
+            // on recharge la liste à jour et on ferme la modale
+            chargeListeProduits();
+            $('#modalProduit').modal('hide');
+
+        } // FIN callback
+    }); // FIN ajax
+    return false;
+} // FIN fonction
+
+/** ******************************************
+ * Recherche
+ ****************************************** */
+
+function goRecherche(e) {
+    "use strict";
+
+    $.fn.ajax({
+        'script_execute': 'fct_produits.php',
+        'form_id': 'filtres',
+        'return_id': 'listeProduits',
+        'callBack': function (retour) {
+
+            listeProduitsListener();
+
+        } // FIN Callback
+    }); // FIN ajax
+
+} // FIN fonction

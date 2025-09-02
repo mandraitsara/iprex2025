@@ -1,1 +1,152 @@
-<?php/*   _|_|_|  _|_|_|      _|_| _|        _|    _|  _|    _|  CBO FrameWork _|        _|_|_|    _|    _|  (c) 2018 Cédric Bouillon _|        _|    _|  _|    _|   _|_|_|  _|_|_|      _|_|--------------------------------------------------------Alerte------------------------------------------------------*/class Alerte {	protected	$id,				$type,				$id_froid,				$id_froid_type,				$date,				$valeur,				$id_user,				$nom_user,				$id_lot,				$numlot,				$supprime;	public		$attributs = array();	public function __construct(array $donnees)	{		$this->hydrate($donnees);	}	public function hydrate(array $donnees)	{		foreach ($donnees as $key => $value) {			$method = 'set'.ucfirst(strtolower($key));			if (method_exists($this,$method)) {				$this->$method($value);			}		}		$this->attributs = array();	}	/*##### GETTERS #####*/	public function getId() {		return $this->id;	} 	// 1 : Température / 2 : Temps dépassé / 3 : Contrôle Loma	public function getType() {		return $this->type;	}	public function getId_froid() {		return $this->id_froid;	}	public function getId_froid_type() {		return $this->id_froid_type;	}	public function getDate() {		return $this->date;	}	public function getValeur() {		return $this->valeur;	}	public function getId_user() {		return $this->id_user;	}	public function getNom_user() {		return $this->nom_user;	}	public function getId_lot() {		return $this->id_lot;	}	public function getNumlot() {		return $this->numlot;	}	public function getSupprime() {		return $this->supprime;	}	/*##### SETTERS #####*/	public function setId($valeur) {		$this->id = (int)$valeur;	}	// 1 : Réception conforme / 2 : Température froid / 3 : Temps dépassé / 4 : Contrôle Loma	public function setType($valeur) {		$this->type = (int)$valeur;		Outils::setAttributs('type',$this);	}	public function setDate($valeur) {		$this->date = (string)$valeur;		Outils::setAttributs('date',$this);	}	public function setId_froid($valeur) {		$this->id_froid = (int)$valeur;		Outils::setAttributs('id_froid',$this);	}	public function setId_froid_type($valeur) {		$this->id_froid_type = (int)$valeur;		Outils::setAttributs('id_froid_type',$this);	}	public function setValeur($valeur) {		$this->valeur = (string)$valeur;		Outils::setAttributs('valeur',$this);	}	public function setId_user($valeur) {		$this->id_user = (int)$valeur;		Outils::setAttributs('id_user',$this);	}	public function setNom_user($valeur) {		$this->nom_user = (string)$valeur;	}	public function setId_lot($valeur) {		$this->id_lot = (int)$valeur;		Outils::setAttributs('id_lot',$this);	}	public function setNumlot($valeur) {		$this->numlot = (string)$valeur;	}	public function setSupprime($valeur) {		$this->supprime = (int)$valeur;		Outils::setAttributs('supprime',$this);	}	/*##### METHODES PROPRES A LA CLASSE #####*/	public function isSupprime() {		return (int)$this->supprime == 1;	}	public function getValeur_verbose() {		if ((int)$this->type == 1) {			return 'Non conforme';		} else if ((int)$this->type == 2) {			return  $this->valeur . ' °C.';		} else if ((int)$this->type == 3) {			if ((int)$this->valeur < 60) {				$retour = sprintf("%02d", $this->valeur) . ' minute';				$retour.= (int)$this->valeur > 1 ? 's' : '';				return $retour;			} else {				$nb_heures = floor((int)$this->valeur / 60);				$nb_minutes = (int)$this->valeur - ($nb_heures * 60);				$retour = $nb_heures . ' heure';				$retour.= $nb_heures > 1 ? 's' : '';				$retour.= $nb_minutes > 0 ? ' ' . sprintf("%02d", $nb_minutes) . ' minute' : '';				$retour.= $nb_minutes > 1 ? 's' : '';				return $retour;			}		} else if ((int)$this->type == 4) {			return 'Détection sur produit';		}	}} // FIN classe
+<?php
+/*
+   _|_|_|  _|_|_|      _|_|
+ _|        _|    _|  _|    _|  CBO FrameWork
+ _|        _|_|_|    _|    _|  (c) 2018 Cédric Bouillon
+ _|        _|    _|  _|    _|
+   _|_|_|  _|_|_|      _|_|
+--------------------------------------------------------
+Alerte
+------------------------------------------------------*/
+class Alerte {
+	protected	$id,
+				$type,
+				$id_froid,
+				$id_froid_type,
+				$date,
+				$valeur,
+				$id_user,
+				$nom_user,
+				$id_lot,
+				$id_lot_negoce,
+				$numlot,
+				$supprime;
+	public		$attributs = array();
+	public function __construct(array $donnees)	{
+		$this->hydrate($donnees);
+	}
+	public function hydrate(array $donnees)	{
+		foreach ($donnees as $key => $value) {
+			$method = 'set'.ucfirst(strtolower($key));
+			if (method_exists($this,$method)) {
+				$this->$method($value);
+			}
+		}
+		$this->attributs = array();
+	}
+	/*##### GETTERS #####*/
+	public function getId() {
+		return $this->id;
+	}
+ 	// 1 : Température / 2 : Temps dépassé / 3 : Contrôle Loma
+	public function getType() {
+		return $this->type;
+	}
+	public function getId_froid() {
+		return $this->id_froid;
+	}
+	public function getId_froid_type() {
+		return $this->id_froid_type;
+	}
+	public function getDate() {
+		return $this->date;
+	}
+	public function getValeur() {
+		return $this->valeur;
+	}
+	public function getId_user() {
+		return $this->id_user;
+	}
+	public function getNom_user() {
+		return $this->nom_user;
+	}
+	public function getId_lot() {
+		return $this->id_lot;
+	}
+
+	public function getId_lot_negoce() {
+		return $this->id_lot_negoce;
+	}
+	public function getNumlot() {
+		return $this->numlot;
+	}
+	public function getSupprime() {
+		return $this->supprime;
+	}
+
+	/*##### SETTERS #####*/
+	public function setId($valeur) {
+		$this->id = (int)$valeur;
+	}
+	// 1 : Réception conforme / 2 : Température froid / 3 : Temps dépassé / 4 : Contrôle Loma
+	public function setType($valeur) {
+		$this->type = (int)$valeur;
+		Outils::setAttributs('type',$this);
+	}
+	public function setDate($valeur) {
+		$this->date = (string)$valeur;
+		Outils::setAttributs('date',$this);
+	}
+	public function setId_froid($valeur) {
+		$this->id_froid = (int)$valeur;
+		Outils::setAttributs('id_froid',$this);
+	}
+	public function setId_froid_type($valeur) {
+		$this->id_froid_type = (int)$valeur;
+		Outils::setAttributs('id_froid_type',$this);
+	}
+	public function setValeur($valeur) {
+		$this->valeur = (string)$valeur;
+		Outils::setAttributs('valeur',$this);
+	}
+	public function setId_user($valeur) {
+		$this->id_user = (int)$valeur;
+		Outils::setAttributs('id_user',$this);
+	}
+	public function setNom_user($valeur) {
+		$this->nom_user = (string)$valeur;
+	}
+	public function setId_lot($valeur) {
+		$this->id_lot = (int)$valeur;
+		Outils::setAttributs('id_lot',$this);
+	}
+
+	public function setId_lot_negoce($valeur) {
+		$this->id_lot_negoce = (int)$valeur;
+		Outils::setAttributs('id_lot_negoce',$this);
+	}
+	public function setNumlot($valeur) {
+		$this->numlot = (string)$valeur;
+	}
+	public function setSupprime($valeur) {
+		$this->supprime = (int)$valeur;
+		Outils::setAttributs('supprime',$this);
+	}
+	/*##### METHODES PROPRES A LA CLASSE #####*/
+	public function isSupprime() {
+		return (int)$this->supprime == 1;
+	}
+	public function getValeur_verbose() {
+		if ((int)$this->type == 1) {
+			return 'Non conforme';
+		} else if ((int)$this->type == 2) {
+			return  $this->valeur . ' °C.';
+		} else if ((int)$this->type == 3) {
+			if ((int)$this->valeur < 60) {
+				$retour = sprintf("%02d", $this->valeur) . ' minute';
+				$retour.= (int)$this->valeur > 1 ? 's' : '';
+				return $retour;
+			} else {
+				$nb_heures = floor((int)$this->valeur / 60);
+				$nb_minutes = (int)$this->valeur - ($nb_heures * 60);
+				$retour = $nb_heures . ' heure';
+				$retour.= $nb_heures > 1 ? 's' : '';
+				$retour.= $nb_minutes > 0 ? ' ' . sprintf("%02d", $nb_minutes) . ' minute' : '';
+				$retour.= $nb_minutes > 1 ? 's' : '';
+				return $retour;
+			}
+		} else if ((int)$this->type == 4) {
+			return 'Détection sur produit';
+		}
+	}
+} // FIN classe

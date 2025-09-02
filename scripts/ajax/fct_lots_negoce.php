@@ -64,9 +64,23 @@ function modeAddLotNegoce() {
 	
 	$id_lot =  $lotsNegoceManager->saveLotNegoce($lotNegoce);
 
+	//enregistrer la vue
+	if (intval($id_lot) > 0) {
+			$vuesManager = new VueManager($cnx);
+            $vueReception = $vuesManager->getVueByCode('rcp_neg');
+            $lotVue = new LotVue([]);
+            $lotVue->setId_lot($id_lot);
+            $lotVue->setId_vue($vueReception->getId());
+            $lotVue->setDate_entree(date('Y-m-d H:i:s'));
+            $lotVuesManager = new LotVueManager($cnx);
+            $lotVuesManager->saveLotVue($lotVue);
+	} else {
+        erreur($numlot);
+        exit;
+    } // FIN test création lot
+
 	// Si lot créé, on Log
 	if (intval($id_lot) > 0) {
-
 		$log = new Log([]);
 		$log->setLog_type('success');
 		$log->setLog_texte('Création du lot de négoce #' . $id_lot);
@@ -118,7 +132,7 @@ function modeShowListeLotsNegoce() {
 	if (empty($listeLots)) { ?>
 
 		<div class="alert alert-secondary text-center">
-			<i class="far fa-clock mb-2 mt-2 fa-5x"></i> <p class="text-24 mb-0">Aucun lot&hellip;</p>
+			<i class="far fa-clock mb-2 mt-2 fa-5x"></i> <p class="text-24 mb-0">Aucun lot negoce&hellip;</p>
 		</div>
 
 		<?php
@@ -144,18 +158,20 @@ function modeShowListeLotsNegoce() {
                 <th class="w-mini-admin-cell d-none d-xl-table-cell">N° de BL</th>				
 				<th>Fournisseur</th>
 				<th>Date de reception</th>
+				<th>Poids (Réception)</th>
 				<?php if ($statut == 0) { ?>
 				<th class="text-center">Sortie</th>
 				<?php } ?>
                 <th class="text-center">Incidents</th>
 				<?php if ($statut == 1) {?>
-				<th class="text-center nowrap">Nombre Produits</th>
-				<th class="text-center nowrap">BL sortant</th>
+				<th class="text-center nowrap">Nombre Produits</th>		
+				<th>Vues actuelles</th>
 				<th class="t-actions w-mini-admin-cell text-center">Visible</th>
 				<th class="t-actions w-mini-admin-cell text-center">Modifier</th>
 				<?php } ?>
 				<th class="t-actions w-mini-admin-cell text-center">Documents</th>
 				<th class="t-actions w-mini-admin-cell text-center">Produits</th>
+				<th class="t-actions w-mini-admin-cell text-center">Details</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -164,30 +180,29 @@ function modeShowListeLotsNegoce() {
 			$na = '<i class="far fa-question-circle text-danger fa-lg"></i>';
 			$btnPoidsReception = '<button type="button" class="btn btn-sm btn-secondary btnPoidsReceptionLot margin-right-50"><i class="fa fa-weight"></i></button>';
 
-			foreach ($listeLots as $lot) {								
+			foreach ($listeLots as $lot) {				
 				
 				?>
 				<tr data-id-lot="<?php echo $lot->getId();?>">
-                    <td class="w-mini-admin-cell d-none d-xl-table-cell"><?php echo $lot->getNum_bl() != '' ? $lot->getNum_bl() : '&mdash;';?></td>					
-					</td>				
-
+				<td class="w-mini-admin-cell d-none d-xl-table-cell nowrap"><?php echo $lot->getNum_bl() != '' ? $lot->getNum_bl() : '&mdash;';?></td>
+				</td>				
 					<td class="text-right nowrap">
 							<?php echo $lot->getNom_fournisseur($na); ?>
-					</td>
-
+					</td>					
 					<td class="text-center nowrap">
 					<?php echo $lot->getDate_reception() != '' ? Outils::dateSqlToFr($lot->getDate_reception()) : '&mdash;'; ?>
 					</td>
 					<?php if ($statut == 0) { ?>
 						<td class="text-center nowrap"><?php echo $lot->getDate_out() != '' && $lot->getDate_out() != '0000-00-00 00:00:00' ? Outils::dateSqlToFr($lot->getDate_out()) : '&mdash;'; ?></td>
 					<?php } ?>
-
+					<td class="text-20 text-center"><?php echo $lotsNegoceManager->getPoidsLotNegoce($lot->getId()) > 0 ? number_format($lotsNegoceManager->getPoidsLotNegoce($lot->getId()), 3, '.', ' ') . ' <span class="texte-fin text-14">Kg</span>' : '&mdash;'; ?></td>
                     <td class="text-center">
 						<?php
 						$incidentsManager = new IncidentsManager($cnx);
-						$params = ['id_lot' => $lot->getId(), 'negoce' => 1];
+						$params = ['id_lot_negoce' => $lot->getId()];
 						$incidents = $incidentsManager->getIncidentsListe($params);
-						if (empty($incidents)) { ?>
+												
+						if (empty($incidents)) {?>
                             <span class="gris-9">&mdash;</span>
 						<?php }
 
@@ -207,22 +222,31 @@ function modeShowListeLotsNegoce() {
 						// affichage des incidents s'il y en
 						?>
 
-                    </td>
+                    </td>					
+					<?php if ($statut == 1) { ?>
+					<td class="text-center nowrap" ><?php echo  $lotsNegoceManager->getNbProduitsByLot($lot); ?></td>					
+					<?php if ($statut == 1) { ?>
+					<td class="w-court-admin-cell"><?php
+					if (is_array($lot->getVues()) && !empty($lot->getVues())) {
+						 $firstVue = true;
+                         foreach ($lot->getVues() as $lotvue) {
+							if ($lotvue->getVue() instanceof Vue) { 								
 
-					<?php if ($statut == 1) { ?>					
-                    
-                   <td class="text-center nowrap" ><?php echo  $lotsNegoceManager->getNbProduitsByLot($lot); ?></td>
+								?>
+                                            <span class="badge badge-info form-control text-12 texte-fin <?php echo !$firstVue ? 'margin-top-5' : ''; ?>"><?php echo $lotvue->getVue()->getNom(); ?></span>
+                                        <?php } else { ?>
+                                            echo '&mdash;';
+                                    <?php } // FN test instanciation objet Vue
 
-					<td class="text-center nowrap"><?php
+                                                                    $firstVue = false;
+                                                                } // FIN boucle vues
 
-                        if (empty($lot->getBls())) { echo '&mdash;'; } else {
-                            foreach ($lot->getBls() as $bl) { ?>
-                                <a href="gc-bls.php?i=<?php echo base64_encode($bl->getId()); ?>" class="text-info texte-fin text-13 d-block"><?php echo $bl->getCode(); ?></a>
-					        <?php }
-						}
-
-                    ?>
-                    </td>
+                                                            } else { ?>
+                                    <span class="badge badge-danger form-control text-14">Terminé</span>
+                                <?php } // FIN test vues
+                                ?>
+                            </td>
+																<?php } ?>
 					<td class="t-actions w-mini-admin-cell">
 						<input type="checkbox" class="togglemaster switch-visibilite-lot"
 							   data-toggle              = "toggle"
@@ -235,6 +259,7 @@ function modeShowListeLotsNegoce() {
 							// Statut coché
 							echo $lot->isVisible()  ? 'checked' : ''; ?>/>
 					</td>
+					
 
 						<td class="t-actions w-mini-admin-cell"><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalLotEdit" data-lot-id="<?php
 							echo $lot->getId(); ?>"><i class="fa fa-edit"></i> </button>
@@ -246,10 +271,15 @@ function modeShowListeLotsNegoce() {
 					<td class="t-actions w-mini-admin-cell"><button type="button" class="btn  btn-secondary" data-toggle="modal" data-target="#modalLotNegProduits" data-lot-id="<?php
 						echo $lot->getId(); ?>"><i class="fa fa-dolly"></i> </button>
 					</td>
+					<td class="t-actions w-mini-admin-cell"> <button type="button" class="btn  btn-secondary" data-toggle="modal" data-target="#modalLotInfo" data-statut="<?php echo $statut; ?>" data-lot-id="<?php
+ 						echo $lot->getId(); ?>"><i class="fa fa-ellipsis-h"></i> </button>
+                	</td>
 				</tr>
+				
 			<?php } // FIN boucle lots
 			?>
 			</tbody>
+			
 		</table>
 		<?php
 
@@ -568,7 +598,7 @@ function modeModalLotNegProduits() {
 					foreach ($listePdts as $pdt) {
 						$vendu_negoce = $pdt->getVendu_negoce();
 						if($vendu_negoce > 0){?>
-							<option value="<?php echo $pdt->getId(); ?>" data-subtext="<?php echo $pdt->getCode(); ?>"><?php echo $pdt->getNom(); ?></option>
+							<option value="<?php echo $pdt->getId(); ?>" id="option_produit" data-qte-pcb="<?php echo $pdt->getPcb(); ?>"  data-subtext="<?php echo $pdt->getCode(); ?>"><?php echo $pdt->getNom(); ?></option>
 						<?php						
 						}						
 					 }
@@ -593,19 +623,21 @@ function modeModalLotNegProduits() {
             </div>
 
 
-			<div class="col-2 padding-right-0">
-				<p class="nomargin text-12 texte-fin gris-5">Quantité</p>
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="" name="quantite" />
-				</div>
-			</div>
-			
 			<div class="col-1 padding-right-0">
 				<p class="nomargin text-12 texte-fin gris-5">Cartons</p>
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="" name="cartons" />
+					<input type="text" id="nb_cartons" class="form-control" placeholder="" name="cartons" />
 				</div>
 			</div>
+
+
+			<div class="col-2 padding-right-0">
+				<p class="nomargin text-12 texte-fin gris-5">Quantité</p>
+				<div class="input-group">
+					<input type="text" id="nb_pieces" class="form-control" placeholder="" name="quantite" />
+				</div>
+			</div>	
+			
 
 
 
@@ -656,7 +688,6 @@ MODE - Liste des produits
 ------------------------------------*/
 function modeListeProduitsLotNegoce($id_lot = 0) {
 
-
 	global $cnx, $lotsNegoceManager,$mode;
 
     if ($id_lot == 0) { $id_lot = isset($_REQUEST['lot_id']) ? intval($_REQUEST['lot_id']) : 0; }
@@ -676,7 +707,7 @@ function modeListeProduitsLotNegoce($id_lot = 0) {
 	$params['nb_result_page'] 	= $nbResultPpage;
 	$params['id_lot'] 	        = $id_lot;
 
-	$listeProduits = $lotsNegoceManager->getListeNegoceProduits($params);
+	$listeProduits = $lotsNegoceManager->getListeLotsNegoceProduits($params);
 	
 	if (empty($listeProduits)) { ?>
 		<tr><td colspan="8" class="padding-20 text-center gris-9">Aucun produit&hellip;</td></tr>
@@ -1082,15 +1113,304 @@ function modeAddLot()
 function modeSupprPdtLotNegoce()
 {
 	global $cnx, $lotsNegoceManager;
-	$id_lot_pdt_negoce = isset($_REQUEST['id_lot_pdt_negoce']) ? intval($_REQUEST['id_lot_pdt_negoce']) : 0;
+	$id_lot_pdt_negoce = isset($_REQUEST['id_lot_pdt_negoce']) ? intval($_REQUEST['id_lot_pdt_negoce']) : 0;	
 	$id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;	
 
-	if ($id_lot_pdt_negoce == 0 || $id_lot == 0) { exit("ERREUR - Identification du ProduitNegoce impossible ! Code erreur : UGV6N9C8"); }
-	
-	$lotsNegoceManager->supprLotProduitNegoce($id_lot_pdt_negoce);
+	if ($id_lot_pdt_negoce == 0) { exit("ERREUR - Identification du ProduitNegoce impossible ! Code erreur : UGV6N9C8"); }
+
+	$lot = $lotsNegoceManager->getNegoceProduit($id_lot_pdt_negoce);
+	if (!$lot instanceof NegoceProduit) { echo '-1'; exit; }
+
+	$lot->setSupprime(1);
+
+	if (!$lotsNegoceManager->saveNegoceProduit($lot)) {
+		echo '-1';
+	}
 
 	modeListeProduitsLotNegoce($id_lot);
+	
 	exit;
 }
 
+
+function modeModalLotInfo(){
+
+    global $cnx, $lotsNegoceManager, $utilisateur, $lotsManager;
+
+    //$lotsManager->updateComposBlArchives();
+
+
+    $produitsManager = new ProduitManager($cnx);
+    $facturesManager = new FacturesManager($cnx);
+    $produitsManager->cleanBlLignesSupprimees();
+
+    $id_lot_pdt_negoce = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+
+	
+    if ($id_lot_pdt_negoce == 0) {
+        echo '-1';
+        exit;
+    }
+
+    $lot = $lotsNegoceManager->getDetailsProduitsNegoce($id_lot_pdt_negoce);	
+	
+	
+    if (!$lot instanceof NegoceProduit) {
+        echo '-1';
+        exit;
+    }
+
+   //$lotsNegoceManager->updatePoidsProduitsFromCompos($id_lot);   
+    
+    echo '<i class="fa fa-box"></i><span class="gris-7 ">Lot de négoce</span> ' . $lot->getNum_lot(). '/'. $lot->getNom_produit() ;
+
+    echo '^'; // Séparateur Title / Body
+    ?>
+
+    <!-- NAVIGATION ONGLETS -->
+    <ul class="nav nav-tabs margin-top--10" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#general" aria-selected="true"><i class="fa fa-sm fa-info-circle gris-b mr-2"></i>Général</a></li>        
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#pdts"><i class="fa fa-sm fa-barcode gris-b mr-2"></i>Produits</a></li>        
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#stk"><i class="fa fa-sm fa-layer-group gris-b mr-2"></i>Stock</a></li>                        
+    </ul>
+    <!-- FIN NAVIGATION ONGLETS -->
+
+    <!-- CONTENEUR ONGLETS -->
+    <div class="tab-content">
+        <!-- ONGLET GENERAL -->
+        <div id="general" class="tab-pane fade show active" role="tabpanel" data-id-lot="<?php echo $lot->getId_lot_pdt_negoce(); ?>" data-statut="<?php echo $lot->getStatus(); ?>">
+
+            <div class="row">
+                <div class="col-3 margin-top-10 ">
+                    <div class="alert alert-dark text-center">
+                        <h2 <?php echo strlen($lot->getNum_lot()) > 10 ? 'class="text-26"' : ''; ?>><?php echo $lot->getNum_lot(); ?></h2>                    
+                    </div>
+					<?php  if($lot->getStatus() == 1 ){
+							?>
+							<button type="button" class="btn btn-danger mb-3 form-control btn-reopenlot"><i class="fa fa-lock-open mr-2"></i> Ré-ouvrir&hellip;</button>
+						<?php
+					} else {?>
+							<button type="button" class="btn btn-success btn-sm mb-3 form-control btnSortieLot mr-1"><i class="fa fa-sign-out-alt fa-lg vmiddle mr-1"></i> Sortie du lot</button>
+					<?php } ?>					
+                    <table class="admin w-100 d-none d-lg-table">
+                        <thead>
+                    <tr>    
+                        <th  class="w-mini-admin-cell d-none d-xl-table-cell">Nom du produit</th>
+                        <th>Nb de cartons</th>
+                        <th>Poids</th>
+                        <th>Quantite</th>
+						<th>DLC/DDM</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?php echo $lot->getNom_produit() ;?></td>
+                        <td><?php echo $lot->getNb_cartons() ;?></td>
+                        <td><?php echo $lot->getPoids() ;?></td>
+                        <td><?php echo $lot->getQuantite() ;?></td>
+						<td><?php echo Outils::dateSqlToFr($lot->getDlc()) ;?></td>
+                    </tr>
+                    </tbody>
+                    </table>
+                 </div>
+                <div class="col-9 margin-top-10 position-relative">
+
+                    <table class="table table-border table-v-middle text-14 table-padding-4-8">
+                        <tr>
+                            <th class="nowrap">Fournisseur :</th>
+                            <td class="text-center"><?php echo $lot->getFournisseur(); ?></td>
+						</tr>
+						<tr>                            
+                            <th class="nowrap">Agrément :</th>
+                            <td class="text-center"><?php echo $lot->getNumagr() != '' ? $lot->getNumagr() : '&mdash;'; ?></td>
+                        </tr>					
+						
+						<tr>
+                            <th class="nowrap">Date réception :</th>
+                            <td class="text-center"><?php echo
+                                                    $lot->getDate_reception() != '' && $lot->getDate_reception() != '0000-00-00'
+                                                        ? Outils::getDate_only_verbose($lot->getDate_reception(), true, false) : '&mdash;';?></td>
+                            
+                        </tr>
+                        <tr>                            
+                            <th class="nowrap">N° BL :</th>
+                            <td class="text-center"><?php echo $lot->getNum_bl() != '' ? $lot->getNum_bl() : '&mdash;'; ?></td>
+                        </tr>
+                    </table>                    
+                   
+                </div>
+
+            </div>
+        </div><!-- FIN ONGLET GENERAL -->
+        
+
+        <!-- ONGLET PRODUITS -->
+        <div id="pdts" class="tab-pane fade" role="tabpanel">
+    
+        <table class="admin w-100 d-none d-lg-table">
+                        <thead>
+                    <tr>    
+                        <th>Nom du produit</th>
+                        <th>Nb de cartons</th>
+                        <th>Poids</th>
+                        <th>Quantite</th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><?php echo $lot->getNom_produit() ;?></td>
+                        <td><?php echo $lot->getNb_cartons() ;?></td>
+                        <td><?php echo $lot->getPoids() ;?></td>
+                        <td><?php echo $lot->getQuantite() ;?></td>
+                        
+                    </tr>
+                    </tbody>
+                    </table>
+
+        </div><!-- FIN ONGLET PRODUITS --> 
+
+        <!-- ONGLET STOCK  -->
+        <div id="stk" class="tab-pane fade" role="tabpanel">
+			<?php			
+			$poidsReceptionne = $lotsNegoceManager->getPoidsProduitLotNegoce($id_lot_pdt_negoce);
+			
+			$poidsExpedie = $lotsNegoceManager->getPoidsExpedie($id_lot_pdt_negoce);
+
+			$poidsStock = $lotsNegoceManager->getPoidsRestantLotNegoce($id_lot_pdt_negoce) < 0 ? 0 : $lotsNegoceManager->getPoidsRestantLotNegoce($id_lot_pdt_negoce);				
+			
+			$poidsReceptionne = floatval($poidsReceptionne);
+			$poidsExpedie = floatval($poidsExpedie);
+						
+			
+
+			$ecart = $poidsReceptionne > 0 ? (($poidsStock / $poidsReceptionne) * 100) : 0;	
+
+			
+			$cssBadge = 'success';
+
+            if ($ecart < 2.1 || $ecart < -2.1) {
+                $cssBadge = 'success';
+            } else if ($ecart == 0) {
+                $cssBadge = 'secondary';
+            } else if ($ecart > 50.1){
+				$cssBadge = 'danger';
+			}		
+			
+			?>
+		<div class="alert alert-secondary">
+                <div class="row">
+                    <div class="col text-center">
+                        <p class="texte-fin text-12 nomargin">Total poids en stock</p>
+                        <span class="badge badge-secondary"><code class="gris-e5 text-22"><?php echo number_format($poidsStock,3,'.', ' '); ?></code><span class="texte-fin text-14"> kg</span></span>
+                    </div>
+                    <div class="col text-center">
+                        <p class="texte-fin text-12 nomargin">Total poids expédié</p>
+                        <span class="badge badge-secondary"><code class="gris-e5 text-22"><?php echo number_format($poidsExpedie,3,'.', ' '); ?></code><span class="texte-fin text-14"> kg</span></span>
+                    </div>       
+					<div class="col text-center">
+                        <p class="texte-fin text-12 nomargin">Poids receptionné</p>
+                        <span class="badge badge-secondary"><code class="gris-e5 text-22"><?php echo number_format($poidsReceptionne,3,'.', ' '); ?></code><span class="texte-fin text-14"> kg</span></span>
+                    </div>
+
+					<div class="col text-center">
+                        <p class="texte-fin text-12 nomargin">Ecart receptionné</p>
+                        <span class="badge badge-<?php echo $cssBadge; ?>"><code class="gris-e5 text-22"><?php echo
+                                                                                                            $poidsReceptionne > 0 ? number_format($ecart, 0, '.', '') : '-'; ?></code><span class="texte-fin text-14"> %</span></span>
+                    </div>
+
+                </div>
+            </div>
+
+			<?php
+
+			global
+			$BLigneManager;	
+			$produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);			
+			
+			if(empty($produitsStockExpedie)){?>
+				<div class="text-center padding-15 text-24 gris-7">
+					<p>Aucun produit n'a été expédié.</p>
+		  		</div>
+			<?php } else{
+				$colspan = $utilisateur->isDev() ? 8 : 8;                
+				?>
+				<table class="admin w-100 table-lot-stock-expedies">
+                <thead>
+                <tr><th colspan="<?php echo $colspan ;?>" class="text-center bg-primary">Expédié</th></tr>
+                <tr>					
+                    <th class="text-right">Client</th>
+                    <th class="text-right" >Produit</th>         
+					<th class="text-right">Poids traitement</th>	        
+                    <th class="text-right">Poids receptionné</th>									
+                    <th class="text-right">Date</th>
+                    <th class="text-right">DLC/DDM</th>
+                    <th class="text-right">BL/BT</th>
+                    <th class="text-right">Facture</th>
+                </tr>
+                </thead>
+                <tbody>
+					<?php 
+
+						$orderPrestashopManager = new OrdersPrestashopManager($cnx);
+						$tiersManager = new TiersManager($cnx);
+						$id_client_web = $tiersManager->getId_client_web();?>					
+					<!-- information pour le produit -->
+					<tr>										
+						<td ></td>						
+						<td class="text-right"><?php echo $lot->getNom_produit();?></td>
+						<td></td>
+						<td class="text-right"><?php echo $lot->getPoids() != '' ? number_format($lot->getPoids(), 3, '.', ' ') . ' kg' : '-' ;?></td>
+						<td class="text-right" ><?php echo Outils::dateSqlToFr($lot->getDate_reception()); ?></td>						
+						<td class="text-right" ><?php echo Outils::dateSqlToFr($lot->getDlc()); ?></td>												
+						<td></td>
+						<td></td>
+					</tr>				
+
+					<?php 
+							foreach ($produitsStockExpedie as $ligne) {								
+								if (!$ligne instanceof BlLigne) {
+									exit('un élément n\'est pas une instance de BlLigne');
+								}
+								?>
+								<tr>														
+								<td class="text-left"><?php echo $ligne->getLibelle();?></td>	
+								<td></td>							
+								<td class="text-right"><?php echo $ligne->getPoids() !='' ? number_format($ligne->getPoids(), 3, '.', ' ') . ' kg' : '-' ;?></td>
+								<td></td>
+								<td class="text-right"> <?php echo Outils::dateSqlToFr($ligne->getDate_add()) ;?></td>
+								<td></td>
+								
+								<td  class="text-left">
+								<a class="btn btn-link d-block p-0 text-left" target="_blank" href="gc-bls.php?i=<?php echo base64_encode($ligne->getId_bl()); ?>" class="text-info texte-fin text-13 d-block">
+									<?php  ?><?php echo $ligne->getNum_bl() ;?></a>		
+								</td>
+
+								<td  class="text-left">
+								<a class="btn btn-link d-block p-0 text-left" target="_blank" href="gc-factures.php?i=<?php echo base64_encode($ligne->getId_facture()); ?>" class="text-info texte-fin text-13 d-block">
+									<?php  ?><?php echo $ligne->getNum_facture() ;?></a>		
+								</td>
+								
+								</tr>
+								<?php }
+								
+
+
+						?>						
+				</tbody>
+			</table>
+			<?php
+			}
+			?>
+
+
+
+        </div><!-- FIN ONGLET STOCK -->
+
+
+    </div> <!-- FIN CONTENEUR ONGLETS -->
+
+<?php
+    exit;
+} // FIN mode
 

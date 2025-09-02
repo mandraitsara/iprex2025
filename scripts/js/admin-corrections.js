@@ -285,10 +285,10 @@ function modaleCorrectionsListener() {
     }); // FIN enregistrer les modifications
 
     //Verification de numlot
-    $('.numlot').off("change.numlot").on("change.numlot", function(e) {
-        e.preventDefault();        
-        verifNumeroLot()
-    })
+    $('.numlot').off("input.numlot").on("input.numlot", function(e) {
+        e.preventDefault();
+        verifNumeroLot();
+    });    
 
     //Verification d'une numero de lot
 

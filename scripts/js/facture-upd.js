@@ -66,6 +66,7 @@ $(document).ready(function() {
             var txt = $(this).find('textarea').val().trim();
             var qte = parseFloat($(this).find('.qte').val());
             var puht = parseFloat($(this).find('.puht').val());
+            var total = parseFloat((this).find('.total').val())            
             if (txt === '' || txt === undefined || isNaN(qte) || isNaN(puht) || qte <= 0 || puht === 0) { erreur = true; }
         });
 
@@ -135,18 +136,16 @@ function calculeTotauxLignes() {
         var qte = parseFloat($(this).find('.qte').val());
         var poids = parseFloat($(this).find('.poids').val());
         var puht = parseFloat($(this).find('.puht').val());
+        var total_facture = parseFloat($(this).find('.total').val());
         var is_vendu_piece = parseInt($(this).data('piece')) === 1;
         if (isNaN(qte)) { qte = 0; }
         if (isNaN(poids)) { poids = 0; }
         if (isNaN(puht)) { puht = 0; }
-        var mult = is_vendu_piece ? qte : poids;
+        if (isNaN(total_facture)) { total_facture = 0; }
+        var mult = is_vendu_piece ? qte : poids;        
         var total = (mult * puht).toFixed(2);
         $(this).find('.total').text(total+' €');
-        
-        var totalHT = (mult * puht).toFixed(2);
- 
-        var ht = parseFloat($(this).find('.totalHT').val());
-        
+        $(this).find('.total_facture').val(total);
     });
 
 } // FIN fonction
@@ -158,7 +157,6 @@ function listenerTableau() {
     $('#lignesUpdFacture .qte, #lignesUpdFacture .puht').keyup(function (e) {
         calculeTotauxLignes();
     });
-
 
 
     $('.btnSupprLigne').off("click.btnSupprLigne").on("click.btnSupprLigne", function(e) {
@@ -254,60 +252,5 @@ function savePaLigne(objDom) {
 
 
     } // FIN test PU différent du tarif client
-    return true;
-} // FIN fonction
-
-
-$(document).ready(function(){
-// Changement de la quantité
-$('.qte').blur(function () {
-    
-   saveQteLigne($(this));
-
-}); // FIN changement qté
-
-
-
-})
-
-function saveQteLigne(objDom) {
-    "use strict";
-    var qte = parseInt(objDom.val());
-    console.log(qte);
-    var id_ligne_fct = parseInt(objDom.parents('tr').data('id-ligne'));
-    if (isNaN(qte)) { qte = ''; }
-    if (qte === '') { return false; }
-    if (isNaN(id_ligne_fct)) { id_ligne_fct = 0; }
-    if (id_ligne_fct === 0) { alert("ERREUR !\r\nIdentification de la ligne impossible !"); return false; }
-
-    // Si on a mis zéro... suppression
-    if (qte === 0) {
-
-        if (!confirm("ATTENTION !\r\nQuantité nulle : souhaitez-vous supprimer cette ligne du BL ?")) { return false; }
-        var ligneDom = objDom.parents('tr');
-        $.fn.ajax({
-            'script_execute': 'fct_factures.php',
-            'arguments': 'mode=supprLigneBl&id_ligne_bl='+id_ligne_fct,
-            'callBack' : function (retour) {
-                retour+='';
-                if (parseInt(retour) !== 1) { alert("ERREUR !\r\nEchec lors de l'enregistrement des modifications.");}
-                ligneDom.remove();
-                recalculeTotaux();
-            } // FIN callBack
-        }); // FIN ajax
-
-
-        // Sinon, maj de la valeur
-    } else {
-        $.fn.ajax({
-            'script_execute': 'fct_factures.php',
-            'arguments': 'mode=changeQteLigne&id_ligne_fct='+id_ligne_fct+'&qte='+qte,
-            'callBack' : function (retour) {
-                retour+='';
-                if (parseInt(retour) !== 1) { alert("ERREUR !\r\nEchec lors de l'enregistrement des modifications.");}
-                recalculeTotaux();
-            } // FIN callBack
-        }); // FIN ajax
-    } // FIN test > 0
     return true;
 } // FIN fonction

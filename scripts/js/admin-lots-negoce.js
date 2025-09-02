@@ -15,11 +15,14 @@
  */
 $(document).ready(function() {
     'use strict';
-   
+
+
+
 
 
     // Affiche la liste des lots de Negoce (aJax)
     chargeListeLotsNegoce();
+   
 
     // Chargement du contenu de la modale Produits d'un lot de négoce à son ouverture
     $('#modalLotNegProduits').on('show.bs.modal', function (e) {
@@ -53,6 +56,7 @@ $(document).ready(function() {
         }); // FIN aJax
 
     }); // FIN chargement modale
+    
 
     // Chargement du contenu de la modale Lot à son ouverture
     $('#modalLotEdit').on('show.bs.modal', function (e) {
@@ -87,9 +91,42 @@ $(document).ready(function() {
         }); // FIN aJax
     }); // Fin chargement du contenu de la modale
 
+    
+        
+// Chargement du contenu de la modale Lot à son ouverture
+$('#modalLotInfo').on('show.bs.modal', function (e) {     // On récupère l'ID du lot
+    var lot_id = e.relatedTarget.attributes['data-lot-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-lot-id'].value);  // On récupère le contenu de la modale
+    var statut = e.relatedTarget.attributes['data-statut'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-statut'].value);  // On récupère le contenu de la modale
 
+    
+    $.fn.ajax({
+        'script_execute': 'fct_gestion_negoce.php',
+        'arguments': 'mode=modalLotInfo&id=' + lot_id + '&statut=' + statut,
+        'callBack': function (retour) {
+
+            if (parseInt(retour) === -1 ) {
+                alert('Une erreur est survenue\r\nCode erreur : VMMT0W79');
+                return false;
+            }
+
+            // On intègre les différents contenus
+            var retours = retour.toString().split('^');
+            var titre = retours[0];
+            var body = retours[1];
+
+            $('#modalLotInfoTitre').html(titre);
+            $('#modalLotInfoBody').html(body);
+            //modaleLotDetailsListener(lot_id);
+
+
+        } // FIN Callback
+    }); // FIN aJax
+
+}); // Fin chargement du contenu de la modale
+
+ 
     // Chargement du contenu de la modale documents du lot
-    $('#modalLotDocs').on('show.bs.modal', function (e) {
+$('#modalLotDocs').on('show.bs.modal', function (e) {
 
         // On récupère l'ID du lot
         var lot_id = e.relatedTarget.attributes['data-lot-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-lot-id'].value);
@@ -120,7 +157,7 @@ $(document).ready(function() {
         }); // FIN aJax
     }); // Fin chargement du contenu de la modale
 
-}); // FIN ready
+
 
 
 /** ******************************************
@@ -678,15 +715,9 @@ function modalLotNegProduitsListener(lot_id) {
             'script_execute': 'fct_lots_negoce.php',
             'form_id':'formAddPdtNegoce',
             'return_id' : 'listeProduitsLotNegoce',
-            'done': function () {
-                // Réinit le formulaire
-                $('#formAddPdtNegoce select[name=id_pdt]').selectpicker('val', '');
-                $('#formAddPdtNegoce select[name=id_pdt]').selectpicker('refresh');
-                $('#formAddPdtNegoce input[name=cartons]').val('');
-                $('#formAddPdtNegoce input[name=poids]').val('');            
-                $('#formAddPdtNegoce input[name=quantite]').val('');
-                $('#formAddPdtNegoce input[name=num_lot]').val('');
-                $('#formAddPdtNegoce input[name=dlc]').val('');
+            'done': function () {         
+                chargeListeLotsNegoce();
+                $("#modalLotNegProduits").modal('hide');                
             }
         });
 
@@ -754,94 +785,96 @@ function listeProduitsLotNegoceListener() {
 
     
     
-    //Suppression ligne produit negoce    
-    $(document).on('click','#listeProduitsLotNegoce .btnDeletePdtNegoce', function(){
-
-        var id_lot_pdt_negoce = parseInt($(this).data('id'));
-        var id_lot = parseInt($('#listeProduitsLotNegoce').data('lot-id'))
-
-        var texteConfirm = "ATTENTION\r\nVous allez supprimer ce produit lot de négoce.\r\nContinuer ?";
-        if (!confirm(texteConfirm)) { return false; }
-
-        $.fn.ajax({
-            'script_execute': 'fct_lots_negoce.php',
-            'arguments':'mode=supprPdtLotNegoce&id_lot_pdt_negoce='+ id_lot_pdt_negoce +'&id_lot='+id_lot,
-            'return_id' : 'listeProduitsLotNegoce',
-            'done': function(retour) {                
-
-                console.log(retour)                
-            },
-             
-            
-        });
-
-
-
-    }); // FIN suppr ligne produit
-
 } // FIN listener de la liste des produits du lot
 
 
+ //Suppression ligne produit negoce    
+ $(document).on('click','#listeProduitsLotNegoce .btnDeletePdtNegoce', function(){
+    var id_lot_pdt_negoce = parseInt($(this).data('id'));
+    var id_lot = parseInt($('#listeProduitsLotNegoce').data('lot-id'))
+
+    var texteConfirm = "ATTENTION\r\nVous allez supprimer ce produit lot de négoce.\r\nContinuer ?";
+    if (!confirm(texteConfirm)) { return false; }
+    $.fn.ajax({
+        'script_execute': 'fct_lots_negoce.php',
+        'arguments':'mode=supprPdtLotNegoce&id_lot_pdt_negoce='+ id_lot_pdt_negoce + '&id_lot='+id_lot,
+        'return_id' : 'listeProduitsLotNegoce',
+        'done': function(retour) {            
+        },
+         
+        
+    });
 
 
-//Nouveau structure 
 
-$('#genlot_date').change(function() {
-    genereLot();
-});
+}); // FIN suppr ligne produit
 
-$('#genlot_abattoir').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-    genereLot();
-});
-
-$('#genlot_origine').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
+$(document).on("click", ".btnSortieLot", function(e) {              
+    e.preventDefault();  
     
-    genereLot();
-});
-
-$('#composition').on('changed.bs.select', function (e, clickedIndex, isSelected, previousValue) {
-
-    var composition =  $('#composition').val();
-
-    var num_bl =  $('#num_bl').val();
-    if (num_bl.length < 6) { return false; }
-
-    // Si c'est un lot Abats et qu'on a pas le A, on le rajoute
-    if (composition.substr(0,1) === 'A' &&  numlot.substr(numlot.length - 1).toUpperCase() !== 'A') {
-        $('#numlot').val(numlot + 'A');
-    // Si c'est pas un lot Abats et qu'on a un A, on l'enlève.
-    } else if (composition.substr(0,1) !== 'A' &&  numlot.substr(numlot.length - 1).toUpperCase() === 'A') {
-        $('#numlot').val(numlot.slice(0,-1));
-    } // FIN contrôle du numéro de lot
-});
-
-
-function genereLot() {
-    "use strict";
-
-    var date        = $('#genlot_date').val();
-    var abattoir    = $('#genlot_abattoir option:selected').data('subtext');
-    var origine     = $('#genlot_origine option:selected').data('subtext');
-    var abats       = $('#composition').val().substr(0,1);
-
-    if (date === '' || abattoir === '' || origine === '' || date === undefined || abattoir === undefined || origine === undefined) { return false; }
+    var texteConfirm = "CONFIRMATION\r\nDéclarer ce lot de négoce comme terminé ?";
+    if (!confirm(texteConfirm)) { return false; }
+    var id_lot = parseInt($('#general').data('id-lot'));
+    var statut = parseInt($('#general').data('statut'));
+    
+    statut = statut === 1 ? 0 : 1
 
     $.fn.ajax({
-        'script_execute': 'fct_lots.php',
-        'arguments': 'mode=genereNumLot&date='+date+'&abattoir='+abattoir+'&origine='+origine,
-        'callBack': function (retour) {
+                'script_execute': 'fct_gestion_negoce.php',
+                'arguments': 'mode=sortieLot&id_lot='+id_lot+'&statut='+statut,
+                'callBack': function (retour) {
+                    if (!retour) {
+                        alert('Une erreur est survenur, sortie du lot impossible !\r\nCode erreur : WWHY2J85');
+                        return false;
+        
+                    } // FIN erreur            
+                    // on recharge la liste à jour et on ferme la modale
+                    chargeListeLotsNegoce();
+                    $('#modalLotInfo').modal('hide');
+        
+                } // FIN Callback
+            }); // FIN ajax         
 
-            if (abats === 'A') {
-                retour+= 'A';
-            }
+            e.stopPropagation()
+    // Le reste du code...
+});
 
-            $('#numlot').val(retour);
 
-        } // FIN callback
-    }); // FIN aJax
-}
 
-//Fin
+$(document).on("click", ".btn-reopenlot", function(e) {
+          
+    e.preventDefault();
+    var texteConfirm = "CONFIRMATION\r\n Déclarer ce lot de négoce à ré-ouvrir ?";
+
+    if (!confirm(texteConfirm)) { return false; }
+    
+    var id_lot = parseInt($('#general').data('id-lot'));
+    var statut = parseInt($('#general').data('statut'));
+    
+    statut = statut === 1 ? 0 : 1
+
+    $.fn.ajax({
+                'script_execute': 'fct_gestion_negoce.php',
+                'arguments': 'mode=sortieLot&id_lot='+id_lot+'&statut='+statut,
+                'callBack': function (retour) {
+                    if (!retour) {
+                        alert('Une erreur est survenue, Re-ouvir du lot impossible !\r\nCode erreur : WWHY2J85');
+                        return false;
+        
+                    } // FIN erreur            
+                    // on recharge la liste à jour et on ferme la modale
+                    chargeListeLotsNegoce();
+                    $('#modalLotInfo').modal('hide');
+        
+                } // FIN Callback
+            }); // FIN ajax         
+
+
+    // Le reste du code...
+});   
+
+
+
 
 //Pour faire la boucle sur la datepicker de DLC/DDM
 
@@ -871,4 +904,59 @@ function datepickers(){
 
 }
 
-//Fin
+$(document).on('change','#formAddPdtNegoce #nb_cartons',function(e){
+        var cartons_default = 1;
+        var nb_cartons = $("#nb_cartons").val();
+        var nb_pieces = $("#nb_pieces").val();
+        var pcb = $("#option_produit").data('qte-pcb');
+        if(!isNaN(nb_cartons) || !isNaN(nb_pieces) || !isNaN(pcb) || nb_cartons > 0 || nb_pieces > 0 || pcb > 0){            
+            pieces = (parseInt(nb_cartons) * parseInt(pcb)) / parseInt(cartons_default);
+            $("#nb_pieces").val(pieces);
+        }else{
+            alert("ERREUR !\r\nImpossible de faire le calcul\r\nCode erreur : XD3VXTT11");
+            return false;            
+        }
+        
+
+  
+
+})
+
+
+$('#modalLotProduitInfo').on('show.bs.modal', function (e) { 
+    // On récupère l'ID du lot    
+    var lot_id = e.relatedTarget.attributes['data-lot-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-lot-id'].value);  // On récupère le contenu de la modale    
+    
+    $.fn.ajax({
+        'script_execute': 'fct_gestion_negoce.php',
+        'arguments': 'mode=modalLotProduitInfo&id_lot_negoce_produit=' + lot_id,
+        'callBack': function (retour){
+
+            console.log(retour)
+
+            if (parseInt(retour) === -1 ) {
+                alert('Une erreur est survenue\r\nCode erreur : VMMT0W79');
+                return false;
+            }
+
+            // On intègre les différents contenus
+            var retours = retour.toString().split('^');
+            var titre = retours[0];
+            console.log(titre)
+
+            var body = retours[1];
+
+
+
+            $('#modalLotProduitInfoTitre').html(titre);
+            $('#modalLotProduitInfoBody').html(body);
+            //modaleLotDetailsListener(lot_id);
+
+
+        } // FIN Callback
+    }); // FIN aJax
+
+}); // Fin chargement du contenu de la modale
+
+
+})

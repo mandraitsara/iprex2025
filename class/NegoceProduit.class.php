@@ -37,6 +37,7 @@ class NegoceProduit {
 		$poids_clients,
 		$nom_client,
 		$numero_bl,
+		$status,
 		$numero_palette;
 
 	public       $attributs = array();
@@ -59,6 +60,10 @@ class NegoceProduit {
 
 	public function getId_lot_pdt_negoce() {
 		return $this->id_lot_pdt_negoce;
+	}
+
+	public function getStatus(){
+		return $this->status;
 	}
 
 	public function getNum_facture() {
@@ -178,6 +183,10 @@ class NegoceProduit {
 
 	public function setNumagr($numagr) {
 		$this->numagr = (string)$numagr;
+	}
+
+	public function setStatus($status){
+		$this->status = (int)$status;
 	}
 
 	public function setNum_facture($num_facture){

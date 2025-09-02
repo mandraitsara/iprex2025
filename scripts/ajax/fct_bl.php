@@ -1214,6 +1214,7 @@ function modeMiseEnAttenteBl() {
 	$id_transporteur 	= isset($_REQUEST['id_transp']) 	? intval($_REQUEST['id_transp']) 	: 0;
 	$id_langue 			= isset($_REQUEST['id_langue']) 	? intval($_REQUEST['id_langue']) 	: 0;
 	$nom_client 		= isset($_REQUEST['nom_client']) 	? trim($_REQUEST['nom_client']) 	: '';
+	$id_pdt_negoce = isset($_REQUEST['id_pdt_negoce']) 			? intval($_REQUEST['id_pdt_negoce']) 			: 0;
 	//$chiffrage 			= isset($_REQUEST['chiffrage']) 	? intval($_REQUEST['chiffrage']) 	: 0;
 
 	if ($id == 0) { exit('-1'); }
@@ -1258,6 +1259,7 @@ function modeMiseEnAttenteBl() {
 		$ligne->setId_produit($ligne->getId_produit());
 		$ligne->setId_produit_bl($ligne->getId_produit_bl());
 		$ligne->setId_lot($ligne->getId_lot());
+//		$ligne->setId_pdt_negoce($ligne->getId_pdt_negoce());
 		$ligne->setNumlot($ligne->getNumlot());
 		$ligne->setPoids($ligne->getPoids());
 		$ligne->setNb_colis($ligne->getNb_colis());
@@ -1865,6 +1867,7 @@ function modeGetListeBls() {
     global $blsManagers, $mode, $cnx, $utilisateur;
 
 	$tiersManager = new TiersManager($cnx);
+	
 	$packingListManager = new PackingListManager($cnx);
 
 	/* Si création d'un BL sans ligne on va avoir un problème à l'édition qui contrôle qu'il y a bien au moins un produit,
@@ -1947,11 +1950,12 @@ function modeGetListeBls() {
 
 
 
-	$liste = $blsManagers->getListeBl($params);
+	$liste = $blsManagers->getListeBl($params);		
+
 
     $nbResults  = $blsManagers->getNb_results();
     $pagination = new Pagination($page);
-
+	
     $pagination->setUrl($filtresPagination);
     $pagination->setNb_results($nbResults);
     $pagination->setAjax_function(true);
@@ -2243,6 +2247,7 @@ function modeListeProduitsBlCreation() {
 	$id = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
 	if ($id == 0) { exit('-1'); }
 
+	
 
 	$bl = $blsManagers->getBl($id, true, true);
 	if (!$bl instanceof Bl) { exit('-2'); }
@@ -2308,6 +2313,7 @@ function modeListeProduitsBlCreation() {
 		$produitsManager = new ProduitManager($cnx);
 		$listeProduits = $produitsManager->getListeProduits();
 
+		
 		$poidsPalettesManager = new PoidsPaletteManager($cnx);
 		$listePoidsPalettes = $poidsPalettesManager->getListePoidsPalettes(1); // 1 = Palettes et pas emballages/cartons
 
@@ -2325,9 +2331,6 @@ function modeListeProduitsBlCreation() {
 				$piece = $ligne->getProduit()->isVendu_piece();
 			}
 
-
-
-
 			if ($id_palette < 0) {
 				$id_palette 	= $ligne->getId_palette();
 				$num_palette 	= $ligne->getNumero_palette();
@@ -2340,29 +2343,23 @@ function modeListeProduitsBlCreation() {
 			$unicite =  'PAL'.$ligne->getId_palette().'PDT'.$idpdt.'LOT'.$ligne->getId_lot();
 
 			if ($ligne->getId_palette() != $id_palette) {
-
-
 				$total_palette_poids_palette = $poidsPalettesManager->getTotalPoidsPalette($id_palette);
 				$total_poids_total = $total_poids + $total_palette_poids_palette;
 				$total_palette_poids_palette_bl+=$total_palette_poids_palette;
-
 				if ($id_palette > 0) {
 				?>
 
                 <tr class="total" data-id="<?php echo $id_palette; ?>">
                     <td></td>
                     <td class="text-right">
-			<?php if ($id_palette > 0) { ?>
+						<?php if ($id_palette > 0) { ?>
                         <select class="selectpicker float-left selectTypePoidsPalette" title="Type de palette">
 							<?php  foreach ($listePoidsPalettes as $pp) { ?>
                                 <option value="<?php echo $pp->getId();?>" <?Php echo $pp->getId() == $id_poids_pal ? 'selected' : ''; ?>><?php echo $pp->getNom(); ?></option>
 							<?php } ?>
                         </select>
                         <button type="button" class="btn btn-sm btn-outline-secondary float-left ml-1" data-toggle="modal" data-target="#modalEmballagesPalette" data-id-palette="<?php echo $id_palette; ?>">Emb.</button>
-
-
-                        <?php }
-
+						<?php }
                         if ($id_palette == 0) { echo 'Hors palette'; } else { ?>
                               Palette N° <input type="text" class="form-control numPalette w-50px text-center d-inline-block padding-2-10" value="<?php echo $num_palette; ?>"/>
                         <?php } ?>
@@ -2444,7 +2441,7 @@ function modeListeProduitsBlCreation() {
 
                     } else { ?>
                     <select class="selectpicker form-control show-tick selectProduitBl">
-						<?php foreach ($listeProduits as $pdt) { ?>
+						<?php foreach ($listeProduits as $pdt) {?>
 
                             <option value="<?php echo $pdt->getId(); ?>"
 
@@ -2466,12 +2463,10 @@ function modeListeProduitsBlCreation() {
 
 						// Sinon, on prends le nom du produit
 					} else if ($ligne->getProduit() instanceof Produit) {
-
 						$noms = $ligne->getProduit()->getNoms();
 
 						// Boucle sur les langues actives
 						foreach ($ids_langues as $id_langue) { ?>
-
                             <span class="nom_trads nom_trad_<?php echo $id_langue; ?>"><?php echo isset($noms[$id_langue]) ? $noms[$id_langue] : '<span class="text-danger">Traduction manquante !</span>'; ?></span>
 							<?php
 						} // FIN Boucle sur les langues actives
@@ -2503,8 +2498,8 @@ function modeListeProduitsBlCreation() {
                             <input type="text" class="form-control w-150px numlotLigne" value="<?php echo $ligne->getNumlot();?>" placeholder="N/A" />
                         </div>
                     </div>
-					<?php if ($ligne->getOrigine() != '') { ?>
-                        &nbsp; Orig : <?php echo $ligne->getOrigine(); } ?>
+					<?php if ($ligne->getOrigine() != '') {?>
+                        &nbsp; Orig. <?php echo $ligne->getOrigine(); } ?>
                     <div class="mt-1 mb-0 <?php echo $ligneSimple ? 'd-none' : ''; ?>">
                         <div class="input-group">
                             <div class="input-group-prepend">
@@ -2683,8 +2678,9 @@ function modeRechercheProduitsBlManuel() {
 	if ($id_pdt == 0) { exit('Identification impossible !'); }
 
 	$produitsEnStock = $produitsManager->getStocksProduit($id_pdt);
-	$produitsNegoce  = $negoceManager->getListeNegoceProduits(['hors_bl' => true, 'id_pdt' => $id_pdt]);
-	$hs = empty($produitsEnStock) && empty($produitsNegoce);
+	$produitsNegoce  = $negoceManager->getListeNegoceProduits(['id_pdt' => $id_pdt]);	
+	
+	$hs = empty($produitsEnStock) && empty($produitsNegoce);	
 	?>
     <div class="col mt-2">
         <div class="alert alert-<?php echo $hs ? 'secondary' : 'info'; ?> text-center">
@@ -2692,9 +2688,6 @@ function modeRechercheProduitsBlManuel() {
                 echo $hs ? 'Aucune production disponible' : 'Productions disponibles';
                 ?></p>
             <p class="text-13 <?php echo $hs ? 'd-none' : ''; ?>">Sélectionnez hors stock ou la production à ajouter au BL :</p>
-
-
-
             <?php
             if ($hs) { ?>
                 <button type="button" class="btn btn-success btnAjouterProduitBl"><i class="fa fa-check mr-1"></i> Ajouter ce produit hors stock</button>
@@ -2702,8 +2695,8 @@ function modeRechercheProduitsBlManuel() {
         <div class="input-group">
                 <select class="selectpicker form-control selectProductionProduit">
                     <option value="0">Hors stock</option>
-					<?php
-					if (!empty($produitsEnStock)) { ?>
+					<?php					
+					if (!empty($produitsEnStock)){ ?>
                         <optgroup data-type="stk" label="Production<?php echo count($produitsEnStock) > 1 ? 's' : ''; ?> en stock <?php echo count($produitsEnStock) > 1 ? ' ('.count($produitsEnStock).')' : ''; ?> :">
 							<?php
 							foreach ($produitsEnStock as $compo) { ?>
@@ -2717,10 +2710,11 @@ function modeRechercheProduitsBlManuel() {
                         </optgroup>
 						<?php
 					}
-					if (!empty($produitsNegoce)) { ?>
+					if (!empty($produitsNegoce)) {?>
                         <optgroup data-type="neg" label="Produit<?php echo count($produitsNegoce) > 1 ? 's' : ''; ?> de négoce <?php echo count($produitsNegoce) > 1 ? ' ('.count($produitsNegoce).')' : ''; ?> :">
 							<?php
-							foreach ($produitsNegoce as $pdt_neg) { ?>
+							foreach ($produitsNegoce as $pdt_neg) {																									
+								?>							
                                 <option value="<?php echo $pdt_neg->getId_lot_pdt_negoce(); ?>" data-subtext="<?php
 								echo $pdt_neg->getNb_cartons().' cartons / ' . number_format($pdt_neg->getPoids(),3,'.', ' ') . ' kg';?>"><?php
                                 echo 'Lot ';
@@ -3852,63 +3846,74 @@ function modeFormProduitsBlManuel() {
 		}
         ?>
     </div>
-    <div class="col">
-        <div class="alert alert-secondary">
-            <p class="gris-5 mb-0"><i class="fa fa-caret-down mr-1 gris-9"></i> <?php
-                echo $id > 0 ? 'Validez' : 'Précisez'; echo ' les détails de la ligne :';
-                echo $utilisateur->isDev() && $id > 0 ? '<span class="text-11 gris-9 float-right"><i class="fa fa-user-secret mr-1"></i> '.$devTxt.' #'.$id.'</span>' : '';
-
-                ?></p>
-            <div class="row">
-                <div class="col-4">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Lot</span>
-                        </div>
-                        <input type="text" class="form-control" id="id_pdt_negoce" placeholder="N° de lot" data-id-negoce="<?php                           
-                            echo isset($neg) ? $neg->getId_lot_pdt_negoce() : '';
-                        ?>" name="num_lot" value="<?php
-                            echo isset($compo) ? $compo->getNum_lot() : '';
-                            echo isset($neg) ? $neg->getNum_lot() : '';
-                        ?>" name="numlot"/>
+	<div class="col">
+    <div class="alert alert-secondary">
+        <p class="gris-5 mb-0"><i class="fa fa-caret-down mr-1 gris-9"></i> <?php
+            echo $id > 0 ? 'Validez' : 'Précisez'; echo ' les détails de la ligne :';
+            echo $utilisateur->isDev() && $id > 0 ? '<span class="text-11 gris-9 float-right"><i class="fa fa-user-secret mr-1"></i> '.$devTxt.' #'.$id.'</span>' : '';
+        ?></p>
+        <div class="row">
+            <div class="col-3 pr-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Lot</span>
+                    </div>					
+                    <input type="text" class="form-control" id="id_pdt_negoce" placeholder="N° de lot" data-id-negoce="<?php                           
+                        echo isset($neg) ? $neg->getId_lot_pdt_negoce() : '';
+                    ?>" name="num_lot" value="<?php
+                        echo isset($compo) ? $compo->getNum_lot() : '';
+                        echo isset($neg) ? $neg->getNum_lot() : '';
+                    ?>" />
+                </div>
+            </div>
+            <div class="col-3 pr-1">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">N° palette</span>
+                    </div>
+                    <input type="text" class="form-control text-center" placeholder="" name="num_palette" value="<?php
+                        echo isset($compo) ? $compo->getNumero_palette() : '';
+                        echo isset($neg) ? $neg->getNumero_palette() : '';
+                    ?>" />
+                </div>
+            </div>
+            <div class="col-2 pr-1">
+                <div class="input-group">
+                    <input type="text" class="form-control text-center inputCartons" placeholder="" name="nb_colis" value="<?php
+                        echo isset($compo) ? $compo->getNb_colis() : '';
+                        echo isset($neg) ? $neg->getNb_cartons() : '';
+                    ?>" />
+                    <div class="input-group-append">
+                        <span class="input-group-text"><?php echo $type == 'neg' ? 'cartons' : 'colis'; ?></span>
                     </div>
                 </div>
-                <div class="col-3 pl-0">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">N° palette</span>
-                        </div>
-                        <input type="text" class="form-control text-center" placeholder="-" name="num_palette" value="<?php
-						    echo isset($compo) ? $compo->getNumero_palette() : '';
-						    echo isset($neg) ? $neg->getNumero_palette() : '';
-                        ?>" name="palette"/>
+            </div>
+            <div class="col-2 pr-1">
+                <div class="input-group">
+                    <input type="text" class="form-control text-center inputQuantite" placeholder="" name="quantite" value="<?php
+                        echo isset($compo) ? $compo->getQuantite() : '';
+                        echo isset($neg) ? $neg->getQuantite() : '';
+                    ?>" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">Pièce</span>
                     </div>
                 </div>
-                <div class="col-2 pl-0 pr-0">
-                    <div class="input-group">
-                        <input type="text" class="form-control text-center" placeholder="0" name="nb_colis" value="<?php
-						    echo isset($compo) ? $compo->getNb_colis() : '';
-						    echo isset($neg) ? $neg->getNb_cartons() : '';
-                        ?>" name="colis"/>
-                        <div class="input-group-append">
-                            <span class="input-group-text"><?php echo $type == 'neg' ? 'cartons' : 'colis'; ?></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control text-right" placeholder="0.000" name="poids" value="<?php
-						    echo isset($compo) ? number_format($compo->getPoids(),3,'.', ' ') : '';
-						    echo isset($neg) ? number_format($neg->getPoids(),3,'.', ' ') : '';
-                        ?>" name="poids"/>
-                        <div class="input-group-append">
-                            <span class="input-group-text">Kg</span>
-                        </div>
+            </div>
+            <div class="col-2">
+                <div class="input-group">
+                    <input type="text" class="form-control text-right" placeholder="0.000" name="poids" value="<?php
+                        echo isset($compo) ? number_format($compo->getPoids(),3,'.', ' ') : '';
+                        echo isset($neg) ? number_format($neg->getPoids(),3,'.', ' ') : '';
+                    ?>" />
+                    <div class="input-group-append">
+                        <span class="input-group-text">Kg</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
     <?php
     exit;
 } // FIN mode
@@ -3933,7 +3938,7 @@ function modeAddLigneProduitBl() {
 	$nb_colis    = isset($_REQUEST['nb_colis'])     ? intval($_REQUEST['nb_colis'])             : 0;
 	$poids       = isset($_REQUEST['poids'])        ? floatval($_REQUEST['poids'])              : 0.0;
     $id_bl_ligne = isset($_REQUEST['id_bl_ligne'])  ? intval($_REQUEST['id_bl_ligne'])          : 0;
-	$qte_web     = isset($_REQUEST['qte_web'])      ? intval($_REQUEST['qte_web'])              : 1;
+	$qte_web     = isset($_REQUEST['quantite'])      ? intval($_REQUEST['quantite'])              : 1;
 	$id_pdt_negoce =  isset($_REQUEST['id_pdt_negoce'])  ? intval($_REQUEST['id_pdt_negoce'])  : 0;
 
 
@@ -4147,7 +4152,7 @@ function modeAddLigneProduitBl() {
 		$codeLog = strtoupper($type_item);
 		
         $id_pdt_neg = $id_item;
-		$pdt_neg = $negoceManager->getNegoceProduit($id_pdt_neg);
+		$pdt_neg = $negoceManager->getNegoceProduit($id_pdt_neg);		
 
 		if (!$pdt_neg instanceof NegoceProduit) { exit('ERREUR INST OBJ NEGOCEPDT #'.$id_pdt_neg); }
 
@@ -4170,7 +4175,6 @@ function modeAddLigneProduitBl() {
 			$ligne->setId_lot($ligneTmp->getId_lot());
 			$ligne->setId_pays($ligneTmp->getId_pays());
 			$ligne->setLibelle($ligneTmp->getLibelle());
-
 		
         }
 
@@ -4252,7 +4256,7 @@ function modeAddLigneProduitBl() {
 		if ($id_bl_ligne == 0) {
 			$ligne->setPu_ht($ligne->getPu_ht());
 			$ligne->setTva($ligne->getTva());
-			$ligne->setQte(1);
+			$ligne->setQte($qte_web);
 			$ligne->setSupprime(0);
 			$ligne->setDate_add(date('Y-m-d H:i:s'));
 		} else {
@@ -4428,7 +4432,7 @@ function modeAddLigneProduitBl() {
 			$ligne->setPoids($poids);
 			$ligne->setNb_colis($nb_colis);
 			$ligne->setId_pdt_negoce($id_pdt_negoce);
-			$ligne->setQte(1);
+			$ligne->setQte($qte_web);
 			$ligne->setPu_ht($pu_ht);
 			$ligne->setTva($tva);
 			$ligne->setDate_add(date('Y-m-d H:i:s'));

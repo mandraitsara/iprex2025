@@ -314,7 +314,8 @@ function modeShowListeLots()
         $pagination->setUrl($filtresPagination);
         $pagination->setNb_results($nbResults);
         $pagination->setAjax_function(true);
-        $pagination->setNb_results_page($nbResultPpage);
+        $pagination->setNb_results_page($nbResultPpage);            
+        
 
     ?>
         <div class="alert alert-danger d-lg-none text-center">
@@ -481,8 +482,7 @@ function modeShowListeLots()
             $pagination->setVerbose_position('right');
             $pagination->setNature_resultats('lot');
             $pagination->setNb_apres(2);
-            $pagination->setNb_avant(2);
-
+            $pagination->setNb_avant(2);            
             echo ($pagination->getPaginationHtml());
         } // FIN test pagination
 
@@ -531,7 +531,7 @@ function modeModalLotInfo()
     echo '<i class="fa fa-box"></i><span class="gris-7 ">Lot</span> ' . $lot->getNumlot();
 
     echo '^'; // Séparateur Title / Body
-
+    
     // Objet Reception du lot ?
     $reception = $lot->getReception() instanceof LotReception;
 
@@ -582,7 +582,6 @@ function modeModalLotInfo()
                         }
 
                         if (is_array($lot->getVues()) && !empty($lot->getVues())) {
-
                             $firstVue = true;
                             foreach ($lot->getVues() as $lotvue) {
 
@@ -2531,7 +2530,7 @@ function modeShowListeProduitsDetailsLot($id_lot = 0)
                                         echo $multi ? '<i class="fa fa-level-up-alt fa-rotate-90 ml-2 mr-2 "></i>' : '';
                                         echo $pdtlot->getProduit()->getNom(); ?></td>
                                     <td><?php echo $pdtlot->getProduit()->getNom_espece(); ?></td>                                    
-                                    <td><?php echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : strtoupper($pdtlot->getType_froid_nom()); ?></td>
+                                    <td><?php echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : '&mdash;'; ?></td>
                                     <td class="text-center"><?php echo $pdtlot->getQuantieme() != '' ? $pdtlot->getQuantieme() : '&mdash;'; ?></td>
                                     <td class="text-center"><?php echo $pdtlot->getNumero_palette() > 0 ? $pdtlot->getNumero_palette() : '&mdash;'; ?></td>
                                     <td class="text-right"><?php  echo $pdtlot->getFroidCode()!='HAC' ? number_format($pdtlot->getPoids(), 3, '.', ' ').'Kg' : '&mdash;'; ?></td>
@@ -2596,7 +2595,7 @@ function modeShowListeProduitsDetailsLot($id_lot = 0)
                                 <tr <?php echo $multi ? 'class="collapse out collapsepdt' . $pdtlot->getId_pdt() . '"' : ''; ?>>
                                     <td><?php echo $pdtlot->getProduit()->getNom(); ?></td>
                                     <td><?php echo $pdtlot->getProduit()->getNom_espece(); ?></td>
-                                    <td><?php echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : strtoupper($pdtlot->getType_froid_nom()); ?></td>
+                                    <td><?php echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : '&mdash;'; ?></td>
                                     <td class="text-center"><?php echo $pdtlot->getQuantieme() != '' ? $pdtlot->getQuantieme() : '&mdash;'; ?></td>
                                     <td class="text-center"><?php echo $pdtlot->getNumero_palette() > 0 ? $pdtlot->getNumero_palette() : '&mdash;'; ?></td>
                                     <td class="text-right poids"><?php echo number_format($pdtlot->getPoids(), 3, '.', ' '); ?> Kgs</td>
@@ -2660,7 +2659,7 @@ function modeShowListeProduitsDetailsLot($id_lot = 0)
                                 <tr <?php echo $multi ? 'class="collapse out collapsepdt' . $pdtlot->getId_pdt() . '"' : ''; ?>>
                                     <td><?php echo $pdtlot->getProduit()->getNom(); ?></td>
                                     <td><?php echo $pdtlot->getProduit()->getNom_espece(); ?></td>
-                                    <td><?php echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : strtoupper($pdtlot->getType_froid_nom()); ?></td>
+                                    <td><?php echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : '&mdash;'; ?></td>
                                     <td class="text-center"><?php echo $pdtlot->getQuantieme() != '' ? $pdtlot->getQuantieme() : '&mdash;'; ?></td>
                                     <td class="text-center"><?php echo $pdtlot->getNumero_palette() > 0 ? $pdtlot->getNumero_palette() : '&mdash;'; ?></td>
                                     <td class="text-right"><?php echo number_format($pdtlot->getPoids(), 3, '.', ' '); ?> Kg</td>
@@ -2846,7 +2845,7 @@ function modeShowListeProduitsDetailsLotOld($id_lot = 0)
                             </td>
                             <td><?php echo $pdtlot->getProduit()->getNom_espece(); ?></td>
                             <td><?php
-                                echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : strtoupper($pdtlot->getType_froid_nom()); ?></td>
+                                echo $pdtlot->getOpFroid() != '' ? $pdtlot->getOpFroid()  : '&mdash;'; ?></td>
                             <td class="text-center"><?php echo $pdtlot->getQuantieme() != '' ? $pdtlot->getQuantieme() : '&mdash;'; ?></td>
                             <td class="text-center"><?php echo $pdtlot->getNumero_palette() > 0 ? $pdtlot->getNumero_palette() : '&mdash;'; ?></td>
                             <td class="text-right"><?php echo number_format($pdtlot->getPoids(), 3, '.', ' '); ?> Kg</td>

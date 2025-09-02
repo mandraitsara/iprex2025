@@ -67,7 +67,7 @@ function modeCreateFactureFromBls() {
 	// Boucle sur les Bls à intégrer à la facture
 	foreach ($id_bls_array as $id_bl) {
 
-		$bl = $blManager->getBl($id_bl, false, true);
+		$bl = $blManager->getBl($id_bl, false, true);		
 		if (!$bl instanceof Bl) { exit('-2'); } // SI un BL de ne peut pas être intégré, on ne crée pas de facture incomplète
 
 
@@ -109,6 +109,7 @@ function modeCreateFactureFromBls() {
 	if (!$id_facture || intval($id_facture) == 0) { exit('-3'); }
 	$facture->setId($id_facture);
 
+	
 	// On enregistre la liaison entre la facture et ses BLs
 	if (!$facturesManager->saveLiaisonFactureBls($id_facture, $id_bls_array)) { exit('-4');	}
 
@@ -120,7 +121,7 @@ function modeCreateFactureFromBls() {
     $facture->setLignes($facturesManager->getListeFactureLignes(['id_facture' => $id_facture]));
 
 	$facture->setMontant_interbev($facturesManager->getInterbevFacture($facture));
-	$facture->setMontant_tva($facturesManager->getTvaFacture($facture));
+	$facture->setMontant_tva($facturesManager->getTvaFacture($facture));	
 
 	// On rattache les BLs liés à la facture
 	$bls = $blManager->getListeBl(['id_facture' => $facture->getId()]);
@@ -162,6 +163,8 @@ function modeCreateFactureFromBls() {
 function modeGetListeFactures() {
 
 	global $facturesManager, $mode, $cnx, $utilisateur;
+
+	
 
 	$tiersManager = new TiersManager($cnx);
 
@@ -225,11 +228,10 @@ function modeGetListeFactures() {
 		'nb_result_page'    => $nbResultPpage,
 		'factavoirs'        => $factavoirs
 	];
-
+	
 
 	$liste = $facturesManager->getListeFactures($params);
-
-
+	
 	$factureReglementsManager = new FactureReglementsManager($cnx);
     if ($reglee != -1) {
 
@@ -288,6 +290,7 @@ function modeGetListeFactures() {
 			<tbody>
 			<?php
 			foreach ($liste as $facture) {
+
 				$totalInterbev = 0.0;
 				foreach ($facture->getLignes() as $l) {
 					$totalInterbev+= round($l->getInterbev(),2);
@@ -513,7 +516,8 @@ function generePdfFacture(Facture $facture) {
 
     $tiersManager = new TiersManager($cnx);
     $client = $tiersManager->getTiers($facture->getId_tiers_facturation());
-    if ($client instanceof Tiers) {
+	
+    if ($client instanceof Tiers) {		
         if ($client->getTva() == 0 && $facture->getMontant_interbev() > 0 || $web) {
             $facture->setMontant_interbev(0);
             $facturesManager->saveFacture($facture);
@@ -530,7 +534,7 @@ function generePdfFacture(Facture $facture) {
     }
 
 	require_once(__CBO_ROOT_PATH__.'/vendor/html2pdf/html2pdf.class.php');
-	ob_start();
+	ob_start();		
 
 	$content_fichier = genereContenuPdf($facture);
 	$content_header = genereHeaderPdf($facture);
@@ -576,6 +580,8 @@ function genereContenuPdf(Facture $facture) {
 
 	global $cnx, $facturesManager;
 
+	
+
 	// SI la date ne correspond pas au numéro de facture on modifie le numéro de facture
 
 	$date_mois = substr($facture->getDate(), 5,2);
@@ -609,6 +615,8 @@ function genereContenuPdf(Facture $facture) {
         $facture->setMontant_tva(0);
     }
 
+
+
 	$traductionsManager = new TraductionsManager($cnx);
 	$id_langue = $client->getId_langue();
 
@@ -624,10 +632,10 @@ function genereContenuPdf(Facture $facture) {
     // On intègre les lignes si on ne les a pas déjà (génération d'avoir par exemple)
 	if (!is_array($facture->getLignes())) {
 	    $lignes = $facturesManager->getListeFactureLignes(['id_facture' => $facture->getId(), 'id_langue' => $id_langue]);
-	    $facture->setLignes($lignes);;
+	    $facture->setLignes($lignes);
     }
 
-	$wExport = 26;
+	$wExport = 26;	
 	if ($facture->getMontant_tva() == 0) { $wExport+= 12; }
 	if ($facture->getMontant_interbev() == 0) { $wExport+= 12; }
 
@@ -675,15 +683,16 @@ function genereContenuPdf(Facture $facture) {
 
 		$total_poids+=$ligne->getPoids();
         $total_qte+=$ligne->getQte();
+		$vendu_piece = $ligne->getProduit()->getVendu_piece();
+		$total = $ligne->getPu_ht() * ($vendu_piece> 0 ? $ligne->getQte() : $ligne->getPoids());
 
-		$total_montant+=round($ligne->getTotal(),2);
+		$total_montant+=round($total,2);
 		$total_interbev+=round($ligne->getInterbev(),2);
 
 		if ($ligne->getTva() != 0) {
 		    $tva = true;
-			$base_tva+=round($ligne->getTotal(),2);
-		}
-
+			$base_tva+=round($total,2);
+		}		
 		$designation = '';
 		if ($ligne->getDesignation() != '') {
 			$designation = $ligne->getDesignation();
@@ -756,10 +765,14 @@ function genereContenuPdf(Facture $facture) {
 		$poidsTxt = $ligne->getPoids() > 0 ? number_format($ligne->getPoids() ,3,'.', ' ').'kg' : '-';
         //$puHtTxt = $ligne->getPu_ht() > 0 ? number_format($ligne->getPu_ht() ,2,'.', ' ') : '';
         $puHtTxt = number_format($ligne->getPu_ht() ,2,'.', ' ');
-        $mTvaTxt = $ligne->getMontant_tva() != 0 ? number_format($ligne->getMontant_tva() ,2,'.', ' ') : '-';
+        //$mTvaTxt = $ligne->getMontant_tva() != 0 ? number_format($ligne->getMontant_tva() ,2,'.', ' ') : '-';
+
+		
+        $mTvaTxt =   number_format(floatval($total)  * floatval($ligne->getTva())/100, 2,'.','');
+
         $mInterbev = $ligne->getInterbev() != 0 ? number_format($ligne->getInterbev() ,2,'.', ' ') : '-';
         // $totalTxt = $ligne->getPu_ht() > 0 ? number_format($ligne->getTotal() ,2,'.', ' ') : '-';
-        $totalTxt = $ligne->getTotal() != 0 ? number_format($ligne->getTotal() ,2,'.', ' ') : '-';
+        $totalTxt = $total != 0 ? number_format($total ,2,'.', ' ') : '-';	
 
 		$contenu .= '<tr>';
 		$contenu .= '<td class="w8 border-l border-r">' . $code . '</td>';
@@ -814,6 +827,8 @@ function genereContenuPdf(Facture $facture) {
 			}
 			$total_du+= $frais_montant;
 
+			
+
 /*			$libelleFrais = $fra->getNom();
 			$libelleFrais.= $infopc;
 			$libelleFrais.= $fra->getTaxe_taux() > 0 ? ' ['.$traductionsManager->getTrad('tva', $id_langue).' '.$fra->getTaxe_taux().'%]' : '';*/
@@ -832,10 +847,11 @@ function genereContenuPdf(Facture $facture) {
 			$contenu .=  $facture->getMontant_interbev() > 0 ?'<td class="w12 border-l border-r text-right">-</td>' : '';
 			$contenu .= '<td class="w12 border-l border-r text-right">' . number_format($frais_montant,2,'.', ' ') . '</td>';
 			$contenu .= '</tr>';
-
-
+				
 			$total_montant+=$frais_montant;
 			$base_tva+=round($frais_montant,2);
+
+			
 		} // FIN boucle sur les frais
 
 	} // FIN frais
@@ -847,6 +863,8 @@ function genereContenuPdf(Facture $facture) {
 
 	$soumiTva =  $tva && $facture->getMontant_tva() != 0  && $client->getTva() == 1 ? '' : $traductionsManager->getTrad('non_tva', $id_langue);
 
+	
+
 	if (strtolower(substr($facture->getNum_facture(),0,2)) == 'av') {
 		$soumiTva = '';
     }
@@ -854,14 +872,12 @@ function genereContenuPdf(Facture $facture) {
 	//$wExportA = $facture->getMontant_tva() == 0 && $facture->getMontant_interbev() == 0 ? 78 : 76;
 	$wExportA = $facture->getMontant_tva() == 0 && $facture->getMontant_interbev() == 0 ? 68 : 66;
 	//$wExportB = $facture->getMontant_tva() == 0 && $facture->getMontant_interbev() == 0 ? 10 : 12;
-	$wExportB = $facture->getMontant_tva() == 0 && $facture->getMontant_interbev() == 0 ? 20 : 22;
-
+	$wExportB = $facture->getMontant_tva() == 0 && $facture->getMontant_interbev() == 0 ? 20 : 22;	
 	$contenu .= '<tr>';
 	$contenu .= '<td class="w'.$wExportA.' border-b-0 border-l border-r text-center"></td>';
 	$contenu .= '<td class="w'.$wExportB.' border-l border-r text-right" style="font-size: 8px;">'.$traductionsManager->getTrad('montant', $id_langue).' '.$traductionsManager->getTrad('ht', $id_langue).'</td>';
 	$contenu .= '<td class="w12 border-l border-r text-right">'.number_format($total_montant, 2,'.', ' ').'</td>';
 	$contenu .= '</tr>';
-
 
 	if ((float)$total_interbev != 0) {
 		$contenu .= '<tr>';
@@ -943,7 +959,7 @@ function genereContenuPdf(Facture $facture) {
 			$contenu .= '<td class="w'.$wExportA.' border-b-0 border-l border-r text-center"></td>';
 			$contenu .= '<td class="w'.$wExportB.' border-l border-r text-right" style="font-size: 8px;">'. $traductionsManager->getTrad('tva', $id_langue).' '. (string)$pourcentage.'%'.'</td>';
 			$contenu .= '<td class="w12 border-l border-r text-right">'.number_format($montantTvaTaux, 2,'.', ' ').'</td>';
-			$contenu .= '</tr>';
+			$contenu .= '</tr>';			
 			$montant_tva+=round($montantTvaTaux,2);
 		} // FIN boucle sur les taux de tva
     }
@@ -955,6 +971,8 @@ function genereContenuPdf(Facture $facture) {
 
 	//$total_du = round($total_montant,2) + round($montant_tva,2) + round($total_interbev,2);
 	$total_du = round(round($total_montant,2) + round($total_interbev,2) + round($montant_tva,2),2);
+
+
 
     $facture->setTotal_ttc($total_du);
     $facturesManager->saveFacture($facture);
@@ -1366,8 +1384,9 @@ function modeSaveFacture() {
 
 		$pdt = $produitsManager->getProduit($id_pdt, false);
 		if ($pdt instanceof Produit) {
-			$vendu_piece = $pdt->isVendu_piece() ? 1 : 0;
-		    $mult = $pdt->isVendu_piece() ?  $qte : $poids;
+			//$vendu_piece = $pdt->isVendu_piece() ? 1 : 0;
+			$vendu_piece = $pdt->isVendu_piece();
+		    $mult = $vendu_piece > 0 ?  $qte : $poids;
 		    if ($mult == 0) { $mult = 1; }
 			$total_ht+= ($pu_ht * $mult);
         }
@@ -2379,7 +2398,7 @@ function modeModaleAvoir() {
 							    ?>
                                 <option value="<?php echo $ligne->getId(); ?>" data-subtext="<?php echo $ligne->getNum_facture(); ?>" <?php
 								echo in_array($ligne->getId(),$ids_facture_ligne) ? 'selected' : '';
-								?>><?php echo $ligne->getProduit()->getNom() . ' pour ' . number_format($ligne->getTotal(), 2, '.', ' '); ?> €</option>
+								?>><?php echo $ligne->getProduit()->getNom() . ' pour ' . number_format($ligne->getPu_ht()*$ligne->getPoids(), 2, '.', ' '); ?> €</option>
 							<?php }
 							?>
                         </select>
@@ -2659,7 +2678,6 @@ function modeCreerAvoir() {
 			$ligne->setPoids($poids);
 			$ligne->setNb_colis($nb_colis);
 			$ligne->setQte($qte);
-
 			$ligne->setPu_ht($pu_ht_final);
 			$ligne->setTva(0);
 			$ligne->setTarif_interbev(0);
@@ -2668,6 +2686,7 @@ function modeCreerAvoir() {
 
         } // FIN boucle factures
 
+		
 		generePdfFacture($avoir);
         exit('1');
 
@@ -2754,11 +2773,14 @@ function modeUpdFacture() {
 	$pus_ht = isset($_REQUEST['pu_ht']) && is_array($_REQUEST['pu_ht']) ? $_REQUEST['pu_ht'] : [];
 	$qtes = isset($_REQUEST['qte']) && is_array($_REQUEST['qte']) ? $_REQUEST['qte'] : [];
 	$poids = isset($_REQUEST['poids']) && is_array($_REQUEST['poids']) ? $_REQUEST['poids'] : [];
+	$total = isset($_REQUEST['total']) && is_array($_REQUEST['total']) ? $_REQUEST['total'] : [];
+
 
 	if (empty($designations)) { exit('ERR_DESIGNATIONS_EMPTY');}
 	if (empty($pus_ht)) { exit('ERR_PUHT_EMPTY');}
 	if (empty($qtes)) { exit('ERR_QTE_EMPTY');}
 	if (empty($poids)) { exit('ERR_POIDS_EMPTY');}
+	if (empty($total)) { exit('ERR_TOTAL_EMPTY');}
 
 	// Date et N°commande
     $numCmd = isset($_REQUEST['num_cmd']) ? trim($_REQUEST['num_cmd']) : '';
@@ -2771,7 +2793,8 @@ function modeUpdFacture() {
 
 	// Lignes déjà en BDD
     foreach ($designations as $id_ligne => $designation) {
-        $ligne = $facturesManager->getFactureLigne($id_ligne);
+        $ligne = $facturesManager->getFactureLigne($id_ligne);		
+		
 		if (!$ligne instanceof FactureLigne) { exit('ERR_INSTOBJ_LIGNE_#'.$id_ligne); }
 
 		// Si on a supprimé la ligne
@@ -2790,15 +2813,13 @@ function modeUpdFacture() {
         if (!isset($pus_ht[$id_ligne])) { exit('ERR_PUHT_LIGNE_#'.$id_ligne); }
         if (!isset($qtes[$id_ligne])) { exit('ERR_QTE_LIGNE_#'.$id_ligne); }
         if (!isset($poids[$id_ligne])) { exit('ERR_POIDS_LIGNE_#'.$id_ligne); }
+		if (!isset($total[$id_ligne])) { exit('ERR_TOTAL_LIGNE_#'.$id_ligne); }		
+		
         $ligne->setPu_ht(floatval($pus_ht[$id_ligne]));
 		$ligne->setQte($qtes[$id_ligne]);
 		$ligne->setPoids($poids[$id_ligne]);
-/*        if ($ligne->isVendu_piece()) {
-            $ligne->setQte($qtes[$id_ligne]);
-        } else {
-			$ligne->setPoids($qtes[$id_ligne]);
-        }*/
-        if (!$facturesManager->saveFactureLigne($ligne)) { exit('ERR_SAVE_LIGNE_#'.$id_ligne);}
+		//$ligne->setTotal_ht($total[$id_ligne]);	
+		if (!$facturesManager->saveFactureLigne($ligne)) { exit('ERR_SAVE_LIGNE_#'.$id_ligne);}
 
     }
 
@@ -2807,6 +2828,8 @@ function modeUpdFacture() {
     $new_lines_designation = isset($_REQUEST['new_line_designation']) && is_array($_REQUEST['new_line_designation'])  ? $_REQUEST['new_line_designation'] : [];
     $new_line_pu_ht = isset($_REQUEST['new_line_pu_ht']) && is_array($_REQUEST['new_line_pu_ht'])  ? $_REQUEST['new_line_pu_ht'] : [];
     $new_line_qte = isset($_REQUEST['new_line_qte']) && is_array($_REQUEST['new_line_qte'])  ? $_REQUEST['new_line_qte'] : [];
+	$new_line_total = isset($_REQUEST['new_line_total']) && is_array($_REQUEST['new_line_total'])  ? $_REQUEST['new_line_total'] : [];
+	
     //$new_line_unite = isset($_REQUEST['new_line_unite']) && is_array($_REQUEST['new_line_unite'])  ? $_REQUEST['new_line_unite'] : [];
 
     // Si pas de nouvelles lignes, terminé, retour positif
@@ -2846,8 +2869,10 @@ function modeUpdFacture() {
 		$nl->setNb_colis(0);
 		//if ($unite == 'poids') { $nl->setPoids(floatval($nl_qte)); $nl->setQte(1); }
         //else { $nl->setQte(floatval($nl_qte)); $nl->setPoids(0); }
-		$nl->setQte(floatval($nl_qte)); $nl->setPoids(0);
-
+		$nl->setQte(floatval($nl_qte));
+		$nl->setPoids(0);
+		$nl->setTotal($total);
+		
 		if (!$facturesManager->saveFactureLigne($nl)) { exit('ERR_SAVE_NEW_LIGNE_INDEX#'.$k);}
 		// Log SupprLigne
 		$log = new Log([]);
@@ -2990,16 +3015,5 @@ function modeMarquerFactureEnvoyee() {
     $logManager->saveLog($log);
     echo '1';
     exit;
-
-}
-
-function modeChangeQteLigne(){
-	global $facturesManager, $cnx;
-	$id_facture = isset($_REQUEST['id_ligne_fct']) ? intval($_REQUEST['id_ligne_fct']) : 0;
-	$qte = isset($_REQUEST['qte']) ? intval($_REQUEST['qte']) : 0;
-
-
-
-
 
 }

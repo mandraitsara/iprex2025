@@ -307,7 +307,8 @@ function modeModalProduit() {
                                 <span class="input-group-text">Code</span>
                             </div>
                             <input type="text" class="form-control" placeholder="Code interne" name="code" id="input_code" value="<?php echo $produit->getCode(); ?>">
-                            <div class="invalid-feedback">Code unique obligatoire.</div>
+                            <input type="hidden" class="form-control" id="input_code_feedback">
+							<div class="invalid-feedback">Code unique obligatoire.</div>
                         </div>
 
                         <div class="input-group">
@@ -1150,9 +1151,9 @@ function modeShowListeProduits() {
 	// Préparation pagination (Ajax)
 	$nbResultPpage      = 12;
 	$page               = isset($_REQUEST['page']) ? intval($_REQUEST['page']) : 1;
+	
 	$filtresPagination  = '?mode='.$mode;
 	$start              = ($page-1) * $nbResultPpage;
-
 	$params['start'] 			= $start;
 	$params['nb_result_page'] 	= $nbResultPpage;
 	$params['show_inactifs']    = true;
@@ -1207,7 +1208,6 @@ function modeShowListeProduits() {
 		// Liste non vide, construction de la pagination...
 		$nbResults  = $produitsManager->getNb_results();
 		$pagination = new Pagination($page);
-
 		$pagination->setUrl($filtresPagination);
 		$pagination->setNb_results($nbResults);
 		$pagination->setAjax_function(true);
@@ -1313,7 +1313,6 @@ function modeShowListeProduits() {
 			$pagination->setNature_resultats('produit');
 			$pagination->setNb_apres(2);
 			$pagination->setNb_avant(2);
-
 			echo ($pagination->getPaginationHtml());
 		} // FIN test pagination
 

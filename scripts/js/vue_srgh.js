@@ -705,6 +705,7 @@ function listenerEtape3(identifiant) {
             // Si le champ en cours est le nb de colis, on remet à 0 le poids
             if (champ === 'nb_colis') {
                 $('input[name=poids_pdt]').val('');
+                $('input[name=quantite]').val('');
             }
 
             // Si on est en mode ajout en update, on efface le total estimé
@@ -936,6 +937,7 @@ function listenerEtape3(identifiant) {
         // Autre touche numérique : on complète le code
         var champVal    = $('input[name='+champ+']').val().trim();
         var poidsDefaut = $('.inputPoidsPdt').data('poids-defaut');
+        var nbPieces = $('.inputQuantite').data('pcb');
 
         // Si on est sur le champ du poids
         if (champ === 'poids_pdt') {
@@ -955,13 +957,12 @@ function listenerEtape3(identifiant) {
         // Sinon, on est sur le champ nb de colis
         } else if(champ === 'quantite'){
             var quantite = $('.inputQuantite').val().trim();
+            if (touche === '.') {return false; }
 
             if (quantite.length === 0 ) {
                 $('.inputQuantite').val(touche);
 
                 // Si on saisi un point, on vérifie qu'il n'y en a pas déjà un
-            } else if (touche === '.' && quantite.indexOf('.') !== -1) {
-                return false;
             } else {
                 $('.inputQuantite').val(quantite + touche);
             } // FIN test point [.] ou chanmp vide
@@ -985,6 +986,12 @@ function listenerEtape3(identifiant) {
             // On formate le poids final proprement
             var poidsFinal = poidsDefaut * parseInt( $('.inputNbColis').val());
             $('.inputPoidsPdt').val(poidsFinal);
+
+            //On formate la quantite final proprement
+            var nbPiecesFinal = nbPieces * parseInt( $('.inputNbColis').val());
+            $('.inputQuantite').val(nbPiecesFinal);
+            
+            
 
         } // FIN test sur le champ (poids/nb_colis)
 
@@ -2024,6 +2031,7 @@ function listenerEtape11(identifiant) {
             // On reset les champs
             $('input[name=nb_colis]').val('');
             $('input[name=poids_pdt]').val('');
+            $('input[name=quantite]').val('');
             $('input[name=nb_colis]').focus();
 
             return false;
@@ -2182,6 +2190,7 @@ function listenerEtape11(identifiant) {
 
         var champVal    = $('input[name='+champ+']').val().trim();
         var poidsDefaut = $('.inputPoidsPdt').data('poids-defaut');
+        var nbPieces = $('.inputQuantite').data('pcb');
 
         var nb_colis_old_val = $('input[name=nb_colis_old]').val();
         var poids_pdt_old_val = $('input[name=poids_pdt_old]').val();
@@ -2233,7 +2242,10 @@ function listenerEtape11(identifiant) {
 
             // On formate le poids final proprement
             var poidsFinal = poidsDefaut * parseInt( $('.inputNbColis').val());
+            var nbPiecesFinal = nbPieces * parseInt( $('.inputNbColis').val());
+
             $('.inputPoidsPdt').val(poidsFinal);
+            $('.inputQuantite').val(nbPiecesFinal);
 
         } // FIN test sur le champ (poids/nb_colis)
 

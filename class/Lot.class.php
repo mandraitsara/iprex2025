@@ -58,6 +58,7 @@ class Lot {
 				$vue_validation,	// code de la vue à valider
 				$reception,			// Objet LotReception
 				$numlot_frs,
+				$nom_produit,
 				$vues;				// Array d'objet LotVue
 	public		$attributs = array();
 	
@@ -85,6 +86,10 @@ class Lot {
 	
 	public function getNumlot() {
 		return $this->numlot;
+	}
+
+	public function getNom_produit() {
+		return $this->nom_produit;
 	}
 	public function getDate_add() {
 		return $this->date_add;
@@ -249,6 +254,10 @@ class Lot {
 	}
 	public function setNom_espece($valeur) {
 		$this->nom_espece = (string)$valeur;
+	}
+
+	public function setNom_produit($nom_produit) {
+		$this->nom_produit = (string)$nom_produit;
 	}
 	public function setId_fournisseur($valeur) {
 		$this->id_fournisseur = (int)$valeur;

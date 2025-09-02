@@ -14,6 +14,7 @@ class BlLigne {
 	protected
 		$id,
 		$id_bl,
+		$id_facture,
 		$id_compo,
 		$id_pdt_negoce,
 		$numero_palette,
@@ -24,8 +25,7 @@ class BlLigne {
 		$id_produit,
 		$id_pays,
 		$produit, 		// Objet Produit pour les traductions
-		$libelle,
-		$num_lot,
+		$libelle,		
 		$num_palette, 	// Numéro de palette forcé manuellement
 		$origine,
 		$code,
@@ -50,7 +50,10 @@ class BlLigne {
 		$trad_traitement, // Pour traduction Packing List
 		$dlc,
 		$vendu_piece,
+		$vendu_negoce,
 		$is_frais,
+		$num_facture,
+		$num_bl,
 		$hors_stock;
 
 	public       $attributs = array();
@@ -78,6 +81,23 @@ class BlLigne {
 	public function getId_bl() {
 		return $this->id_bl;
 	}
+
+	public function getVendu_negoce(){
+		return $this->vendu_negoce;
+	}
+
+	public function getId_facture(){
+		return $this->id_facture;
+	}
+
+	public function getNum_facture(){
+		return $this->num_facture;
+	}
+
+	public function getNum_bl(){
+		return $this->num_bl;
+	}
+
 
 	public function getId_compo() {
 		return $this->id_compo;
@@ -138,10 +158,6 @@ class BlLigne {
 
 	public function getId_palette() {
 		return $this->id_palette;
-	}
-
-	public function getNum_lot() {
-		return $this->num_lot;
 	}
 
 	public function getOrigine() {
@@ -243,6 +259,18 @@ class BlLigne {
 		$this->id = (int)$id;
 	}
 
+	public function setId_facture($id_facture){
+
+		$this->id_facture = (int)$id_facture;
+	}
+	public function setNum_facture($num_facture) {
+		$this->num_facture = (string)$num_facture;
+	}
+
+	public function setNum_bl($num_bl) {
+		$this->num_bl = (string)$num_bl;
+	}
+
 	public function setId_bl($id_bl) {
 		$this->id_bl = (int)$id_bl;
 		Outils::setAttributs('id_bl',$this);
@@ -317,11 +345,6 @@ class BlLigne {
 	public function setId_palette($valeur) {
 		$this->id_palette = (int)$valeur;
 		Outils::setAttributs('id_palette',$this);
-	}
-
-	public function setNum_lot($valeur) {
-		$this->num_lot = (string)$valeur;
-		Outils::setAttributs('num_lot',$this);
 	}
 
 	public function setOrigine($valeur) {
@@ -402,6 +425,10 @@ class BlLigne {
 
 	public function setVendu_piece($vendu_piece) {
 		$this->vendu_piece = (int)$vendu_piece;
+	}
+
+	public function setVendu_negoce($vendu_negoce) {
+		$this->vendu_negoce = (int)$vendu_negoce;
 	}
 
 	public function setIs_frais($is_frais) {

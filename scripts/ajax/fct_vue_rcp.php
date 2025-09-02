@@ -71,42 +71,33 @@ function modeChargeTicketLot()
         $na = '<span class="badge badge-warning badge-pill text-14">Non renseigné !</span>';
     ?>
         <div class="alert alert-secondary text-34 text-center pl-0 pr-0 mb-1">
-            ID<?php echo $lotNegoce->getId(); ?>
+            <?php echo $lotNegoce->getNum_bl()   ; ?>
             <p class="margin-bottom-0 margin-top--15 text-center padding-left-15 padding-right-15"><span class="badge badge-dark form-control text-14">LOT DE NÉGOCE</span></p>
             <input id="lotid_photo" type="hidden" value="N<?php echo $id_lot; ?>">
         </div>
         <table>
             <?php if ($utilisateur->isDev()) { ?>
                 <tr>
-                    <td><i class="fa fa-user-secret mr-1 fa-lg gris-c"></i>ID #</td>
-                    <th><kbd><?php echo $lotNegoce->getId(); ?></kbd></th>
+                    <td><i class="fa fa-user-secret mr-1 fa-lg gris-c"></i>numero bl #</td>
+                    <th><kbd><?php echo $lotNegoce->getNum_bl(); ?></kbd></th>
                 </tr>
-            <?php } ?>
-            <tr>
-                <td>Espèce</td>
-                <th><?php echo $lotNegoce->getNom_espece() != '' ? $lotNegoce->getNom_espece() : $na;
-                    if (strpos(strtolower($lotNegoce->getNom_espece()), 'gibier') !== false) {
-                        echo '<span class="ml-1">(';
-                        echo $lotNegoce->getChasse() == 0 ? 'Elevage' : 'Chasse';
-                        echo ')</span>';
-                    }
-                    ?></th>
-            </tr>
-            <tr>
+            <?php } ?>            
+            <tr>                
                 <td>Fournisseur</td>
                 <th><?php echo $lotNegoce->getNom_fournisseur() != '' ? $lotNegoce->getNom_fournisseur() : $na; ?></th>
             </tr>
             <tr>
                 <td>Poids BL</td>
-                <th><?php echo $lotNegoce->getPoids_bl() != '' ? $lotNegoce->getPoids_bl() : $na; ?></th>
+                <th></th>
             </tr>
             <tr>
                 <td>Poids Réception</td>
-                <th><?php echo $lotNegoce->getPoids_reception() != '' ? $lotNegoce->getPoids_reception() : $na; ?></th>
+                <th></th>
             </tr>
+            
             <tr>
                 <td>Date d'entrée</td>
-                <th><?php echo $lotNegoce->getDate_entree() != '' ? $lotNegoce->getDate_entree() : $na; ?></th>
+                <th><?php echo $lotNegoce->getDate_reception() != '' ? $lotNegoce->getDate_reception() : $na; ?></th>
             </tr>
         </table>
 
@@ -625,8 +616,6 @@ MODE - Charge le contenu d'une étape de vue
          * Description  : Compléter les infos du lot
          *  ----------------------------------- */
         if ($etape == 2) {    ?>
-
-
                 <div class="row mt-5 align-content-center">
                     <div class="col text-center">
                         <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Confirmer la réception du lot :</h4>
@@ -637,7 +626,6 @@ MODE - Charge le contenu d'une étape de vue
             <?php
             exit;
         } // FIN ETAPE
-
 
         /** ----------------------------------------
          * Etape        : 3
@@ -1411,7 +1399,7 @@ MODE - ACTION : Enregistre la température (Negoce)
                 }
 
                 // Enregistrement des données dans le lot...
-
+                
                 $lotNegoce->setTemp($temp);
                 $lotNegoce->setDate_maj(date('Y-m-d H:i:s'));
                 $lotNegoce->setId_user_maj($utilisateur->getId());
@@ -2085,3 +2073,677 @@ MODE - Enregistre le transporteur (si crochets)
 
                 exit;
             } // FIN mode
+
+
+
+
+    function modeChargeEtapeNegoceVue()
+            {
+        
+                global $cnx, $utilisateur, $lotsManager;
+
+                $lotsNegoceManager = new LotNegoceManager($cnx);
+        
+                $etape  = isset($_REQUEST['etape'])     ? intval($_REQUEST['etape'])            : 0;
+                $id_lot = isset($_REQUEST['id_lot'])    ? intval($_REQUEST['id_lot'])           : 0;
+        
+                if ($etape == 0 || $id_lot == 0) {
+                    erreurLot();
+                    exit;
+                }
+                $lot = $lotsNegoceManager->getLotNegoce($id_lot);
+                
+                if (!$lot instanceof LotNegoce) {
+                    erreurLot();
+                };
+        
+                /** ----------------------------------------
+                 * DEV - On affiche l'étape pour débug
+                 *  ----------------------------------- */
+                if ($utilisateur->isDev()) { ?>
+                        <div class="dev-etape-vue"><i class="fa fa-user-secret fa-lg mr-1"></i>Etape <kbd><?php echo $etape; ?></kbd></div>
+                    <?php } // FIN test DEV
+        
+                /** ----------------------------------------
+                 * Etape        : 2
+                 * Description  : Compléter les infos du lot
+                 *  ----------------------------------- */
+                if ($etape == 2) {    ?>
+        
+        
+                        <div class="row mt-5 align-content-center">
+                            <div class="col text-center">
+                                <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Confirmer la réception du lot :</h4>
+                                <button type="button" class="btn btn-lg btn-success text-30 padding-50 btn-confirme-reception text-center"><i class="fa fa-truck mr-2 fa-lg"></i><br>Lot réceptionné aujourd'hui <i class="fa fa-check-square fa-sm ml-2"></i> </button>
+                            </div>
+                        </div>
+        
+                    <?php
+                    exit;
+                } // FIN ETAPE
+        
+        
+                /** ----------------------------------------
+                 * Etape        : 3
+                 * Description  : Contrôle températures
+                 *  ----------------------------------- */
+                if ($etape == 3) {
+        
+                    $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
+                    if ($id_lot == 0) {
+                        erreurLot();
+                    };
+        
+                    $lot = $lotsNegoceManager->getLotNegoce($id_lot);
+                    if (!$lot instanceof Lot) {
+                        erreurLot();
+                    };
+        
+        
+                    /**
+                     * Si Abats, on a juste la température du camion
+                     * Si viande, on controle 3 niveau de températures
+                     */
+        
+                    ?>
+                        <div class="row mt-5 align-content-center">
+                            <div class="col-5 text-center">
+                                <div class="alert alert-secondary">
+                                    <div class="input-group clavier-temperature">
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="1">1</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="2">2</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="3">3</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="4">4</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="5">5</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="6">6</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="7">7</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="8">8</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="9">9</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur=".">.</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="0">0</button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur="S">+/-</button></div>
+                                        <div class="col-8"><button type="button" class="form-control mb-2 btn btn-success btn-large" data-valeur="V" data-id-lot="<?php echo $lot->getId(); ?>"><i class="fa fa-check"></i></button></div>
+                                        <div class="col-4"><button type="button" class="form-control mb-2 btn btn-danger btn-large" data-valeur="C"><i class="fa fa-backspace"></i></button></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <form class="alert alert-secondary" id="formTemperatures">
+                                    <input type="hidden" name="mode" value="actionSaveTemperatures" />
+                                    <input type="hidden" name="id_lot" value="<?php echo $lot->getId(); ?>" />
+                                    <?php
+                                    // Si viande : 3 niveaux de température
+                                    if ($lot->getComposition() == 1 && $lot->getComposition_viande() != 1) { ?>
+        
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Témpératures:</h4>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col input-group">
+                                                <div class="input-group-prepend prepend-fixe-temp">
+                                                    <span class="input-group-text text-center text-48">D</span>
+                                                </div>
+                                                <input type="text" class="form-control text-5em text-center" placeholder="00.00" value="" name="tempd" maxlength="15" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-48"> °C&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-bottom-20">
+                                            <div class="col input-group">
+                                                <div class="input-group-prepend prepend-fixe-temp">
+                                                    <span class="input-group-text text-center text-48">M</span>
+                                                </div>
+                                                <input type="text" class="form-control text-5em text-center" placeholder="00.00" value="" name="tempm" maxlength="15" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-48"> °C&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col input-group">
+                                                <div class="input-group-prepend prepend-fixe-temp">
+                                                    <span class="input-group-text text-center text-48">F</span>
+                                                </div>
+                                                <input type="text" class="form-control text-5em text-center" placeholder="00.00" value="" name="tempf" maxlength="15" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-48"> °C&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                    <?php
+                                        // Abats : 1 température
+                                    } else { ?>
+        
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Témpérature :</h4>
+                                        <div class="row">
+                                            <div class="col input-group">
+                                                <input type="text" class="form-control text-6em text-center" placeholder="00.00" value="" name="temp" maxlength="15" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-48"> °C&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+        
+                                    <?php
+                                    } // FIN test type composition pour températures
+                                    ?>
+        
+        
+                                </form>
+                                <?php
+                                $configManager = new ConfigManager($cnx);
+                                $config_tmp_rcp_min = $configManager->getConfig('tmp_rcp_' . $lot->getClefConfigCompositionTemp() . '_min');
+                                $config_tmp_rcp_max = $configManager->getConfig('tmp_rcp_' . $lot->getClefConfigCompositionTemp() . '_max');
+                                $config_tmp_rcp_tol = $configManager->getConfig('tmp_rcp_' . $lot->getClefConfigCompositionTemp() . '_tol');
+        
+                                if ($config_tmp_rcp_min instanceof Config && $config_tmp_rcp_max instanceof Config && $config_tmp_rcp_tol instanceof Config) {
+                                ?>
+                                    <div class="alert alert-light temp-controles" data-temp-controle-min="<?php echo intval($config_tmp_rcp_min->getValeur()); ?>" data-temp-controle-max="<?php echo intval($config_tmp_rcp_tol->getValeur()); ?>">
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="gris-7" id="consignesTemp"><i class="fa fa-info-circle mr-1"></i>Températures de réception pour conformité :
+                                                    de <span class="text-18 text-info"><?php
+                                                                                        echo intval($config_tmp_rcp_min->getValeur()); ?>°C</span> à <span class="text-18 text-info"><?php
+                                                                                                                                                                                        echo intval($config_tmp_rcp_max->getValeur()); ?>°C</span> avec tolérance <span class="text-18 text-info"><?php
+                                                                                                                                                                                                                                                                                                    echo intval($config_tmp_rcp_tol->getValeur()); ?>°C</span> <?php
+                                                                                                                                                                                                                                                                                                                                                                echo $lot->getComposition_viande_verbose(true) != '' ? $lot->getComposition_viande_verbose(true) : '(abats)'; ?>
+        
+                                                </p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                } // FIN test instancition des objets de configuration des températures de réception
+                                    ?>
+        
+                                    <div class="d-none alert alert-danger temperatureInvalide">
+                                        <i class="fa fa-exclamation-circle fa-3x float-left mr-3"></i> <strong>Attention !</strong>
+                                        <p>Température <span class="type-temperature-invalide-txt"></span> invalide.</p>
+                                    </div>
+                                    </div>
+                            </div>
+        
+        
+                        <?php
+                        exit;
+                    } // FIN ETAPE
+        
+        
+                    /** ----------------------------------------
+                     * Etape        : 4
+                     * Description  : Etat visuel / Photo
+                     *  ----------------------------------- */
+                    if ($etape == 4) {
+        
+                        $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
+                        if ($id_lot == 0) {
+                            erreurLot();
+                        };
+        
+                        $lot = $lotsNegoceManager->getLotNegoce($id_lot);
+                        if (!$lot instanceof Lot) {
+                            erreurLot();
+                        };
+        
+                        ?>
+                            <div class="row mt-5 align-content-center">
+                                <div class="col-6 offset-3 mb-3">
+                                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Etat visuel du lot :</h4>
+                                </div>
+                                <div class="col-3 offset-3">
+                                    <button type="button" class="btn btn-danger btn-lg form-control padding-25 text-30 btnValideEtatVisuel" data-id-lot="<?php echo $lot->getId(); ?>" data-etat-visuel="0"><i class="fa fa-times fa-lg mr-3"></i>Contestable</button>
+                                </div>
+                                <div class="col-3">
+                                    <button type="button" class="btn btn-success btn-lg form-control padding-25 text-30 btnValideEtatVisuel" data-id-lot="<?php echo $lot->getId(); ?>" data-etat-visuel="1"><i class="fa fa-check fa-lg mr-3"></i>Satisfaisant</button>
+                                </div>
+                            </div>
+        
+                        <?php
+                    } // FIN ETAPE
+        
+                    /** ----------------------------------------
+                     * Etape        : 5
+                     * Description  : Conformité / Observations
+                     *  ----------------------------------- */
+                    if ($etape == 5) {        
+                        $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
+                        if ($id_lot == 0) {
+                            erreurLot();
+                        };
+        
+                        $lot = $lotsNegoceManager->getLotNegoce($id_lot);
+                        if (!$lot instanceof LotNegoce) {
+                            erreurLot();
+                        };
+        
+                        $pvisuManager =  new PvisuAvantManager($cnx);
+                        $pointsControlesManager = new PointsControleManager($cnx);
+                        $points = $pointsControlesManager->getListePointsControles(false, 3);
+        
+                        $bo = false;
+        
+                        $id_avant = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+                        if ($id_avant > 0) {
+                            // Admin - edite un avant
+                            $pvisu = $pvisuManager->getPvisuAvant($id_avant);
+                            $bo = true;
+                        } else {
+                            // On récupère les données enregistrées du jour s'il y en a
+                            $pvisu = $pvisuManager->getPvisuAvantJour('', false);
+                        }
+                        if (!$pvisu instanceof PvisuAvant) {
+                            $pvisu = new PvisuAvant([]);
+                        }
+        
+                        $visuPoints = $pvisuManager->getListePvisuAvantPoints($pvisu, true);
+                        if (!is_array($visuPoints)) {
+                            $visuPoints = [];
+                        }
+        
+                        if ($pvisu->getDate() == '') {
+                            $pvisu->setDate(date('Y-m-d'));
+                        }
+                        ?>
+                            <div>
+                                <form class="alert alert-secondary row mt-5 align-content-center bg-white border-0" id="observationsReception">
+                                    <input type="hidden" name="id_lot" value="<?php echo $lot->getId(); ?>" />
+                                    <input type="hidden" name="mode" value="actionConformiteReception" />
+                                    <input type="hidden" name="conformite" value="" />
+                                    <input type="hidden" name="bo" value="<?php echo $bo ? '1' : '0'; ?>" />
+                                    <div class="col-6 offset-3 mb-3">
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Observations :</h4>                                
+                                        <textarea class="form-control text-20" placeholder="Remarques sur la réception du lot (facultatif)..." name="observations" id="champ_clavier">
+                                            <?php
+                                            // Si on a déjà une reception avec des obeservations, on prérempli pour ne pas avoir à ressaisir si l'opérateur est revenu en arrière
+                                            if ($lot->getReception() instanceof LotReception) {
+                                               
+                                                echo strip_tags($lot->getReception()->getObservations());
+                                            } // FIN test récept
+                                            ?>
+                                        </textarea>
+                                    </div>
+                                    <div class="col-6 offset-3 mb-3">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td class="border-0 text-28 gris-9 pt-2"><?php echo Outils::getDate_only_verbose($pvisu->getDate(), true, false); ?></td>
+                                                    <td class="border-0 text-center text-success pt-4 pb-2"><i class="fa fa-check mr-1"></i> Satisfaisant</td>
+                                                    <td class="border-0 text-center nowrap text-danger pt-4 pb-2"><i class="fa fa-times mr-1"></i>Non-satisfaisant</td>
+                                                </tr>
+                                            </thead>
+                                            <?php
+                                            foreach ($points as $point) { ?>
+                                                <tr class="<?php echo $point->getId_parent() == 0 ? 'bg-info text-white ' : ''; ?>">
+                                                    <td class="<?php echo $point->getId_parent() == 0 ? 'pl-3 text-28' : 'pl-5 text-18'; ?>">
+                                                        <?php echo $point->getNom(); ?>
+                                                    </td>
+                                                    <td class="text-center ichecktout">
+                                                        <?php if ($point->getId_parent() == 0 && (int)$pvisu->getId_user_validation() == 0) { ?>
+                                                            <button type="button" class="btn btn-success btn-sm border padding-5-10 margin-top-5 btnToutOk" data-id-parent="<?php echo $point->getId(); ?>"><i class="fa fa-check mr-1"></i> Tout OK</button>
+                                                        <?php } else if ($point->getId_parent() == 0 && $bo) { ?>
+        
+                                                        <?php } else if ($point->getId_parent() > 0) { ?>
+                                                            <input type="radio" class="icheck icheck-pvisu icheck-vert parent-<?php
+                                                                                                                                echo $point->getId_parent(); ?>" name="point[<?php echo $point->getId(); ?>]" value="1" <?php
+                                                                                                                                                                                                                        echo isset($visuPoints[$point->getId()]) && (int)$visuPoints[$point->getId()] == 1 ? 'checked' : '';
+                                                                                                                                                                                                                        echo (int)$pvisu->getId_user_validation() > 0 && !$bo ? ' disabled' : ''; ?>>
+                                                        <?php } ?>
+        
+                                                    </td>
+                                                    <td class="text-center ichecktout">
+                                                        <?php if ($point->getId_parent() > 0) { ?>
+                                                            <input type="radio" class="icheck icheck-pvisu icheck-rouge" name="point[<?php echo $point->getId(); ?>]" value="0" <?php
+                                                                                                                                                                                echo isset($visuPoints[$point->getId()]) && (int)$visuPoints[$point->getId()] == 0 ? 'checked' : '';
+                                                                                                                                                                                echo (int)$pvisu->getId_user_validation() > 0 && !$bo ? ' disabled' : ''; ?>>
+                                                        <?php } ?>
+                                                    </td>
+        
+                                                </tr>
+                                            <?php } // FIN boucle sur les points de contrôle
+                                            ?>
+                                        </table>
+                                    </div>
+                                    <div class="col-6 offset-3 mb-3">
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Validation du réceptionniste :</h4>
+                                        <div class="alert alert-info text-center">Vérification de la conformité des estampilles sanitaires prévues<br>lors de la création des lots et en réelles lors de la réception. </div>
+                                    </div>
+                                    <?php
+        
+                                    // On compare la température de réception du lot avec la configuration pour forcer une éventuelle non-conformité
+                                    $configManager          = new ConfigManager($cnx);
+                                    $lotReceptionManager    = new LotReceptionManager($cnx);
+        
+                                    $config_tmp_rcp_min     = $configManager->getConfig('tmp_rcp_' . $lot->getClefConfigCompositionTemp() . '_min');
+                                    $config_tmp_rcp_tol     = $configManager->getConfig('tmp_rcp_' . $lot->getClefConfigCompositionTemp() . '_tol');
+                                    $lotReception           = $lotReceptionManager->getLotReceptionByIdLot($id_lot);
+        
+                                    $temperatureHorsNormes = false;
+        
+                                    if (
+                                        $lotReception &&
+                                        $lotReception instanceof LotReception &&
+                                        $config_tmp_rcp_min instanceof Config &&
+                                        $config_tmp_rcp_tol instanceof Config
+                                    ) {
+        
+                                        // Abats
+                                        if ($lot->getComposition() == 2) {
+        
+                                            // KO si la température (unique) est < au minium (0°)
+                                            if (intval($lotReception->getTemp()) <  intval($config_tmp_rcp_min->getValeur())) {
+                                                $temperatureHorsNormes = true;
+                                            }
+        
+                                            // KO si la température (unique) est > au maximal toléré
+                                            if (intval($lotReception->getTemp()) >  intval($config_tmp_rcp_tol->getValeur())) {
+                                                $temperatureHorsNormes = true;
+                                            }
+        
+                                            // Viandes
+                                        } else {
+        
+                                            // On retiens la plus faible des 3 températures
+                                            $temp_faible = min([
+                                                intval($lotReception->getTemp_d()),
+                                                intval($lotReception->getTemp_m()),
+                                                intval($lotReception->getTemp_f())
+                                            ]);
+        
+                                            // Et la plus forte
+                                            $temp_forte = max([
+                                                intval($lotReception->getTemp_d()),
+                                                intval($lotReception->getTemp_m()),
+                                                intval($lotReception->getTemp_f())
+                                            ]);
+        
+                                            // KO si la température la plus faible est < au minimum (0°C)
+                                            if (intval($temp_faible) <  intval($config_tmp_rcp_min->getValeur())) {
+                                                $temperatureHorsNormes = true;
+                                            }
+        
+                                            // KO si la température la plus élevée est > au maximal toléré
+                                            if (intval($temp_forte) >  intval($config_tmp_rcp_tol->getValeur())) {
+                                                $temperatureHorsNormes = true;
+                                            }
+                                        } // FIN test composition
+        
+                                    } // FIN test instanciation des objets requis
+        
+        
+        
+        
+                                    ?>
+        
+                                    <div class="col-3 offset-3">
+                                        <button type="button" class="btn btn-danger btn-lg form-control padding-25 text-30 btnConformiteLot" data-conformite="0" id="non-conforme-button"><i class="fa fa-times fa-lg mr-3"></i>Non Conforme</button>
+                                    </div>
+                                    <div class="col-3">
+                                    <button type="button" class="btn btn-success btn-lg form-control padding-25 text-30 btnConformiteLot" data-conformite="1" id="conforme-button" <?php echo $temperatureHorsNormes ? 'disabled' : ''; ?>><i class="fa fa-check fa-lg mr-3"></i>Conforme</button>
+                                    </div>
+        
+        
+        
+                                </form>
+                            </div>
+        
+        
+                            <?php
+        
+                            if ($temperatureHorsNormes) { ?>
+                                <div class="row mt-5 align-content-center">
+                                    <div class="col-6 offset-3 mb-3">
+                                        <div class="alert alert-danger">
+                                            <h5 class="text-uppercase"><i class="fa fa-exclamation-circle mr-2"></i>Températures hors norme</h5>
+                                            <hr>
+                                            <p>Les relevés de températures saisis ne correspondent pas aux critères tolérés !<br>La conformité du lot ne peut être validée.
+                                                Contactez un responsable.<br>
+                                                Cliquez sur <span class="badge badge-danger text-16">Non Conforme</span> pour continuer&hellip;</p>
+                                        </div>
+                                    </div>
+                                </div>
+        
+        
+                            <?php }
+                        } // FIN ETAPE
+        
+                        /** ----------------------------------------
+                         * Etape        : 6
+                         * Description  : FIN Réception / Récap'
+                         *  ----------------------------------- */
+                        if ($etape == 6) {
+        
+                            $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
+                            if ($id_lot == 0) {
+                                erreurLot();
+                            };
+        
+                            $lot = $lotsNegoceManager->getLotNegoce($id_lot);
+                            if (!$lot instanceof LotNegoce) {
+                                erreurLot();
+                            };
+                            ?>
+                            <div class="row mt-5 justify-content-center">
+                                <div class="col-6 mb-3 text-center">
+                                    <div class="alert alert-secondary padding-50">
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Réception du lot <?php echo $lot->getNumlot(); ?></h4>
+                                        <div class="row">
+                                            <div class="col-6 offset-3">
+                                                <button type="button" class="btn btn-lg btn-success text-30 mt-3 btnConfirmerReception w-100" data-id-lot="<?php
+                                                                                                                                                            echo $lot->getId(); ?>"><i class="fa fa-clipboard-check fa-lg mr-3"></i> Confirmer<p class="mb-0 mt-1 text-20">Réception terminée</p></button>
+                                            </div>
+                                            <div class="col-6 offset-3">
+                                                <button type="button" class="btn btn-lg btn-danger text-26 mt-1 btnRetourEtape10 w-100 padding-20-40" data-id-lot="<?php echo $lot->getId(); ?>">
+                                                    <i class="fa fa-undo fa-lg mr-2"></i> Retour
+                                                </button>
+                                            </div>
+                                        </div>
+        
+        
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        } // FIN ETAPE
+        
+                        /** ----------------------------------------
+                         * Etape        : 7
+                         * Description  : Lot de négoce - T°
+                         *  ----------------------------------- */
+                        if ($etape == 7) {        
+                            $lotNegoceManager = new LotNegoceManager($cnx);
+                            $lotNegoce = $lotNegoceManager->getLotNegoce($id_lot);
+                            if (!$lotNegoce instanceof LotNegoce) {
+                                erreurLot();
+                                exit;
+                            }
+                        ?>
+                            <div class="row mt-5 align-content-center">
+                                <div class="col-5 text-center">
+                                    <div class="alert alert-secondary">
+                                        <div class="input-group clavier-temperature">
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="1">1</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="2">2</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="3">3</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="4">4</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="5">5</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="6">6</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="7">7</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="8">8</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="9">9</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur=".">.</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-secondary btn-large" data-valeur="0">0</button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-dark btn-large" data-valeur="S">+/-</button></div>
+                                            <div class="col-8"><button type="button" class="form-control mb-2 btn btn-success btn-large" data-valeur="V" data-id-lot="<?php
+                                                                                                                                                                        echo $lotNegoce->getId(); ?>"><i class="fa fa-check"></i></button></div>
+                                            <div class="col-4"><button type="button" class="form-control mb-2 btn btn-danger btn-large" data-valeur="C"><i class="fa fa-backspace"></i></button></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <form class="alert alert-secondary" id="formTemperatureNegoce">
+                                        <input type="hidden" name="mode" value="actionSaveTemperatureNegoce" />
+                                        <input type="hidden" name="id_lot" value="<?php echo $lotNegoce->getId(); ?>" />
+        
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Témpérature :</h4>
+                                        <div class="row">
+                                            <div class="col input-group">
+                                                <input type="text" class="form-control text-6em text-center" placeholder="00.00" value="" name="temp" maxlength="15" />
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text text-48"> °C&nbsp;</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+        
+                                    <div class="d-none alert alert-danger temperatureInvalide">
+                                        <i class="fa fa-exclamation-circle fa-3x float-left mr-3"></i> <strong>Attention !</strong>
+                                        <p>Température <span class="type-temperature-invalide-txt"></span> invalide.</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+        
+        
+        
+                            <?php
+                            exit;
+                        } // FIN ETAPE
+        
+                        /** ----------------------------------------
+                         * Etape        : 8
+                         * Description  : Lot de négoce - Confirm
+                         *  ----------------------------------- */
+                        if ($etape == 8) {
+        
+                            $lotNegoceManager = new LotNegoceManager($cnx);
+                            $lotNegoce = $lotNegoceManager->getLotNegoce($id_lot);
+                            if (!$lotNegoce instanceof LotNegoce) {
+                                erreurLot();
+                                exit;
+                            }
+        
+                            // Si pas de date d'entrée, on demande de confirmé la reception du lot
+                            if ($lotNegoce->getDate_entree() == '' || $lotNegoce->getDate_entree() == '0000-00-00') { ?>
+        
+                                <div class="row mt-5 align-content-center">
+                                    <div class="col text-center">
+                                        <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Confirmer la réception du lot :</h4>
+                                        <button type="button" class="btn btn-lg btn-success text-30 padding-50 btn-confirme-reception text-center"><i class="fa fa-truck mr-2 fa-lg"></i><br>Lot réceptionné aujourd'hui <i class="fa fa-check-square fa-sm ml-2"></i> </button>
+                                    </div>
+                                </div>
+                            <?php
+                                // Lot déja réceptionné
+                            } else {
+        
+                            ?>
+                                <div class="row mt-5 align-content-center">
+                                    <div class="col-3"></div>
+                                    <div class="col-6 text-center">
+                                        <div class="alert alert-info text-28 padding-50">
+                                            Lot réceptionné le <?php echo Outils::dateSqlToFr($lotNegoce->getDate_entree()); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php
+        
+                            } // FIN test lot entré
+                            ?>
+        
+        
+        
+                        <?php
+                            exit;
+                        } // FIN ETAPE
+        
+        
+                        /** ----------------------------------------
+                         * Etape        : 10
+                         * Description  : Gestion stock crochets
+                         *  ----------------------------------- */
+                        if ($etape == 10) {    ?>
+        
+        
+                            <div class="row mt-5 align-content-center">
+                                <div class="col text-center">
+                                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Gestion du stock crochets</h4>
+        
+                                    <div class="row justify-content-md-center mt-3">
+                                        <div class="col-4">
+                                            <div class="row mt-2">
+                                                <div class="col-12 text-18">Quantité reçue :</div>
+                                                <div class="col-12 input-group">
+                                                    <div class="input-group-prepend"><button type="button" class="btn btn-dark text-48 btnMoins pl-5 pr-5"><i class="fa fa-minus"></i></button></div>
+                                                    <input type="text" class="form-control text-4em text-center" placeholder="0" value="" id="crochets_recus" maxlength="3" />
+                                                    <div class="input-group-append"><button type="button" class="btn btn-dark text-48 btnPlus pl-5 pr-5"><i class="fa fa-plus"></i></button></div>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-2">
+                                                <div class="col-12 text-18">Quantité rendue :</div>
+                                                <div class="col-12 input-group">
+                                                    <div class="input-group-prepend"><button type="button" class="btn btn-dark text-48 btnMoins pl-5 pr-5"><i class="fa fa-minus"></i></button></div>
+                                                    <input type="text" class="form-control text-4em text-center" placeholder="0" value="" id="crochets_rendus" maxlength="3" />
+                                                    <div class="input-group-append"><button type="button" class="btn btn-dark text-48 btnPlus pl-5 pr-5"><i class="fa fa-plus"></i></button></div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- FIN col droite -->
+        
+        
+                                    </div> <!-- FIN conteneur ROW -->
+                                    <div class="row justify-content-md-center mt-4">
+                                        <div class="col-3">
+                                            <button type="button" class="btn btn-success form-control text-18 padding-20 btnValiderCrochets"><i class="fa fa-check fa-lg mr-3"></i>Valider</button>
+                                        </div>
+                                    </div>
+        
+                                </div>
+                            </div>
+        
+                        <?php
+                            exit;
+                        } // FIN ETAPE
+        
+                        /** ----------------------------------------
+                         * Etape        : 12
+                         * Description  : Sélection transporteur
+                         *  ----------------------------------- */
+                        if ($etape == 12) { ?>
+        
+                            <div class="row mt-5 align-content-center">
+                                <div class="col text-center">
+                                    <h4><i class="fa fa-angle-down fa-lg ml-2 mr-3"></i>Sélection du transporteur pour l'échange de crochets</h4>
+        
+                                    <div class="row justify-content-md-center mt-3">
+        
+                                        <?php
+                                        // On récupère les transporteurs
+                                        $tiersManager = new TiersManager($cnx);
+                                        $transporteurs = $tiersManager->getListeTransporteurs();
+        
+                                        if (empty($transporteurs)) { ?>
+                                            <div class="alert alert-warning padding-50 text-center"><span class="text-24">Aucun transporteur disponible !</span>
+                                                <p class="text-16"><em>Contactez un adminstrateur...</em></p>
+                                            </div>
+                                        <?php }
+        
+                                        // Boucle sur les transporteurs possibles
+                                        foreach ($transporteurs as $trans) {
+                                        ?>
+                                            <div class="col-2 mb-3">
+                                                <div class="card bg-dark text-white pointeur carte-trans" data-id-trans="<?php echo $trans->getId(); ?>">
+                                                    <div class="card-body text-center height-150 text-28"><?php echo $trans->getNom(); ?></div>
+                                                    <div class="card-footer text-center texte-fin "><i class="fa fa-truck-loading"></i></div>
+                                                </div>
+                                            </div>
+        
+                                        <?php } // FIN boucle clients
+                                        ?>
+        
+                                    </div> <!-- FIN conteneur ROW -->
+        
+                                </div>
+                            </div>
+        
+                        <?php } // FIN étape
+        
+        
+                        exit;
+                    } // FIN mode

@@ -63,8 +63,8 @@ function modeRecherche() {
 	$params['nb_result_page'] 	= $nbResultPpage;
 
 	$liste_froids = $froidManager->getFroidsHistoriqueRecherche($params);
-
-    if(empty($filtre_date)){?>
+    
+    if(empty($filtre_lot)){?>
         <div class="alert alert-secondary mt-3 text-center">
               <span class="fa-stack fa-2x mt-5">
                    <i class="fas fa-list-ul fa-stack-1x"></i>
@@ -74,9 +74,8 @@ function modeRecherche() {
         </div>
         <?php
 	    exit;
-    }
-    
-    
+    }    
+
 	// Aucun résultat
 	if (!$liste_froids || empty($liste_froids)) { ?>
 
@@ -551,10 +550,10 @@ function modeSaveModifications() {
 	$date_sortie_heure  = isset($_REQUEST['date_sortie_heure']) ? trim($_REQUEST['date_sortie_heure'])  : '';
 	$froid_commentaire  = isset($_REQUEST['froid_commentaire']) ? trim(nl2br($_REQUEST['froid_commentaire']))  : '';
 	$palette            = isset($_REQUEST['palette'])           ? intval(preg_replace("/[^0-9]/", "", $_REQUEST['palette'])) : 0;
-
+    $numlot             = isset($_REQUEST['numlot']) ? trim($_REQUEST['numlot'])  : '';    
 	// Reconstruction des dates
     $date_entree = Outils::dateFrToSql($date_entree_jour) . ' ' . $date_entree_heure . ':00';
-	$date_sortie = Outils::dateFrToSql($date_sortie_jour) . ' ' . $date_sortie_heure . ':00';
+	$date_sortie = Outils::dateFrToSql($date_sortie_jour) . ' ' . $date_sortie_heure . ':00';    
 
     // Instanciation de l'objet de référence
     $froidProduit = $froidManager->getFroidProduitObjetByIdLotPdtFroid($id_lot_pdt_froid);
@@ -585,6 +584,7 @@ function modeSaveModifications() {
     if  ($poids     > 0   && $poids     != $froidProduit->getPoids())       { $froidProduit->setPoids($poids);          }
     if  ($nb_colis  > 0   && $nb_colis  != $froidProduit->getNb_colis())    { $froidProduit->setNb_colis($nb_colis);    }
     if  ($palette  > 0   && $palette  != $froidProduit->getId_palette())    { $froidProduit->setId_palette($palette);   }
+    if($numlot !='' && $numlot != $froidProduit->getNumlot()){ $froidProduit->setNumlot($numlot);    }
 
     // Hydratation des valeurs modifiées - table froid
     if  ($statut          > -2   && $statut           != $froid->getStatut())      { $froid->setStatut($statut);  }
@@ -592,7 +592,7 @@ function modeSaveModifications() {
     if  ($temp_fin        < 999 && $temp_fin          != $froid->getTemp_fin())    { $froid->setTemp_fin($temp_fin);      }
     if  ($conformite      > -2  && $conformite        != $froid->getConformite())  { $froid->setConformite($conformite);  }
     if ($date_entree_jour != '' && $date_entree_heure != '' && substr($date_entree, 0,-3) != substr($froid->getDate_entree(),0,-3)) { $froid-> setDate_entree($date_entree); }
-    if ($date_sortie_jour != '' && $date_sortie_heure != '' && substr($date_sortie, 0,-3) != substr($froid->getDate_sortie(),0,-3)) { $froid-> setDate_sortie($date_sortie); }
+    if ($date_sortie_jour != '' && $date_sortie_heure != '' && substr($date_sortie, 0,-3) != substr($froid->getDate_sortie(),0,-3)) { $froid-> setDate_sortie($date_sortie); }    
 
     $modifManager = new ModificationManager($cnx);
 
@@ -692,7 +692,7 @@ function modeCheckNumLotExiste()
     // Si les 3 derniers caractèrs sont des chiffres (quantièmes), on les supprime
     if (preg_match('/^[0-9]*$/', (substr($numlot, -3)))) {
         $numlot = substr($numlot, 0, -3);
-    }
+    }    
     echo $lotsManager->checkLotExiste($numlot) ? $id_lot : 0;
 
     exit;

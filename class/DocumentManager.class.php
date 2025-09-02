@@ -262,7 +262,8 @@ class DocumentManager {
 		$html.= $show_pages ? '<div class="text-12 mt-10" style="position: absolute;right:1px;">Page [[page_cu]]/[[page_nb]]</div>' :'';
 		$html.= '<table class="w100">';
 
-		$img_ifs = $pdf ? 'ifs-pdf.jpg' : 'ifs-html.jpg';
+		//$img_ifs = $pdf ? 'ifs-pdf.jpg' : 'ifs-html.jpg';
+		//<img src="'.__CBO_ROOT_PATH__. '/img/' . $img_ifs.'" '.$imgCss.'/>
 		$img_rl = $pdf ? 'respectful-life-pdf.jpg' : 'respectful-life-html.jpg';
 		$imgCss = $pdf ? '' : 'style="max-width:30px;"';
 
@@ -277,8 +278,7 @@ class DocumentManager {
 						<p class="text-11">'.$i_info_1->getValeur().'</p>	
 						<p class="text-11">'.$i_info_2->getValeur().'</p>	
 						<p class="text-11">'.$i_web->getValeur().'</p>	
-						<p class="text-11 mb-5">TVA : '.$i_num_tva->getValeur().'</p>	
-						<img src="'.__CBO_ROOT_PATH__. '/img/' . $img_ifs.'" '.$imgCss.'/>
+						<p class="text-11 mb-5">TVA : '.$i_num_tva->getValeur().'</p>							
 						<img src="'.__CBO_ROOT_PATH__. '/img/' . $img_rl.'" '.$imgCss.'/>';
 
 

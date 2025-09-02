@@ -36,6 +36,7 @@ class FactureLigne {
 		$tarif_interbev,
 		$montant_interbev,
 		$vendu_piece,
+		$total_ht,
 		$supprime;
 
 	public       $attributs = array();
@@ -148,12 +149,16 @@ class FactureLigne {
 		return $this->taux_tva;
 	}
 
-	public function getMontant_tva() {
-		return $this->total * ($this->taux_tva / 100);
+	public function getMontant_tva() {		
+		return $this->total_ht * ($this->tva / 100);
 	}
 
 	public function getTotal() {
 		return $this->total;
+	}
+
+	public function getTotal_ht() {
+		return $this->total_ht;
 	}
 
 	public function getInterbev() {
@@ -261,12 +266,18 @@ class FactureLigne {
 		Outils::setAttributs('montant_interbev',$this);
 	}
 
-	public function setTotal($valeur) {
-		$this->total = (float)$valeur;
+	public function setTotal($total) {
+		$this->total = (float)$total;		
+	}
+
+	public function setTotal_ht($total_ht) {
+		$this->total_ht = (float)$total_ht;	
+		Outils::setAttributs('total_ht',$this);	
 	}
 
 	public function setCode($valeur) {
 		$this->code = (int)$valeur;
+		
 	}
 
 	public function setTaux_tva($valeur) {

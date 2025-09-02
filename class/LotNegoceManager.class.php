@@ -10,7 +10,6 @@ Manager de l'objet LotNegoce
 Généré par CBO FrameWork le 13/01/2020 à 11:30:07
 ------------------------------------------------------*/
 class LotNegoceManager {
-
 	protected    $db, $nb_results;
 
 	public function __construct($db) {
@@ -18,7 +17,7 @@ class LotNegoceManager {
 	}
 
 	/* ----------------- GETTERS ----------------- */
-	public function getNb_results() {
+	public function getNb_results() {		
 		return $this->nb_results;
 	}
 
@@ -98,6 +97,9 @@ class LotNegoceManager {
 			// On calcule le poids restant (non associé à un BL généré)
 			$poidsRestant = $this->getPoidsRestantLotNegoce($lotNegoce->getId());
 			
+			$lotVuesManager = new LotVueManager($this->db);
+			$lotVues = $lotVuesManager->getLotVuesByLot($lotNegoce->getId());
+			$lotNegoce->setVues($lotVues);
 
 			// On rattache les BLs sortants associés
 			$bls = $blManager->getListeBlsByNegoce($lotNegoce->getId());
@@ -137,29 +139,50 @@ class LotNegoceManager {
 	// Retourne un LotNegoce
 	public function getLotNegoce($id) {
 
-		$query_object = "SELECT l.`id`, l.`date_add`, l.`num_bl`, l.`date_maj`, l.`date_entree`, l.`date_out`, l.`id_espece`, l.`id_fournisseur`, l.`id_pdt`, l.`chasse`, l.`poids_fournisseur`, l.`poids_reception`, l.`composition`, l.`id_user_maj`, l.`visible`, l.`supprime`, e.`nom` AS nom_espece, p.`nom_court` AS nom_produit, t.`nom` AS nom_fournisseur, l.`ddm`,l.`dlc`,l.`id_origine`,l.`num_bl`,l.`date_reception`
+		$query_object = "SELECT l.`id`, v.`id` AS id_validation, l.`date_add`, l.`num_bl`, l.`date_maj`, l.`date_entree`, l.`date_out`, l.`id_espece`,l.`temp` ,l.`id_fournisseur`, l.`id_pdt`, l.`chasse`, l.`poids_fournisseur`, l.`poids_reception`, l.`composition`, l.`id_user_maj`, l.`visible`, l.`supprime`, e.`nom` AS nom_espece, p.`nom_court` AS nom_produit, t.`nom` AS nom_fournisseur, l.`ddm`,l.`dlc`,l.`id_origine`,l.`num_bl`,l.`date_reception`, r.`id` AS reception_id
                 		FROM `pe_lots_negoce` l 
 							LEFT JOIN `pe_produits_especes` e ON l.`id_espece` = e.`id`
 							LEFT JOIN `pe_tiers` 			t ON t.`id` = l.`id_fournisseur`
+							LEFT JOIN `pe_lot_reception`  	r ON l.`id`	= r.`id_lot_negoce`
+							LEFT JOIN `pe_validations_lots` v ON v.`id_lot_negoce` = l.`id`
 							LEFT JOIN `pe_produits` p ON p.`id` = l.`id_pdt`
 				WHERE l.`id` = " . (int)$id;
 		$query = $this->db->prepare($query_object);
 		if ($query->execute()) {
-			$donnee = $query->fetchAll(PDO::FETCH_ASSOC);					
-			if (!$donnee || !isset($donnee[0]) ) { return false; }			
+			$donnee = $query->fetch();								
+			if (!$donnee || !isset($donnee) ) { return false; }			
 
-			$lot = new LotNegoce($donnee[0]);	
+			$lot = new LotNegoce($donnee);	
+			
 			
 			if (!$lot instanceof LotNegoce) { return false; }
 
-
+			
 
 			// On rattache les produits
-			$produits = $this->getListeNegoceProduits(['id_lot' => $lot->getId()]);
+			$produits = $this->getListeNegoceProduits(['id_lot' => $lot->getId()]);	
 
+			//on intègre l'objet Reception si on en a un...		
+
+			// On intègre l'objet Reception si on en a un...
+			if (intval($donnee['reception_id']) > 0) {
+				$receptionManager = new LotReceptionManager($this->db);
+				$reception = $receptionManager->getLotReceptionByIdLotNegoce($lot->getId());				
+				if ($reception instanceof LotReception) {
+					$lot->setReception($reception);
+				}
+
+			} // FIN test Reception
+
+					
+
+			//intègre avec l'obet vues
+			$lotVuesManager = new LotVueManager($this->db);
+
+			$lotVues = $lotVuesManager->getLotVuesByLot($lot->getId());			
+			$lot->setVues($lotVues);			
+			$lot->setProduits($produits);				
 			
-			$lot->setProduits($produits);
-
 			return $lot;
 
 		} else {
@@ -241,13 +264,13 @@ class LotNegoceManager {
 
 	// Retourne la liste des NegoceProduit
 	public function getListeNegoceProduits($params = []) {
-
 		$start 		= isset($params['start']) 			? intval($params['start']) 			: 0;
-		$nb 		= isset($params['nb_result_page']) 	? intval($params['nb_result_page']) : 10000000;
-		
+		$nb 		= isset($params['nb_result_page']) 	? intval($params['nb_result_page']) : 10000000;		
 		$id_lot 	= isset($params['id_lot']) 			? intval($params['id_lot']) 	: 0;
 		$id_pdt 	= isset($params['id_pdt']) 			? intval($params['id_pdt']) 	: 0;
-		$hors_bl 	= isset($params['hors_bl']) 		? boolval($params['hors_bl']) 	: false;
+		$hors_bl 	= isset($params['hors_bl']) 		? boolval($params['hors_bl']) 	: false;	
+
+
 
 		$query_liste = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT np.`id_lot_pdt_negoce`,  bl.`num_bl` as numero_bl,  np.`quantite`, np.`id_lot_negoce`, np.`id_pdt`, np.`nb_cartons`, np.`poids`, np.`traite`, np.`date_add`, b.`id_bl`, np.`user_add`, np.`date_maj`, np.`user_maj`, np.`supprime`, t.`nom` as nom_produit, np.`dlc`, np.`num_lot`, 
                            						   IF (bl.`id` IS NULL, "", CONCAT("L",bl.`id`,DATE_FORMAT(bl.`date`, "%y"), LPAD(DAYOFYEAR(bl.`date`)-1,3, "0"))) AS num_bl
@@ -257,7 +280,7 @@ class LotNegoceManager {
 								LEFT JOIN `pe_produit_trad` t ON t.`id_produit` = p.`id` AND t.`id_langue` = 1 
 								LEFT JOIN `pe_bl_lignes` b ON b.`id_pdt_negoce` = np.`id_lot_pdt_negoce`
 								LEFT JOIN `pe_bl` bl ON bl.`id` = b.`id_bl`
-							WHERE np.`supprime` = 0 ';
+							WHERE np.`supprime` = 0  AND np.`status` =0';
 
 		$query_liste.= $id_lot > 0 ? ' AND np.`id_lot_negoce` = ' .$id_lot : '';
 		$query_liste.= $id_pdt > 0 ? ' AND np.`id_pdt` = ' .$id_pdt : '';
@@ -276,8 +299,9 @@ class LotNegoceManager {
 
 		$liste = [];
 
-		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
-			$liste[] = new NegoceProduit($donnee);
+		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
+			$produit = new NegoceProduit($donnee);			 
+			$liste[$produit->getId_lot_pdt_negoce()] = $produit;
 		}
 		return $liste;
 
@@ -293,7 +317,9 @@ class LotNegoceManager {
 										LEFT JOIN `pe_palettes` pa ON pa.`id` = np.`id_palette` 
 										LEFT JOIN `pe_produit_trad` t ON t.`id_produit` = p.`id` AND t.`id_langue` = 1 
 							WHERE np.`id_lot_pdt_negoce` = " . (int)$id;
+
 		$query = $this->db->prepare($query_object);
+		
 		if ($query->execute()) {
 			$donnee = $query->fetchAll(PDO::FETCH_ASSOC);
 			return $donnee && isset($donnee[0]) ? new NegoceProduit($donnee[0]) : false;
@@ -302,6 +328,8 @@ class LotNegoceManager {
 		}
 
 	} // FIN get NegoceProduit
+
+	
 
 	// Enregistre & sauvegarde (Méthode Save)
 	public function saveNegoceProduit(NegoceProduit $objet) {
@@ -387,52 +415,47 @@ class LotNegoceManager {
 
 
 	} // FIN méthode
-
-	// Retourne les objets pour la gestion des stocks produits relatifs aux produits de négoce
-	public function getProduitsNegoceProduitStock($id_lot_pdt_negoce) {
-
-
-		$query_object = "SELECT l.`id_lot_pdt_negoce`, b.`id_bl`, fact.`num_facture`, fact.`id` as id_facture, bl.`num_bl` as numero_bl, b.`poids` as poids_clients, l.`dlc`, t.`nom` as nom_client,  l.`id_lot_negoce`, l.`num_lot`,  l.`numero_palette`,  l.`id_palette`, t.`numagr`, l.`date_add` AS date_reception,   l.`date_add`, l.`nb_cartons`,  pl.`num_bl`, l.`date_maj`, pl.`date_entree`, pl.`date_out`, pl.`id_espece`, pl.`id_fournisseur`, l.`id_pdt`, pl.`chasse`, l.`poids`,  l.`quantite`, pl.`id_user_maj`, pl.`visible`, pl.`supprime`,  p.`nom_court` AS nom_produit, t.`nom` AS fournisseur
-		FROM `pe_negoce_produits` l	
-			JOIN `pe_lots_negoce` pl ON pl.`id` = l.`id_lot_negoce`
-			JOIN `pe_produits` p ON p.`id` = l.`id_pdt`		
-			JOIN `pe_bl_lignes` b ON b.`id_pdt_negoce` = l.`id_lot_pdt_negoce`
-			JOIN `pe_bl` bl ON bl.`id` = b.`id_bl`			
-			LEFT JOIN `pe_tiers` t ON t.`id` = bl.`id_tiers_facturation`
-			LEFT JOIN `pe_palette_composition` compo ON compo.`id_palette` = l.`id_palette`			
-			LEFT JOIN `pe_bl_facture` fb ON fb.`id_bl` = bl.`id`
-			LEFT JOIN `pe_factures` fact ON fact.`id` = fb.`id_facture`
-			
-WHERE l.`id_lot_pdt_negoce` = ".(int)$id_lot_pdt_negoce;
-
-$query = $this->db->prepare($query_object);
-
-
-if ($query->execute()) {
-$donnee = $query->fetchAll(PDO::FETCH_ASSOC);					
-if (!$donnee || !isset($donnee[0]) ) { return false; }			
-
-$lot = new NegoceProduit($donnee[0]);
-
-
-return $lot;
-} // FIN méthode
-
-}
-
 	// Retourne le poids restant d'un lot de négoce
 	public function getPoidsRestantLotNegoce($id_lot_pdt_negoce) {
+		try {
+			$query_poids = '
+    SELECT 
+        IFNULL(neg.total_poids, 0) - IFNULL(bl.total_utilise, 0) AS poids_restant
+    FROM 
+        (
+            SELECT SUM(poids) AS total_poids
+            FROM pe_negoce_produits
+            WHERE supprime = 0 AND id_lot_pdt_negoce = :id_lot_pdt_negoce
+        ) AS neg,
+        (
+            SELECT SUM(poids) AS total_utilise
+            FROM pe_bl_lignes
+            WHERE supprime = 0 AND id_pdt_negoce IN (
+                SELECT id_lot_pdt_negoce 
+                FROM pe_negoce_produits 
+                WHERE supprime = 0 AND id_lot_pdt_negoce = :id_lot_pdt_negoce
+            )
+        ) AS bl';
 
-		$query_poids = ' SELECT (
-							SELECT IFNULL(SUM(`poids`),0) FROM `pe_negoce_produits` WHERE `supprime` = 0 AND `id_lot_pdt_negoce` = '.(int)$id_lot_pdt_negoce.') - ( 
-							SELECT IFNULL(SUM(`poids`),0) FROM `pe_bl_lignes` WHERE `supprime` = 0 AND `id_pdt_negoce` IN
-								(SELECT `id_lot_pdt_negoce` FROM `pe_negoce_produits` WHERE `supprime` = 0 AND `id_lot_pdt_negoce` = '.(int)$id_lot_pdt_negoce.')) AS poids';
-		$query = $this->db->prepare($query_poids);
-		$query->execute();
-		$donnee = $query->fetch(PDO::FETCH_ASSOC);
-		return $donnee && isset($donnee['poids']) ? floatval($donnee['poids']) : 0;
+$query = $this->db->prepare($query_poids);
+$query->bindValue(':id_lot_pdt_negoce', $id_lot_pdt_negoce, PDO::PARAM_INT);
+$query->execute();
 
-	} // FIN méthode
+		
+			$donnee = $query->fetch(PDO::FETCH_ASSOC);		
+			return $donnee && isset($donnee['poids_restant']) ? floatval($donnee['poids_restant']) : 0;
+		
+		} catch (PDOException $e) {
+			// Log de l'erreur (optionnel : ajoute aussi date/heure dans un vrai projet)
+			error_log('Erreur PDO (poids restant) : ' . $e->getMessage());
+		
+			// Retour en cas d'erreur (0, false, null... selon ce que tu préfères)
+			return 0;
+		}
+		
+
+	} // FIN méthode	
+	
 
 
 	public function getLotNegoceByNumLot($numlot) {
@@ -453,7 +476,6 @@ return $lot;
 			// On rattache les produits
 			$produits = $this->getListeNegoceProduits(['id_lot' => $lot->getId()]);
 			$lot->setProduits($produits);
-
 			return $lot;
 
 		} else {
@@ -463,10 +485,9 @@ return $lot;
 	}
 
 	public function supprLotProduitNegoce($id_lot_pdt_negoce){
-		$querySuppr = 'DELETE FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` ='.$id_lot_pdt_negoce;
+		$querySuppr = 'UPDATE `pe_negoce_produits` SET `supprime`= 1 WHERE `id_lot_pdt_negoce` ='.$id_lot_pdt_negoce;
 		$query = $this->db->prepare($querySuppr);		
 		if (!$query->execute()) { return false; }
-
 		Outils::saveLog($querySuppr);
 		$logManager = new LogManager($this->db);
 		$log = new Log([]);
@@ -479,7 +500,21 @@ return $lot;
 
 	// Retourne le poids restant d'un lot de négoce
 	public function getPoidsProduitLotNegoce($id_lot_pdt_negoce) {
-		$query_poids = ' SELECT ( SELECT IFNULL(SUM(`poids`),0) FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` = '.(int)$id_lot_pdt_negoce.')  AS poids';
+		$query_poids = 'SELECT(SELECT IFNULL(SUM(`poids`),0) FROM `pe_negoce_produits` WHERE `id_lot_pdt_negoce` = '.(int)$id_lot_pdt_negoce.')  AS poids';
+		$query = $this->db->prepare($query_poids);
+		$query->execute();
+		$donnee = $query->fetch(PDO::FETCH_ASSOC);
+		return $donnee && isset($donnee['poids']) ? floatval($donnee['poids']) : 0;
+
+	} // FIN méthode
+
+	public function getPoidsLotNegoce($id_lot_negoce) {
+		$query_poids = '
+		SELECT IFNULL(SUM(`poids`), 0) AS poids 
+		FROM `pe_negoce_produits` 
+		WHERE `id_lot_negoce` = '.(int)$id_lot_negoce.' 
+		AND `supprime` = 0 ';
+	
 		$query = $this->db->prepare($query_poids);
 		$query->execute();
 		$donnee = $query->fetch(PDO::FETCH_ASSOC);
@@ -507,16 +542,37 @@ return $lot;
 
 	public function getListeNegoceLots($params = []){
 		$start 		= isset($params['start']) 			? intval($params['start']) 			: 0;
-		$nb 		= isset($params['nb_result_page']) 	? intval($params['nb_result_page']) : 10000000;
+		$nb 		= isset($params['nb_result_page']) 	? intval($params['nb_result_page']) : 10000000;		
+		$statut 	= isset($params['statut']) 		? intval($params['statut']) 			: 0;		
+		
 
-		$query_liste = "select `ln`.`id` AS `id_lot_negoce`, `np`.`id_lot_pdt_negoce`, `p`.`nom_court` AS nom_produit, `ln`.`date_entree` AS `date_reception`,`p`.`nom_court` AS `nom_pr`,`ln`.`num_bl` AS `num_bl`,`ln`.`date_entree` AS `date_entree`,`t`.`nom` AS `fournisseur`,`np`.`nb_cartons` AS `nb_cartons`,`np`.`poids` AS `poids`,`np`.`quantite` AS `quantite`,`np`.`num_lot` AS `num_lot`,`np`.`dlc` AS `dlc`,`p`.`nom_court` AS `produit` from (((`iprex_dev`.`pe_negoce_produits` `np` join `iprex_dev`.`pe_lots_negoce` `ln` on((`ln`.`id` = `np`.`id_lot_negoce`))) join `iprex_dev`.`pe_tiers` `t` on((`t`.`id` = `ln`.`id_fournisseur`))) join `iprex_dev`.`pe_produits` `p` on((`p`.`id` = `np`.`id_pdt`)))
-		";
-		$query_liste.= ' ORDER BY ln.`id` DESC ';
-		$query_liste.= 'LIMIT ' . $start . ',' . $nb;
+		$query_liste = "
+		SELECT 
+			ln.id AS id_lot_negoce,
+			np.id_lot_pdt_negoce,
+			np.status,
+			p.nom_court AS nom_produit,
+			ln.date_entree AS date_reception,
+			ln.num_bl,
+			ln.date_entree,
+			t.nom AS fournisseur,
+			np.nb_cartons,
+			np.poids,
+			np.quantite,
+			np.num_lot,
+			np.dlc,
+			p.nom_court AS produit
+		FROM iprex_dev.pe_negoce_produits np
+		JOIN iprex_dev.pe_lots_negoce ln ON ln.id = np.id_lot_negoce
+		JOIN iprex_dev.pe_tiers t ON t.id = ln.id_fournisseur
+		JOIN iprex_dev.pe_produits p ON p.id = np.id_pdt
+		WHERE np.status = ".$statut."
+		ORDER BY ln.id DESC
+		LIMIT ".$start.", ".$nb	;
 		$query = $this->db->prepare($query_liste);
-		$query->execute();
+		$query->execute();		
 
-		$this->setNb_results($this->db->query('SELECT FOUND_ROWS()')->fetchColumn());
+		$this->setNb_results($this->db->query('SELECT FOUND_ROWS()')->fetchColumn());		
 
 		$liste = [];
 
@@ -528,15 +584,14 @@ return $lot;
 	}
 
 	public function getDetailsProduitsNegoce($id_lot_pdt_negoce){
-		$query_object = "SELECT l.`id_lot_pdt_negoce`,   l.`dlc`, l.`id_lot_negoce`, l.`num_lot`,  l.`numero_palette`,  l.`id_palette`, t.`numagr`, l.`date_add` AS date_reception,   l.`date_add`, l.`nb_cartons`,  pl.`num_bl`, l.`date_maj`, pl.`date_entree`, pl.`date_out`, pl.`id_espece`, pl.`id_fournisseur`, l.`id_pdt`, pl.`chasse`, l.`poids`,  l.`quantite`, pl.`id_user_maj`, pl.`visible`, pl.`supprime`,  p.`nom_court` AS nom_produit, t.`nom` AS fournisseur
+		$query_object = "SELECT l.`id_lot_pdt_negoce`, l.`dlc`,  l.`status`, l.`id_lot_negoce`, l.`num_lot`,  l.`numero_palette`,  l.`id_palette`, t.`numagr`, l.`date_add` AS date_reception,   l.`date_add`, l.`nb_cartons`,  pl.`num_bl`, l.`date_maj`, pl.`date_entree`, pl.`date_out`, pl.`id_espece`, pl.`id_fournisseur`, l.`id_pdt`, pl.`chasse`, l.`poids`,  l.`quantite`, pl.`id_user_maj`, pl.`visible`, pl.`supprime`,  p.`nom_court` AS nom_produit, t.`nom` AS fournisseur
                 		FROM `pe_negoce_produits` l													
 							LEFT JOIN `pe_produits` p ON p.`id` = l.`id_pdt`
 							LEFT JOIN `pe_lots_negoce` pl ON pl.`id` = l.`id_lot_negoce`
 							LEFT JOIN `pe_tiers` 			t ON t.`id` = pl.`id_fournisseur`
 				WHERE l.`id_lot_pdt_negoce` = " . (int)$id_lot_pdt_negoce;
 
-		$query = $this->db->prepare($query_object);
-		
+		$query = $this->db->prepare($query_object);		
 
 		if ($query->execute()) {
 			$donnee = $query->fetchAll(PDO::FETCH_ASSOC);					
@@ -550,18 +605,7 @@ return $lot;
 	}
 }
 
-
-	public function getPoidsExpedie($id_lot_pdt_negoce){
-		$query_poids = 'SELECT IFNULL(SUM(`poids`),0) AS poids FROM `pe_bl_lignes` WHERE `id_pdt_negoce` ='.$id_lot_pdt_negoce;
-			$query = $this->db->prepare($query_poids);
-			$query->execute();
-			$donnee = $query->fetch(PDO::FETCH_ASSOC);
-		return $donnee && isset($donnee['poids']) ? floatval($donnee['poids']) : 0;
-
-	}
-
-
-	public function getProduitsExpedie($id_lot_pdt_negoce){
+public function getProduitsExpedie($id_lot_pdt_negoce){
 		$query_liste = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT np.`id_lot_pdt_negoce`, np.`quantite`, np.`id_lot_negoce`, np.`id_pdt`, np.`nb_cartons`,np.`num_lot`, np.`id_palette`,p.`nom_court` AS nom_produit,np.`poids`, np.`traite`, np.`date_add`, b.`id_bl`, np.`user_add`, np.`date_maj`, np.`user_maj`, np.`supprime`, np.`dlc`,
                            						   IF (bl.`id` IS NULL, "", CONCAT("L",bl.`id`,DATE_FORMAT(bl.`date`, "%y"), LPAD(DAYOFYEAR(bl.`date`)-1,3, "0"))) AS num_bl, clt.`nom` AS nom_client
 							FROM `pe_negoce_produits` np
@@ -591,5 +635,165 @@ return $lot;
 
 	}
 
+public function getNegoceProduits($id, $statut) {
+
+		$query_object = "UPDATE `pe_negoce_produits` l SET l.`status` =".$statut."
+						WHERE l.`id_lot_pdt_negoce`= ".(int)$id;
+		$query = $this->db->prepare($query_object);
+
+		if($query->execute()){
+			return true;
+		}		
+		return false;
+	}
+
+	public function getPoidsExpedie($id_lot_pdt_negoce) {
+		try {
+			$query_nb = 'SELECT SUM(`poids`) AS nb
+						 FROM `pe_bl_lignes` 
+						 WHERE `id_pdt_negoce` = :id_pdt_negoce AND `supprime` = 0';
+			
+			$query = $this->db->prepare($query_nb);
+			$query->bindValue(':id_pdt_negoce', $id_lot_pdt_negoce, PDO::PARAM_INT);
+			$query->execute();
+			
+			$donnee = $query->fetch(PDO::FETCH_ASSOC);
+			
+			return $donnee && isset($donnee['nb']) ? floatval($donnee['nb']) : 0;
+			
+		} catch (PDOException $e) {
+			// Tu peux logger l'erreur ou afficher un message
+			error_log('Erreur SQL : ' . $e->getMessage());
+			return 0; // ou false, selon ce que tu préfères en cas d'erreur
+		}
+
+	}
+
+
+
+
+	public function getListeLotsNegoceProduits($params = []) {
+		$start 		= isset($params['start']) 			? intval($params['start']) 			: 0;
+		$nb 		= isset($params['nb_result_page']) 	? intval($params['nb_result_page']) : 10000000;		
+		$id_lot 	= isset($params['id_lot']) 			? intval($params['id_lot']) 	: 0;
+		$id_pdt 	= isset($params['id_pdt']) 			? intval($params['id_pdt']) 	: 0;
+		$hors_bl 	= isset($params['hors_bl']) 		? boolval($params['hors_bl']) 	: false;		
+
+		
+
+		$query_liste = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT np.`id_lot_pdt_negoce`,  bl.`num_bl` as numero_bl,  np.`quantite`, np.`id_lot_negoce`, np.`id_pdt`, np.`nb_cartons`, np.`poids`, np.`traite`, np.`date_add`, b.`id_bl`, np.`user_add`, np.`date_maj`, np.`user_maj`, np.`supprime`, t.`nom` as nom_produit, np.`dlc`, np.`num_lot`, 
+                           						   IF (bl.`id` IS NULL, "", CONCAT("L",bl.`id`,DATE_FORMAT(bl.`date`, "%y"), LPAD(DAYOFYEAR(bl.`date`)-1,3, "0"))) AS num_bl
+							FROM `pe_negoce_produits` np
+								JOIN `pe_produits` p ON p.`id` = np.`id_pdt`
+								LEFT JOIN `pe_palettes` pa ON pa.`id` = np.`id_palette` 
+								LEFT JOIN `pe_produit_trad` t ON t.`id_produit` = p.`id` AND t.`id_langue` = 1 
+								LEFT JOIN `pe_bl_lignes` b ON b.`id_pdt_negoce` = np.`id_lot_pdt_negoce`
+								LEFT JOIN `pe_bl` bl ON bl.`id` = b.`id_bl`
+							WHERE np.`supprime` = 0';
+
+		$query_liste.= $id_lot > 0 ? ' AND np.`id_lot_negoce` = ' .$id_lot : '';
+		$query_liste.= $id_pdt > 0 ? ' AND np.`id_pdt` = ' .$id_pdt : '';
+
+		$query_liste.= $hors_bl ? ' AND  np.`id_lot_negoce` NOT IN (SELECT DISTINCT `id_lot_negoce` FROM `pe_bl` ) AND b.`id_bl` IS NULL ': '';
+
+
+		$query_liste.= ' ORDER BY np.`id_lot_pdt_negoce` DESC ';
+
+		$query_liste.= 'LIMIT ' . $start . ',' . $nb;
+
+		$query = $this->db->prepare($query_liste);
+		$query->execute();
+
+		$this->setNb_results($this->db->query('SELECT FOUND_ROWS()')->fetchColumn());
+
+		$liste = [];
+
+		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
+			$produit = new NegoceProduit($donnee);			 
+			$liste[$produit->getId_lot_pdt_negoce()] = $produit;
+		}
+		return $liste;
+
+	} // FIN liste des NegoceProduit
+
+
+
+	public function getListeLotsNegoceByVue($code_vue, $invisibles = false) {
+		
+		// On récupère l'objet vue (sécurisation)
+		$vuesManager = new VueManager($this->db);
+		$vue = $vuesManager->getVueByCode($code_vue);
+		if (!$vue instanceof Vue) { return false; }		
+
+		$query_lots_id = 'SELECT `id_lot` FROM `pe_lot_vues` WHERE `id_vue` = ' . $vue->getId() . ' ORDER BY `date_entree`';
+		$query_ids 	   = $this->db->prepare($query_lots_id);
+
+		$query_ids->execute();
+
+		$liste 		= [];
+		$numlots 	= [];
+
+		foreach ($query_ids->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
+		$lotNegoce = $this->getLotNegoce($donnee['id_lot']);			
+
+		if ($lotNegoce instanceof LotNegoce && !$lotNegoce->isSupprime()) {		
+				
+			// On évite tout doublon sur les numéros de lots
+				if (in_array($lotNegoce->getNum_bl(), $numlots)) {
+					continue;
+				}
+				// Si le lot est invisible, on l'ignore
+				if (!$invisibles && !$lotNegoce->isVisible()) {
+					continue;
+				}
+
+				$numlots[] = $lotNegoce->getNum_bl();
+				$liste[] = $lotNegoce;
+
+				
+			}
+
+		} // FIN boucle sur les ID de lots
+
+		return $liste;
+
+	} // FIN méthode
+
+
+public function removeLotVue(LotNegoce $lot, $code_vue) {			
+		// On récupère l'objet vue (sécurisation)
+		$vuesManager = new VueManager($this->db);
+		$vue = $vuesManager->getVueByCode($code_vue);
+		if (!$vue instanceof Vue) { return false; }
+
+		// On supprime
+		$query_del = 'DELETE FROM `pe_lot_vues` 
+						  WHERE `id_lot` = ' . $lot->getId() . ' 
+						  AND `id_vue` = ' . $vue->getId();
+		$query = $this->db->prepare($query_del);
+
+		Outils::saveLog($query_del);
+
+		return $query->execute();
+
+	} // FIN méthode
+
+	// Affecture un lot à une vue si il ne l'est pas déjà
+	public function addLotVue(LotNegoce $lot, $code_vue) {
+
+		// On récupère l'objet vue (sécurisation)
+		$vuesManager = new VueManager($this->db);
+		$newVue = $vuesManager->getVueByCode($code_vue);
+		if (!$newVue instanceof Vue) { return false; }
+
+		// On ajoute (+IGNORE)
+		$query_add = 'INSERT IGNORE INTO `pe_lot_vues` (`id_lot`, `id_vue`, `date_entree`) VALUES ('.$lot->getId().', '.$newVue->getId().', "'.date('Y-m-d H:i:s').'")';
+		$query = $this->db->prepare($query_add);
+
+		Outils::saveLog($query_add);
+
+		return $query->execute();
+
+	} // FIN méthode
 
 } // FIN classe

@@ -596,7 +596,7 @@ function modeChargeEtapeVue() {
 					<!-- Nombre de quantite -->
                     <div class="col-4 <?php echo $pdt->getVrac() == 1 ? 'd-none' : '';?>">
                         <div class="input-group">
-                            <input type="text" class="form-control text-100 text-center inputQuantite" name="quantite" placeholder="0" value="<?php echo $quantiteOld; ?>">
+                            <input type="text" class="form-control text-100 text-center inputQuantite" name="quantite" data-pcb="<?php echo $pdt->getPcb(); ?>" placeholder="0" value="<?php echo $quantiteOld; ?>">
                             <input type="hidden" name="nb_colis_old" value="<?php echo $quantiteOld; ?>">
                             <span class="input-group-append">
                                   <span class="input-group-text text-26"> pieces</span>
@@ -628,6 +628,9 @@ function modeChargeEtapeVue() {
                                 <div class="col">
                                     <i class="fa fa-info-circle fa-2x vmiddle mr-2 gris-9"></i>
                                     <span class="text-14 vmiddle">Poids par défaut du produit : <strong class="text-18"><?php echo $pdt->getPoids(); ?></strong> kg.</span>
+									<br>
+									<i class="fa fa-info-circle fa-2x vmiddle mr-2 gris-9"></i>
+                                    <span class="text-14 vmiddle">PCB (Nombre de pièces par carton): <strong class="text-18"><?php echo $pdt->getPcb() > 0 ?  $pdt->getPcb() : 0; ?></strong> piece<?php echo $pdt->getPcb()> 0 ? 's' : '' ?></span>
                                     <span class="infoMajAjout alert alert-warning nomargin float-right text-14">
                                         <span class="doresetdeja"></span>
                                         <span class="estimationtotal"></span>

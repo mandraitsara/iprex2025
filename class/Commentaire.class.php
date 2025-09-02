@@ -13,6 +13,7 @@ class Commentaire {
 
 	protected    $id,
 		$id_lot,
+		$id_lot_negoce,
 		$id_froid,
 		$negoce,
 		$commentaire,
@@ -44,6 +45,10 @@ class Commentaire {
 
 	public function getId_lot() {
 		return $this->id_lot;
+	}
+
+	public function getId_lot_negoce() {
+		return $this->id_lot_negoce;
 	}
 
 	public function getId_froid() {
@@ -80,6 +85,12 @@ class Commentaire {
 		$this->id_lot = (int)$id_lot;
 		Outils::setAttributs('id_lot',$this);
 	}
+
+	public function setId_lot_negoce($id_lot_negoce) {
+		$this->id_lot_negoce = (int)$id_lot_negoce;
+		Outils::setAttributs('id_lot_negoce',$this);
+	}
+
 
 	public function setId_froid($id_froid) {
 		$this->id_froid = (int)$id_froid;

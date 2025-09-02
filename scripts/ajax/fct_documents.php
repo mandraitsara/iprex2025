@@ -79,8 +79,7 @@ function modeModalLotDocs() {
 		$lot = $lotsNegoceManager->getLotNegoce($id_lot);
 		if (!$lot instanceof LotNegoce) { echo '-1'; exit; }
 
-	} else { echo '-1'; exit(); }
-
+	} else { echo '-1'; exit(); }    
     $txtType = $type_lot == 1 ? ' de négoce' : '';
 	echo '<i class="fa fa-box"></i><span class="gris-7 ">Lot'.$txtType. ' ' . $lot->getNom_produit().'</span> ';
 

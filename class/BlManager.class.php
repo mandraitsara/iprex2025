@@ -9,37 +9,43 @@
 Manager de l'objet BL
 Généré par CBO FrameWork le 06/03/2020 à 14:50:20
 ------------------------------------------------------*/
-class BlManager {
+class BlManager
+{
 
 	protected    $db, $nb_results;
 
-	public function __construct($db) {
+	public function __construct($db)
+	{
 		$this->setDb($db);
 	}
 
 	/* ----------------- GETTERS ----------------- */
-	public function getNb_results() {
+	public function getNb_results()
+	{
 		return $this->nb_results;
 	}
 
 	/* ----------------- SETTERS ----------------- */
-	public function setDb(PDO $db) {
+	public function setDb(PDO $db)
+	{
 		$this->db = $db;
 	}
 
-	public function setNb_results($nb_results) {
+	public function setNb_results($nb_results)
+	{
 		$this->nb_results = (int)$nb_results;
 	}
 
 	/* ----------------- METHODES ----------------- */
 
 	// Retourne la liste des Bl
-	public function getListeBl($params = []) {
+	public function getListeBl($params = [])
+	{
 
 		$id 		= isset($params['id']) 			? intval($params['id']) 		: 0;
 		$ids 		= isset($params['ids']) && is_array($params['ids']) ? $params['ids'] 				: [];
 		$id_tiers 	= isset($params['id_client']) 	? intval($params['id_client']) 	: 0;
-		$ids_tiers 	= isset($params['id_clients']) 	&& is_array($params['id_clients'])? $params['id_clients'] : [];
+		$ids_tiers 	= isset($params['id_clients']) 	&& is_array($params['id_clients']) ? $params['id_clients'] : [];
 		$id_packing	= isset($params['id_packing']) 	? intval($params['id_packing']) : 0;
 		$num_bl 	= isset($params['num_bl']) 		? trim($params['num_bl']) 		: '';
 		$num_cmd 	= isset($params['num_cmd']) 	? trim($params['num_cmd']) 		: '';
@@ -62,6 +68,8 @@ class BlManager {
 		$du			= isset($params['du']) && Outils::verifDateSql($params['du']) ? $params['du'] : '2021-11-01';
 		$au			= isset($params['au']) && Outils::verifDateSql($params['au']) ? $params['au'] : '';
 
+		
+
 		if ($du < '2021-11-01') {
 			$du = '2021-11-01';
 		}
@@ -78,81 +86,100 @@ class BlManager {
 				FROM `pe_bl` bl 
 					LEFT JOIN `pe_tiers` tc ON tc.`id` = bl.`id_tiers_livraison` ';
 
-		$query_liste.= $facture > -1 ? ' LEFT JOIN `pe_bl_facture` f ON f.`id_bl` = bl.`id` ' : '';
+		$query_liste .= $facture > -1 ? ' LEFT JOIN `pe_bl_facture` f ON f.`id_bl` = bl.`id` ' : '';
 
-		$query_liste.= " WHERE 1 ";
+		$query_liste .= " WHERE 1 ";
 
-		$query_liste.= !$show_supprimes ? " AND bl.`supprime` = ".$supprime." " : "";
-		$query_liste.= $statut == -1 && $supprime == 1 ? " AND bl.`supprime` = ".$supprime." " : "";
-		$query_liste.= $id == 1 ? ' AND bl.`id` = ' . $id : '';
-		$query_liste.= $facture == 1 ? ' AND f.`id_facture` IS NOT NULL ' : '';
-		$query_liste.= $facture == 0 ? ' AND f.`id_facture` IS NULL ' : '';
-		$query_liste.= $chiffrage > -1 ? ' AND bl.`chiffrage` = ' . $chiffrage : '';
-		$query_liste.= $id_tiers > 0 ? ' AND (bl.`id_tiers_livraison` = ' . $id_tiers . ' OR bl.`id_tiers_facturation` = ' . $id_tiers . ') ' : '';
-		$query_liste.= !empty($ids_tiers) ? ' AND (bl.`id_tiers_livraison` IN (' . implode(',', $ids_tiers) . ') OR bl.`id_tiers_facturation` IN (' . implode(',', $ids_tiers) . ')) ' : '';
-		$query_liste.= $num_cmd != '' ? ' AND bl.`num_cmd` LIKE "%'.$num_cmd.'%" ' : '';
-		$query_liste.= $num_bl != '' ? ' AND bl.`num_bl` LIKE "%'.$num_bl.'%" ' : '';
-		$query_liste.= $id_facture > 0 ? " AND bl.`id` IN ( SELECT `id_bl` FROM `pe_bl_facture` WHERE `id_facture` = ".$id_facture." ) " : "";
-		$query_liste.= $id_packing > 0 ? " AND bl.`id_packing_list` = " . $id_packing . " " : "";
-		$query_liste.= $statut > -1 ? " AND bl.`statut` = ".$statut : "";
-		$query_liste.= $bt > -1 ? " AND bl.`bt` = ".$bt : "";
-		$query_liste.= $statuts != '' ? " AND bl.`statut` IN (".$statuts.")" : "";
-		$query_liste.= $statut_not != '' ? " AND bl.`statut` NOT IN (".$statut_not.")" : "";
-		$query_liste.= !empty($ids) != '' ? " AND bl.`id` IN (".implode(',',$ids).")" : "";
-		$query_liste.= $du != '' ? ' AND bl.`date` >= "'.$du.'" ' : '';
-		$query_liste.= $au != '' ? ' AND bl.`date` <= "'.$au.'" ' : '';
+		$query_liste .= !$show_supprimes ? " AND bl.`supprime` = " . $supprime . " " : "";
+		$query_liste .= $statut == -1 && $supprime == 1 ? " AND bl.`supprime` = " . $supprime . " " : "";
+		$query_liste .= $id == 1 ? ' AND bl.`id` = ' . $id : '';
+		$query_liste .= $facture == 1 ? ' AND f.`id_facture` IS NOT NULL ' : '';
+		$query_liste .= $facture == 0 ? ' AND f.`id_facture` IS NULL ' : '';
+		$query_liste .= $chiffrage > -1 ? ' AND bl.`chiffrage` = ' . $chiffrage : '';
+		$query_liste .= $id_tiers > 0 ? ' AND (bl.`id_tiers_livraison` = ' . $id_tiers . ' OR bl.`id_tiers_facturation` = ' . $id_tiers . ') ' : '';
+		$query_liste .= !empty($ids_tiers) ? ' AND (bl.`id_tiers_livraison` IN (' . implode(',', $ids_tiers) . ') OR bl.`id_tiers_facturation` IN (' . implode(',', $ids_tiers) . ')) ' : '';
+		$query_liste .= $num_cmd != '' ? ' AND bl.`num_cmd` LIKE "%' . $num_cmd . '%" ' : '';
+		$query_liste .= $num_bl != '' ? ' AND bl.`num_bl` LIKE "%' . $num_bl . '%" ' : '';
+		$query_liste .= $id_facture > 0 ? " AND bl.`id` IN ( SELECT `id_bl` FROM `pe_bl_facture` WHERE `id_facture` = " . $id_facture . " ) " : "";
+		$query_liste .= $id_packing > 0 ? " AND bl.`id_packing_list` = " . $id_packing . " " : "";
+		$query_liste .= $statut > -1 ? " AND bl.`statut` = " . $statut : "";
+		$query_liste .= $bt > -1 ? " AND bl.`bt` = " . $bt : "";
+		$query_liste .= $statuts != '' ? " AND bl.`statut` IN (" . $statuts . ")" : "";
+		$query_liste .= $statut_not != '' ? " AND bl.`statut` NOT IN (" . $statut_not . ")" : "";
+		$query_liste .= !empty($ids) != '' ? " AND bl.`id` IN (" . implode(',', $ids) . ")" : "";
+		$query_liste .= $du != '' ? ' AND bl.`date` >= "' . $du . '" ' : '';
+		$query_liste .= $au != '' ? ' AND bl.`date` <= "' . $au . '" ' : '';
 
-		$query_liste.= " ORDER BY ";
-		$query_liste.= !empty($ids_tiers) ? " bl.`id_tiers_facturation`, " : "";
-		$query_liste.= " bl.`id` DESC ";
-		$query_liste.= 'LIMIT ' . $start . ',' . $nb;
+		$query_liste .= " ORDER BY ";
+		$query_liste .= !empty($ids_tiers) ? " bl.`id_tiers_facturation`, " : "";
+		$query_liste .= " bl.`id` DESC ";
+		$query_liste .= 'LIMIT ' . $start . ',' . $nb;
 		$query = $this->db->prepare($query_liste);
+
+		
 		$query->execute();
 
 		$this->setNb_results($this->db->query('SELECT FOUND_ROWS()')->fetchColumn());
 
-		$liste = [];
+		$liste = [];		
 
 		$facturesManager = new FacturesManager($this->db);
 
-		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
+		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {	
+			
 
 			$bl = new Bl($donnee);
-			if (!$bl instanceof Bl) { continue; }
+			if (!$bl instanceof Bl) {
+				continue;
+			}
 
 			// On rattache les lignes du BL
 			$lignes_bl = [];
-			if ($lignes) { $lignes_bl = $this->getListeBlLignes(['id_bl' => $bl->getId(), 'regroupement' => $bl->getRegroupement()]); }
+			if ($lignes) {
+				$lignes_bl = $this->getListeBlLignes(['id_bl' => $bl->getId(), 'regroupement' => $bl->getRegroupement()]);
+			}
 			$bl->setLignes($lignes_bl);
 
 			// On rattache les factures liés au BL
 			$factures_bl = [];
-			if ($factures) { $facture_bl = $facturesManager->getListeFactures(['id_bl' => $bl->getId(), 'bls' => false]); }
+			if ($factures) {
+				$facture_bl = $facturesManager->getListeFactures(['id_bl' => $bl->getId(), 'bls' => false]);
+			}
 			$bl->setFactures($facture_bl);
 
 			// On rattache le nb de palettes
-			if ($palettes) { $bl->setNb_palettes($this->getNbPaletteBl($bl)); }
+			if ($palettes) {
+				$bl->setNb_palettes($this->getNbPaletteBl($bl));
+			}
 
 			// On rattache le nb de produits
-			if ($produits) { $bl->setNb_produits($this->getNbProduitsBl($bl)); }
+			if ($produits) {
+				$bl->setNb_produits($this->getNbProduitsBl($bl));
+			}
 
 			// On rattache le nb de colis
-			if ($colis) { $bl->setNb_colis($this->getNbColisBl($bl)); }
+			if ($colis) {
+				$bl->setNb_colis($this->getNbColisBl($bl));
+			}
 
 			// On rattache le poids
-			if ($poids) { $bl->setPoids($this->getPoidsBl($bl)); }
+			if ($poids) {
+				$bl->setPoids($this->getPoidsBl($bl));
+			}
 
 			// On rattache le total HT
-			if ($total) { $bl->setTotal($this->getTotalHt($bl)); }
+			if ($total) {
+				$bl->setTotal($this->getTotalHt($bl));
+			}
 
 			$liste[] = $bl;
-		}
+		}		
 		return $liste;
-
 	} // FIN liste
 
 	// Retourne un Bl
-	public function getBl($bl, $details = true, $pdt_simpes = false, $get_facture = true) {
+	public function getBl($bl, $details = true, $pdt_simpes = false, $get_facture = true)
+	{
 
 		$id = $bl instanceof Bl ? $bl->getId() : intval($bl);
 
@@ -176,7 +203,9 @@ class BlManager {
 
 			$bl =  $donnee && isset($donnee[0]) ? new Bl($donnee[0]) : false;
 
-			if (!$bl instanceof Bl) { return false; }
+			if (!$bl instanceof Bl) {
+				return false;
+			}
 
 			// Rattachement des sous-objets
 
@@ -196,52 +225,50 @@ class BlManager {
 					$factures = $facturesManager->getListeFactures(['id_bl' => $bl->getId(), 'bls' => false]);
 					$bl->setFactures($factures);
 				}
-
 			} // FIN rattachement des sous-objets
 
 			return $bl;
-
 		} else {
 			return false;
 		}
-
 	} // FIN get
 
 	// Enregistre & sauvegarde (Méthode Save)
-	public function saveBl(Bl $objet) {
+	public function saveBl(Bl $objet)
+	{
 
 		$table      = 'pe_bl'; // Nom de la table
 		$champClef  = 'id'; // Nom du champ clef
 
 		// FIN Configuration
 
-		$getter     = 'get'.ucfirst(strtolower($champClef));
-		$setter     = 'set'.ucfirst(strtolower($champClef));
+		$getter     = 'get' . ucfirst(strtolower($champClef));
+		$setter     = 'set' . ucfirst(strtolower($champClef));
 
 		if ($objet->$getter() == '' && !empty($objet->attributs)) {
 
-			$query_add = 'INSERT INTO `'.$table.'` (';
-
-			foreach ($objet->attributs as $attribut)	{
-				$query_add.= '`'.$attribut.'`,';
-			}
-			$query_add = substr($query_add,0,-1);
-			$query_add.=') VALUES (';
+			$query_add = 'INSERT INTO `' . $table . '` (';
 
 			foreach ($objet->attributs as $attribut) {
-				$query_add.= ':'.strtolower($attribut).' ,';
+				$query_add .= '`' . $attribut . '`,';
 			}
-			$query_add = substr($query_add,0,-1);
-			$query_add.=')';
+			$query_add = substr($query_add, 0, -1);
+			$query_add .= ') VALUES (';
+
+			foreach ($objet->attributs as $attribut) {
+				$query_add .= ':' . strtolower($attribut) . ' ,';
+			}
+			$query_add = substr($query_add, 0, -1);
+			$query_add .= ')';
 
 			$query = $this->db->prepare($query_add);
 			$query_log = $query_add;
 
-			foreach ($objet->attributs as $attribut)	{
-				$attributget = 'get'.ucfirst($attribut);
-				$query->bindvalue(':'.strtolower($attribut), $objet->$attributget());
+			foreach ($objet->attributs as $attribut) {
+				$attributget = 'get' . ucfirst($attribut);
+				$query->bindvalue(':' . strtolower($attribut), $objet->$attributget());
 				$dq = is_numeric($objet->$attributget()) ? '' : '"';
-				$query_log = str_replace(':'.strtolower($attribut).' ', $dq.$objet->$attributget().$dq.' ', $query_log);
+				$query_log = str_replace(':' . strtolower($attribut) . ' ', $dq . $objet->$attributget() . $dq . ' ', $query_log);
 			}
 
 			if ($query->execute()) {
@@ -249,39 +276,40 @@ class BlManager {
 				Outils::saveLog($query_log);
 				return $objet->$getter();
 			}
-
 		} else if ($objet->$getter() != '' && !empty($objet->attributs)) {
 
-			$query_upd = 'UPDATE `'.$table.'` SET ';
+			$query_upd = 'UPDATE `' . $table . '` SET ';
 
-			foreach($objet->attributs as $attribut) {
-				$query_upd.= '`'.$attribut.'` = :'.strtolower($attribut).' ,';
+			foreach ($objet->attributs as $attribut) {
+				$query_upd .= '`' . $attribut . '` = :' . strtolower($attribut) . ' ,';
 			}
-			$query_upd = substr($query_upd,0,-1);
-			$query_upd .= ' WHERE '.$champClef.' = '.$objet->$getter();
+			$query_upd = substr($query_upd, 0, -1);
+			$query_upd .= ' WHERE ' . $champClef . ' = ' . $objet->$getter();
 
 			$query = $this->db->prepare($query_upd);
 			$query_log = $query_upd;
 
-			foreach($objet->attributs as $attribut) {
-				$attributget = 'get'.ucfirst($attribut);
-				$query->bindvalue(':'.strtolower($attribut), $objet->$attributget());
+			foreach ($objet->attributs as $attribut) {
+				$attributget = 'get' . ucfirst($attribut);
+				$query->bindvalue(':' . strtolower($attribut), $objet->$attributget());
 				$dq = is_numeric($objet->$attributget()) ? '' : '"';
-				$query_log = str_replace(':'.strtolower($attribut).' ', $dq.$objet->$attributget().$dq.' ', $query_log);
+				$query_log = str_replace(':' . strtolower($attribut) . ' ', $dq . $objet->$attributget() . $dq . ' ', $query_log);
 			}
 
-			try	{
+			try {
 				$query->execute();
 				Outils::saveLog($query_log);
 				return true;
-			} catch(PDOExeption $e) {return false;}
+			} catch (PDOExeption $e) {
+				return false;
+			}
 		}
 		return false;
-
 	} // FIN méthode
 
 	// Retourne la liste des BlLigne
-	public function getListeBlLignes($params = []) {
+	public function getListeBlLignes($params = [])
+	{
 
 		$id_bl = isset($params['id_bl']) ? intval($params['id_bl']) : 0;
 		$iso_langue = isset($params['iso']) ? trim(strtolower($params['iso'])) : 'fr';
@@ -330,15 +358,15 @@ class BlManager {
                 						IF (pc.`id_frais` > 0,1,0) AS is_frais,
                 						l.`id_frs`
 									FROM `pe_bl_lignes` l
-										'.$jointure_pdt.' JOIN `pe_palette_composition` pc ON pc.`id` =  l.`id_compo`
-										'.$jointure_pdt.' JOIN `pe_palettes` pal ON pal.`id` =  pc.`id_palette`
+										' . $jointure_pdt . ' JOIN `pe_palette_composition` pc ON pc.`id` =  l.`id_compo`
+										' . $jointure_pdt . ' JOIN `pe_palettes` pal ON pal.`id` =  pc.`id_palette`
 										LEFT JOIN `pe_palettes` pal2 ON pal2.`id` =  l.`id_palette`
 										LEFT JOIN `pe_poids_palettes` pp ON  pp.`id` = pal.`id_poids_palette`
 										
 										LEFT JOIN `pe_produits` p ON p.`id` =  pc.`id_produit`
 										LEFT JOIN `pe_produits` p2 ON p2.`id` =  l.`id_produit`
 										LEFT JOIN `pe_produits` p3 ON p3.`id` =  l.`id_produit_bl`
-										'.$jointure_pdt.' JOIN `pe_tiers` clt ON clt.`id` = pc.`id_client`
+										' . $jointure_pdt . ' JOIN `pe_tiers` clt ON clt.`id` = pc.`id_client`
 										LEFT JOIN `pe_tarif_client` tc ON tc.`id_tiers` = clt.`id` AND tc.`id_produit` = pc.`id_produit`
 										LEFT JOIN `pe_tarif_client` tg ON tc.`id_tiers_groupe` = clt.`id_groupe` AND tg.`id_produit` = pc.`id_produit`
 										LEFT JOIN `pe_froid_produits` pdtf ON pdtf.`id_lot_pdt_froid` = pc.`id_lot_pdt_froid`
@@ -347,15 +375,15 @@ class BlManager {
 										LEFT JOIN `pe_lots` lot_prod ON lot_prod.`id` = pdtf.`id_lot`
 										LEFT JOIN `pe_lots` lot_frais ON lot_frais.`id` = frac.`id_lot`
 										LEFT JOIN `pe_lots` lot_hs ON lot_hs.`id` = l.`id_lot`
-										LEFT JOIN `pe_pays_trad` orig ON orig.`id_pays` = l.`id_pays` AND orig.`id_langue` = '.$id_langue.'
-										LEFT JOIN `pe_pays_trad` orig2 ON orig2.`id_pays` = lot_prod.`id_origine` AND orig2.`id_langue` = '.$id_langue.'
-										LEFT JOIN `pe_pays_trad` orig3 ON orig3.`id_pays` = lot_hs.`id_origine` AND orig3.`id_langue` = '.$id_langue.'
+										LEFT JOIN `pe_pays_trad` orig ON orig.`id_pays` = l.`id_pays` AND orig.`id_langue` = ' . $id_langue . '
+										LEFT JOIN `pe_pays_trad` orig2 ON orig2.`id_pays` = lot_prod.`id_origine` AND orig2.`id_langue` = ' . $id_langue . '
+										LEFT JOIN `pe_pays_trad` orig3 ON orig3.`id_pays` = lot_hs.`id_origine` AND orig3.`id_langue` = ' . $id_langue . '
 										LEFT JOIN `pe_taxes` t ON t.`id` = p.`id_taxe`
 	
 									WHERE l.`supprime` = 0 ';
 
-		$query_liste.= $id_bl > 0 ? " AND l.`id_bl` = " . $id_bl : "" ;
-		$query_liste.= " ORDER BY pc.`id_palette`, l.`id` ASC";
+		$query_liste .= $id_bl > 0 ? " AND l.`id_bl` = " . $id_bl : "";
+		$query_liste .= " ORDER BY pc.`id_palette`, l.`id` ASC";
 
 		$query = $this->db->prepare($query_liste);
 		$query->execute();
@@ -386,24 +414,26 @@ class BlManager {
 			$pu = [];
 			foreach ($liste as $ligne) {
 				$idpdt = $ligne->getId_produit_bl() > 0 ? $ligne->getId_produit_bl() : $ligne->getId_produit();
-				$unicite = 'PAL'.$ligne->getId_palette().'PDT'.$idpdt.'LOT'.$ligne->getNumlot().'FRS'.$ligne->getId_frs();
+				$unicite = 'PAL' . $ligne->getId_palette() . 'PDT' . $idpdt . 'LOT' . $ligne->getNumlot() . 'FRS' . $ligne->getId_frs();
 				if (!isset($liste_regroupee[$unicite])) {
 					$pu[$unicite] = 0;
 				}
-				if ($ligne->getPu_ht() > $pu[$unicite]) { $pu[$unicite] = $ligne->getPu_ht(); }
+				if ($ligne->getPu_ht() > $pu[$unicite]) {
+					$pu[$unicite] = $ligne->getPu_ht();
+				}
 			}
 			foreach ($liste as $ligne) {
 
 				if ($ligne->getId_compo() == 0) {
 					$ligne->setProduit(new Produit([]));
-					$liste_regroupee['Z'.$ligne->getId()] = $ligne;
+					$liste_regroupee['Z' . $ligne->getId()] = $ligne;
 					continue;
 				}
 
 				$pdt = $produitManager->getProduit($ligne->getId_produit(), false);
 
 				$idpdt = $ligne->getId_produit_bl() > 0 ? $ligne->getId_produit_bl() : $ligne->getId_produit();
-				$unicite = 'PAL'.$ligne->getId_palette().'PDT'.$idpdt.'LOT'.$ligne->getNumlot().'FRS'.$ligne->getId_frs();
+				$unicite = 'PAL' . $ligne->getId_palette() . 'PDT' . $idpdt . 'LOT' . $ligne->getNumlot() . 'FRS' . $ligne->getId_frs();
 				if (!isset($liste_regroupee[$unicite])) {
 					$liste_regroupee[$unicite] = new BlLigne([]);
 				}
@@ -422,23 +452,23 @@ class BlManager {
 
 				// Gestion des entrées manuelles hors produits (lignes libres)
 				if ($pdt instanceof Produit) {
-					if ((int)$pdt->isVendu_piece() == 0) { $newLigne->setQte(1); }
+					if ((int)$pdt->isVendu_piece() == 0) {
+						$newLigne->setQte(1);
+					}
 				}
 				$liste_regroupee[$unicite] = $newLigne;
-
 			} // FIN boucle sur les lignes non regroupées
 			ksort($liste_regroupee);
 			return $liste_regroupee;
-
 		} // FIN regroupement
 
 		return $liste;
-
 	} // FIN liste des BlLigne
 
 
 	// Retourne un BlLigne
-	public function getBlLigne($id, $iso_langue = 'fr') {
+	public function getBlLigne($id, $iso_langue = 'fr')
+	{
 
 		$query_object = 'SELECT l.`id`, l.`id_bl`, l.`id_compo`, l.`date_add`, l.`supprime`, p.`code`, l.`id_pays`, l.`id_lot`, l.`id_palette`,
        									IF (pc.`designation` IS NOT NULL AND pc.`designation` != "", pc.`designation`, t.`nom`) AS designation,
@@ -462,94 +492,98 @@ class BlManager {
 		} else {
 			return false;
 		}
-
 	} // FIN get BlLigne
 
 	// Enregistre & sauvegarde (Méthode Save)
-	public function saveBlLigne(BlLigne $objet) {
+	public function saveBlLigne(BlLigne $objet)
+	{
 
 		$table      = 'pe_bl_lignes'; // Nom de la table
 		$champClef  = 'id'; // Nom du champ clef
 
 		// FIN Configuration
 
-		$getter     = 'get'.ucfirst(strtolower($champClef));
-		$setter     = 'set'.ucfirst(strtolower($champClef));
+		$getter     = 'get' . ucfirst(strtolower($champClef));
+		$setter     = 'set' . ucfirst(strtolower($champClef));
 
 		if ($objet->$getter() == '' && !empty($objet->attributs)) {
 
-			$query_add = 'INSERT INTO `'.$table.'` (';
+			$query_add = 'INSERT INTO `' . $table . '` (';
 
-			foreach ($objet->attributs as $attribut)	{
-				$query_add.= '`'.$attribut.'`,';
+			foreach ($objet->attributs as $attribut) {
+				$query_add .= '`' . $attribut . '`,';
 			}
-			$query_add = substr($query_add,0,-1);
-			$query_add.=') VALUES (';
+			$query_add = substr($query_add, 0, -1);
+			$query_add .= ') VALUES (';
 
-			foreach ($objet->attributs as $attribut)	{
-				$query_add.= ':'.strtolower($attribut).' ,';
+			foreach ($objet->attributs as $attribut) {
+				$query_add .= ':' . strtolower($attribut) . ' ,';
 			}
-			$query_add = substr($query_add,0,-1);
-			$query_add.=')';
+			$query_add = substr($query_add, 0, -1);
+			$query_add .= ')';
 
 			$query = $this->db->prepare($query_add);
 			$query_log = $query_add;
 
-			foreach ($objet->attributs as $attribut)	{
-				$attributget = 'get'.ucfirst($attribut);
-				$query->bindvalue(':'.strtolower($attribut), $objet->$attributget());
+			foreach ($objet->attributs as $attribut) {
+				$attributget = 'get' . ucfirst($attribut);
+				$query->bindvalue(':' . strtolower($attribut), $objet->$attributget());
 				$dq = is_numeric($objet->$attributget()) ? '' : '"';
-				$query_log = str_replace(':'.strtolower($attribut).' ', $dq.$objet->$attributget().$dq.' ', $query_log);
+				$query_log = str_replace(':' . strtolower($attribut) . ' ', $dq . $objet->$attributget() . $dq . ' ', $query_log);
 			}
 
 			if ($query->execute()) {
 				// Log de la requête pour le mode Dev
-				if (isset($_SESSION['devmode']) && $_SESSION['devmode']) { $_SESSION['pdoq'][get_class($this)][] = $query->queryString; }
+				if (isset($_SESSION['devmode']) && $_SESSION['devmode']) {
+					$_SESSION['pdoq'][get_class($this)][] = $query->queryString;
+				}
 				$objet->$setter($this->db->lastInsertId());
 				Outils::saveLog($query_log);
 				return $objet->$getter();
 			}
-
 		} else if ($objet->$getter() != '' && !empty($objet->attributs)) {
 
-			$query_upd = 'UPDATE `'.$table.'` SET ';
+			$query_upd = 'UPDATE `' . $table . '` SET ';
 
-			foreach($objet->attributs as $attribut) {
-				$query_upd.= '`'.$attribut.'` = :'.strtolower($attribut).' ,';
+			foreach ($objet->attributs as $attribut) {
+				$query_upd .= '`' . $attribut . '` = :' . strtolower($attribut) . ' ,';
 			}
-			$query_upd = substr($query_upd,0,-1);
-			$query_upd .= ' WHERE `'.$champClef.'` = '.$objet->$getter();
+			$query_upd = substr($query_upd, 0, -1);
+			$query_upd .= ' WHERE `' . $champClef . '` = ' . $objet->$getter();
 
 			$query = $this->db->prepare($query_upd);
 			$query_log = $query_upd;
 
-			foreach($objet->attributs as $attribut) {
-				$attributget = 'get'.ucfirst($attribut);
-				$query->bindvalue(':'.strtolower($attribut), $objet->$attributget());
+			foreach ($objet->attributs as $attribut) {
+				$attributget = 'get' . ucfirst($attribut);
+				$query->bindvalue(':' . strtolower($attribut), $objet->$attributget());
 				$dq = is_numeric($objet->$attributget()) ? '' : '"';
-				$query_log = str_replace(':'.strtolower($attribut).' ', $dq.$objet->$attributget().$dq.' ', $query_log);
+				$query_log = str_replace(':' . strtolower($attribut) . ' ', $dq . $objet->$attributget() . $dq . ' ', $query_log);
 			}
-			try	{
+			try {
 				$query->execute();
 				Outils::saveLog($query_log);
 				return true;
-			} catch(PDOExeption $e) {return false;}
+			} catch (PDOExeption $e) {
+				return false;
+			}
 		}
 		return false;
-
 	} // FIN méthode
 
 	// Retourne le prochain ID
-	private function getNextId() {
+	private function getNextId()
+	{
 
 		$base = $this->db->query('select database()')->fetchColumn();
-		return (int)$this->db->query('SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "'.$base.'" AND TABLE_NAME = "pe_bl"');;
+		return (int)$this->db->query('SELECT AUTO_INCREMENT FROM information_schema.TABLES WHERE TABLE_SCHEMA = "' . $base . '" AND TABLE_NAME = "pe_bl"');;
 	}
 
 	// Retou
 
 	// Retourne le BL correspondant aux ids_compositions ou bien crée un nouveau BL...
-	public function getOrCreateBlFromCompos($ids_compos, $bt = false) {
+	public function getOrCreateBlFromCompos($ids_compos, $bt = false)
+	{
 
 		// On classe les ID compo par ordre croissant pour comparer avec la BDD
 		sort($ids_compos);
@@ -562,9 +596,9 @@ class BlManager {
 		$query_bl = 'SELECT l.`id_bl`, GROUP_CONCAT(`id_compo` ORDER BY `id_compo` SEPARATOR \',\') AS ids_compos 
 						FROM `pe_bl_lignes` l
 							JOIN `pe_bl` b ON l.`id_bl` = b.`id`
-						WHERE b.`supprime` = 0 AND l.`supprime` = 0 AND b.`bt` = '.$bt_flag.' 
+						WHERE b.`supprime` = 0 AND l.`supprime` = 0 AND b.`bt` = ' . $bt_flag . ' 
 						GROUP BY l.`id_bl`
-						HAVING ids_compos =  "'.implode(',', $ids_compos).'"
+						HAVING ids_compos =  "' . implode(',', $ids_compos) . '"
 					 ORDER BY l.`id_bl` DESC 
 					 LIMIT 0,1';
 
@@ -575,12 +609,16 @@ class BlManager {
 		$id_bl = $donnees && isset($donnees['id_bl']) ? intval($donnees['id_bl']) : 0;
 
 		// Si on a un bien un BL correspondant à ces compos, on le retourne
-		if ($id_bl > 0) {  return $this->getBl($id_bl); }
+		if ($id_bl > 0) {
+			return $this->getBl($id_bl);
+		}
 
 		// On récupère l'Id_client en fonction des compos (c'est toujours le même ici, on s'est assuré en amont que les compos avaient le même client)
 		$compoManager = new PalettesManager($this->db);
 		$compo = $compoManager->getComposition($ids_compos[0]);
-		if (!$compo instanceof PaletteComposition) { return false; }
+		if (!$compo instanceof PaletteComposition) {
+			return false;
+		}
 
 		// On récupère l'adresse de facturation et de livraison si elle est unique
 		$tiersManager = new TiersManager($this->db);
@@ -609,9 +647,13 @@ class BlManager {
 		if ($bt) {
 			$configManager  = new ConfigManager($this->db);
 			$bt_clt = $configManager->getConfig('bt_clt');
-			if (!$bt_clt instanceof Config) { return false; }
+			if (!$bt_clt instanceof Config) {
+				return false;
+			}
 			$id_clt = intval($bt_clt->getValeur());
-			if ($id_clt == 0) { return false; }
+			if ($id_clt == 0) {
+				return false;
+			}
 			$bl->setId_tiers_livraison($id_clt);
 			$bl->setId_tiers_facturation($id_clt);
 		}
@@ -624,14 +666,14 @@ class BlManager {
 				$adresse = $client->getAdresses()[0];
 				$bl->setId_adresse_facturation($adresse->getId());
 				$bl->setId_adresse_livraison($adresse->getId());
-			// Si le client a plusieurs adresses
+				// Si le client a plusieurs adresses
 			} else {
 				// On boucle sur les adresses du client
 				foreach ($client->getAdresses() as $adresse) {
 					// Si c'est une adresse de livraison
 					if ($adresse->getType() == 1) {
 						$bl->setId_adresse_livraison($adresse->getId());
-					// Sinon c'est une adresse de facturation
+						// Sinon c'est une adresse de facturation
 					} else {
 						$bl->setId_adresse_facturation($adresse->getId());
 					} // FIN test type adresse
@@ -641,7 +683,9 @@ class BlManager {
 
 		// On enregistre le BL
 		$new_id_bl = $this->saveBl($bl);
-		if (!$new_id_bl || (int)$new_id_bl == 0) { return false; }
+		if (!$new_id_bl || (int)$new_id_bl == 0) {
+			return false;
+		}
 
 		$nbLignes = 0;
 
@@ -660,26 +704,27 @@ class BlManager {
 			if ($compoLigne->getNum_lot_regroupement() != '') {
 				$ligne->setNumlot($compoLigne->getNum_lot_regroupement());
 			}
-			if ($this->saveBlLigne($ligne)) { $nbLignes++; }
-
+			if ($this->saveBlLigne($ligne)) {
+				$nbLignes++;
+			}
 		} // FIN boucle sur les lignes
 
 		$log = new Log([]);
 		$type = $bt ? '(Bon de Transfert)' : '';
 		$logType = $nbLignes < count($ids_compos) ? 'danger' : 'info';
-		$logText = $nbLignes < count($ids_compos) ? "Création du BL ".$type." #".$new_id_bl." " . $nbLignes ." lignes / " . count($ids_compos) : "Création du BL ".$type." #".$new_id_bl." : " . $nbLignes ." lignes ";
-		$logText.= ' IDS compos '. implode(',', $ids_compos);
+		$logText = $nbLignes < count($ids_compos) ? "Création du BL " . $type . " #" . $new_id_bl . " " . $nbLignes . " lignes / " . count($ids_compos) : "Création du BL " . $type . " #" . $new_id_bl . " : " . $nbLignes . " lignes ";
+		$logText .= ' IDS compos ' . implode(',', $ids_compos);
 		$log->setLog_type($logType);
 		$log->setLog_texte($logText);
 		$logManager = new LogManager($this->db);
 		$logManager->saveLog($log);
 
 		return $this->getBl($new_id_bl);
-
 	} // FIN méthode
 
 	// Retourne le nombre de palettes d'un BL
-	public function getNbPaletteBl(Bl $bl) {
+	public function getNbPaletteBl(Bl $bl)
+	{
 
 		$query_nb = 'SELECT COUNT(DISTINCT `id_palette`) AS nb FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ' AND `supprime` = 0 AND `id_palette` > 0';
 		$query = $this->db->prepare($query_nb);
@@ -687,11 +732,11 @@ class BlManager {
 		$donnee = $query->fetch();
 
 		return $donnee && isset($donnee['nb']) ? intval($donnee['nb']) : 0;
-
 	} // FIN méthode
 
 	// Retourne le nombre de produits d'un BL
-	public function getNbProduitsBl(Bl $bl) {
+	public function getNbProduitsBl(Bl $bl)
+	{
 
 		$query_nb = 'SELECT COUNT(DISTINCT IF(`id_produit_bl` > 0, `id_produit_bl`, `id_produit`)) AS nb
 					FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ' AND `supprime` = 0 ';
@@ -700,11 +745,11 @@ class BlManager {
 		$donnee = $query->fetch();
 
 		return $donnee && isset($donnee['nb']) ? intval($donnee['nb']) : 0;
-
 	} // FIN méthode
 
 	// Retourne le nombre de colis d'un BL
-	public function getNbColisBl(Bl $bl) {
+	public function getNbColisBl(Bl $bl)
+	{
 
 		$query_nb = 'SELECT SUM(`nb_colis`) AS nb
 					FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ' AND `supprime` = 0 ';
@@ -713,11 +758,11 @@ class BlManager {
 		$donnee = $query->fetch();
 
 		return $donnee && isset($donnee['nb']) ? intval($donnee['nb']) : 0;
-
 	} // FIN méthode
 
 	// Retourne le poids total des produits d'un BL
-	public function getPoidsBl(Bl $bl) {
+	public function getPoidsBl(Bl $bl)
+	{
 
 		$query_nb = 'SELECT SUM(`poids`) AS nb
 					FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ' AND `supprime` = 0 ';
@@ -726,11 +771,11 @@ class BlManager {
 		$donnee = $query->fetch();
 
 		return $donnee && isset($donnee['nb']) ? floatval($donnee['nb']) : 0;
-
 	} // FIN méthode
 
 	// Retourne le total HT du Bl
-	public function getTotalHt(Bl $bl) {
+	public function getTotalHt(Bl $bl)
+	{
 
 		// Si on a une facture associée, on récupère le total de la facture
 		$facturesManager = new FacturesManager($this->db);
@@ -742,7 +787,7 @@ class BlManager {
 
 		// Faussé si regroupement avec des produits sans prix, on fais donc une opération de nettoyage
 		$query_pus = 'SELECT `id_produit`, `id_lot`, `id_palette`, `id_bl`, MIN(`pu_ht`) AS pu_min, MAX(`pu_ht`) AS pu_max
-						FROM `pe_bl_lignes` WHERE `id_bl` = '.$bl->getId().' AND `supprime` = 0
+						FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ' AND `supprime` = 0
 					GROUP BY CONCAT(`id_produit`, `id_lot`, `id_palette`)
 						HAVING pu_min = 0 AND pu_max > 0';
 
@@ -750,13 +795,15 @@ class BlManager {
 		$query->execute();
 		$query_upd = '';
 		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
-			if (floatval($donnee['pu_max']) == 0) { continue; }
-			$query_upd.= 'UPDATE `pe_bl_lignes` SET `pu_ht` = ' . floatval($donnee['pu_max']) . ' 
+			if (floatval($donnee['pu_max']) == 0) {
+				continue;
+			}
+			$query_upd .= 'UPDATE `pe_bl_lignes` SET `pu_ht` = ' . floatval($donnee['pu_max']) . ' 
 							WHERE `pu_ht` = 0 AND `supprime` = 0 
-								AND `id_produit` = ' . (int)$donnee['id_produit']. ' 
+								AND `id_produit` = ' . (int)$donnee['id_produit'] . ' 
 								AND `id_lot` = ' . (int)$donnee['id_lot'] . '
 								AND `id_palette` = ' . (int)$donnee['id_palette'] . '
-								AND `id_bl` = ' . $bl->getId().';';
+								AND `id_bl` = ' . $bl->getId() . ';';
 		}
 		if (strlen($query_upd) > 0) {
 			$query = $this->db->prepare($query_upd);
@@ -774,13 +821,13 @@ class BlManager {
 		$total = $donnee && isset($donnee['nb']) ? floatval($donnee['nb']) : 0;
 
 		return $total;
-
 	} // FIN méthode
 
-	public function changeNumeroPaletteBl($id_bl, $id_palette, $old_id_palette) {
+	public function changeNumeroPaletteBl($id_bl, $id_palette, $old_id_palette)
+	{
 
 		// on récupère toutes les lignes avec l'id compo du bl qui correspondent à l'ancien id_palette
-		$query_liste = 'SELECT `id`, `id_compo` FROM `pe_bl_lignes` WHERE `id_bl` = ' . $id_bl. ' AND `id_palette` = ' . $old_id_palette . ' AND `supprime` = 0';
+		$query_liste = 'SELECT `id`, `id_compo` FROM `pe_bl_lignes` WHERE `id_bl` = ' . $id_bl . ' AND `id_palette` = ' . $old_id_palette . ' AND `supprime` = 0';
 		$query = $this->db->prepare($query_liste);
 
 		$query->execute();
@@ -790,33 +837,41 @@ class BlManager {
 			$listeLignes[] = (int)$donnee['id'];
 			$listeCompos[] = (int)$donnee['id_compo'];
 		}
-		if (empty($listeLignes)) { return false; }
+		if (empty($listeLignes)) {
+			return false;
+		}
 
-		$query_upd1 = 'UPDATE `pe_bl_lignes` SET `num_palette` = 0, `id_palette` = '.$id_palette.' WHERE `id` IN ('.implode(',', $listeLignes).')';
+		$query_upd1 = 'UPDATE `pe_bl_lignes` SET `num_palette` = 0, `id_palette` = ' . $id_palette . ' WHERE `id` IN (' . implode(',', $listeLignes) . ')';
 		$query1 = $this->db->prepare($query_upd1);
 		Outils::saveLog($query_upd1);
-		if (!$query1->execute()) { return false; }
+		if (!$query1->execute()) {
+			return false;
+		}
 
-		$query_upd2 = 'UPDATE `pe_palette_composition` SET `id_palette` = '.$id_palette.' WHERE `id` IN ('.implode(',', $listeCompos).')';
+		$query_upd2 = 'UPDATE `pe_palette_composition` SET `id_palette` = ' . $id_palette . ' WHERE `id` IN (' . implode(',', $listeCompos) . ')';
 		$query2 = $this->db->prepare($query_upd2);
 		Outils::saveLog($query_upd2);
-		if (!$query2->execute()) { return false; }
+		if (!$query2->execute()) {
+			return false;
+		}
 		return true;
-
 	}
 
 	// Force un numéro de palette sur les lignes correspondantes d'un BL
-	public function forceNumeroPaletteBl($id_bl, $id_palette, $numero_palette) {
+	public function forceNumeroPaletteBl($id_bl, $id_palette, $numero_palette)
+	{
 
-		$query_upd = 'UPDATE `pe_bl_lignes` SET `num_palette` = ' . $numero_palette . ' WHERE `id_bl` = ' . (int)$id_bl. ' AND ( `id_palette` = ' . (int)$id_palette . ' OR `id_compo` IN (SELECT `id` FROM `pe_palette_composition` WHERE `id_palette` = ' . (int)$id_palette . ' AND `supprime` = 0) )';
+		$query_upd = 'UPDATE `pe_bl_lignes` SET `num_palette` = ' . $numero_palette . ' WHERE `id_bl` = ' . (int)$id_bl . ' AND ( `id_palette` = ' . (int)$id_palette . ' OR `id_compo` IN (SELECT `id` FROM `pe_palette_composition` WHERE `id_palette` = ' . (int)$id_palette . ' AND `supprime` = 0) )';
 		$query = $this->db->prepare($query_upd);
 		Outils::saveLog($query_upd);
-		if (!$query->execute()) { return false; }
+		if (!$query->execute()) {
+			return false;
+		}
 
 		// Si le numéro de palette passé correspond à un id_palette existant dans le bl, on remplace l'id_palette
-		$query_palette= 'SELECT DISTINCT(bll.`id_palette`) FROM `pe_bl_lignes` bll 
+		$query_palette = 'SELECT DISTINCT(bll.`id_palette`) FROM `pe_bl_lignes` bll 
 							JOIN `pe_palettes` p ON p.`id` = bll.`id_palette`
-						WHERE bll.`id_bl` = ' . $id_bl .' 
+						WHERE bll.`id_bl` = ' . $id_bl . ' 
 							AND bll.`supprime` = 0 
 							AND p.`numero` = ' . $numero_palette;
 
@@ -827,7 +882,7 @@ class BlManager {
 		if ($donnee && isset($donnee['id_palette']) && intval($donnee['id_palette']) > 0) {
 			$new_id_palette = intval($donnee['id_palette']);
 
-			$query_ids_bll = 'SELECT `id` FROM `pe_bl_lignes` WHERE `id_bl` = ' . (int)$id_bl. ' AND ( `id_palette` = ' . (int)$id_palette . ' OR `id_compo` IN (SELECT `id` FROM `pe_palette_composition` WHERE `id_palette` = ' . (int)$id_palette . ' AND `supprime` = 0) )';
+			$query_ids_bll = 'SELECT `id` FROM `pe_bl_lignes` WHERE `id_bl` = ' . (int)$id_bl . ' AND ( `id_palette` = ' . (int)$id_palette . ' OR `id_compo` IN (SELECT `id` FROM `pe_palette_composition` WHERE `id_palette` = ' . (int)$id_palette . ' AND `supprime` = 0) )';
 
 			$query2 = $this->db->prepare($query_ids_bll);
 			Outils::saveLog($query_ids_bll);
@@ -836,22 +891,26 @@ class BlManager {
 			foreach ($query2->fetchAll(PDO::FETCH_ASSOC) as $donnees) {
 				$liste[] = intval($donnees['id']);
 			}
-			if (empty($liste)) { return true; }
+			if (empty($liste)) {
+				return true;
+			}
 
-			$query_upd = 'UPDATE `pe_bl_lignes` SET `id_palette` = ' . $new_id_palette . ' WHERE `id` IN ('.implode(',', $liste).')';
+			$query_upd = 'UPDATE `pe_bl_lignes` SET `id_palette` = ' . $new_id_palette . ' WHERE `id` IN (' . implode(',', $liste) . ')';
 			$query = $this->db->prepare($query_upd);
 			Outils::saveLog($query_upd);
-			if (!$query->execute()) { return false; }
+			if (!$query->execute()) {
+				return false;
+			}
 			$log = new Log([]);
 			$log->setLog_type('info');
-			$log->setLog_texte("Transfert de palette ".$id_palette." vers ".$new_id_palette." par modification du numéro de palette sur l'édition du BL #" .$id_bl);
+			$log->setLog_texte("Transfert de palette " . $id_palette . " vers " . $new_id_palette . " par modification du numéro de palette sur l'édition du BL #" . $id_bl);
 		}
 		return true;
-
 	} // FIN méthode
 
 	// Récupère les données calculées d'une ligne de BL (Compo)
-	public function getDonneesLigneBl($id_compo) {
+	public function getDonneesLigneBl($id_compo)
+	{
 
 		$query_donnees = 'SELECT DISTINCT 
                 						p.`id` AS id_produit,
@@ -883,12 +942,12 @@ class BlManager {
 
 		$blLigne = new BlLigne($donnees);
 		return $blLigne;
-
 	} // FIN méthode
 
 
 	// Récupère les données calculées d'une ligne de BL (Negoce)
-	public function getDonneesLigneBlByNegoce($id_pdt_negoce) {
+	public function getDonneesLigneBlByNegoce($id_pdt_negoce)
+	{
 
 		$query_donnees = 'SELECT DISTINCT 
                 						p.`id` AS id_produit,
@@ -911,16 +970,20 @@ class BlManager {
 
 		$blLigne = new BlLigne($donnees);
 		return $blLigne;
-
 	} // FIN méthode
 
 	// Retourne le montant Interbev calculé pour un BL
-	public function getMontantInterbevByBl(Bl $bl) {
+	public function getMontantInterbevByBl(Bl $bl)
+	{
 
 		$configManager = new ConfigManager($this->db);
 		$interbev = $configManager->getConfig('interbev');
-		if (!$interbev instanceof Config) { return 0; }
-		if (intval($interbev->getValeur()) == 0) { return 0; }
+		if (!$interbev instanceof Config) {
+			return 0;
+		}
+		if (intval($interbev->getValeur()) == 0) {
+			return 0;
+		}
 
 		// ON ne prends en compte que les lignes de BL pour lequelles le lot n'a pas comme origine FRANCE
 		// et si le BL a une adresse de livraison en France.
@@ -950,16 +1013,20 @@ class BlManager {
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 
 		return $donnees && isset($donnees['montant_interbev']) ? floatval($donnees['montant_interbev']) : 0;
-
 	} // FIN méthode
 
 	// Retourne le tarif Interbev retenu pour une ligne de BL en fonction de l'adresse de livraison (l'origine est récupérée par la ligne)
-	public function getTarifInterbevLigneBl(BlLigne $ligne, $id_adresse_livraison) {
+	public function getTarifInterbevLigneBl(BlLigne $ligne, $id_adresse_livraison)
+	{
 
 		$configManager = new ConfigManager($this->db);
 		$interbev = $configManager->getConfig('interbev');
-		if (!$interbev instanceof Config) { return 0; }
-		if (intval($interbev->getValeur()) == 0) { return 0; }
+		if (!$interbev instanceof Config) {
+			return 0;
+		}
+		if (intval($interbev->getValeur()) == 0) {
+			return 0;
+		}
 
 		$query_interbev = ' SELECT 
         							IF (pdt.`pdt_gros` = 1,
@@ -985,11 +1052,11 @@ class BlManager {
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 
 		return $donnees && isset($donnees['tarif_interbev']) ? floatval($donnees['tarif_interbev']) : 0;
-
 	} // FIN méthode
 
 	// Retourne l'ID du pays d'origine depuis l'ID du lot de la ligne de BL
-	public function getIdPaysFromLot($id_lot) {
+	public function getIdPaysFromLot($id_lot)
+	{
 
 		$query_id = 'SELECT `id_origine` FROM `pe_lots` WHERE `id` = ' . (int)$id_lot;
 		$query = $this->db->prepare($query_id);
@@ -997,11 +1064,11 @@ class BlManager {
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 
 		return $donnees && isset($donnees['id_origine']) ? intval($donnees['id_origine']) : 0;
-
 	} // FIN méthode
 
 	// Supprime un BL
-	public function supprBl(Bl $bl) {
+	public function supprBl(Bl $bl)
+	{
 
 		// On s'assure qu'il n'y a aucune facure associée au BL
 		$query_nb = 'SELECT COUNT(*) AS nb FROM `pe_bl_facture` bf LEFT JOIN `pe_factures` f ON f.`id` = bf.`id_facture` WHERE f.`supprime` = 0 AND bf.`id_bl` = ' . $bl->getId();
@@ -1009,34 +1076,40 @@ class BlManager {
 		$query->execute();
 		$donnee = $query->fetch();
 		$nb_factures =  $donnee && isset($donnee['nb']) ? intval($donnee['nb']) : 0;
-		if ($nb_factures > 0) { return false; }
+		if ($nb_factures > 0) {
+			return false;
+		}
 
 		// On supprime le BL en BDD
-		$query_del = 'UPDATE `pe_palette_composition` SET `archive` = 0, `supprime` = 0 WHERE `id` IN (SELECT `id_compo` FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId().');';
-		$query_del.= 'DELETE FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId().';';
-		$query_del.= 'DELETE FROM `pe_bl` WHERE `id` = ' . $bl->getId().';';
+		$query_del = 'UPDATE `pe_palette_composition` SET `archive` = 0, `supprime` = 0 WHERE `id` IN (SELECT `id_compo` FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ');';
+		$query_del .= 'DELETE FROM `pe_bl_lignes` WHERE `id_bl` = ' . $bl->getId() . ';';
+		$query_del .= 'DELETE FROM `pe_bl` WHERE `id` = ' . $bl->getId() . ';';
 		$queryD = $this->db->prepare($query_del);
-		if (!$queryD->execute()) { return false; }
+		if (!$queryD->execute()) {
+			return false;
+		}
 		Outils::saveLog($query_del);
 		// Puis le fichier
 		return $this->supprimeFichierBl($bl);
-
 	} // FIN méthode
 
 	// Supprime le fichier PDF du BL sur le serveur
-	public function supprimeFichierBl(Bl $bl) {
+	public function supprimeFichierBl(Bl $bl)
+	{
 
 		$dir = $bl->isBt() ? 'bon_transfert' : 'bl';
 
-		$chemin = __CBO_ROOT_URL__.'/gescom/'.$dir.'/'.$bl->getFichier();
-		if (!file_exists($chemin)) { return true; }
+		$chemin = __CBO_ROOT_URL__ . '/gescom/' . $dir . '/' . $bl->getFichier();
+		if (!file_exists($chemin)) {
+			return true;
+		}
 
 		return unlink($chemin);
-
 	} // FIN méthode
 
 	// Crée ou retourne un BL depuis un lot de négoce
-	public function getOrCreateBlFromNegoce($id_lot_negoce) {
+	public function getOrCreateBlFromNegoce($id_lot_negoce)
+	{
 
 		// On cherche à récupérer un ID de BL qui viendrait de ce lot de négoce
 		$query_id = 'SELECT `id` FROM `pe_bl` WHERE `id_lot_negoce` = ' . (int)$id_lot_negoce;
@@ -1046,12 +1119,16 @@ class BlManager {
 
 		// Si on a un bien un BL correspondant à ce lot de négoce, on le retourne
 		$id_bl = $donnees && isset($donnees['id']) ? intval($donnees['id']) : 0;
-		if ($id_bl > 0) { return $this->getBl($id_bl, true, true);} // On a besoin de passer à true 'produits simples' var pas d'ID compo
+		if ($id_bl > 0) {
+			return $this->getBl($id_bl, true, true);
+		} // On a besoin de passer à true 'produits simples' var pas d'ID compo
 
 		// On instancie le lot de négoce
 		$lotNegoceManager = new LotNegoceManager($this->db);
 		$lot_negoce = $lotNegoceManager->getLotNegoce($id_lot_negoce);
-		if (!$lot_negoce instanceof LotNegoce) { return false; }
+		if (!$lot_negoce instanceof LotNegoce) {
+			return false;
+		}
 
 		// Sinon, on crée un nouveau BL avec les produits du lot de négoce, supprimé par défaut en cas de retour arrière ou d'annulation
 
@@ -1073,18 +1150,22 @@ class BlManager {
 
 		// On enregistre le BL
 		$new_id_bl = $this->saveBl($bl);
-		if (!$new_id_bl || (int)$new_id_bl == 0) { return false; }
+		if (!$new_id_bl || (int)$new_id_bl == 0) {
+			return false;
+		}
 
 		// On crée les lignes
 		foreach ($lot_negoce->getProduits() as $pdt_negoce) {
 
-			if ($pdt_negoce->getTraite() == 0) { continue; }
+			if ($pdt_negoce->getTraite() == 0) {
+				continue;
+			}
 
 			$ligne = new BlLigne([]);
 			$ligne->setDate_add(date('Y-m-d H:i:s'));
 			$ligne->setSupprime(0);
 			$ligne->setId_compo(0);
-//			$ligne->setId_palette($pdt_negoce->getId_palette());
+			//			$ligne->setId_palette($pdt_negoce->getId_palette());
 			$ligne->setNumlot($pdt_negoce->getNum_lot());
 			$ligne->setId_produit($pdt_negoce->getId_pdt());
 			$ligne->setPoids($pdt_negoce->getPoids());
@@ -1093,12 +1174,11 @@ class BlManager {
 			$ligne->setId_bl($new_id_bl);
 
 			$this->saveBlLigne($ligne);
-
 		} // FIN boucle sur les lignes
 
 		$log = new Log([]);
 		$logType = 'info';
-		$logText = "Création du BL #".$new_id_bl." depuis lot de négoce #" . $id_lot_negoce;
+		$logText = "Création du BL #" . $new_id_bl . " depuis lot de négoce #" . $id_lot_negoce;
 		$log->setLog_type($logType);
 		$log->setLog_texte($logText);
 		$logManager = new LogManager($this->db);
@@ -1109,7 +1189,8 @@ class BlManager {
 	} // FIN méthode
 
 	// Retourne la liste des BL sortants relatifs à un lot de négoce
-	public function getListeBlsByNegoce($id_lot_negoce) {
+	public function getListeBlsByNegoce($id_lot_negoce)
+	{
 
 		$query_liste = 'SELECT `id`, `id_tiers_livraison`, `id_tiers_facturation`, `id_tiers_transporteur`, `id_adresse_facturation`, `id_adresse_livraison`, `date`,`date_add`, `num_cmd`, `supprime`, `nom_client`, `statut`, `regroupement`, `chiffrage`, `id_lot_negoce` FROM `pe_bl` WHERE `supprime` = 0  AND `id_lot_negoce` = ' . (int)$id_lot_negoce . ' ORDER BY `id` DESC ';
 		$query = $this->db->prepare($query_liste);
@@ -1119,43 +1200,50 @@ class BlManager {
 
 		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
 			$bl = new Bl($donnee);
-			if (!$bl instanceof Bl) {continue;}
+			if (!$bl instanceof Bl) {
+				continue;
+			}
 			$liste[] = $bl;
 		}
 		return $liste;
 	} // FIN méthode
 
 	// Retourne le dernier BL d'un client
-	public function getLastBlClient($id_client) {
+	public function getLastBlClient($id_client)
+	{
 
 		$query_bl = 'SELECT `id`, `id_tiers_livraison`, `id_tiers_facturation`, `id_tiers_transporteur`, `id_adresse_facturation`, `id_adresse_livraison`, `date`, `date_add`, `num_cmd`, `supprime` , `nom_client`, `statut`, `regroupement`, `chiffrage`, `id_lot_negoce`, `id_packing_list`
                 FROM `pe_bl` WHERE `id_tiers_livraison` = ' . (int)$id_client . ' ORDER BY `date` DESC LIMIT 0,1';
 
 		$query = $this->db->prepare($query_bl);
 
-		if (!$query->execute()) {  return false; }
+		if (!$query->execute()) {
+			return false;
+		}
 
 		$donnee = $query->fetch(PDO::FETCH_ASSOC);
 
 		return $donnee ? new Bl($donnee) : false;
-
 	} // FIN méthode
 
 	// Vérifie si une compo fait déja partie d'un BL
-	public function checkCompoDejaBl($id_compo) {
+	public function checkCompoDejaBl($id_compo)
+	{
 
 		$query_check = 'SELECT COUNT(*) AS nb FROM `pe_bl_lignes` WHERE `id_compo` = ' . $id_compo . ' AND `supprime` = 0';
 		$result = $this->db->query($query_check);
 		$donnee    = $result->fetch(PDO::FETCH_ASSOC);
 
 		return $donnee && isset($donnee['nb']) && intval($donnee['nb']) > 0;
-
 	} // FIN méthode
 
-	public function killSupprimes() {
+	public function killSupprimes()
+	{
 
 		global $utilisateur;
-		if (!$utilisateur->isDev()) { return false; }
+		if (!$utilisateur->isDev()) {
+			return false;
+		}
 
 		$query_ids = 'SELECT `id`, `date` FROM `pe_bl` WHERE `supprime` = 1';
 		$query = $this->db->prepare($query_ids);
@@ -1163,62 +1251,74 @@ class BlManager {
 		$ids = [];
 		$numsBls = [];
 		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
-			$numBl = 'BL'.$donnee['id'].date("y", strtotime($donnee['date'])). sprintf('%03d', intval(date("z", strtotime($donnee['date'])))+1);
+			$numBl = 'BL' . $donnee['id'] . date("y", strtotime($donnee['date'])) . sprintf('%03d', intval(date("z", strtotime($donnee['date']))) + 1);
 			$ids[] = (int)$donnee['id'];
 			$numsBls[] = $numBl;
 		}
-		if (empty($ids)) { return true; }
+		if (empty($ids)) {
+			return true;
+		}
 
-		$query_ids_lignes = 'SELECT `id` FROM `pe_bl_lignes` WHERE `id_bl` IN ('.implode(',', $ids).');';
+		$query_ids_lignes = 'SELECT `id` FROM `pe_bl_lignes` WHERE `id_bl` IN (' . implode(',', $ids) . ');';
 		$query2 = $this->db->prepare($query_ids_lignes);
 		$query2->execute();
 		$idsLignes = [];
-		foreach ($query2->fetchAll(PDO::FETCH_ASSOC) as $donnee2) { $idsLignes[] = (int)$donnee2['id']; }
+		foreach ($query2->fetchAll(PDO::FETCH_ASSOC) as $donnee2) {
+			$idsLignes[] = (int)$donnee2['id'];
+		}
 
-		$query_del = 'DELETE FROM `pe_bl` WHERE `id` IN ('.implode(',', $ids).');';
-		$query_del.= 'DELETE FROM `pe_bl_facture` WHERE `id_bl` IN ('.implode(',', $ids).');';
-		$query_del.= 'DELETE FROM `pe_bl_lignes` WHERE `id_bl` IN ('.implode(',', $ids).');';
-		$query_del.= !empty($idsLignes) ? 'DELETE FROM `pe_facture_ligne_bl` WHERE `id_ligne_bl` IN ('.implode(',', $idsLignes).');' : '';
+		$query_del = 'DELETE FROM `pe_bl` WHERE `id` IN (' . implode(',', $ids) . ');';
+		$query_del .= 'DELETE FROM `pe_bl_facture` WHERE `id_bl` IN (' . implode(',', $ids) . ');';
+		$query_del .= 'DELETE FROM `pe_bl_lignes` WHERE `id_bl` IN (' . implode(',', $ids) . ');';
+		$query_del .= !empty($idsLignes) ? 'DELETE FROM `pe_facture_ligne_bl` WHERE `id_ligne_bl` IN (' . implode(',', $idsLignes) . ');' : '';
 
 		$query3 = $this->db->prepare($query_del);
-		if (!$query3->execute()) { return false; }
+		if (!$query3->execute()) {
+			return false;
+		}
 		Outils::saveLog($query_del);
 
-		$query_ids_factures = 'SELECT DISTINCT `id_facture` FROM `pe_bl_facture` WHERE `id_bl` IN ('.implode(',', $ids).');';
+		$query_ids_factures = 'SELECT DISTINCT `id_facture` FROM `pe_bl_facture` WHERE `id_bl` IN (' . implode(',', $ids) . ');';
 		$query3 = $this->db->prepare($query_ids_factures);
 		$query3->execute();
 		$idsFactures = [];
-		foreach ($query3->fetchAll(PDO::FETCH_ASSOC) as $donnee3) { $idsFactures[] = (int)$donnee2['id_facture']; }
+		foreach ($query3->fetchAll(PDO::FETCH_ASSOC) as $donnee3) {
+			$idsFactures[] = (int)$donnee2['id_facture'];
+		}
 
 		if (!empty($idsFactures)) {
-			$query_suppr_factures_bls = 'UPDATE `pe_factures` SET `supprime` = 1 WHERE `id` IN ('. implode(',',$idsFactures ) .')';
+			$query_suppr_factures_bls = 'UPDATE `pe_factures` SET `supprime` = 1 WHERE `id` IN (' . implode(',', $idsFactures) . ')';
 			$query4 = $this->db->prepare($query_suppr_factures_bls);
 			$query4->execute();
 			Outils::saveLog($query_suppr_factures_bls);
 		}
 
-		if (empty($numsBls)) { return true; }
+		if (empty($numsBls)) {
+			return true;
+		}
 
 		foreach ($numsBls as $numsBl) {
-			$fichier = __CBO_ROOT_URL__.'/gescom/bl/'.$numsBl.'.pdf';
-			if (file_exists($fichier)) { unlink($fichier); }
+			$fichier = __CBO_ROOT_URL__ . '/gescom/bl/' . $numsBl . '.pdf';
+			if (file_exists($fichier)) {
+				unlink($fichier);
+			}
 		}
 
 		return true;
-
 	} // FIN méthode
 
-	public function supprPdfBlsHorsBdd() {
+	public function supprPdfBlsHorsBdd()
+	{
 
-		$query_numBls= 'SELECT `id`, `date` FROM `pe_bl` WHERE `supprime` = 0'; // non supprimés
+		$query_numBls = 'SELECT `id`, `date` FROM `pe_bl` WHERE `supprime` = 0'; // non supprimés
 		$query = $this->db->prepare($query_numBls);
 		$query->execute();
 		$numsBls = [];
 		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
-			$numBl = 'BL'.$donnee['id'].date("y", strtotime($donnee['date'])). sprintf('%03d', intval(date("z", strtotime($donnee['date'])))+1);
+			$numBl = 'BL' . $donnee['id'] . date("y", strtotime($donnee['date'])) . sprintf('%03d', intval(date("z", strtotime($donnee['date']))) + 1);
 			$numsBls[] = $numBl;
 		}
-		foreach (glob(__CBO_ROOT_URL__.'/gescom/bl/*.pdf') as $fichier) {
+		foreach (glob(__CBO_ROOT_URL__ . '/gescom/bl/*.pdf') as $fichier) {
 			if (!in_array(basename($fichier, '.pdf'), $numsBls)) {
 				unlink($fichier);
 			}
@@ -1227,30 +1327,33 @@ class BlManager {
 	} // FIN méthode
 
 
-	public function supprComposBl(Bl $bl) {
+	public function supprComposBl(Bl $bl)
+	{
 
 		$ids_compos = [];
 		foreach ($bl->getLignes() as $ligne) {
 			$ids_compos[] = $ligne->getId_compo();
 		}
 
-		if (empty($ids_compos)) { return false; }
-		
-		$query_upd = 'UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN ('.implode(',', $ids_compos).')';
+		if (empty($ids_compos)) {
+			return false;
+		}
+
+		$query_upd = 'UPDATE `pe_palette_composition` SET `supprime` = 1, `archive` = 1 WHERE `id` IN (' . implode(',', $ids_compos) . ')';
 		$query = $this->db->prepare($query_upd);
 		Outils::saveLog($query_upd);
 		return $query->execute();
-
 	}
 
 	// Id produit identiques + id lot identique + id palette identique sur les lignes d'un meme bl
-	public function getBlLignesRegroupeesFromLigne(BlLigne $ligne, $palettesEtlot = true) {
+	public function getBlLignesRegroupeesFromLigne(BlLigne $ligne, $palettesEtlot = true)
+	{
 
 		$idpdt = $ligne->getId_produit_bl() > 0 ? $ligne->getId_produit_bl() : $ligne->getId_produit();
-	    $query_regroupes = 'SELECT `id` FROM `pe_bl_lignes` WHERE `supprime` = 0 AND `id_bl` = (SELECT `id_bl` FROM `pe_bl_lignes` WHERE `id` = '.$ligne->getId().') AND `id` !=  '.$ligne->getId().' 
-    AND IF (`id_produit_bl` > 0, `id_produit_bl`, `id_produit`)  = ' . $idpdt. ' AND `id_frs` = ' . $ligne->getId_frs();
+		$query_regroupes = 'SELECT `id` FROM `pe_bl_lignes` WHERE `supprime` = 0 AND `id_bl` = (SELECT `id_bl` FROM `pe_bl_lignes` WHERE `id` = ' . $ligne->getId() . ') AND `id` !=  ' . $ligne->getId() . ' 
+    AND IF (`id_produit_bl` > 0, `id_produit_bl`, `id_produit`)  = ' . $idpdt . ' AND `id_frs` = ' . $ligne->getId_frs();
 
-		$query_regroupes.= $palettesEtlot ? ' AND `id_palette` = ' . $ligne->getId_palette() . ' AND `id_lot` = ' . $ligne->getId_lot() : '';
+		$query_regroupes .= $palettesEtlot ? ' AND `id_palette` = ' . $ligne->getId_palette() . ' AND `id_lot` = ' . $ligne->getId_lot() : '';
 
 		$query = $this->db->prepare($query_regroupes);
 		$query->execute();
@@ -1259,23 +1362,23 @@ class BlManager {
 			$lignesRegroupees[] = $this->getBlLigne($donnee['id']);
 		}
 		return $lignesRegroupees;
-
 	} // FIN méthode
 
 
 	// Au save d'un nouveau BL : persistance du num_bl
-	private function saveNUmBL(Bl $bl) {
+	private function saveNUmBL(Bl $bl)
+	{
 
 		$prefixe = $bl->isBt() ? 'BT' : 'BL';
-		$query_upd = 'UPDATE `pe_bl` SET `num_bl` = CONCAT("'.$prefixe.'",`id`,DATE_FORMAT(`date`, "%y"), LPAD(DAYOFYEAR(`date`),3, "0")) WHERE `id` = ' . (int)$bl->getId();
+		$query_upd = 'UPDATE `pe_bl` SET `num_bl` = CONCAT("' . $prefixe . '",`id`,DATE_FORMAT(`date`, "%y"), LPAD(DAYOFYEAR(`date`),3, "0")) WHERE `id` = ' . (int)$bl->getId();
 		$query = $this->db->prepare($query_upd);
 		Outils::saveLog($query_upd);
 		return $query->execute();
-
 	} // FIN méthode privée au Save d'un nouveau BL
 
 	// Retourne les infos de chaque palette d'un BL
-	public function getPalettesBl(Bl $bl) {
+	public function getPalettesBl(Bl $bl)
+	{
 
 		$query_palettes = 'SELECT DISTINCT `id_palette`, `num_palette` FROM `pe_bl_lignes` WHERE `supprime` = 0 AND `id_bl` = ' . $bl->getId();
 		$query = $this->db->prepare($query_palettes);
@@ -1286,7 +1389,7 @@ class BlManager {
 			$query_liste = 'SELECT p.`numero`, SUM(l.`poids`) AS poids, SUM(l.`nb_colis`) AS colis  
 								FROM `pe_bl_lignes` l 
 								JOIN `pe_palettes` p ON p.`id` = l.`id_palette`
-							WHERE  l.`supprime` = 0 AND l.`id_bl` = ' . $bl->getId() .' AND l.`id_palette` = '.$palette_id;
+							WHERE  l.`supprime` = 0 AND l.`id_bl` = ' . $bl->getId() . ' AND l.`id_palette` = ' . $palette_id;
 			$query2 = $this->db->prepare($query_liste);
 			$query2->execute();
 			foreach ($query2->fetchAll(PDO::FETCH_ASSOC) as $donnee2) {
@@ -1300,10 +1403,10 @@ class BlManager {
 			}
 		}
 		return $palettes;
-
 	} // FIN méthode
 
-	public function getDossierBlPdf(Bl $bl, $crer_dossiers = true) {
+	public function getDossierBlPdf(Bl $bl, $crer_dossiers = true)
+	{
 		if ($bl->getDate() >= '2021-09-28') { // Date du changement du système de numérotation
 			return $this->getDossierBlPdfFromBl($bl, $crer_dossiers);
 		} else {
@@ -1311,71 +1414,86 @@ class BlManager {
 		}
 	}
 
-	public function getDossierBlPdfFromBl(Bl $bl,  $crer_dossiers = true) {
+	public function getDossierBlPdfFromBl(Bl $bl,  $crer_dossiers = true)
+	{
 		$chemin = '/gescom/';
-		$chemin.= $bl->isBt() ? 'bon_transfert/' : 'bl/';
-		if (!file_exists( __CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
-			mkdir( __CBO_ROOT_PATH__ . $chemin);
+		$chemin .= $bl->isBt() ? 'bon_transfert/' : 'bl/';
+		if (!file_exists(__CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
+			mkdir(__CBO_ROOT_PATH__ . $chemin);
 		}
 		$annee = substr($bl->getNum_bl(), 2, 2);
-		$chemin.= $annee.'/';
-		if (!file_exists( __CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
-			mkdir( __CBO_ROOT_PATH__ . $chemin);
+		$chemin .= $annee . '/';
+		if (!file_exists(__CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
+			mkdir(__CBO_ROOT_PATH__ . $chemin);
 		}
 		$mois = substr($bl->getNum_bl(), 4, 2);
-		$chemin.= $mois.'/';
-		if (!file_exists( __CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
-			mkdir( __CBO_ROOT_PATH__ . $chemin);
+		$chemin .= $mois . '/';
+		if (!file_exists(__CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
+			mkdir(__CBO_ROOT_PATH__ . $chemin);
 		}
 		return $chemin;
 	} // Fin méthode
 
-	public function getDossierBlPdfFromNum($num_bl, $is_bt, $crer_dossiers = true) {
+	public function getDossierBlPdfFromNum($num_bl, $is_bt, $crer_dossiers = true)
+	{
 
 		$chemin = '/gescom/';
-		$chemin.= $is_bt ? 'bon_transfert/' : 'bl/';
+		$chemin .= $is_bt ? 'bon_transfert/' : 'bl/';
 
-		if (!file_exists(__CBO_ROOT_PATH__.$chemin) && $crer_dossiers) {
-			mkdir(__CBO_ROOT_PATH__.$chemin);
+		if (!file_exists(__CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
+			mkdir(__CBO_ROOT_PATH__ . $chemin);
 		}
 
 		$annee = substr($num_bl, -5, 2);
 
-		$chemin.= $annee.'/';
-		if (!file_exists(__CBO_ROOT_PATH__.$chemin) && $crer_dossiers) {
-			mkdir(__CBO_ROOT_PATH__.$chemin);
+		$chemin .= $annee . '/';
+		if (!file_exists(__CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
+			mkdir(__CBO_ROOT_PATH__ . $chemin);
 		}
 		$jour = substr($num_bl, -3);
 
 		$date = DateTime::createFromFormat('z y', strval($jour) . ' ' . strval($annee));
 		$mois = $date->format('m');
-		$chemin.= $mois.'/';
-		if (!file_exists( __CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
-			mkdir( __CBO_ROOT_PATH__ . $chemin);
+		$chemin .= $mois . '/';
+		if (!file_exists(__CBO_ROOT_PATH__ . $chemin) && $crer_dossiers) {
+			mkdir(__CBO_ROOT_PATH__ . $chemin);
 		}
 
 		return $chemin;
 	}
 
 	// Retourne si un BL contient uniquement du frais, du congelé ou les deux
-	public function isFraisOuCongele(Bl $bl, $id_palette = 0) {
-		if (empty($bl->getLignes()) || !is_array($bl->getLignes())) { return false; }
+	public function isFraisOuCongele(Bl $bl, $id_palette = 0)
+	{
+		if (empty($bl->getLignes()) || !is_array($bl->getLignes())) {
+			return false;
+		}
 
 		$nbFrais = 0;
 		$nbCongeles = 0;
 		foreach ($bl->getLignes() as $l) {
-			if ($id_palette > 0 && $id_palette != $l->getId_palette()) { continue; }
-			if ($l->isFrais()) {$nbFrais++;} else {$nbCongeles++;}
+			if ($id_palette > 0 && $id_palette != $l->getId_palette()) {
+				continue;
+			}
+			if ($l->isFrais()) {
+				$nbFrais++;
+			} else {
+				$nbCongeles++;
+			}
 		}
 
-		if ($nbFrais > 0 && $nbCongeles == 0) { return 1; }
-		else if ($nbFrais == 0 && $nbCongeles > 0) { return 2; }
-		else { return 0; }
-
+		if ($nbFrais > 0 && $nbCongeles == 0) {
+			return 1;
+		} else if ($nbFrais == 0 && $nbCongeles > 0) {
+			return 2;
+		} else {
+			return 0;
+		}
 	} // FIN méthode
 
 	// Supprimes (flag) les BL sans lignes
-	public function clearBlSansLignes() {
+	public function clearBlSansLignes()
+	{
 
 		$query_liste = 'SELECT DISTINCT(b.`id`) FROM `pe_bl` b LEFT JOIN `pe_bl_lignes` l On l.`id_bl` = b.`id` WHERE l.`id` IS NULL';
 		$query = $this->db->prepare($query_liste);
@@ -1384,72 +1502,76 @@ class BlManager {
 		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
 			$ids_bls[] = intval($donnee['id']);
 		}
-		if (!$ids_bls || empty($ids_bls)) { return true; }
-		$query_upd = 'UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN ('.implode(',',$ids_bls).')';
+		if (!$ids_bls || empty($ids_bls)) {
+			return true;
+		}
+		$query_upd = 'UPDATE `pe_bl` SET `supprime` = 1 WHERE `id` IN (' . implode(',', $ids_bls) . ')';
 		$query = $this->db->prepare($query_upd);
 		Outils::saveLog($query_upd);
 		return $query->execute();
-
-
 	} // FIN méthode
-	public function getNomClientBl($id_bl) {
+	public function getNomClientBl($id_bl)
+	{
 
 		$query_nom = 'SELECT IFNULL(t.`nom`, "") AS nom FROM `pe_tiers` t JOIN `pe_bl` b ON b.`id_tiers_facturation` = t.`id` WHERE b.`id` = ' . (int)$id_bl;
 
 		$query = $this->db->prepare($query_nom);
 		$query->execute();
 
-		if (!$query->execute()) { return ""; }
+		if (!$query->execute()) {
+			return "";
+		}
 		$donnee = $query->fetch(PDO::FETCH_ASSOC);
 		return $donnee && isset($donnee['nom']) ? $donnee['nom'] : '';
-
 	} // FIN méthode
 
 	// Retounre le prochain numéro de BL à la date passée
-	public function getNextNumeroBl($bt = false, $annee = 0, $mois = 0) {
+	public function getNextNumeroBl($bt = false, $annee = 0, $mois = 0)
+	{
 
 		do {
 			$numeroBl = $this->searchNextNumeroBl($bt, $annee, $mois);
 		} while ($this->checkNumeroBlExisteDeja($numeroBl));
 
 		return $numeroBl;
-		
 	} // FIN méthode
 
-	public function searchNextNumeroBl($bt, $annee, $mois) {
+	public function searchNextNumeroBl($bt, $annee, $mois)
+	{
 
 		if ($annee == 0) {
 			$annee = date('y');
 			$annee4 = date('Y');
 		} else if ($annee < 100) {
-			$annee4 = $annee+2000;
+			$annee4 = $annee + 2000;
 		} else {
 			$annee4 = $annee;
-			$annee = $annee-2000;
+			$annee = $annee - 2000;
 		}
 		if ($mois == 0) {
 			$mois = date('m');
 		}
 
 		$numBl = $bt ? 'BT' : 'BL';
-		$numBl.= $annee; 					// Année sur 2 chiffres
-		$numBl.= $mois; 					// Mois  sur 2 chiffrres
+		$numBl .= $annee; 					// Année sur 2 chiffres
+		$numBl .= $mois; 					// Mois  sur 2 chiffrres
 
 
 		// On cherche combien de BL ont été faite ce mois-ci, et on incrémente
-		$query_num = 'SELECT CONVERT(MAX(SUBSTRING(`num_bl`,-3)),UNSIGNED INTEGER)+1 AS num FROM `pe_bl` WHERE YEAR(`date`) = '.$annee4.' AND MONTH(`date`)  = '.$mois . ' AND SUBSTRING(`num_bl`,3,2) = "'.$annee.'" AND SUBSTRING(`num_bl`,5,2) = "'.$mois.'" ';
+		$query_num = 'SELECT CONVERT(MAX(SUBSTRING(`num_bl`,-3)),UNSIGNED INTEGER)+1 AS num FROM `pe_bl` WHERE YEAR(`date`) = ' . $annee4 . ' AND MONTH(`date`)  = ' . $mois . ' AND SUBSTRING(`num_bl`,3,2) = "' . $annee . '" AND SUBSTRING(`num_bl`,5,2) = "' . $mois . '" ';
 
 		$query = $this->db->prepare($query_num);
 
 		$query->execute();
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
 		$num = $donnees && isset($donnees['num']) ? intval($donnees['num']) : 1;
-		return $numBl.sprintf('%03u', $num);
+		return $numBl . sprintf('%03u', $num);
 	}
 
-	public function checkNumeroBlExisteDeja($numeroBl) {
+	public function checkNumeroBlExisteDeja($numeroBl)
+	{
 
-		$query_verif = 'SELECT COUNT(*) AS nb FROM `pe_bl` WHERE `supprime` = 0 AND `num_bl` =  "'.$numeroBl.'"';
+		$query_verif = 'SELECT COUNT(*) AS nb FROM `pe_bl` WHERE `supprime` = 0 AND `num_bl` =  "' . $numeroBl . '"';
 		$query2 = $this->db->prepare($query_verif);
 		$query2->execute();
 		$donnee2 = $query2->fetch(PDO::FETCH_ASSOC);
@@ -1457,10 +1579,11 @@ class BlManager {
 	}
 
 	// Retourne un array avec le poids à dispatcher pour chaque ligne de Bl en fonction de sa palette
-	public function getPoidsBrutsByPalettes($id_bl) {
+	public function getPoidsBrutsByPalettes($id_bl)
+	{
 
 		// On construit un array pour chaque palette du Bl
-		$query_palettes_bl = 'SELECT DISTINCT `id_palette` FROM `pe_bl_lignes` WHERE `supprime` = 0 AND `id_bl` = ' .$id_bl;
+		$query_palettes_bl = 'SELECT DISTINCT `id_palette` FROM `pe_bl_lignes` WHERE `supprime` = 0 AND `id_bl` = ' . $id_bl;
 		$query = $this->db->prepare($query_palettes_bl);
 		$query->execute();
 		$liste = [];
@@ -1472,7 +1595,9 @@ class BlManager {
 		}
 
 		// SI aucune palette on ne va pas plus loin
-		if (empty($liste)) { return []; }
+		if (empty($liste)) {
+			return [];
+		}
 
 		// On récupère maintenant le poids total des emballages pour chaque palette
 		$liste2 = [];
@@ -1486,17 +1611,19 @@ class BlManager {
 			if ($poids > 0) {
 				$liste2[$id_palette] = $poids;
 			}
-
 		} // FIN boucle sur les id_palettes
 
 		// SI aucun poids on ne va pas plus loin (possible si on a pas encore saisi les emballages de la palette sur le BL)
-		if (empty($liste2)) { return []; }
+		if (empty($liste2)) {
+			return [];
+		}
 
 		return $liste2; // On retourne le poids par palette, car le reste se fait au prorata du nb de colis
 
 	} // FIN méthode
 
-	public function purgeComposBlOrphelines() {
+	public function purgeComposBlOrphelines()
+	{
 
 		$queryPurge = 'UPDATE `pe_palette_composition` SET `supprime` = 1 WHERE `id_lot_hors_stock` > 0 AND `id` NOT IN
                         ( SELECT `id_compo` FROM `pe_bl_lignes`) 
@@ -1504,16 +1631,16 @@ class BlManager {
 		$query = $this->db->prepare($queryPurge);
 		Outils::saveLog($queryPurge);
 		return $query->execute();
-
 	}
 
 	// ID de la palette ayant ce numéro et faisait partie du BL
-	public function getIdPaletteBlByNumero($id_bl, $num_palette) {
+	public function getIdPaletteBlByNumero($id_bl, $num_palette)
+	{
 		$query_id = 'SELECT b.`id_palette` 
 						FROM `pe_bl_lignes` b
 						JOIN `pe_palettes` p ON p.`id` = b.`id_palette`
 					WHERE  p.`supprime` = 0
-				       AND p.`numero` = '.$num_palette.'
+				       AND p.`numero` = ' . $num_palette . '
 				       AND b.`id_bl` = ' . $id_bl;
 		$query = $this->db->prepare($query_id);
 		$query->execute();
@@ -1521,32 +1648,37 @@ class BlManager {
 		return $donnees && isset($donnees['id_palette']) ? intval($donnees['id_palette']) : 0;
 	}
 
-	public function isBlHasPoidsBruts(Bl $bl) {
+	public function isBlHasPoidsBruts(Bl $bl)
+	{
 
 		$query_poids = 'SELECT COUNT(*) AS nb 
 							FROM `pe_palette_poids_palettes` ppp 
 								JOIN `pe_poids_palettes` pp ON pp.`id` = ppp.`id_poids_palette`
-						WHERE `qte` > 0 AND `id_palette` IN (SELECT DISTINCT `id_palette` FROM `pe_bl_lignes` WHERE `id_palette` > 0 AND `id_bl` = '.$bl->getId().')';
+						WHERE `qte` > 0 AND `id_palette` IN (SELECT DISTINCT `id_palette` FROM `pe_bl_lignes` WHERE `id_palette` > 0 AND `id_bl` = ' . $bl->getId() . ')';
 
 		$query = $this->db->prepare($query_poids);
 		$query->execute();
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		if (!$donnees || !isset($donnees['nb'])) { return false; }
+		if (!$donnees || !isset($donnees['nb'])) {
+			return false;
+		}
 		return intval($donnees['nb']) > 0;
-
 	}
 
-	public function razDateEnvoiBl(Bl $bl) {
+	public function razDateEnvoiBl(Bl $bl)
+	{
 		$query_upd = 'UPDATE `pe_bl` SET `date_envoi` = NULL WHERE `id` = ' . $bl->getId();
 		$query = $this->db->prepare($query_upd);
 		Outils::saveLog($query_upd);
 		return $query->execute();
-
 	}
 
-	public function forcePalettesRegroupement(Bl $bl) {
-		
-		if ((int)$bl->getRegroupement() == 0) { return $bl; }
+	public function forcePalettesRegroupement(Bl $bl)
+	{
+
+		if ((int)$bl->getRegroupement() == 0) {
+			return $bl;
+		}
 
 		$palettes = [];
 		// boucle sur les lignes
@@ -1557,13 +1689,17 @@ class BlManager {
 			$palettes[(int)$ligne->getNum_palette()][] = $ligne->getId_palette();
 		} // FIN boucle sur les lignes
 
-		if (empty($palettes)) { return $bl; }
+		if (empty($palettes)) {
+			return $bl;
+		}
 
 		$numPalettesToUpdate = [];
 
 		// boucle sur les ids_palettes d'un meme numéro de palette forcé
 		foreach ($palettes as $num_palette => $ids_palettes) {
-			if ((int)$num_palette == 0) { continue; }
+			if ((int)$num_palette == 0) {
+				continue;
+			}
 
 			// On ne garde que les id_palettes disctincts en supprimant les doublons
 			$ids_palettes = array_unique($ids_palettes);
@@ -1573,12 +1709,13 @@ class BlManager {
 
 				// On prends le premier comme référence
 				$numPalettesToUpdate[$num_palette] = $ids_palettes[0];
-
 			} // FIN test plusieurs id_palette pour un meme numéro palette forcé
 
 		} // FIN boucle sur les ids_palettes d'un meme numéro de palette forcé
 
-		if (empty($numPalettesToUpdate)) { return $bl; }
+		if (empty($numPalettesToUpdate)) {
+			return $bl;
+		}
 		$logManager = new LogManager($this->db);
 
 		// boucle sur les palettes à regrouper
@@ -1586,23 +1723,54 @@ class BlManager {
 
 			$query_upd = 'UPDATE `pe_bl_lignes` SET `id_palette` = ' . $id_palette . ' 
 							WHERE `id_bl` = ' . $bl->getId() . ' 
-								AND `num_palette` = "'.$num_palette.'"';
+								AND `num_palette` = "' . $num_palette . '"';
 			$query = $this->db->prepare($query_upd);
 			Outils::saveLog($query_upd);
 			if ($query->execute()) {
 				$log = new Log();
 				$log->setLog_type('info');
-				$log->setLog_texte("Modification auto de l'id palette #".$id_palette." sur le numéro de palette forcé ".$num_palette." du BL #".$bl->getId());
+				$log->setLog_texte("Modification auto de l'id palette #" . $id_palette . " sur le numéro de palette forcé " . $num_palette . " du BL #" . $bl->getId());
 				$logManager->saveLog($log);
 			}
-
 		} // FIN boucle sur les palettes à regrouper
 
 		$lignes_bl = $this->getListeBlLignes(['id_bl' => $bl->getId(), 'regroupement' => $bl->getRegroupement()]);
 		$bl->setLignes($lignes_bl);
 
 		return $bl;
+	} // FIN méthode
 
+
+	public function getProduitsNegoceProduitStock($id_lot_pdt_negoce)
+	{
+		$query_object = "SELECT 
+		bl.`id_bl`, 
+		fs.`id` as id_facture, 
+		bl.`id_compo`, 
+		b.`num_bl`, 
+		fs.`num_facture`, 
+		t.`nom` AS libelle,  
+		bl.`id_palette`, 
+		bl.`id_produit`, 
+		bl.`numlot`, 
+		bl.`poids`, 
+		bl.`date_add`
+	FROM `pe_bl_lignes` bl
+	JOIN `pe_bl` b ON b.`id` = bl.`id_bl`
+	JOIN `pe_tiers` t ON t.`id` = b.`id_tiers_facturation`
+	LEFT JOIN `pe_bl_facture` f ON f.`id_bl` = bl.`id_bl`
+	LEFT JOIN `pe_factures` fs ON fs.`id` = f.`id_facture`
+	WHERE bl.`supprime` = 0 
+	  AND bl.`id_pdt_negoce` = ".(int)$id_lot_pdt_negoce;	  	
+		$query = $this->db->prepare($query_object);
+
+		$query->execute();
+		$liste = [];
+		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
+			$liste[] = new BlLigne($donnee);
+		}
+		
+		return $liste;
 	} // FIN méthode
 
 } // FIN classe

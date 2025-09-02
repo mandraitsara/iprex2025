@@ -141,7 +141,7 @@ class FacturesManager {
 			// echo 'Avant la boucle : ' . number_format($t1 - $t0, 2) . ' secondes<br />';	
 		}
 
-		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
+		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
 
 			$facture = new Facture($donnee);
 			if (!$facture instanceof Facture) { continue; }
@@ -171,6 +171,7 @@ class FacturesManager {
 			$t1 = microtime(true);
 			// echo 'Après la boucle : ' . number_format($t1 - $t0, 2) . ' secondes<br />';	
 		}
+		
 
 		return $liste;
 
@@ -189,7 +190,7 @@ class FacturesManager {
 			if ($client->getTva() == 0) {
 				return 0;
 			}
-		}
+		}		
 
 		if ($utilisateur->isDev()) { 
 			$t1 = microtime(true);
@@ -211,8 +212,9 @@ class FacturesManager {
 			// echo 'TVA - montants à 0 : ' . number_format($t1 - $t0, 2) . ' secondes<br />';	
 		}
 				
-		$tvas_facture = $this->getTvasFacture($facture);
-		foreach ($facture->getLignes() as $ligne) {
+		$tvas_facture = $this->getTvasFacture($facture);		
+		
+		foreach ($facture->getLignes() as $ligne) {						
 			$total_montant+=round($ligne->getTotal(),2);
 			$total_interbev+=round($ligne->getInterbev(),2);
 			if ($ligne->getTva() != 0) {
@@ -255,12 +257,10 @@ class FacturesManager {
 
 			$tvaInterbev = $total_interbev * ($taxeInterbevTva->getTaux()/100);
 
-            
 			if (!isset($tvas_facture[$taxeInterbevTva->getTaux()])) {
 				$tvas_facture[$taxeInterbevTva->getTaux()] = 0;
 			}
 			$tvas_facture[(float)$taxeInterbevTva->getTaux()]+=$tvaInterbev;
-			///var_dump($tvas_facture[]);
 
 		}
 
@@ -271,16 +271,18 @@ class FacturesManager {
 			// echo 'TVA - après interbev : ' . number_format($t1 - $t0, 2) . ' secondes<br />';	
 		}
 
-		foreach ($tvas_facture as $pourcentage => $montantTvaTaux) {
+		
+
+		foreach ($tvas_facture as $pourcentage => $montantTvaTaux) {						
 			$montant_tva+=round($montantTvaTaux,2);
+			
 		} // FIN boucle sur les taux de tva
 		
 		if ($utilisateur->isDev()) { 
 			$t1 = microtime(true);
 			// echo 'TVA - fin calcul par facture : ' . number_format($t1 - $t0, 2) . ' secondes<br />';	
-		}
-
-		return $montant_tva;
+		}		
+		return $montant_tva ;
 
 	} // FIN méthode
 
@@ -315,7 +317,7 @@ class FacturesManager {
 		$query = $this->db->prepare($query_object);
 		if (!$query->execute()) { return false; }
 
-			$donnee = $query->fetchAll(PDO::FETCH_ASSOC);
+			$donnee = $query->fetchAll(PDO::FETCH_ASSOC);			
 
 			$facture =  $donnee && isset($donnee[0]) ? new Facture($donnee[0]) : false;
 			if (!$facture instanceof Facture) { return false; }
@@ -346,7 +348,9 @@ class FacturesManager {
 				$montant_interbev = $this->getInterbevFacture($facture);
 				$facture->setMontant_interbev($montant_interbev);
 
-				$montant_tva = $this->getTvaFacture($facture);
+				$montant_tva = $this->getTvaFacture($facture);				
+
+				
 				$facture->setMontant_tva($montant_tva);
 
 				// On rattache les lignes de la facture
@@ -453,7 +457,7 @@ class FacturesManager {
                 						l.`nb_colis`, l.`qte`, l.`pu_ht`, l.`tva`, l.`tarif_interbev`,  p.`code`, y.`nom` AS origine,
                 						l.`tva`, l.`tva` AS taux_tva, f.`num_facture`,
                 						IFNULL(v.`prix_vente`, 0) AS total, IFNULL(v.`vendu_piece`, 1) AS vendu_piece, l.`designation`,
-                						IF (l.`pa_ht` > 0, l.`pa_ht`, tf.`prix`) AS pa_ht, l.`id_frs`, IFNULL(frs.`nom`, "") AS nom_frs
+                						IF (l.`pa_ht` > 0, l.`pa_ht`, tf.`prix`) AS pa_ht, l.`id_frs`, IFNULL(frs.`nom`, "") AS nom_frs, l.`total_ht`
 								FROM `pe_facture_lignes` l
 									LEFT JOIN `pe_marges_factures` v ON v.`id_ligne_facture` =  l.`id`
 									LEFT JOIN `pe_factures` f ON f.`id` =  l.`id_facture`
@@ -478,7 +482,7 @@ class FacturesManager {
 
 		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
 
-			$ligne = new FactureLigne($donnee);
+			$ligne = new FactureLigne($donnee);			
 
 			// Rattachement de l'objet Produit
 			if ((int)$ligne->getId_produit() > 0) {
@@ -499,13 +503,14 @@ class FacturesManager {
 
 
 	// Retourne un FactureLigne
-	public function getFactureLigne($id) {
+	public function getFactureLigne($id) {	
 
-		$query_object = "SELECT `id`, `id_facture`, `id_facture_avoir`, `date_add`, `id_produit`, `numlot`, `poids`, `nb_colis`, `qte`, `pu_ht`, `tva`, `tarif_interbev`, `designation`, `id_frs`
+		$query_object = "SELECT `id`, `id_facture`, `id_facture_avoir`, `date_add`, `id_produit`, `numlot`, `poids`, `nb_colis`, `qte`, `pu_ht`, `tva`, `tarif_interbev`, `designation`, `id_frs`,`total_ht`
                 FROM `pe_facture_lignes` WHERE `id` = " . (int)$id;
-		$query = $this->db->prepare($query_object);
+		$query = $this->db->prepare($query_object);		
 		if ($query->execute()) {
 			$donnee = $query->fetchAll(PDO::FETCH_ASSOC);
+			
 			return $donnee && isset($donnee[0]) ? new FactureLigne($donnee[0]) : false;
 		} else {
 			return false;
@@ -703,6 +708,8 @@ class FacturesManager {
 				$ligne_facture->setTarif_interbev($tarif_interbev);
 				$ligne_facture->setId_frs($ligne->getId_frs());
 				$ligne_facture->setVendu_piece($vendu_piece);
+				$total_ht = $ligne->getPu_ht() * ($vendu_piece > 0 ? floatval($ligne->getQte()) : floatval($ligne->getPoids()));				
+				$ligne_facture->setTotal_ht($total_ht);
 
 				if ($pdt->getId() == 0 && $ligne->getDesignation() != '') {
 					$ligne_facture->setDesignation($ligne->getDesignation());
@@ -1037,33 +1044,36 @@ class FacturesManager {
 
 	// Retounre un array avec le taux en clef et la valeur pour les différentes tva à payer sur une facture
 	public function getTvasFacture(Facture $facture) {
-
-		$query_liste = 'SELECT DISTINCT `tva` AS taux FROM `pe_facture_lignes` WHERE `tva` != 0 AND `id_facture` = ' . $facture->getId();
+		global $base_tva;
+		
+		$query_liste = 'SELECT `tva` AS taux FROM `pe_facture_lignes` WHERE `tva` != 0 AND `id_facture` = ' . $facture->getId();
 
 		$query = $this->db->prepare($query_liste);
+				
 		$query->execute();
 
 		$liste = [];
 
-		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
-
+		foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
 			$taux = isset($donnee['taux']) ? floatval($donnee['taux']) : 0;
 
 			if ($taux == 0) { continue; }
 
 			// pour chaque taux, on récupère le total de tva payé
-			$query_total = 'SELECT SUM(`prix_vente` * `taux_tva`) AS total FROM `pe_marges_factures` WHERE `id_facture` = ' . $facture->getId() . ' AND `taux_tva`*100 = ' . $taux;
+			//$query_total = 'SELECT SUM(`prix_vente` * `taux_tva`) AS total FROM `pe_marges_factures` WHERE `id_facture` = ' . $facture->getId() . ' AND `taux_tva`*100 = ' . $taux;
+			$query_total = 'SELECT SUM((`pu_ht` * IF(`vendu_piece` > 0, `qte`, `poids`)) * `tva` / 100) AS total  
+			FROM `pe_facture_lignes` 
+			WHERE `id_facture` = ' . $facture->getId() . ' AND `supprime` = 0';
 
 			$query2= $this->db->prepare($query_total);
 			$query2->execute();
 			$donnees2 = $query2->fetch(PDO::FETCH_ASSOC);
 			$montant = $donnees2 && isset($donnees2['total']) ? floatval($donnees2['total']) : 0;
+//			var_dump($montant);
 			if ($montant == 0) { continue; }
 
 			$liste[(string)$taux] = round($montant,2);
-
-		} // FIN boucle taux
-
+		} // FIN boucle taux						
 		return $liste;
 
 	} // FIN méthode
@@ -1362,14 +1372,13 @@ class FacturesManager {
 	} // FIN méthode
 
 	public function recalculeMontantHtFacture(Facture $facture) {
+	
 
-		$query_total = 'SELECT SUM(ROUND(`prix_vente`,2)) AS total FROM `pe_marges_factures` WHERE `id_facture` = '.$facture->getId();
+		$query_total = 'SELECT SUM(ROUND(`total_ht`,2)) AS total FROM `pe_facture_lignes` WHERE `id_facture` = '.$facture->getId();
 		$query = $this->db->prepare($query_total);
 		$query->execute();
-
 		$donnees = $query->fetch(PDO::FETCH_ASSOC);
-		$total = isset($donnees['total']) ? floatval($donnees['total']) : 0;
-
+		$total = isset($donnees['total']) ? floatval($donnees['total']) : '0';
 		$query_upd = 'UPDATE `pe_factures` SET `montant_ht` = '.$total.' WHERE `id` = ' . $facture->getId() ;
 		$query2 = $this->db->prepare($query_upd);
 		Outils::saveLog($query_upd);

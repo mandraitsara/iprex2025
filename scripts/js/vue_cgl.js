@@ -706,6 +706,7 @@ function listenerEtape3(identifiant) {
             // Si le champ en cours est le nb de colis, on remet à 0 le poids
             if (champ === 'nb_colis') {
                 $('input[name=poids_pdt]').val('');
+                $('input[name=quantite]').val('');
             }
 
             // Si on est en mode ajout en update, on efface le total estimé
@@ -946,6 +947,8 @@ function listenerEtape3(identifiant) {
         // On complète la valeur en concaténant...
         var champVal    = $('input[name='+champ+']').val().trim();
         var poidsDefaut = $('.inputPoidsPdt').data('poids-defaut');
+        var pcb = parseInt($('.inputQuantite').data('pcb'));
+
 
         // Si on est sur le champ du poids
         if (champ === 'poids_pdt') {
@@ -997,8 +1000,11 @@ function listenerEtape3(identifiant) {
             }
 
             // On formate le poids final proprement
-            var poidsFinal = poidsDefaut * parseInt( $('.inputNbColis').val());
+            var poidsFinal = poidsDefaut * parseInt($('.inputNbColis').val());
+            //calcul de nombre PCB par pièces
+            var nbPieces = pcb * parseInt($('.inputNbColis').val());
             $('.inputPoidsPdt').val(poidsFinal);
+            $('.inputQuantite').val(nbPieces);
 
         } // FIN test sur le champ (poids/nb_colis)
 
@@ -1781,7 +1787,7 @@ function listenerEtape11(identifiant) {
 
             // On reset les champs
             $('input[name=nb_colis]').val('');
-            $('input[name=poids_pdt]').val('');
+            $('input[name=poids_pdt]').val('');            
             $('input[name=nb_colis]').focus();
 
             return false;

@@ -23,7 +23,7 @@ $(document).ready(function() {
         if (id_bl === 0 ) { alert("ERREUR !\r\nIdentification du BL impossible...");return false; }
         $(this).find('.card-header i.fa').removeClass('fa-file-invoice').addClass('fa-spin fa-spinner');
         $(this).addClass('opacity-08');
-        $(location).attr('href',"bl-addupd.php?idbl="+id_bl);
+        $(location).attr('href',"bl-addupd.php?idbl="+btoa(id_bl));
 
     });
 

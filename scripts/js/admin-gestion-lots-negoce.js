@@ -24,14 +24,11 @@ $(document).ready(function(){
         chargeListeLots();
     }, 60 * 1000);
 
-
-    // Chargement du contenu de la modale Lot à son ouverture
- $('#modalLotInfo').on('show.bs.modal', function (e) {    
-
+  
+// Chargement du contenu de la modale Lot à son ouverture
+ $('#modalLotInfo').on('show.bs.modal', function (e) { 
     // On récupère l'ID du lot
-    var lot_id = e.relatedTarget.attributes['data-lot-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-lot-id'].value);
-    
-    // On récupère le contenu de la modale
+    var lot_id = e.relatedTarget.attributes['data-lot-id'] === undefined ? 0 : parseInt(e.relatedTarget.attributes['data-lot-id'].value);  // On récupère le contenu de la modale
     $.fn.ajax({
         'script_execute': 'fct_gestion_negoce.php',
         'arguments': 'mode=modalLotInfo&id=' + lot_id,
@@ -60,6 +57,71 @@ $(document).ready(function(){
 
 })
 
+$(document).on("click", ".btnSortieLot", function(e) {
+              
+    e.preventDefault();
+   
+    console.log("abbhbhhhh")
+    var texteConfirm = "CONFIRMATION\r\nDéclarer ce lot de négoce comme expédié ?";
+    if (!confirm(texteConfirm)) { return false; }
+    var id_lot = parseInt($('#general').data('id-lot'));
+    var statut = parseInt($('#general').data('statut'));
+    
+    statut = statut === 1 ? 0 : 1
+
+    $.fn.ajax({
+                'script_execute': 'fct_gestion_negoce.php',
+                'arguments': 'mode=sortieLot&id_lot='+id_lot+'&statut='+statut,
+                'callBack': function (retour) {
+                    if (!retour) {
+                        alert('Une erreur est survenur, sortie du lot impossible !\r\nCode erreur : WWHY2J85');
+                        return false;
+        
+                    } // FIN erreur            
+                    // on recharge la liste à jour et on ferme la modale
+                    chargeListeLots();
+                    $('#modalLotInfo').modal('hide');
+        
+                } // FIN Callback
+            }); // FIN ajax         
+
+            e.stopPropagation()
+    // Le reste du code...
+});
+
+
+$(document).on("click", ".btn-reopenlot", function(e) {
+          
+    e.preventDefault();
+    var texteConfirm = "CONFIRMATION\r\n Déclarer ce lot de négoce à ré-ouvrir ?";
+
+    if (!confirm(texteConfirm)) { return false; }
+    
+    var id_lot = parseInt($('#general').data('id-lot'));
+    var statut = parseInt($('#general').data('statut'));
+    
+    statut = statut === 1 ? 0 : 1
+
+    $.fn.ajax({
+                'script_execute': 'fct_gestion_negoce.php',
+                'arguments': 'mode=sortieLot&id_lot='+id_lot+'&statut='+statut,
+                'callBack': function (retour) {
+                    if (!retour) {
+                        alert('Une erreur est survenue, Re-ouvir du lot impossible !\r\nCode erreur : WWHY2J85');
+                        return false;
+        
+                    } // FIN erreur            
+                    // on recharge la liste à jour et on ferme la modale
+                    chargeListeLots();
+                    $('#modalLotInfo').modal('hide');
+        
+                } // FIN Callback
+            }); // FIN ajax         
+
+
+    // Le reste du code...
+});   
+
  
 
 
@@ -68,18 +130,30 @@ $(document).ready(function(){
  ****************************************** */
 function chargeListeLots() {
     "use strict";
-    var statut =  $('#listeLots').data('statut');
+    var statut =  $('#listeLots').data('statut');    
+    var page = parseInt($('.pagination .page-item.active a').text());  
 
-    var page = parseInt($('.pagination .page-item.active a').text());
-    if (isNaN(page)) { page = 1;  }
+    // Pagination Ajax
+     $(document).on('click','#listeLots .pagination li a',function(){
+        
+        if ($(this).attr('data-url') === undefined) { return false; }
+        
+        // on affiche le loading d'attente
+        $('#listeLots').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
+        
+        // on fait l'appel ajax qui va rafraichir la liste
+        $.fn.ajax({script_execute:'fct_gestion_negoce.php'+$(this).attr('data-url'),return_id:'listeLots',done:function() { switchListener();} });
+        // on désactive le lien hypertexte
+        return false;
+    }); // FIN pagination ajax
 
 
-    var recherche = $('#recherche_numlot').val().trim();
-    if (recherche === undefined) { recherche = ''; }
+    
+    if (isNaN(page)) { page = 1;  }    
 
     $.fn.ajax({
         'script_execute': 'fct_gestion_negoce.php',
-        'arguments': 'mode=showListeLotsNegoce&statut='+statut+'&page='+page+'&recherche='+recherche,
+        'arguments': 'mode=showListeLotsNegoce&statut='+statut+'&page='+page,
         'return_id': 'listeLots',
         'done': function() {
             switchListener();
@@ -87,17 +161,13 @@ function chargeListeLots() {
         'callBack': function (retour) {
             listeLotsListener();
         } // FIN Callback
-    }); // FIN ajax
+    }); // FIN ajax   
+    
+    return true;  
 
-    $.fn.ajax({
-        'script_execute': 'fct_validations.php',
-        'arguments': 'mode=updateBadgeCompteurMenu',
-        'return_id': 'ajaxCompteurValid'
-    }); // FIN aJax
-
-    return true;
 
 } // FIN fonction
+
 
 /** ******************************************
  * Listener de la liste des lots de negoce
@@ -156,7 +226,7 @@ function listeLotsListener() {
         // on affiche le loading d'attente
         $('#listeLots').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
         // on fait l'appel ajax qui va rafraichir la liste
-        $.fn.ajax({script_execute:'fct_lots.php'+$(this).attr('data-url'),return_id:'listeLots',done:function() { switchListener();} });
+        $.fn.ajax({script_execute:'fct_gestion_negoce.php'+$(this).attr('data-url'),return_id:'listeLots',done:function() { switchListener();} });
         // on désactive le lien hypertexte
         return false;
     }); // FIN pagination ajax
@@ -197,7 +267,6 @@ function switchListener() {
 
     // Changement visibilité
     $('.switch-visibilite-lot').change(function() {
-
         // Récupération de l'ID du lot et gestion des erreurs
         var id_lot = parseInt($(this).parents('tr').data('id-lot'));
         if (isNaN(id_lot) || id_lot === undefined || id_lot === 0) {
@@ -271,33 +340,6 @@ function modaleLotDetailsListener(lot_id) {
         return false;
     }); // FIN pagination ajax Produits
 
-    // Pagination Ajax (Emballages)
-    $(document).on('click','#emb .pagination li a',function(e){
-        e.stopImmediatePropagation();
-        if ($(this).attr('data-url') === undefined) { return false; }
-        // on affiche le loading d'attente
-        $('#emb').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
-        // on fait l'appel ajax qui va rafraichir la liste
-        $.fn.ajax({script_execute:'fct_lots.php'+$(this).attr('data-url'),return_id:'emb'});
-        // on désactive le lien hypertexte
-        return false;
-    }); // FIN pagination ajax Emballages
-
-    // Pagination Ajax (Loma)
-    $(document).on('click','#lom .pagination li a',function(e){
-        e.stopImmediatePropagation();
-        if ($(this).attr('data-url') === undefined) { return false; }
-        // on affiche le loading d'attente
-        $('#lom').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
-        // on fait l'appel ajax qui va rafraichir la liste
-        $.fn.ajax({script_execute:'fct_gestion_negoce.php'+$(this).attr('data-url'),return_id:'lom', 'done' : function() {
-                $('.cbo-popover').popover({
-                    trigger: 'focus'
-                });
-            }});
-        // on désactive le lien hypertexte
-        return false;
-    }); // FIN pagination ajax Emballages
 
     // Bouton export PDF
     $('.btn-export-lot-pdf').off("click.btnexportlotpdf").on("click.btnexportlotpdf", function(e) {
@@ -323,105 +365,8 @@ function modaleLotDetailsListener(lot_id) {
             } // FIN callBack
         }); // FIN ajax
     }); // FIN bouton export PDF
-
-    // Boutton Ré-ourvrir un lot terminé
-    $('.btn-reopenlot').off("click.btnreopenlot").on("click.btnreopenlot", function(e) {
-        e.preventDefault();
-
-        var id_lot = parseInt($('#general').data('id-lot'));
-        if (isNaN(id_lot) || id_lot < 0) {
-            alert("ERREUR\r\nUne erreur est survenue.\r\nCode erreur : J0COJT0P");
-            return false;
-        }
-
-        if (!confirm("ATTENTION\r\nVous allez ré-ouvrir un lot terminé !\r\nContinuer ?")) { return false; }
-
-        $(this).html('<i class="fa fa-spin fa-spinner"></i>');
-
-        // OK, ajax qui réouvre le lot...
-        $.fn.ajax({
-            'script_execute': 'fct_gestion_negoce.php',
-            'arguments':'mode=reouvrirLotTermine&id_lot='+ id_lot,
-            'done' : function () {
-                $(location).attr('href', 'admin-gestion-lots-negoce.php')
-            } // FIN callBack
-        }); // FIN ajax
-
-
-    }); // FIN bouton révouvrir lot terminé
-
-
-    // Bouton re-envoyer vers Bizerba
-    $('.btnReBizerba').off("click.btnReBizerba").on("click.btnReBizerba", function(e) {
-        e.preventDefault();
-        if (!confirm("Re-envoyer ce lot à BizTrack ?\r\nAttention : risque de doublon !\r\nÊtes-vous sûr ?")) { return false; }
-
-        var id_lot = parseInt($('#general').data('id-lot'));
-        if (isNaN(id_lot) || id_lot < 0) {
-            alert("ERREUR\r\nIdentification du lot impossible !");
-            return false;
-        }
-
-        var ifa = $(this).find('i.fa');
-        ifa.removeClass('fa-redo-alt').addClass('fa-spin fa-spinner');
-        // OK, ajax qui réouvre le lot...
-        $.fn.ajax({
-            'script_execute': 'fct_gestion_negoce.php',
-            'arguments':'mode=envoiLotBizerna&id_lot='+ id_lot,
-            'callBack' : function (retour) {
-
-                ifa.removeClass('fa-spin fa-spinner').addClass('fa-redo-alt');
-
-                retour = retour + '';
-                if (parseInt(retour) !== 1) {
-                    alert('ERREUR !\r\nEchec lors de l\'envoi du lot vers Bizerba...\r\nCode erreur : ' + retour);
-                    return false;
-                }
-
-                $('.btnBizerba').hide();
-                alert('Lot envoyé vers Bizerba.');
-            } // FIN callBack
-        }); // FIN ajax
-
-    }); // FIN re-bizerba
-
-        // Bouton envoyer vers Bizerba
-    $('.btnBizerba').off("click.btnBizerba").on("click.btnBizerba", function(e) {
-        e.preventDefault();
-
-        var id_lot = parseInt($('#general').data('id-lot'));
-        if (isNaN(id_lot) || id_lot < 0) {
-            alert("ERREUR\r\nUne erreur est survenue.\r\nCode erreur : HMOWI7IF");
-            return false;
-        }
-
-        var ifa = $(this).find('i.fa');
-        ifa.removeClass('fa-share-alt').addClass('fa-spin fa-spinner');
-        // OK, ajax qui réouvre le lot...
-        $.fn.ajax({
-            'script_execute': 'fct_gestion_negoce.php',
-            'arguments':'mode=envoiLotBizerna&id_lot='+ id_lot,
-            'callBack' : function (retour) {
-
-                ifa.removeClass('fa-spin fa-spinner').addClass('fa-share-alt');
-
-                retour = retour + '';
-                if (parseInt(retour) !== 1) {
-                    alert('ERREUR !\r\nEchec lors de l\'envoi du lot vers Bizerba...\r\nCode erreur : ' + retour);
-                    return false;
-                }
-
-                $('.btnBizerba').hide();
-                alert('Lot envoyé vers Bizerba.');
-            } // FIN callBack
-        }); // FIN ajax
-
-
-
-    }); // FIN bouton envoyer vers Bizerba
-
-
-
 } // FIN fonction
+
+
 
 

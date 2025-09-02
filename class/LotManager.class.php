@@ -59,7 +59,6 @@ class LotManager {
 
 			// On intègre l'objet Reception si on en a un...
 			if (intval($donnees['reception_id']) > 0) {
-
 				$receptionManager = new LotReceptionManager($this->db);
 				$reception = $receptionManager->getLotReceptionByIdLot($lot->getId());
 				if ($reception instanceof LotReception) {
@@ -165,8 +164,9 @@ class LotManager {
 		$query_liste.= 'LIMIT ' . $start . ',' . $nb;
 		$query = $this->db->prepare($query_liste);
 		$query->execute();
+		
+		$this->setNb_results($this->db->query('SELECT FOUND_ROWS()')->fetchColumn());		
 
-		$this->setNb_results($this->db->query('SELECT FOUND_ROWS()')->fetchColumn());
 		$liste = [];
 		$receptionManager = new LotReceptionManager($this->db);
 		$lotVuesManager   = new LotVueManager($this->db);
@@ -333,7 +333,7 @@ class LotManager {
 	}
 	// Retourne la liste des lots dans une vue
 	public function getListeLotsByVue($code_vue, $invisibles = false) {
-
+		
 		// On récupère l'objet vue (sécurisation)
 		$vuesManager = new VueManager($this->db);
 		$vue = $vuesManager->getVueByCode($code_vue);
@@ -347,9 +347,11 @@ class LotManager {
 		$liste 		= [];
 		$numlots 	= [];
 
-		foreach ($query_ids->fetchAll(PDO::FETCH_ASSOC) as $donnee) {
+		foreach ($query_ids->fetchAll(PDO::FETCH_ASSOC) as $donnee) {			
 
 			$lot = $this->getLot($donnee['id_lot']);
+
+			
 
 			if ($lot instanceof Lot && !$lot->isSupprime()) {
 
@@ -532,8 +534,8 @@ class LotManager {
 		$donnee = $query->fetchAll(PDO::FETCH_ASSOC);
 
 		if ($donnee && isset($donnee[0]) && isset($donnee[0]['nb']) && intval($donnee[0]['nb']) > 0) {
-			$id_lot = $donnee[0]['id'];
-			echo $id_lot;
+			$id_lot = $donnee[0]['id'];	
+			echo $id_lot; //recuperer l'id de lot modifié.
 			return true;              
 		}
 		return false;
@@ -828,7 +830,7 @@ class LotManager {
 
 
 	// Retire l'affectation d'un lot à une vue
-	public function removeLotVue(Lot $lot, $code_vue) {
+	public function removeLotVue(Lot $lot, $code_vue) {		
 
 		// On récupère l'objet vue (sécurisation)
 		$vuesManager = new VueManager($this->db);

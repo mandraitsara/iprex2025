@@ -33,9 +33,7 @@ $(document).ready(function(){
 
     });
 
-         
-
-    $('.produits_en_pieces').change(function() {
+$('.produits_en_pieces').change(function() {
 
         // Récupération de l'ID du lot et gestion des erreurs
         var id_lot = parseInt($(this).parents('tr').data('id-lot'));
@@ -62,37 +60,14 @@ $(document).ready(function(){
 
 
 // Génération d'un numéro de lot
-function genereLot() {    
-    "use strict";
-    var date        = $('#date_reception').val();    
-    var fournisseur   = $('#fournisseur').val();    
-    
-
-    
-    if (date === '' || fournisseur === '' || num_bl === '') { return false; }
-    $.fn.ajax({
-        'script_execute': 'fct_lots_negoce.php',
-        'arguments': 'mode=genereNumLot&date='+date+'&fournisseur='+fournisseur,
-        'callBack': function (retour) {
-
-            $('#num_bl').val(retour);
-
-        } // FIN callback
-    }); // FIN aJax
-
-}
-
-$('.btnAddLot').click(function() {
-
-    // Un numéro de lot ne peux pas faire moins de 6 caractères
-    if ($('#num_bl').val().length < 6) {
+$('.btnAddLot').click(function() {    
+    if ($('#num_bl').val() == ""){
         $('#num_bl').addClass('is-invalid');
         setTimeout(function(){
             $('#num_bl').removeClass('is-invalid');
         }, 3000);
         return false;
     }
-
     $(this).find('i.fa').removeClass('fa-check').addClass('fa-spin').addClass('fa-spinner');
 
     $('#formLot').submit();
