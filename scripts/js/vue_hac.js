@@ -1,1449 +1,1 @@
-/**
- ------------------------------------------------------------------------
- JS - Vue Haché Piécé
-
- Copyright (C) 2021 Intersed
- http://www.intersed.fr/
- ------------------------------------------------------------------------
-
- @author    Cédric Bouillon
- @copyright Copyright (c) 2021 Intersed
- @version   1.0
- @since     2021
-
- ------------------------------------------------------------------------
- */
-$('document').ready(function() {
-
-    $('#ticketLot').show();
-    var id_froid = localStorage.idFroid;
-    if(!isNaN(id_froid)){
-        chargeEtape(22, id_froid);
-    }else{
-        chargeEtape(0, 0);
-    }
-    
-    // Nettoyage du contenu de la modale Nouvel Emballage à sa fermeture
-    $('#modalNouvelEmballage').on('hidden.bs.modal', function (e) {
-        $('#modalNouvelEmballageBody').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
-    }); // FIN fermeture modale Nouvel Emballage
-
-    $('#modalSignerPlanNett').on('hidden.bs.modal', function (e) {
-        $('#modalSignerPlanNettBody').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
-    }); // FIN fermeture modale Nouvel Emballage
-
-
-    $(window).on("beforeunload", function(e){   
-        var id_froid =  parseInt($('#id_froid').val()) 
-
-        console.log(id_froid);
-        localStorage.idFroid = id_froid
-        
-    })  
-
-    $(window).on("unload", function(e){
-        var id_froid = localStorage.idFroid;        
-        if(!isNaN(id_froid)){
-            var url = window.location.href;
-            window.location.replace(url);
-        }
-    })
-    
-
-}); // FIN ready
-
-
-// Fonction chargeant les étapes pour intégrer leur contenu
-// ##############################################################
-// ATTENTION
-// Cette vue charges les étapes au sein d'un même conteneur ajax
-// Elle n'as pas de ticket
-// ##############################################################
-function chargeEtape(numeroEtape, identifiant) {
-
-    $('#stkAjaxVue').html('<div class="padding-50 text-center"><i class="fa fa-spin fa-spinner fa-5x gris-c"></i></div>');
-
-    // Ajax qui charge le contenu de l'étape
-
-    $.fn.ajax({
-        rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting
-        script_execute: 'fct_vue_hac.php',
-        arguments: 'mode=chargeEtapeVue&etape=' + numeroEtape + '&id='+identifiant,
-        return_id: 'stkAjaxVue',
-        done: function () {
-            var fctnom = "listenerEtape"+numeroEtape;
-            var fn  = window[fctnom];
-            fn(identifiant);
-            chargeTicket(numeroEtape, identifiant);
-        } // FIN Callback
-    }); // FIN ajax
-
-
-
-
-} // FIN fonction chargeEtape
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Charge le Ticket
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function chargeTicket(etape, identifiant) {
-    "use strict";
-
-    if (identifiant === undefined) { identifiant = 0;}
-
-    // Ajax qui charge le contenu du ticket
-    $.fn.ajax({
-        rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting
-        script_execute: 'fct_vue_hac.php',
-        arguments: 'mode=chargeTicket&etape='+etape+'&id=' + identifiant,
-        return_id: 'ticketContent',
-        done : function() {
-            listenerTicket();
-        }
-    }); // FIN ajax
-
-} // FIN fonction
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener du ticket
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerTicket() {
-    "use strict";
-
-    // Retour vers le point d'entrée
-    $('.btnRetourEtape0').off("click.btnretouretape0'").on("click.btnretouretape0", function(e) {
-        e.preventDefault();
-        //$('#inputIdFroid').val(0);
-        location.reload();        
-    }); // FIN Retour vers le point d'entrée
-
-    $('.btnLomaEncours').off("click.btnLomaEncours").on("click.btnLomaEncours", function(e){
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        var id_lot_pdt_froid = parseInt($('#id_lot_pdt_froid').val());
-        var identifiant = id_froid +'|'+id_lot_pdt_froid
-        chargeEtape(21, identifiant);
-    })
-
-    $('.btnLomaFin').off("click.btnLomaFin").on("click.btnLomaFin", function(e){
-        e.preventDefault();
-        //$('#inputIdFroid').val(0);
-        var id_froid = parseInt($('#id_froid').val());
-        chargeEtape(22, id_froid);
-
-    })
-
-    // Bouton retour etape 5 (liste)
-    $('.btnRetourEtape5').off("click.btnRetourEtape5'").on("click.btnRetourEtape5", function(e) {
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}
-        chargeEtape(5, id_froid);
-    });
-
-    // Retour vers les lots
-    $('.btnChangeLot').off("click.btnchangelot'").on("click.btnchangelot", function(e) {
-        e.preventDefault();
-        chargeEtape(2, 0);
-    }); // FIN Retour vers les lots
-
-    // Bouton ajouter produit
-    $('.btnAjouterProduit').off("click.btnAjouterProduit").on("click.btnAjouterProduit", function(e) {
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }
-        chargeEtape(2, id_froid);
-    }); // FIN bouton ajouter produit
-
-    // Bouton Début Hachage -> vers température début
-    $('.btnDebutHachage').off("click.btnDebutHachage'").on("click.btnDebutHachage", function(e) {
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }
-        chargeEtape(6, id_froid);
-    }); // FIN bouton début hachage
-
-    // Bouton Fin Hachage -> save heure fin + vers température fin
-    $('.btnFinHachage').off("click.btnFinHachage'").on("click.btnFinHachage", function(e) {
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }
-        $.fn.ajax({
-            rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting
-            script_execute: 'fct_vue_hac.php',
-            arguments: 'mode=saveFinHachage&id_froid='+id_froid,
-            done : function() {
-                chargeEtape(7, id_froid);
-            }
-        }); // FIN ajax
-    }); // FIN bouton fin hachage
-
-    // Bouton clôturer
-    $('.btnCloturer').off("click.btnCloturer'").on("click.btnCloturer", function(e) {
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }
-        $.fn.ajax({
-            rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting
-            script_execute: 'fct_vue_hac.php',
-            arguments: 'mode=clotureFroid&id_froid='+id_froid,
-            done : function() {
-                chargeEtape(0);
-            }
-        }); // FIN ajax
-    }); // FIN bouton clôturer
-
-    // Bouton emballages
-    $('.btnEmballages').off("click.btnEmballages'").on("click.btnEmballages", function(e) {
-        e.preventDefault();
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }
-        chargeEtape(9, id_froid);
-    });
-
-
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 0
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape0() {
-    "use strict";
-
-    // Nouvelle Production
-    $('.btnNouvelleProd').off("click.btnNouvelleProd").on("click.btnNouvelleProd", function(e) {
-        e.preventDefault();
-        chargeEtape(2,0);
-    }); // FIN nouvelle production
-
-    // Productions en cours
-    $('.btnProdsEnCours').off("click.btnProdsEnCours").on("click.btnProdsEnCours", function(e) {
-        e.preventDefault();
-        chargeEtape(1,0);
-    }); // FIN nouvelle production
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 1
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape1() {
-    "use strict";
-
-    // Sélection d'une carte Hac
-    $('.carte-hac').off("click.cartehac'").on("click.cartehac", function(e) {
-
-        e.preventDefault();
-
-        var id_froid = parseInt($(this).data('id-froid'));
-        var id_lot_pdt_froid = parseInt($(this).data('lot-froid'));
-        var identifiant = id_froid +'|' + id_lot_pdt_froid;
-        //$('#inputIdFroid').val(id_froid);
-        chargeEtape(21, identifiant);
-
-    }); // FIN click carte
-
-    // Supprimer traitement
-    $('.btnSupprimerFroidVide').off("click.btnSupprimerFroidVide'").on("click.btnSupprimerFroidVide", function(e) {
-
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-
-        var id_froid = parseInt($(this).data('id-froid'));
-        if (isNaN(id_froid) || id_froid === 0) {
-            alert("ERREUR !\r\nIdentification du traitement impossible...\r\nCode erreur : 28LH6P7H");
-            return false;
-        }
-
-        // On supprime l'OP de froid
-        $.fn.ajax({
-            'rep_script_execute': "../scripts/ajax/",
-            'script_execute': 'fct_produits.php',
-            'arguments': 'mode=supprimeFroid&id_froid='+id_froid,
-            'done': function() {
-                chargeEtape(1,0);
-            }
-        }); // FIN aJax
-
-    }); // FIN supprimer
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 2
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape2() {
-
-
-    "use strict";
-    
-
-    // Selection de la vue sur carte
-    $('.carte-lot').off("click.selectcartevue").on("click.selectcartevue", function(e) {
-
-        e.preventDefault();
-
-        var id_lot = parseInt($(this).data('id-lot'));
-        if (id_lot === undefined || id_lot === 0 || isNaN(id_lot)) { alert("Une erreur est survenue !\r\nCode erreur : AENUWROC");return false; }
-
-        // Appel étape 3 (cartes produits)
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid)) { id_froid = 0; }
-        var identifiant = id_lot+'||'+id_froid;
-        chargeEtape(3, identifiant);
-
-    }); // FIN click vue carte
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 21
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape21() {
-    "use strict";
-
-    // Carte produit à contrôler
-    $('.carte-pdt-loma').off("click.cartepdtloma").on("click.cartepdtloma", function(e) {
-
-        e.preventDefault();
-
-        var id_lot_pdt_froid = parseInt($(this).data('id-lot-pdt-froid'));
-        if (id_lot_pdt_froid === undefined || isNaN(id_lot_pdt_froid) || id_lot_pdt_froid === 0) {
-            alert('ERREUR\r\n\r\nIdentification du produit impossible !\r\n\r\nCode erreur : 5K1ELNXH');
-            return false;
-        }
-        var id_froid    = parseInt($('#id_froid').val());
-        var identifiant = id_froid+'|'+id_lot_pdt_froid;
-        chargeEtape(5, identifiant);
-
-
-    }); // FIN carte produit à contrôler
-
-    // Bouton test ok / ko
-    $('.btn-loma').off("click.btnloma").on("click.btnloma", function(e) {
-
-        e.preventDefault();
-
-        // Récup test type
-        var testcode = $(this).data('test');
-        var regextest = new RegExp('^(nfe|fe|inox|pdt)$');
-        if (testcode === undefined || !regextest.test(testcode)) {
-            alert('ERREUR\r\n\r\nIdentification du test impossible ('+testcode+') !\r\n\r\nCode erreur : 3T5BQ30H');
-            return false;
-        } // FIN gestion erreur de récupération test code
-
-        // Résultat du test
-        var resultat = parseInt($(this).data('resultat'));
-        if (resultat === undefined || resultat < 0 || resultat > 1 || isNaN(resultat)) {
-            alert('ERREUR\r\n\r\nIdentification du résultat du test impossible !\r\n\r\nCode erreur : V9DX73MH');
-            return false;
-        } // FIN gestion erreur de récupération résultat
-
-        // On met à jour le resultat dans le DOM pour éviter un triple appel ajax/BDD
-        $('input[name=resultest_'+testcode+']').val(resultat);
-
-        // On met à jour l'affichage des boutons
-        var classeAutreBtn = resultat === 1 ? 'danger' : 'success';
-        var classeBtn = resultat === 1 ? 'success' : 'danger';
-
-        // On inverse s'il s'agit du produit
-        if ($(this).data('test') === 'pdt') {
-            classeAutreBtn = resultat === 1 ? 'success' : 'danger';
-            classeBtn = resultat === 1 ? 'danger' : 'success';
-        }
-
-        $(this).parents('.loma-test-btns').find('.btn-'+classeAutreBtn).removeClass('btn-'+classeAutreBtn).addClass('btn-outline-secondary');
-        $(this).removeClass('btn-outline-secondary').addClass('btn-'+classeBtn);
-
-        // Résultat du test produit
-        var testpdtObjet = $('.resultats-tests input[name=resultest_pdt]');
-        var testpdt      = parseInt(testpdtObjet.val());
-
-        // Résultats des plaquettes
-        var testfe      = parseInt($('.resultats-tests input[name=resultest_fe]').val());
-        var testnfe     = parseInt($('.resultats-tests input[name=resultest_nfe]').val());
-        var testinox    = parseInt($('.resultats-tests input[name=resultest_inox]').val());
-
-
-        //console.log(testpdt + ' ' + testfe + ' ' + testnfe + ' ' + testinox);
-
-        // Si on a renseigné le test du produit
-        if (testpdt > -1) {
-
-            // Si on a du métal dans la viande, on affiche le champ "commentaires" et le bouton valider
-            if (testpdt > 0) {
-
-                $('.loma-commentaires').show('blind');  // classe = conteneur
-                clavierVirtuel();
-                $('#champ_clavier').focus();        // ID = textarea
-
-                // Sinon, on valide direct
-            } else {
-                valideLoma();
-
-            } // FIN test un résultat au moins à zéro
-
-        } // FIN test terminé
-
-        // SI on a validé les 3 test apres
-        if (testfe > -1 && testnfe > -1 && testinox > -1) {
-            var id_froid = parseInt($('#id_froid').val());                        
-            if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}
-            $.fn.ajax({
-                rep_script_execute: "../scripts/ajax/",
-                script_execute: 'fct_vue_hac.php',
-                form_id: 'controleLoma',
-                callBack: function(retour) {
-                    retour+= ''; // Debug mauvaise interprétation de retours
-                    if (parseInt(retour) !== 1) { alert('Une erreur est survenue !\r\nCode erreur : '+retour); return false; }                    
-                    chargeEtape(5, id_froid);
-                } // FIN callBack
-            }); // FIN aJax
-        } // FIN test apres terminé
-    }); // FIN bouton test loma
-
-    // Bouton valide loma apres commentaire
-    $('.btn-valid-loma').off("click.btnvalidloma").on("click.btnvalidloma", function(e) {
-        e.preventDefault();
-        valideLoma();
-    }); // FIN bouton valide loma après commentaire
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 22
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape22() {
-    "use strict";
-
-    // Carte produit à contrôler
-    $('.carte-pdt-loma').off("click.cartepdtloma").on("click.cartepdtloma", function(e) {
-
-        e.preventDefault();
-
-        var id_lot_pdt_froid = parseInt($(this).data('id-lot-pdt-froid'));
-        if (id_lot_pdt_froid === undefined || isNaN(id_lot_pdt_froid) || id_lot_pdt_froid === 0) {
-            alert('ERREUR\r\n\r\nIdentification du produit impossible !\r\n\r\nCode erreur : 5K1ELNXH');
-            return false;
-        }
-        var id_froid    = parseInt($('#id_froid').val());
-        var identifiant = id_froid+'|'+id_lot_pdt_froid;
-        chargeEtape(81, identifiant);
-
-    }); // FIN carte produit à contrôler
-
-    // Bouton test ok / ko
-    $('.btn-loma').off("click.btnloma").on("click.btnloma", function(e) {
-        e.preventDefault();
-
-        // Récup test type
-        var testcode = $(this).data('test');
-        var regextest = new RegExp('^(nfe|fe|inox|pdt)$');
-        if (testcode === undefined || !regextest.test(testcode)) {
-            alert('ERREUR\r\n\r\nIdentification du test impossible ('+testcode+') !\r\n\r\nCode erreur : 3T5BQ30H');
-            return false;
-        } // FIN gestion erreur de récupération test code
-
-        // Résultat du test
-        var resultat = parseInt($(this).data('resultat'));
-        if (resultat === undefined || resultat < 0 || resultat > 1 || isNaN(resultat)) {
-            alert('ERREUR\r\n\r\nIdentification du résultat du test impossible !\r\n\r\nCode erreur : V9DX73MH');
-            return false;
-        } // FIN gestion erreur de récupération résultat
-
-        // On met à jour le resultat dans le DOM pour éviter un triple appel ajax/BDD
-        $('input[name=resultest_'+testcode+']').val(resultat);
-
-        // On met à jour l'affichage des boutons
-        var classeAutreBtn = resultat === 1 ? 'danger' : 'success';
-        var classeBtn = resultat === 1 ? 'success' : 'danger';
-
-        // On inverse s'il s'agit du produit
-        if ($(this).data('test') === 'pdt') {
-            classeAutreBtn = resultat === 1 ? 'success' : 'danger';
-            classeBtn = resultat === 1 ? 'danger' : 'success';
-        }
-
-        $(this).parents('.loma-test-btns').find('.btn-'+classeAutreBtn).removeClass('btn-'+classeAutreBtn).addClass('btn-outline-secondary');
-        $(this).removeClass('btn-outline-secondary').addClass('btn-'+classeBtn);
-
-        // Résultat du test produit
-        var testpdtObjet = $('.resultats-tests input[name=resultest_pdt]');
-        var testpdt      = parseInt(testpdtObjet.val());
-
-        // Résultats des plaquettes
-        var testfe      = parseInt($('.resultats-tests input[name=resultest_fe]').val());
-        var testnfe     = parseInt($('.resultats-tests input[name=resultest_nfe]').val());
-        var testinox    = parseInt($('.resultats-tests input[name=resultest_inox]').val());
-
-
-        //console.log(testpdt + ' ' + testfe + ' ' + testnfe + ' ' + testinox);
-
-        // Si on a renseigné le test du produit
-        if (testpdt > -1) {
-
-            // Si on a du métal dans la viande, on affiche le champ "commentaires" et le bouton valider
-            if (testpdt > 0) {
-
-                $('.loma-commentaires').show('blind');  // classe = conteneur
-                clavierVirtuel();
-                $('#champ_clavier').focus();        // ID = textarea
-
-                // Sinon, on valide direct
-            } else {
-                valideLoma();
-
-            } // FIN test un résultat au moins à zéro
-
-        } // FIN test terminé
-
-        // SI on a validé les 3 test apres
-        if (testfe > -1 && testnfe > -1 && testinox > -1) {
-            var id_froid = parseInt($('#id_froid').val());
-            if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}
-            $.fn.ajax({
-                rep_script_execute: "../scripts/ajax/",
-                script_execute: 'fct_vue_hac.php',
-                form_id: 'controleLoma',
-                callBack: function(retour) {
-                    retour+= ''; // Debug mauvaise interprétation de retours
-                    if (parseInt(retour) !== 1) { alert('Une erreur est survenue !\r\nCode erreur : '+retour); return false; }
-                    chargeEtape(1, id_froid);
-                } // FIN callBack
-            }); // FIN aJax
-        } // FIN test apres terminé
-    }); // FIN bouton test loma
-
-    // Bouton valide loma apres commentaire
-    $('.btn-valid-loma').off("click.btnvalidloma").on("click.btnvalidloma", function(e) {
-        e.preventDefault();
-        valideLoma();
-    }); // FIN bouton valide loma après commentaire
-
-} // FIN listener
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 3
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape3() {
-    "use strict";
-
-
-    listeProduitsListener();
-
-    // Pagination Ajax sur les produits
-    $(document).on('click','.carte-pdt-pagination',function(e){
-
-        e.stopImmediatePropagation();
-        e.stopPropagation();
-
-        if ($(this).attr('data-url') === undefined) { return false; }
-        // on affiche le loading d'attente
-
-        $('#etape2').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');
-
-        // on fait l'appel ajax qui va rafraichir la liste
-        $.fn.ajax({
-            rep_script_execute: "../scripts/ajax/",
-            script_execute:'fct_vue_hac.php'+$(this).attr('data-url'),
-            return_id:'stkAjaxVue',
-            done: function () {
-                listeProduitsListener();
-            }
-        });
-
-        // on désactive le lien hypertexte
-        return false;
-
-    }); // FIN pagination ajax
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 4
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape4() {
-    "use strict";
-
-    // Initialisation ajax
-    $('.togglemaster').bootstrapToggle();
-    adapteModeMaj();
-
-    // Bouton Switch méthode mise à jour
-    $('.methode-maj').change(function() {
-        adapteModeMaj();
-    });
-
-
-    // Bouton retour dans la vue gauche à côté du nom du produit
-    $('.btnRetourProduits').off("click.btnretourproduits'").on("click.btnretourproduits", function(e) {
-        e.preventDefault();
-        var id_lot = parseInt($(this).data('id-lot'));
-        if (isNaN(id_lot)) { id_lot = 0; }
-        // Si on a pas d'op de froid, c'est qu'on à la premiere séléction du premier produit, on reviens donc à l'étape 2
-        if (id_lot === 0) {
-            chargeEtape(0,0);
-        } else {
-            var id_froid = parseInt($('#id_froid').val());
-            if (isNaN(id_froid)) { id_froid = 0; }
-            var identifiant = id_lot+'||'+id_froid;
-            chargeEtape(3, identifiant);
-        }
-    }); // FIN retour lot depuis produit
-
-    // Clavier numérique (poids)
-    $('.clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {
-        e.preventDefault();
-
-        var touche = $(this).data('valeur');
-
-
-        // Effacer
-        if (touche === 'C') {
-            var valeurActuelle = $('.inputPoidsPdt').val();
-            $('.inputPoidsPdt').val(valeurActuelle.slice(0,-1));
-
-/*                // Si on est en mode ajout en update, on efface le total estimé
-            if (modeUpd && $('.methode-maj').prop('checked')) {
-                $('.infoMajAjout .estimationtotal').text('');
-            }*/
-            return false;
-        } // FIN touche C
-
-        var poidsDefaut = $('.inputPoidsPdt').data('poids-defaut');
-        var poidsProduit = $('.inputPoidsPdt').val().trim();
-
-        if (touche === 'V') {
-
-            //var modeUpd = $('.methode-maj') !== undefined && $('.methode-maj').is(':checked');
-            //var testColisPoids  = modeUpd ? 0 : 0.1;
-            var testColisPoids  =  0.1;
-
-            // Contrôle de cohérence du poids
-            if (isNaN(poidsProduit) || poidsProduit < testColisPoids) {
-                $('#modalInfoBody').html("<div class='alert alert-danger'><i class='fa fa-exclamation-circle fa-lg mb-2'></i><p>Nombre de colis ou poids invalide...</p></div>");
-                $('#modalInfo').modal('show');
-                return false;
-            }
-
-            //if (modeUpd && poidsProduit === 0) {
-            if (poidsProduit === 0) {
-
-                // Modale de confirmation "Supprimer produit ?" -  Le listener prend la suite...
-                $('#modalConfirmBody').html('<div class="alert alert-danger text-center"><i class="fa fa-trash-alt fa-2x mb-2"></i><p>Supprimer ce produit du traitement ?</p></div>');
-                //$('#dataConfirmInput').val(idlotpdtfroid);               // ID en paramètre de la modale de confirmation : id_lot_pdt_froid
-                //$('#dataConfirmContexte').val('supprPdtFroid');    // Code du contexte pour le listener de la modale générique de confirmation
-                $('#modalConfirm').modal('show');
-
-                return false;
-
-            }// FIN supprimer produit
-
-            saveProduitHac();
-            return false;
-
-        } // FIN touche V
-
-
-        if (poidsProduit.length === 0) {
-            $('.inputPoidsPdt').val(touche);
-        } else if (touche === '.' && poidsProduit.indexOf('.') !== -1) {
-            return false;
-        } else if (poidsProduit.length < 8) {
-            $('.inputPoidsPdt').val(poidsProduit + touche);
-        }
-
-    }); // FIN clavier
-
-
-    } // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 5
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape5() {
-    "use strict";
-
-    // Changement de poids d'un produit de la liste
-    $('.btnChangePoidsPdt').off("click.btnChangePoidsPdt'").on("click.btnChangePoidsPdt", function(e) {
-        e.preventDefault();
-        var identifiant = $(this).data('identifiant');
-        if (identifiant === undefined || identifiant === 0) { alert('Erreur identification identifiant pdt|lot|froid !'); return false; }
-        chargeEtape(4, identifiant);
-    }); // Fin changement de poids
-
-    $('.btnSupprFroidProduit').off("click.btnSupprFroidProduit'").on("click.btnSupprFroidProduit", function(e) {
-        e.preventDefault();
-        var idlotpdtfroid = parseInt($(this).data('id-pdt-lot'));
-        // Modale de confirmation "Supprimer produit ?" -  Le listener prend la suite...
-        $('#modalConfirmBody').html('<div class="alert alert-danger text-center"><i class="fa fa-trash-alt fa-2x mb-2"></i><p>Supprimer ce produit du traitement ?</p></div>');
-        $('#dataConfirmInput').val(idlotpdtfroid);               // ID en paramètre de la modale de confirmation : id_lot_pdt_froid
-        $('#dataConfirmContexte').val('supprPdtFroid');    // Code du contexte pour le listener de la modale générique de confirmation
-        $('#modalConfirm').modal('show');
-    }); // FIn suppr
-
-    // Confirmation modale (générique)
-    $('.btnModalConfirmOk').off("click.btnModalConfirmOk").on("click.btnModalConfirmOk", function(e) {
-        e.preventDefault();
-        // On passe un "contexte" pour définir le périmètre opérationnel de la confirmation
-        var data_confirm_contexte = $('#dataConfirmContexte').val();
-        if (data_confirm_contexte === 'supprPdtFroid') {
-            var id_lot_pdt_froid =  parseInt($('#dataConfirmInput').val());
-            var id_froid = parseInt($('#id_froid').val());
-            $.fn.ajax({
-                rep_script_execute: "../scripts/ajax/",
-                script_execute:'fct_vue_hac.php',
-                arguments:'mode=supprFroidProduitHac&id='+id_lot_pdt_froid,
-                return_id:'stkAjaxVue',
-                done: function () {
-                    $('#modalConfirm').modal('hide');
-                   chargeEtape(5, id_froid);
-                }
-            });
-            return false;
-        } // FIN confirm
-        return false;
-    }); // FIN confirmation modale générique
-
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 6
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape6() {
-    "use strict";
-
-    // Saisie température début via le pavé numérique
-    $('.clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {
-        e.preventDefault();
-
-        // On efface le message d'erreur si il était affiché
-        if (!$('.tempInvalide').hasClass('d-none')) {
-            $('.tempInvalide').addClass('d-none');
-        }
-
-        var id_froid = parseInt($('.btnValiderTempDebut').data('id-froid'));
-
-        // On récupère la valeur de la touche
-        var touche = $(this).data('valeur');
-
-        // Si touche "effacer", on reset le champ en cours
-        if (touche === 'C') {
-            $('.inputTempDebut').val('');
-            return false;
-        }
-
-        var tempDebut = $('.inputTempDebut').val().trim();
-
-        // SI touche "Valider", on teste...
-        if (touche === 'V') {
-
-            if (tempDebut.trim() === '') { return false; }
-
-            if (parseFloat(tempDebut) < -30 || parseFloat(tempDebut) > 30 || isNaN(parseFloat(tempDebut))) {
-                $('.tempInvalide').removeClass('d-none');
-                return false;
-            }
-
-            // Enregistrement de la température
-            $.fn.ajax({
-                rep_script_execute: "../scripts/ajax/",
-                script_execute:'fct_vue_hac.php',
-                arguments: 'mode=saveTempDebut&id_froid=' + id_froid + '&temp_debut='+tempDebut,
-                callBack: function (retour) {
-
-                    if (parseInt(retour) < 0) { alert("Une erreur est survenue !\r\nEnregistrement impossible...\r\nCode Erreur : SODMTOCH"); return false; }
-                    chargeEtape(0, id_froid);
-                    return false;
-
-                } // FIN callBack
-            }); // FIN ajax
-
-            return false;
-
-        } // FIN test touche valider
-
-        // Autre touche numérique : on complète le code
-        if (tempDebut.length === 0 && touche !== '.' && touche !== '+') {
-            $('.inputTempDebut').val(touche);
-
-            // Si on saisi un point, on vérifie qu'il n'y en a pas déjà un
-        }  else if (touche === '.' && tempDebut.indexOf('.') !== -1) {
-            return false;
-        } else if (touche === '.' && tempDebut.length === 0) {
-            return false;
-            // +/-
-        } else if (touche === '+') {
-            if (tempDebut === '') {
-                $('.inputTempDebut').val('-');
-                return false;
-            } else if  (tempDebut === '-') {
-                $('.inputTempDebut').val('');
-                return false;
-            }
-            tempDebut = parseFloat(tempDebut) *-1;
-            $('.inputTempDebut').val(tempDebut);
-        } else {
-            $('.inputTempDebut').val(tempDebut + touche);
-        } // FIN saisie touhches numériques
-
-    }); // FIN touche clavier
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 7
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape7() {
-    "use strict";
-
-    // Saisie température fin via le pavé numérique
-    $('.clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {
-        e.preventDefault();
-
-        // On efface le message d'erreur si il était affiché
-        if (!$('.tempInvalide').hasClass('d-none')) {
-            $('.tempInvalide').addClass('d-none');
-        }
-
-        var id_froid = parseInt($('.btnValiderTempFin').data('id-froid'));
-
-        // On récupère la valeur de la touche
-        var touche = $(this).data('valeur');
-
-        // Si touche "effacer", on reset le champ en cours
-        if (touche === 'C') {
-            $('.inputTempFin').val('');
-            return false;
-        }
-
-        var tempFin = $('.inputTempFin').val().trim();
-
-        // SI touche "Valider", on teste...
-        if (touche === 'V') {
-
-            if (tempFin.trim() === '') { return false; }
-
-            if (parseFloat(tempFin) < -30 || parseFloat(tempFin) > 30 || isNaN(parseFloat(tempFin))) {
-                $('.tempInvalide').removeClass('d-none');
-                return false;
-            }
-
-            // Enregistrement de la température et go Loma
-            $.fn.ajax({
-                rep_script_execute: "../scripts/ajax/",
-                script_execute:'fct_vue_hac.php',
-                arguments: 'mode=saveTempFin&id_froid=' + id_froid + '&temp_fin='+tempFin,
-                callBack: function (retour) {
-
-                    if (parseInt(retour) < 0) { alert("Une erreur est survenue !\r\nEnregistrement impossible...\r\nCode Erreur : SODMTOCA"); return false; }
-                    chargeEtape(8, id_froid);
-                    return false;
-
-                } // FIN callBack
-            }); // FIN ajax
-
-            return false;
-
-        } // FIN test touche valider
-
-        // Autre touche numérique : on complète le code
-        if (tempFin.length === 0 && touche !== '.' && touche !== '+') {
-            $('.inputTempFin').val(touche);
-
-            // Si on saisi un point, on vérifie qu'il n'y en a pas déjà un
-        }  else if (touche === '.' && tempFin.indexOf('.') !== -1) {
-            return false;
-        } else if (touche === '.' && tempFin.length === 0) {
-            return false;
-            // +/-
-        } else if (touche === '+') {
-            if (tempFin === '') {
-                $('.inputTempFin').val('-');
-                return false;
-            } else if  (tempFin === '-') {
-                $('.inputTempFin').val('');
-                return false;
-            }
-            tempFin = parseFloat(tempFin) *-1;
-            $('.inputTempFin').val(tempFin);
-        } else {
-            $('.inputTempFin').val(tempFin + touche);
-        } // FIN saisie touhches numériques
-
-    }); // FIN touche clavier
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 8
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape8() {
-    "use strict";
-
-    // Bouton test ok / ko
-    $('.btn-loma').off("click.btnloma").on("click.btnloma", function(e) {
-
-        e.preventDefault();
-
-        // Récup test type
-        var testcode = $(this).data('test');
-        var regextest = new RegExp('^(nfe|fe|inox)$');
-        if (testcode === undefined || !regextest.test(testcode)) {
-            alert('ERREUR\r\n\r\nIdentification du test impossible ('+testcode+') !\r\n\r\nCode erreur : G28C6R1H');
-            return false;
-        } // FIN gestion erreur de récupération test code
-
-        // Résultat du test
-        var resultat = parseInt($(this).data('resultat'));
-        if (resultat === undefined || resultat < 0 || resultat > 1 || isNaN(resultat)) {
-            alert('ERREUR\r\n\r\nIdentification du résultat du test impossible !\r\n\r\nCode erreur : H112SBDH');
-            return false;
-        } // FIN gestion erreur de récupération résultat
-
-        // On met à jour le resultat dans le DOM pour éviter un triple appel ajax/BDD
-        $('input[name=resultest_'+testcode+']').val(resultat);
-
-        // On met à jour l'affichage des boutons
-        var classeAutreBtn = resultat === 1 ? 'danger' : 'success';
-        var classeBtn = resultat === 1 ? 'success' : 'danger';
-
-        // On inverse s'il s'agit du produit
-        if ($(this).data('test') === 'pdt') {
-            classeAutreBtn = resultat === 1 ? 'success' : 'danger';
-            classeBtn = resultat === 1 ? 'danger' : 'success';
-        }
-
-        $(this).parents('.loma-test-btns').find('.btn-'+classeAutreBtn).removeClass('btn-'+classeAutreBtn).addClass('btn-outline-secondary');
-        $(this).removeClass('btn-outline-secondary').addClass('btn-'+classeBtn);
-
-        // Résultat du test produit
-        var testpdtObjet = $('.resultats-tests input[name=resultest_pdt]');
-        var testpdt      = parseInt(testpdtObjet.val());
-
-        // Résultats des plaquettes
-        var testfe      = parseInt($('.resultats-tests input[name=resultest_fe]').val());
-        var testnfe     = parseInt($('.resultats-tests input[name=resultest_nfe]').val());
-        var testinox    = parseInt($('.resultats-tests input[name=resultest_inox]').val());
-
-        // On vérifie si les trois tests sont renseignés
-        var termine = true;
-        var test0   = false;
-        $('.resultats-tests input').each(function() {
-            var res = parseInt($(this).val());
-            if (res < 0) {
-                termine = false;
-            }
-            if (res === 0) {
-                test0 = true;
-            }
-        });
-
-        // Si on a passé les 3 tests témoins, on save et on va a l'étape suivante
-        if (testinox > -1 && testfe > -1 && testnfe > -1) {
-
-            $.fn.ajax({
-                'rep_script_execute': "../scripts/ajax/",
-                'script_execute': 'fct_vue_hac.php',
-                'form_id': 'controleLoma',
-                'callBack': function(retour) {
-
-                    retour+= ''; // Debug mauvaise interprétation de retours
-                    if (parseInt(retour) !== 1) { alert('Une erreur est survenue !\r\nCode erreur : '+retour); return false; }
-                    var id_froid    = parseInt($('#id_froid').val());
-                    var identifiant = id_froid+'|';
-                    chargeEtape(81,identifiant);
-
-                } // FIN callBack
-
-            }); // FIN aJax
-
-
-        } // FIN tests passés
-
-    }); // FIN bouton test loma
-
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 81
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape81() {
-    "use strict";
-
-    // Carte produit à contrôler
-    $('.carte-pdt-loma').off("click.cartepdtloma").on("click.cartepdtloma", function(e) {
-
-        e.preventDefault();
-
-        var id_lot_pdt_froid = parseInt($(this).data('id-lot-pdt-froid'));
-        if (id_lot_pdt_froid === undefined || isNaN(id_lot_pdt_froid) || id_lot_pdt_froid === 0) {
-            alert('ERREUR\r\n\r\nIdentification du produit impossible !\r\n\r\nCode erreur : 5K1ELNXH');
-            return false;
-        }
-        var id_froid    = parseInt($('#id_froid').val());
-        var identifiant = id_froid+'|'+id_lot_pdt_froid;
-        chargeEtape(81, identifiant);
-
-
-    }); // FIN carte produit à contrôler
-
-    // Bouton test ok / ko
-    $('.btn-loma').off("click.btnloma").on("click.btnloma", function(e) {
-
-        e.preventDefault();
-
-        // Récup test type
-        var testcode = $(this).data('test');
-        var regextest = new RegExp('^(nfe|fe|inox|pdt)$');
-        if (testcode === undefined || !regextest.test(testcode)) {
-            alert('ERREUR\r\n\r\nIdentification du test impossible ('+testcode+') !\r\n\r\nCode erreur : 3T5BQ30H');
-            return false;
-        } // FIN gestion erreur de récupération test code
-
-        // Résultat du test
-        var resultat = parseInt($(this).data('resultat'));
-        if (resultat === undefined || resultat < 0 || resultat > 1 || isNaN(resultat)) {
-            alert('ERREUR\r\n\r\nIdentification du résultat du test impossible !\r\n\r\nCode erreur : V9DX73MH');
-            return false;
-        } // FIN gestion erreur de récupération résultat
-
-        // On met à jour le resultat dans le DOM pour éviter un triple appel ajax/BDD
-        $('input[name=resultest_'+testcode+']').val(resultat);
-
-        // On met à jour l'affichage des boutons
-        var classeAutreBtn = resultat === 1 ? 'danger' : 'success';
-        var classeBtn = resultat === 1 ? 'success' : 'danger';
-
-        // On inverse s'il s'agit du produit
-        if ($(this).data('test') === 'pdt') {
-            classeAutreBtn = resultat === 1 ? 'success' : 'danger';
-            classeBtn = resultat === 1 ? 'danger' : 'success';
-        }
-
-        $(this).parents('.loma-test-btns').find('.btn-'+classeAutreBtn).removeClass('btn-'+classeAutreBtn).addClass('btn-outline-secondary');
-        $(this).removeClass('btn-outline-secondary').addClass('btn-'+classeBtn);
-
-        // Résultat du test produit
-        var testpdtObjet = $('.resultats-tests input[name=resultest_pdt]');
-        var testpdt      = parseInt(testpdtObjet.val());
-
-        // Résultats des plaquettes
-        var testfe      = parseInt($('.resultats-tests input[name=resultest_fe]').val());
-        var testnfe     = parseInt($('.resultats-tests input[name=resultest_nfe]').val());
-        var testinox    = parseInt($('.resultats-tests input[name=resultest_inox]').val());
-
-
-        //console.log(testpdt + ' ' + testfe + ' ' + testnfe + ' ' + testinox);
-
-        // Si on a renseigné le test du produit
-        if (testpdt > -1) {
-
-            // Si on a du métal dans la viande, on affiche le champ "commentaires" et le bouton valider
-            if (testpdt > 0) {
-
-                $('.loma-commentaires').show('blind');  // classe = conteneur
-                clavierVirtuel();
-                $('#champ_clavier').focus();        // ID = textarea
-
-                // Sinon, on valide direct
-            } else {
-                valideLoma();
-
-            } // FIN test un résultat au moins à zéro
-
-        } // FIN test terminé
-
-        // SI on a validé les 3 test apres
-        if (testfe > -1 && testnfe > -1 && testinox > -1) {
-            var id_froid = parseInt($('#id_froid').val());
-            if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}
-            $.fn.ajax({
-                rep_script_execute: "../scripts/ajax/",
-                script_execute: 'fct_vue_hac.php',
-                form_id: 'controleLoma',
-                callBack: function(retour) {
-                    retour+= ''; // Debug mauvaise interprétation de retours
-                    if (parseInt(retour) !== 1) { alert('Une erreur est survenue !\r\nCode erreur : '+retour); return false; }
-                    chargeEtape(0, id_froid);
-                } // FIN callBack
-            }); // FIN aJax
-        } // FIN test apres terminé
-    }); // FIN bouton test loma
-
-    // Bouton valide loma apres commentaire
-    $('.btn-valid-loma').off("click.btnvalidloma").on("click.btnvalidloma", function(e) {
-        e.preventDefault();
-        valideLoma();
-    }); // FIN bouton valide loma après commentaire
-
-} // FIN listener
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 9
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape9() {
-    "use strict";
-
-    // Selection de la vue sur carte
-    $('.carte-lot').off("click.selectcartevue").on("click.selectcartevue", function(e) {
-
-        e.preventDefault();
-
-        var id_lot = parseInt($(this).data('id-lot'));
-        if (id_lot === undefined || id_lot === 0 || isNaN(id_lot)) {
-            alert("Une erreur est survenue !\r\nCode erreur : AENUWROC");
-            return false;
-        }
-
-        // Appel étape 3 (cartes produits)
-        var id_froid = parseInt($('#id_froid').val());
-        if (isNaN(id_froid)) {
-            id_froid = 0;
-        }
-        var identifiant = id_lot + '|' + id_froid;
-        chargeEtape(91, identifiant);
-    });
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener étape 91
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listenerEtape91() {
-    "use strict";
-
-    // Selection d'une catégorie de produit pour affichage des produits correspondants
-    $('.btnCategorie').off("click.btncategorie").on("click.btncategorie", function(e) {
-        e.preventDefault();
-
-        var id_categorie = parseInt($(this).data('id-categorie'));
-        if (id_categorie === undefined || id_categorie === 0 || isNaN(id_categorie)) { alert("Identifaction de la catégorie impossible.\nCode erreur : REROUSSH"); return false; }
-
-        // Catégorie identifiée, on affiche les produits correspondants
-        $('#containerCategories .btn').removeClass('btn-success').addClass('btn-secondary');
-        $(this).removeClass('btn-primary').addClass('btn-success');
-        $('#containerEtiquettesProduits').html('<div class="col text-center"><i class="fa fa-spin fa-spinner fa-lg gris-9"></i></div>');
-
-        $.fn.ajax({
-            'rep_script_execute': "../scripts/ajax/",
-            'script_execute': 'fct_produits.php',
-            'arguments': 'mode=showProduitsCourtsCategorie&id_categorie='+id_categorie,
-            'return_id' : 'containerEtiquettesProduits',
-            'done': function() {
-                nomsCourtsListener();
-            }
-        }); // FIN aJax
-
-    }); // FIN selection catégorie de produit pour étiquetage
-
-    // bouton changer de rouleau direct sur emballage
-    $('.btn-emb-change').off("click.btnembchange").on("click.btnembchange", function(e) {
-        e.preventDefault();
-        var id_fam = parseInt($(this).parents('.card').data('id-fam'));
-        var id_old_emb = parseInt($(this).data('id-old-emb'));
-        if (id_fam === undefined || id_fam === 0 || isNaN(id_fam)) { alert("Identifaction de la famille impossible.\nCode erreur : WIBKXAQK"); return false; }
-        // Famille identifiée, on rechage le body de la modale avec les emballages disponibles ayant du stock et non par défaut:
-
-        $('#modalNouvelEmballage').modal('show');
-        $.fn.ajax({
-            'rep_script_execute': "../scripts/ajax/",
-            'script_execute': 'fct_emballages.php',
-            'arguments': 'mode=modalNouvelEmballageFrontEtape2&vue_code=atl&id_fam='+id_fam+'&id_old_emb='+id_old_emb,
-            'return_id' : 'modalNouvelEmballageBody',
-            'done': function() {
-                modalNouvelEmballageFrontEtape2Listener();
-            }
-        }); // FIN aJax
-
-    }); // FIN bouton changer rouleau sur emballage
-
-
-    // Bouton déclarer un défectueux sur l'emballage
-    $('.btn-emb-defectueux').off("click.btnembchange").on("click.btnembchange", function(e) {
-        e.preventDefault();
-        var id_emb = parseInt($(this).data('id-emb'));
-        var id_lot = parseInt($('#id_lot').val());
-        var id_froid = parseInt($('#id_froid').val());
-        if (id_emb === undefined || id_emb === 0 || isNaN(id_emb)) { alert("Identifaction du rouleau impossible.\nCode erreur : UTMCWXWH"); return false; }
-        if (id_lot === undefined || id_lot === 0 || isNaN(id_lot)) { alert("Identifaction du lot impossible.\nCode erreur : ZKWOHTBH"); return false; }
-        if (id_froid === undefined || id_froid === 0 || isNaN(id_froid)) { alert("Identifaction du froid impossible.\nCode erreur : FLWOHTBH"); return false; }
-        $.fn.ajax({
-            'rep_script_execute': "../scripts/ajax/",
-            'script_execute': 'fct_emballages.php',
-            'arguments': 'mode=declareDefectueux&id_emb='+id_emb+'&id_lot='+id_lot+'&id_froid='+id_froid,
-            'done': function() {
-                var identifiant = id_lot+'|'+id_froid;
-                chargeTicket(91, identifiant);
-                $('#modalInfoBody').html('<h4><i class="fa fa-2x fa-check mb1 gris-5"></i><br>Emballage défectueux enregistré</h4>');
-                $('#modalInfo').modal('show');
-            }
-        }); // FIN aJax
-
-    }); // FIN bouton déclarer un défectueux sur l'emballage
-
-} // FIN listener
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Listener de la liste des produits de l'étape 2 (Catalogue)
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function listeProduitsListener() {
-    "use strict";
-
-    $('.carte-pdt').off("click.cartefamille").on("click.cartefamille", function(e) {
-
-        e.preventDefault();
-
-        var pdtId = parseInt($(this).data('pdt-id'));
-        var lotId = parseInt($(this).data('lot-id'));
-        if (isNaN(parseInt(pdtId)) || pdtId === undefined || pdtId === 0) { alert('Identification du produit impossible !');return false; }
-
-        // Si produit sélectionné
-        addProduitHac(lotId, pdtId);
-        return false;
-
-    }); // FIN touche produit
-
-} // FIN listener liste des produits
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Fonction -> Associe un produit à la production
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function addProduitHac(id_lot, id_pdt) {
-    "use strict";
-
-    // Gestion des ereurs
-    if (id_lot === undefined || isNaN(id_lot) || parseInt(id_lot) === 0 || id_pdt === undefined || isNaN(id_pdt) || parseInt(id_pdt) === 0) {
-        alert('Erreur lors de l\'identification du couple produit/lot !\r\nCode erreur : TZHBXGOH');
-        return false;
-    }
-
-    var id_froid    = parseInt($('#id_froid').val());
-    var identifiant =  id_lot + '|' + id_pdt + '|' + id_froid;
-
-    chargeEtape(4, identifiant);
-
-} // FIN fonction
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Fonction -> Enregistre le produit (poids)
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function saveProduitHac() {
-  "use strict";
-
-    var total = $('.methode-maj') !== undefined && $('.methode-maj').is(':checked') ? '0' : '1';
-    var poids = $('.inputPoidsPdt').val().trim();
-    var id_lot = parseInt($('#id_lot').val());
-    var id_pdt = parseInt($('#id_pdt').val());
-    var id_froid = parseInt($('#id_froid').val());
-    var id_lot_pdt_froid = parseInt($('#id_lot_pdt_froid').val());
-
-    $.fn.ajax({
-        rep_script_execute: "../scripts/ajax/",
-        script_execute:'fct_vue_hac.php',
-        //arguments:'mode=saveProduitHachePiece&id_lot='+id_lot+'&id_pdt='+id_pdt+'&id_froid='+id_froid+'&id_lot_pdt_froid='+id_lot_pdt_froid+'&poids='+poids,
-        arguments:'mode=saveProduitHachePiece&id_lot='+id_lot+'&id_pdt='+id_pdt+'&id_froid='+id_froid+'&id_lot_pdt_froid='+id_lot_pdt_froid+'&poids='+poids+'&total='+total,
-        callBack: function (id_froid) {
-            id_froid+=''; //
-            if (parseInt(id_froid) <= 0) { alert('ERREUR ' + id_froid); return false; }
-            chargeEtape(5, id_froid);
-            return false;
-        }
-    });
-
-
-} // FIN fonction
-
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Fonction déportée -> Adopte le mode de mise à jour (total/ajout)
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function adapteModeMaj() {
-    "use strict";
-
-    var ajout = $('.methode-maj').prop('checked');
-
-    // Si on passe en mode "Ajout"
-    if (ajout) {
-
-        var poids_pdt_old = parseFloat($('input[name=poids_pdt_old]').val());
-
-        // On RAZ les valeurs des inputs
-        $('input[name=poids_pdt]').val('');
-
-        var info = "D'ores et déjà en préparation : " + poids_pdt_old + " kg.";
-
-        $('.infoMajAjout .doresetdeja').text(info);
-        $('.infoMajAjout').show();
-
-        // Si on passe en mode "Cumul"
-    } else {
-
-        // On masque l'info du calcul de cumul
-        $('.infoMajAjout').hide();
-
-    } // FIN test méthode de MAJ
-
-} // FIN fonction
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// Fonction déportée -> Valide le contrôle LOMA pour un produit
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-function valideLoma() {
-    "use strict";
-
-    var id_froid = parseInt($('#id_froid').val());
-    if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}
-
-    $.fn.ajax({
-        rep_script_execute: "../scripts/ajax/",
-        script_execute: 'fct_vue_hac.php',
-        form_id: 'controleLoma',
-        callBack: function(retour) {
-
-            if ($.trim(retour) !== '') {
-                alert("ERREUR !\r\n\r\nUne erreur est survenue...\r\n\r\nCode erreur : " + retour);
-                return false;
-            }
-
-            // On met à jour la liste en revenant à l'étape 7 (loma) sans identifiant de produit lot
-            var identifiant =  id_froid+'|';
-            chargeEtape(5, identifiant);
-
-        } // FIN callback
-    }); // FIN aJax
-
-} // FIN fonction valide Loma pour un produit
-
-// Listener des noms courts pour étiquetage
-function nomsCourtsListener() {
-    "use strict";
-
-    // Selection d'un produit pour étiquetage -> quantité ? (modale)
-    $('.btnNomCourt').off("click.btnnomcourt").on("click.btnnomcourt", function(e) {
-
-        e.preventDefault();
-
-        $('#modalQuantiteEtiquettesInfo').text('0');
-        var nom_court = $(this).text().trim();
-
-        if (nom_court === undefined || nom_court === '' ) { alert("Récupération du nom court impossible !.\nCode erreur : YNMNTADH"); return false; }
-
-        $('#modalQuantiteEtiquettesProduit').text(nom_court);
-        $('#modalQuantiteEtiquettes').modal('show');
-
-
-    }); // FIN selection d'un produit pour étiquetag
-
-
-    // Pavé numérique quantité à imprimer
-    $('#modalQuantiteEtiquettes .clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {
-
-        e.preventDefault();
-
-        // On récupère la valeur de la touche
-        var touche = $(this).data('valeur');
-        var qte = parseInt($('#modalQuantiteEtiquettesInfo').text().trim());
-        if (isNaN(qte)) {
-            qte = 0;
-            $('#modalQuantiteEtiquettesInfo').text(qte);
-            return false;
-        }
-
-        if (qte === 0 && touche !== 'C' && parseInt(touche) > 0) {
-            qte =  parseInt(touche);
-        } else if ( touche !== 'C') {
-            qte = parseInt(qte.toString() + touche.toString());
-        } else if (touche === 'C') {
-            qte = parseInt(qte.toString().slice(0,-1));
-            if (qte === '' || isNaN(parseInt(qte))) {
-                qte = 0;
-            }
-        }
-        if (parseInt(qte) > 999) {
-            return false;
-        }
-
-        $('#modalQuantiteEtiquettesInfo').text(qte);
-
-    }); // FIN pavé numérique quantité
-
-    // Imprimer étiquettes
-    $('#modalQuantiteEtiquettes .btn-imprimer-etiquettes').off("click.btnimprimeretiquettes").on("click.btnimprimeretiquettes", function(e) {
-
-        e.preventDefault();
-        var copies = parseInt($('#modalQuantiteEtiquettesInfo').text().trim());
-        if (isNaN(copies) || copies === 0) { return false; }
-
-        var nom_court = $('#modalQuantiteEtiquettesProduit').text().trim();
-
-
-
-        var id_lot = parseInt($('#numLotTicket').data('id-lot'));
-
-        // IMPRESSION
-        $.fn.ajax({
-            'rep_script_execute': "../scripts/ajax/",
-
-            'script_execute': 'fct_etiquettes.php',
-            'arguments': 'mode=imprimerEtiquette&nom_court='+nom_court+'&id_lot='+id_lot+'&copies='+copies,
-            'callBack': function(retour) {
-
-                if (retour === '') {
-                    alert('Impression impossible !');
-                    return false;
-                }
-
-                var doc = document.getElementById('etiquetteFrame').contentWindow.document;
-                doc.open();
-                doc.write(retour);
-                doc.close();
-
-                window.frames["imprimerEtiquette"].focus();
-                window.frames["imprimerEtiquette"].print();
-
-
-            }
-        }); // FIN aJax
-
-    }); // FIN bouton imprimer étiquettes
-
-
-} // FIN listener des noms courts pour étiquetage
-
-// Listener de la modale changement de rouleau (Etape 2)
-function modalNouvelEmballageFrontEtape2Listener() {
-    // Sélection d'une famille
-    $('.carte-new-emb-defaut').off("click.cartenewembdefaut'").on("click.cartenewembdefaut", function(e) {
-        e.preventDefault();
-        var id_emb = parseInt($(this).data('id-emballage'));
-        if (id_emb === undefined || id_emb === 0 || isNaN(id_emb)) { alert("Identifaction de l'emballage impossible.\nCode erreur : QBWNMCYH"); return false; }
-        var id_lot = parseInt($('#numLotTicket').data('id-lot'));
-        // Emballage identifiée, on le définie comme en cours et on recharge l'étape du lot...
-        $.fn.ajax({
-            'rep_script_execute': "../scripts/ajax/",
-            'script_execute': 'fct_emballages.php',
-            'arguments': 'mode=setNewEmballageEnCours&id_emb='+id_emb+'&id_lot='+id_lot+'&code_vue=atl',
-            'done': function() {
-                // On ferme la modale
-                $('#modalNouvelEmballage').modal('hide');
-                // On met à jour la liste des emballages dans la vue principale (avec le numéro de lot)
-                var id_lot  = parseInt($('#numLotTicket').data('id-lot'));
-                // Appel étape 3 (cartes produits)
-                var id_froid = parseInt($('#id_froid').val());
-                if (isNaN(id_froid)) {
-                    id_froid = 0;
-                }
-                var identifiant = id_lot + '|' + id_froid;
-                chargeEtape(91, identifiant);
-            } // FIN callback
-        }); // FIN aJax
-    }); // FIN Sélection d'une famille
-} // FIN Listener
+/** ------------------------------------------------------------------------ JS - Vue Haché Piécé Copyright (C) 2021 Intersed http://www.intersed.fr/ ------------------------------------------------------------------------ @author    Cédric Bouillon @copyright Copyright (c) 2021 Intersed @version   1.0 @since     2021 ------------------------------------------------------------------------ */$('document').ready(function() {    $('#ticketLot').show();    chargeEtape(0, 0);    // Nettoyage du contenu de la modale Nouvel Emballage à sa fermeture    $('#modalNouvelEmballage').on('hidden.bs.modal', function (e) {        $('#modalNouvelEmballageBody').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');    }); // FIN fermeture modale Nouvel Emballage    $('#modalSignerPlanNett').on('hidden.bs.modal', function (e) {        $('#modalSignerPlanNettBody').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');    }); // FIN fermeture modale Nouvel Emballage}); // FIN ready// Fonction chargeant les étapes pour intégrer leur contenu// ##############################################################// ATTENTION// Cette vue charges les étapes au sein d'un même conteneur ajax// Elle n'as pas de ticket// ##############################################################function chargeEtape(numeroEtape, identifiant) {    $('#stkAjaxVue').html('<div class="padding-50 text-center"><i class="fa fa-spin fa-spinner fa-5x gris-c"></i></div>');    // Ajax qui charge le contenu de l'étape    $.fn.ajax({        rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting        script_execute: 'fct_vue_hac.php',        arguments: 'mode=chargeEtapeVue&etape=' + numeroEtape + '&id='+identifiant,        return_id: 'stkAjaxVue',        done: function () {            var fctnom = "listenerEtape"+numeroEtape;            var fn  = window[fctnom];            fn(identifiant);            chargeTicket(numeroEtape, identifiant);        } // FIN Callback    }); // FIN ajax} // FIN fonction chargeEtape// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Charge le Ticket// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function chargeTicket(etape, identifiant) {    "use strict";    if (identifiant === undefined) { identifiant = 0;}    // Ajax qui charge le contenu du ticket    $.fn.ajax({        rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting        script_execute: 'fct_vue_hac.php',        arguments: 'mode=chargeTicket&etape='+etape+'&id=' + identifiant,        return_id: 'ticketContent',        done : function() {            listenerTicket();        }    }); // FIN ajax} // FIN fonction// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener du ticket// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerTicket() {    "use strict";    // Retour vers le point d'entrée    $('.btnRetourEtape0').off("click.btnretouretape0'").on("click.btnretouretape0", function(e) {        e.preventDefault();        $('#inputIdFroid').val(0);        chargeEtape(0, 0);    }); // FIN Retour vers le point d'entrée    // Bouton retour etape 5 (liste)    $('.btnRetourEtape5').off("click.btnRetourEtape5'").on("click.btnRetourEtape5", function(e) {        e.preventDefault();        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}        chargeEtape(5, id_froid);    });    // Retour vers les lots    $('.btnChangeLot').off("click.btnchangelot'").on("click.btnchangelot", function(e) {        e.preventDefault();        chargeEtape(2, 0);    }); // FIN Retour vers les lots    // Bouton ajouter produit    $('.btnAjouterProduit').off("click.btnAjouterProduit").on("click.btnAjouterProduit", function(e) {        e.preventDefault();        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }        chargeEtape(2, id_froid);    }); // FIN bouton ajouter produit    // Bouton Début Hachage -> vers température début    $('.btnDebutHachage').off("click.btnDebutHachage'").on("click.btnDebutHachage", function(e) {        e.preventDefault();        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }        chargeEtape(6, id_froid);    }); // FIN bouton début hachage    // Bouton Fin Hachage -> save heure fin + vers température fin    $('.btnFinHachage').off("click.btnFinHachage'").on("click.btnFinHachage", function(e) {        e.preventDefault();        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }        $.fn.ajax({            rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting            script_execute: 'fct_vue_hac.php',            arguments: 'mode=saveFinHachage&id_froid='+id_froid,            done : function() {                chargeEtape(7, id_froid);            }        }); // FIN ajax    }); // FIN bouton fin hachage    // Bouton clôturer    $('.btnCloturer').off("click.btnCloturer'").on("click.btnCloturer", function(e) {        e.preventDefault();        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }        $.fn.ajax({            rep_script_execute: "../scripts/ajax/", // Gestion de l'URL Rewriting            script_execute: 'fct_vue_hac.php',            arguments: 'mode=clotureFroid&id_froid='+id_froid,            done : function() {                chargeEtape(0);            }        }); // FIN ajax    }); // FIN bouton clôturer    // Bouton emballages    $('.btnEmballages').off("click.btnEmballages'").on("click.btnEmballages", function(e) {        e.preventDefault();        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false; }        chargeEtape(9, id_froid);    });} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 0// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape0() {    "use strict";    // Nouvelle Production    $('.btnNouvelleProd').off("click.btnNouvelleProd").on("click.btnNouvelleProd", function(e) {        e.preventDefault();        chargeEtape(2,0);    }); // FIN nouvelle production    // Productions en cours    $('.btnProdsEnCours').off("click.btnProdsEnCours").on("click.btnProdsEnCours", function(e) {        e.preventDefault();        chargeEtape(1,0);    }); // FIN nouvelle production} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 1// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape1() {    "use strict";    // Sélection d'une carte Hac    $('.carte-hac').off("click.cartehac'").on("click.cartehac", function(e) {        e.preventDefault();        var id_froid = parseInt($(this).data('id-froid'));        //$('#inputIdFroid').val(id_froid);        chargeEtape(5, id_froid);    }); // FIN click carte    // Supprimer traitement    $('.btnSupprimerFroidVide').off("click.btnSupprimerFroidVide'").on("click.btnSupprimerFroidVide", function(e) {        e.preventDefault();        e.stopPropagation();        e.stopImmediatePropagation();        var id_froid = parseInt($(this).data('id-froid'));        if (isNaN(id_froid) || id_froid === 0) {            alert("ERREUR !\r\nIdentification du traitement impossible...\r\nCode erreur : 28LH6P7H");            return false;        }        // On supprime l'OP de froid        $.fn.ajax({            'rep_script_execute': "../scripts/ajax/",            'script_execute': 'fct_produits.php',            'arguments': 'mode=supprimeFroid&id_froid='+id_froid,            'done': function() {                chargeEtape(1,0);            }        }); // FIN aJax    }); // FIN supprimer} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 2// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape2() {    "use strict";    // Selection de la vue sur carte    $('.carte-lot').off("click.selectcartevue").on("click.selectcartevue", function(e) {        e.preventDefault();        var id_lot = parseInt($(this).data('id-lot'));        if (id_lot === undefined || id_lot === 0 || isNaN(id_lot)) { alert("Une erreur est survenue !\r\nCode erreur : AENUWROC");return false; }        // Appel étape 3 (cartes produits)        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid)) { id_froid = 0; }        var identifiant = id_lot+'||'+id_froid;        chargeEtape(3, identifiant);    }); // FIN click vue carte} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 3// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape3() {    "use strict";    listeProduitsListener();    // Pagination Ajax sur les produits    $(document).on('click','.carte-pdt-pagination',function(e){        e.stopImmediatePropagation();        e.stopPropagation();        if ($(this).attr('data-url') === undefined) { return false; }        // on affiche le loading d'attente        $('#etape2').html('<i class="fa fa-spin fa-spinner fa-2x"></i>');        // on fait l'appel ajax qui va rafraichir la liste        $.fn.ajax({            rep_script_execute: "../scripts/ajax/",            script_execute:'fct_vue_hac.php'+$(this).attr('data-url'),            return_id:'stkAjaxVue',            done: function () {                listeProduitsListener();            }        });        // on désactive le lien hypertexte        return false;    }); // FIN pagination ajax} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 4// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape4() {    "use strict";    // Initialisation ajax    $('.togglemaster').bootstrapToggle();    adapteModeMaj();    // Bouton Switch méthode mise à jour    $('.methode-maj').change(function() {        adapteModeMaj();    });    // Bouton retour dans la vue gauche à côté du nom du produit    $('.btnRetourProduits').off("click.btnretourproduits'").on("click.btnretourproduits", function(e) {        e.preventDefault();        var id_lot = parseInt($(this).data('id-lot'));        if (isNaN(id_lot)) { id_lot = 0; }        // Si on a pas d'op de froid, c'est qu'on à la premiere séléction du premier produit, on reviens donc à l'étape 2        if (id_lot === 0) {            chargeEtape(0,0);        } else {            var id_froid = parseInt($('#id_froid').val());            if (isNaN(id_froid)) { id_froid = 0; }            var identifiant = id_lot+'||'+id_froid;            chargeEtape(3, identifiant);        }    }); // FIN retour lot depuis produit    // Clavier numérique (poids)    $('.clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {        e.preventDefault();        var touche = $(this).data('valeur');        // Effacer        if (touche === 'C') {            var valeurActuelle = $('.inputPoidsPdt').val();            $('.inputPoidsPdt').val(valeurActuelle.slice(0,-1));/*                // Si on est en mode ajout en update, on efface le total estimé            if (modeUpd && $('.methode-maj').prop('checked')) {                $('.infoMajAjout .estimationtotal').text('');            }*/            return false;        } // FIN touche C        var poidsDefaut = $('.inputPoidsPdt').data('poids-defaut');        var poidsProduit = $('.inputPoidsPdt').val().trim();        if (touche === 'V') {            //var modeUpd = $('.methode-maj') !== undefined && $('.methode-maj').is(':checked');            //var testColisPoids  = modeUpd ? 0 : 0.1;            var testColisPoids  =  0.1;            // Contrôle de cohérence du poids            if (isNaN(poidsProduit) || poidsProduit < testColisPoids) {                $('#modalInfoBody').html("<div class='alert alert-danger'><i class='fa fa-exclamation-circle fa-lg mb-2'></i><p>Nombre de colis ou poids invalide...</p></div>");                $('#modalInfo').modal('show');                return false;            }            //if (modeUpd && poidsProduit === 0) {            if (poidsProduit === 0) {                // Modale de confirmation "Supprimer produit ?" -  Le listener prend la suite...                $('#modalConfirmBody').html('<div class="alert alert-danger text-center"><i class="fa fa-trash-alt fa-2x mb-2"></i><p>Supprimer ce produit du traitement ?</p></div>');                //$('#dataConfirmInput').val(idlotpdtfroid);               // ID en paramètre de la modale de confirmation : id_lot_pdt_froid                //$('#dataConfirmContexte').val('supprPdtFroid');    // Code du contexte pour le listener de la modale générique de confirmation                $('#modalConfirm').modal('show');                return false;            }// FIN supprimer produit            saveProduitHac();            return false;        } // FIN touche V        if (poidsProduit.length === 0) {            $('.inputPoidsPdt').val(touche);        } else if (touche === '.' && poidsProduit.indexOf('.') !== -1) {            return false;        } else if (poidsProduit.length < 8) {            $('.inputPoidsPdt').val(poidsProduit + touche);        }    }); // FIN clavier    } // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 5// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape5() {    "use strict";    // Changement de poids d'un produit de la liste    $('.btnChangePoidsPdt').off("click.btnChangePoidsPdt'").on("click.btnChangePoidsPdt", function(e) {        e.preventDefault();        var identifiant = $(this).data('identifiant');        if (identifiant === undefined || identifiant === 0) { alert('Erreur identification identifiant pdt|lot|froid !'); return false; }        chargeEtape(4, identifiant);    }); // Fin changement de poids    $('.btnSupprFroidProduit').off("click.btnSupprFroidProduit'").on("click.btnSupprFroidProduit", function(e) {        e.preventDefault();        var idlotpdtfroid = parseInt($(this).data('id-pdt-lot'));        // Modale de confirmation "Supprimer produit ?" -  Le listener prend la suite...        $('#modalConfirmBody').html('<div class="alert alert-danger text-center"><i class="fa fa-trash-alt fa-2x mb-2"></i><p>Supprimer ce produit du traitement ?</p></div>');        $('#dataConfirmInput').val(idlotpdtfroid);               // ID en paramètre de la modale de confirmation : id_lot_pdt_froid        $('#dataConfirmContexte').val('supprPdtFroid');    // Code du contexte pour le listener de la modale générique de confirmation        $('#modalConfirm').modal('show');    }); // FIn suppr    // Confirmation modale (générique)    $('.btnModalConfirmOk').off("click.btnModalConfirmOk").on("click.btnModalConfirmOk", function(e) {        e.preventDefault();        // On passe un "contexte" pour définir le périmètre opérationnel de la confirmation        var data_confirm_contexte = $('#dataConfirmContexte').val();        if (data_confirm_contexte === 'supprPdtFroid') {            var id_lot_pdt_froid =  parseInt($('#dataConfirmInput').val());            var id_froid = parseInt($('#id_froid').val());            $.fn.ajax({                rep_script_execute: "../scripts/ajax/",                script_execute:'fct_vue_hac.php',                arguments:'mode=supprFroidProduitHac&id='+id_lot_pdt_froid,                return_id:'stkAjaxVue',                done: function () {                    $('#modalConfirm').modal('hide');                   chargeEtape(5, id_froid);                }            });            return false;        } // FIN confirm        return false;    }); // FIN confirmation modale générique} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 6// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape6() {    "use strict";    // Saisie température début via le pavé numérique    $('.clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {        e.preventDefault();        // On efface le message d'erreur si il était affiché        if (!$('.tempInvalide').hasClass('d-none')) {            $('.tempInvalide').addClass('d-none');        }        var id_froid = parseInt($('.btnValiderTempDebut').data('id-froid'));        // On récupère la valeur de la touche        var touche = $(this).data('valeur');        // Si touche "effacer", on reset le champ en cours        if (touche === 'C') {            $('.inputTempDebut').val('');            return false;        }        var tempDebut = $('.inputTempDebut').val().trim();        // SI touche "Valider", on teste...        if (touche === 'V') {            if (tempDebut.trim() === '') { return false; }            if (parseFloat(tempDebut) < -30 || parseFloat(tempDebut) > 30 || isNaN(parseFloat(tempDebut))) {                $('.tempInvalide').removeClass('d-none');                return false;            }            // Enregistrement de la température            $.fn.ajax({                rep_script_execute: "../scripts/ajax/",                script_execute:'fct_vue_hac.php',                arguments: 'mode=saveTempDebut&id_froid=' + id_froid + '&temp_debut='+tempDebut,                callBack: function (retour) {                    if (parseInt(retour) < 0) { alert("Une erreur est survenue !\r\nEnregistrement impossible...\r\nCode Erreur : SODMTOCH"); return false; }                    chargeEtape(0, id_froid);                    return false;                } // FIN callBack            }); // FIN ajax            return false;        } // FIN test touche valider        // Autre touche numérique : on complète le code        if (tempDebut.length === 0 && touche !== '.' && touche !== '+') {            $('.inputTempDebut').val(touche);            // Si on saisi un point, on vérifie qu'il n'y en a pas déjà un        }  else if (touche === '.' && tempDebut.indexOf('.') !== -1) {            return false;        } else if (touche === '.' && tempDebut.length === 0) {            return false;            // +/-        } else if (touche === '+') {            if (tempDebut === '') {                $('.inputTempDebut').val('-');                return false;            } else if  (tempDebut === '-') {                $('.inputTempDebut').val('');                return false;            }            tempDebut = parseFloat(tempDebut) *-1;            $('.inputTempDebut').val(tempDebut);        } else {            $('.inputTempDebut').val(tempDebut + touche);        } // FIN saisie touhches numériques    }); // FIN touche clavier} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 7// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape7() {    "use strict";    // Saisie température fin via le pavé numérique    $('.clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {        e.preventDefault();        // On efface le message d'erreur si il était affiché        if (!$('.tempInvalide').hasClass('d-none')) {            $('.tempInvalide').addClass('d-none');        }        var id_froid = parseInt($('.btnValiderTempFin').data('id-froid'));        // On récupère la valeur de la touche        var touche = $(this).data('valeur');        // Si touche "effacer", on reset le champ en cours        if (touche === 'C') {            $('.inputTempFin').val('');            return false;        }        var tempFin = $('.inputTempFin').val().trim();        // SI touche "Valider", on teste...        if (touche === 'V') {            if (tempFin.trim() === '') { return false; }            if (parseFloat(tempFin) < -30 || parseFloat(tempFin) > 30 || isNaN(parseFloat(tempFin))) {                $('.tempInvalide').removeClass('d-none');                return false;            }            // Enregistrement de la température et go Loma            $.fn.ajax({                rep_script_execute: "../scripts/ajax/",                script_execute:'fct_vue_hac.php',                arguments: 'mode=saveTempFin&id_froid=' + id_froid + '&temp_fin='+tempFin,                callBack: function (retour) {                    if (parseInt(retour) < 0) { alert("Une erreur est survenue !\r\nEnregistrement impossible...\r\nCode Erreur : SODMTOCA"); return false; }                    chargeEtape(8, id_froid);                    return false;                } // FIN callBack            }); // FIN ajax            return false;        } // FIN test touche valider        // Autre touche numérique : on complète le code        if (tempFin.length === 0 && touche !== '.' && touche !== '+') {            $('.inputTempFin').val(touche);            // Si on saisi un point, on vérifie qu'il n'y en a pas déjà un        }  else if (touche === '.' && tempFin.indexOf('.') !== -1) {            return false;        } else if (touche === '.' && tempFin.length === 0) {            return false;            // +/-        } else if (touche === '+') {            if (tempFin === '') {                $('.inputTempFin').val('-');                return false;            } else if  (tempFin === '-') {                $('.inputTempFin').val('');                return false;            }            tempFin = parseFloat(tempFin) *-1;            $('.inputTempFin').val(tempFin);        } else {            $('.inputTempFin').val(tempFin + touche);        } // FIN saisie touhches numériques    }); // FIN touche clavier} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 8// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape8() {    "use strict";    // Bouton test ok / ko    $('.btn-loma').off("click.btnloma").on("click.btnloma", function(e) {        e.preventDefault();        // Récup test type        var testcode = $(this).data('test');        var regextest = new RegExp('^(nfe|fe|inox)$');        if (testcode === undefined || !regextest.test(testcode)) {            alert('ERREUR\r\n\r\nIdentification du test impossible ('+testcode+') !\r\n\r\nCode erreur : G28C6R1H');            return false;        } // FIN gestion erreur de récupération test code        // Résultat du test        var resultat = parseInt($(this).data('resultat'));        if (resultat === undefined || resultat < 0 || resultat > 1 || isNaN(resultat)) {            alert('ERREUR\r\n\r\nIdentification du résultat du test impossible !\r\n\r\nCode erreur : H112SBDH');            return false;        } // FIN gestion erreur de récupération résultat        // On met à jour le resultat dans le DOM pour éviter un triple appel ajax/BDD        $('input[name=resultest_'+testcode+']').val(resultat);        // On met à jour l'affichage des boutons        var classeAutreBtn = resultat === 1 ? 'danger' : 'success';        var classeBtn = resultat === 1 ? 'success' : 'danger';        // On inverse s'il s'agit du produit        if ($(this).data('test') === 'pdt') {            classeAutreBtn = resultat === 1 ? 'success' : 'danger';            classeBtn = resultat === 1 ? 'danger' : 'success';        }        $(this).parents('.loma-test-btns').find('.btn-'+classeAutreBtn).removeClass('btn-'+classeAutreBtn).addClass('btn-outline-secondary');        $(this).removeClass('btn-outline-secondary').addClass('btn-'+classeBtn);        // Résultat du test produit        var testpdtObjet = $('.resultats-tests input[name=resultest_pdt]');        var testpdt      = parseInt(testpdtObjet.val());        // Résultats des plaquettes        var testfe      = parseInt($('.resultats-tests input[name=resultest_fe]').val());        var testnfe     = parseInt($('.resultats-tests input[name=resultest_nfe]').val());        var testinox    = parseInt($('.resultats-tests input[name=resultest_inox]').val());        // On vérifie si les trois tests sont renseignés        var termine = true;        var test0   = false;        $('.resultats-tests input').each(function() {            var res = parseInt($(this).val());            if (res < 0) {                termine = false;            }            if (res === 0) {                test0 = true;            }        });        // Si on a passé les 3 tests témoins, on save et on va a l'étape suivante        if (testinox > -1 && testfe > -1 && testnfe > -1) {            $.fn.ajax({                'rep_script_execute': "../scripts/ajax/",                'script_execute': 'fct_vue_hac.php',                'form_id': 'controleLoma',                'callBack': function(retour) {                    retour+= ''; // Debug mauvaise interprétation de retours                    if (parseInt(retour) !== 1) { alert('Une erreur est survenue !\r\nCode erreur : '+retour); return false; }                    var id_froid    = parseInt($('#id_froid').val());                    var identifiant = id_froid+'|';                    chargeEtape(81,identifiant);                } // FIN callBack            }); // FIN aJax        } // FIN tests passés    }); // FIN bouton test loma} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 81// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape81() {    "use strict";    // Carte produit à contrôler    $('.carte-pdt-loma').off("click.cartepdtloma").on("click.cartepdtloma", function(e) {        e.preventDefault();        var id_lot_pdt_froid = parseInt($(this).data('id-lot-pdt-froid'));        if (id_lot_pdt_froid === undefined || isNaN(id_lot_pdt_froid) || id_lot_pdt_froid === 0) {            alert('ERREUR\r\n\r\nIdentification du produit impossible !\r\n\r\nCode erreur : 5K1ELNXH');            return false;        }        var id_froid    = parseInt($('#id_froid').val());        var identifiant = id_froid+'|'+id_lot_pdt_froid;        chargeEtape(81, identifiant);    }); // FIN carte produit à contrôler    // Bouton test ok / ko    $('.btn-loma').off("click.btnloma").on("click.btnloma", function(e) {        e.preventDefault();        // Récup test type        var testcode = $(this).data('test');        var regextest = new RegExp('^(nfe|fe|inox|pdt)$');        if (testcode === undefined || !regextest.test(testcode)) {            alert('ERREUR\r\n\r\nIdentification du test impossible ('+testcode+') !\r\n\r\nCode erreur : 3T5BQ30H');            return false;        } // FIN gestion erreur de récupération test code        // Résultat du test        var resultat = parseInt($(this).data('resultat'));        if (resultat === undefined || resultat < 0 || resultat > 1 || isNaN(resultat)) {            alert('ERREUR\r\n\r\nIdentification du résultat du test impossible !\r\n\r\nCode erreur : V9DX73MH');            return false;        } // FIN gestion erreur de récupération résultat        // On met à jour le resultat dans le DOM pour éviter un triple appel ajax/BDD        $('input[name=resultest_'+testcode+']').val(resultat);        // On met à jour l'affichage des boutons        var classeAutreBtn = resultat === 1 ? 'danger' : 'success';        var classeBtn = resultat === 1 ? 'success' : 'danger';        // On inverse s'il s'agit du produit        if ($(this).data('test') === 'pdt') {            classeAutreBtn = resultat === 1 ? 'success' : 'danger';            classeBtn = resultat === 1 ? 'danger' : 'success';        }        $(this).parents('.loma-test-btns').find('.btn-'+classeAutreBtn).removeClass('btn-'+classeAutreBtn).addClass('btn-outline-secondary');        $(this).removeClass('btn-outline-secondary').addClass('btn-'+classeBtn);        // Résultat du test produit        var testpdtObjet = $('.resultats-tests input[name=resultest_pdt]');        var testpdt      = parseInt(testpdtObjet.val());        // Résultats des plaquettes        var testfe      = parseInt($('.resultats-tests input[name=resultest_fe]').val());        var testnfe     = parseInt($('.resultats-tests input[name=resultest_nfe]').val());        var testinox    = parseInt($('.resultats-tests input[name=resultest_inox]').val());        //console.log(testpdt + ' ' + testfe + ' ' + testnfe + ' ' + testinox);        // Si on a renseigné le test du produit        if (testpdt > -1) {            // Si on a du métal dans la viande, on affiche le champ "commentaires" et le bouton valider            if (testpdt > 0) {                $('.loma-commentaires').show('blind');  // classe = conteneur                clavierVirtuel();                $('#champ_clavier').focus();        // ID = textarea                // Sinon, on valide direct            } else {                valideLoma();            } // FIN test un résultat au moins à zéro        } // FIN test terminé        // SI on a validé les 3 test apres        if (testfe > -1 && testnfe > -1 && testinox > -1) {            var id_froid = parseInt($('#id_froid').val());            if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}            $.fn.ajax({                rep_script_execute: "../scripts/ajax/",                script_execute: 'fct_vue_hac.php',                form_id: 'controleLoma',                callBack: function(retour) {                    retour+= ''; // Debug mauvaise interprétation de retours                    if (parseInt(retour) !== 1) { alert('Une erreur est survenue !\r\nCode erreur : '+retour); return false; }                    chargeEtape(0, id_froid);                } // FIN callBack            }); // FIN aJax        } // FIN test apres terminé    }); // FIN bouton test loma    // Bouton valide loma apres commentaire    $('.btn-valid-loma').off("click.btnvalidloma").on("click.btnvalidloma", function(e) {        e.preventDefault();        valideLoma();    }); // FIN bouton valide loma après commentaire} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 9// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape9() {    "use strict";    // Selection de la vue sur carte    $('.carte-lot').off("click.selectcartevue").on("click.selectcartevue", function(e) {        e.preventDefault();        var id_lot = parseInt($(this).data('id-lot'));        if (id_lot === undefined || id_lot === 0 || isNaN(id_lot)) {            alert("Une erreur est survenue !\r\nCode erreur : AENUWROC");            return false;        }        // Appel étape 3 (cartes produits)        var id_froid = parseInt($('#id_froid').val());        if (isNaN(id_froid)) {            id_froid = 0;        }        var identifiant = id_lot + '|' + id_froid;        chargeEtape(91, identifiant);    });} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener étape 91// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listenerEtape91() {    "use strict";    // Selection d'une catégorie de produit pour affichage des produits correspondants    $('.btnCategorie').off("click.btncategorie").on("click.btncategorie", function(e) {        e.preventDefault();        var id_categorie = parseInt($(this).data('id-categorie'));        if (id_categorie === undefined || id_categorie === 0 || isNaN(id_categorie)) { alert("Identifaction de la catégorie impossible.\nCode erreur : REROUSSH"); return false; }        // Catégorie identifiée, on affiche les produits correspondants        $('#containerCategories .btn').removeClass('btn-success').addClass('btn-secondary');        $(this).removeClass('btn-primary').addClass('btn-success');        $('#containerEtiquettesProduits').html('<div class="col text-center"><i class="fa fa-spin fa-spinner fa-lg gris-9"></i></div>');        $.fn.ajax({            'rep_script_execute': "../scripts/ajax/",            'script_execute': 'fct_produits.php',            'arguments': 'mode=showProduitsCourtsCategorie&id_categorie='+id_categorie,            'return_id' : 'containerEtiquettesProduits',            'done': function() {                nomsCourtsListener();            }        }); // FIN aJax    }); // FIN selection catégorie de produit pour étiquetage    // bouton changer de rouleau direct sur emballage    $('.btn-emb-change').off("click.btnembchange").on("click.btnembchange", function(e) {        e.preventDefault();        var id_fam = parseInt($(this).parents('.card').data('id-fam'));        var id_old_emb = parseInt($(this).data('id-old-emb'));        if (id_fam === undefined || id_fam === 0 || isNaN(id_fam)) { alert("Identifaction de la famille impossible.\nCode erreur : WIBKXAQK"); return false; }        // Famille identifiée, on rechage le body de la modale avec les emballages disponibles ayant du stock et non par défaut:        $('#modalNouvelEmballage').modal('show');        $.fn.ajax({            'rep_script_execute': "../scripts/ajax/",            'script_execute': 'fct_emballages.php',            'arguments': 'mode=modalNouvelEmballageFrontEtape2&vue_code=atl&id_fam='+id_fam+'&id_old_emb='+id_old_emb,            'return_id' : 'modalNouvelEmballageBody',            'done': function() {                modalNouvelEmballageFrontEtape2Listener();            }        }); // FIN aJax    }); // FIN bouton changer rouleau sur emballage    // Bouton déclarer un défectueux sur l'emballage    $('.btn-emb-defectueux').off("click.btnembchange").on("click.btnembchange", function(e) {        e.preventDefault();        var id_emb = parseInt($(this).data('id-emb'));        var id_lot = parseInt($('#id_lot').val());        var id_froid = parseInt($('#id_froid').val());        if (id_emb === undefined || id_emb === 0 || isNaN(id_emb)) { alert("Identifaction du rouleau impossible.\nCode erreur : UTMCWXWH"); return false; }        if (id_lot === undefined || id_lot === 0 || isNaN(id_lot)) { alert("Identifaction du lot impossible.\nCode erreur : ZKWOHTBH"); return false; }        if (id_froid === undefined || id_froid === 0 || isNaN(id_froid)) { alert("Identifaction du froid impossible.\nCode erreur : FLWOHTBH"); return false; }        $.fn.ajax({            'rep_script_execute': "../scripts/ajax/",            'script_execute': 'fct_emballages.php',            'arguments': 'mode=declareDefectueux&id_emb='+id_emb+'&id_lot='+id_lot+'&id_froid='+id_froid,            'done': function() {                var identifiant = id_lot+'|'+id_froid;                chargeTicket(91, identifiant);                $('#modalInfoBody').html('<h4><i class="fa fa-2x fa-check mb1 gris-5"></i><br>Emballage défectueux enregistré</h4>');                $('#modalInfo').modal('show');            }        }); // FIN aJax    }); // FIN bouton déclarer un défectueux sur l'emballage} // FIN listener// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Listener de la liste des produits de l'étape 2 (Catalogue)// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function listeProduitsListener() {    "use strict";    $('.carte-pdt').off("click.cartefamille").on("click.cartefamille", function(e) {        e.preventDefault();        var pdtId = parseInt($(this).data('pdt-id'));        var lotId = parseInt($(this).data('lot-id'));        if (isNaN(parseInt(pdtId)) || pdtId === undefined || pdtId === 0) { alert('Identification du produit impossible !');return false; }        // Si produit sélectionné        addProduitHac(lotId, pdtId);        return false;    }); // FIN touche produit} // FIN listener liste des produits// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Fonction -> Associe un produit à la production// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function addProduitHac(id_lot, id_pdt) {    "use strict";    // Gestion des ereurs    if (id_lot === undefined || isNaN(id_lot) || parseInt(id_lot) === 0 || id_pdt === undefined || isNaN(id_pdt) || parseInt(id_pdt) === 0) {        alert('Erreur lors de l\'identification du couple produit/lot !\r\nCode erreur : TZHBXGOH');        return false;    }    var id_froid    = parseInt($('#id_froid').val());    var identifiant =  id_lot + '|' + id_pdt + '|' + id_froid;    chargeEtape(4, identifiant);} // FIN fonction// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Fonction -> Enregistre le produit (poids)// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function saveProduitHac() {  "use strict";    var total = $('.methode-maj') !== undefined && $('.methode-maj').is(':checked') ? '0' : '1';    var poids = $('.inputPoidsPdt').val().trim();    var id_lot = parseInt($('#id_lot').val());    var id_pdt = parseInt($('#id_pdt').val());    var id_froid = parseInt($('#id_froid').val());    var id_lot_pdt_froid = parseInt($('#id_lot_pdt_froid').val());    $.fn.ajax({        rep_script_execute: "../scripts/ajax/",        script_execute:'fct_vue_hac.php',        //arguments:'mode=saveProduitHachePiece&id_lot='+id_lot+'&id_pdt='+id_pdt+'&id_froid='+id_froid+'&id_lot_pdt_froid='+id_lot_pdt_froid+'&poids='+poids,        arguments:'mode=saveProduitHachePiece&id_lot='+id_lot+'&id_pdt='+id_pdt+'&id_froid='+id_froid+'&id_lot_pdt_froid='+id_lot_pdt_froid+'&poids='+poids+'&total='+total,        callBack: function (id_froid) {            id_froid+=''; //            if (parseInt(id_froid) <= 0) { alert('ERREUR ' + id_froid); return false; }            chargeEtape(5, id_froid);            return false;        }    });} // FIN fonction// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Fonction déportée -> Adopte le mode de mise à jour (total/ajout)// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function adapteModeMaj() {    "use strict";    var ajout = $('.methode-maj').prop('checked');    // Si on passe en mode "Ajout"    if (ajout) {        var poids_pdt_old = parseFloat($('input[name=poids_pdt_old]').val());        // On RAZ les valeurs des inputs        $('input[name=poids_pdt]').val('');        var info = "D'ores et déjà en préparation : " + poids_pdt_old + " kg.";        $('.infoMajAjout .doresetdeja').text(info);        $('.infoMajAjout').show();        // Si on passe en mode "Cumul"    } else {        // On masque l'info du calcul de cumul        $('.infoMajAjout').hide();    } // FIN test méthode de MAJ} // FIN fonction// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~// Fonction déportée -> Valide le contrôle LOMA pour un produit// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~function valideLoma() {    "use strict";    var id_froid = parseInt($('#id_froid').val());    if (isNaN(id_froid) || id_froid === 0) { alert('ERREUR ID FROID 0'); return false;}    $.fn.ajax({        rep_script_execute: "../scripts/ajax/",        script_execute: 'fct_vue_hac.php',        form_id: 'controleLoma',        callBack: function(retour) {            if ($.trim(retour) !== '') {                alert("ERREUR !\r\n\r\nUne erreur est survenue...\r\n\r\nCode erreur : " + retour);                return false;            }            // On met à jour la liste en revenant à l'étape 7 (loma) sans identifiant de produit lot            var identifiant =  id_froid+'|';            chargeEtape(81, identifiant);        } // FIN callback    }); // FIN aJax} // FIN fonction valide Loma pour un produit// Listener des noms courts pour étiquetagefunction nomsCourtsListener() {    "use strict";    // Selection d'un produit pour étiquetage -> quantité ? (modale)    $('.btnNomCourt').off("click.btnnomcourt").on("click.btnnomcourt", function(e) {        e.preventDefault();        $('#modalQuantiteEtiquettesInfo').text('0');        var nom_court = $(this).text().trim();        if (nom_court === undefined || nom_court === '' ) { alert("Récupération du nom court impossible !.\nCode erreur : YNMNTADH"); return false; }        $('#modalQuantiteEtiquettesProduit').text(nom_court);        $('#modalQuantiteEtiquettes').modal('show');    }); // FIN selection d'un produit pour étiquetag    // Pavé numérique quantité à imprimer    $('#modalQuantiteEtiquettes .clavier .btn').off("click.appuietoucheclavier").on("click.appuietoucheclavier", function(e) {        e.preventDefault();        // On récupère la valeur de la touche        var touche = $(this).data('valeur');        var qte = parseInt($('#modalQuantiteEtiquettesInfo').text().trim());        if (isNaN(qte)) {            qte = 0;            $('#modalQuantiteEtiquettesInfo').text(qte);            return false;        }        if (qte === 0 && touche !== 'C' && parseInt(touche) > 0) {            qte =  parseInt(touche);        } else if ( touche !== 'C') {            qte = parseInt(qte.toString() + touche.toString());        } else if (touche === 'C') {            qte = parseInt(qte.toString().slice(0,-1));            if (qte === '' || isNaN(parseInt(qte))) {                qte = 0;            }        }        if (parseInt(qte) > 999) {            return false;        }        $('#modalQuantiteEtiquettesInfo').text(qte);    }); // FIN pavé numérique quantité    // Imprimer étiquettes    $('#modalQuantiteEtiquettes .btn-imprimer-etiquettes').off("click.btnimprimeretiquettes").on("click.btnimprimeretiquettes", function(e) {        e.preventDefault();        var copies = parseInt($('#modalQuantiteEtiquettesInfo').text().trim());        if (isNaN(copies) || copies === 0) { return false; }        var nom_court = $('#modalQuantiteEtiquettesProduit').text().trim();        var id_lot = parseInt($('#numLotTicket').data('id-lot'));        // IMPRESSION        $.fn.ajax({            'rep_script_execute': "../scripts/ajax/",            'script_execute': 'fct_etiquettes.php',            'arguments': 'mode=imprimerEtiquette&nom_court='+nom_court+'&id_lot='+id_lot+'&copies='+copies,            'callBack': function(retour) {                if (retour === '') {                    alert('Impression impossible !');                    return false;                }                var doc = document.getElementById('etiquetteFrame').contentWindow.document;                doc.open();                doc.write(retour);                doc.close();                window.frames["imprimerEtiquette"].focus();                window.frames["imprimerEtiquette"].print();            }        }); // FIN aJax    }); // FIN bouton imprimer étiquettes} // FIN listener des noms courts pour étiquetage// Listener de la modale changement de rouleau (Etape 2)function modalNouvelEmballageFrontEtape2Listener() {    // Sélection d'une famille    $('.carte-new-emb-defaut').off("click.cartenewembdefaut'").on("click.cartenewembdefaut", function(e) {        e.preventDefault();        var id_emb = parseInt($(this).data('id-emballage'));        if (id_emb === undefined || id_emb === 0 || isNaN(id_emb)) { alert("Identifaction de l'emballage impossible.\nCode erreur : QBWNMCYH"); return false; }        var id_lot = parseInt($('#numLotTicket').data('id-lot'));        // Emballage identifiée, on le définie comme en cours et on recharge l'étape du lot...        $.fn.ajax({            'rep_script_execute': "../scripts/ajax/",            'script_execute': 'fct_emballages.php',            'arguments': 'mode=setNewEmballageEnCours&id_emb='+id_emb+'&id_lot='+id_lot+'&code_vue=atl',            'done': function() {                // On ferme la modale                $('#modalNouvelEmballage').modal('hide');                // On met à jour la liste des emballages dans la vue principale (avec le numéro de lot)                var id_lot  = parseInt($('#numLotTicket').data('id-lot'));                // Appel étape 3 (cartes produits)                var id_froid = parseInt($('#id_froid').val());                if (isNaN(id_froid)) {                    id_froid = 0;                }                var identifiant = id_lot + '|' + id_froid;                chargeEtape(91, identifiant);            } // FIN callback        }); // FIN aJax    }); // FIN Sélection d'une famille} // FIN Listener
