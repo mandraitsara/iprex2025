@@ -959,4 +959,30 @@ $('#modalLotProduitInfo').on('show.bs.modal', function (e) {
 }); // Fin chargement du contenu de la modale
 
 
+// Bouton export PDF
+$('.btn-export-lot-negoce-pdf').off("click.btnexportlotpdf").on("click.btnexportlotpdf", function(e) {
+    e.preventDefault();
+
+    var id_lot = parseInt($('#general').data('id-lot'));
+    if (isNaN(id_lot) || id_lot < 0) { alert("ERREUR\r\nUne erreur est survenue.\r\nCode erreur : 0J18GB46"); return false; }
+
+    var objetDomBtnExport = $(this);
+    objetDomBtnExport.find('i').removeClass('fa-file-pdf').addClass('fa-spin fa-spinner');
+    objetDomBtnExport.attr('disabled', 'disabled');
+
+    $.fn.ajax({
+        'script_execute': 'fct_lots_negoce.php',
+        'arguments':'mode=generePdf&id_lot='+ id_lot,
+        'callBack' : function (url_fichier) {
+            objetDomBtnExport.find('i').removeClass('fa-spin fa-spinner').addClass('fa-file-pdf');
+            objetDomBtnExport.prop('disabled', false);
+
+            $('#lienPdfLot').attr('href', url_fichier);
+            $('#lienPdfLot')[0].click();
+
+        } // FIN callBack
+    }); // FIN ajax
+}); // FIN bouton export PDF
+
+
 })

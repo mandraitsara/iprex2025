@@ -1414,3 +1414,51 @@ function modeModalLotInfo(){
     exit;
 } // FIN mode
 
+
+/* ----------------------------------------------------------------------------
+MODE - Génère un PDF des infos détaillés du lot Negoce
+-----------------------------------------------------------------------------*/
+function modeGenerePdf()
+{
+
+    global
+        $lotsNegoceManager;
+
+    $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
+    if ($id_lot == 0) {
+        exit;
+    }	
+
+    $lotNegoce = $lotsNegoceManager->getLotNegoce($id_lot);	
+
+    if (!$lotNegoce instanceof LotNegoce) {
+        exit;
+    }
+
+    require_once(__CBO_ROOT_PATH__ . '/vendor/html2pdf/html2pdf.class.php');
+
+    ob_start();
+    $content = genereContenuPdf($lot);
+    $content .= ob_get_clean();
+
+    // On supprime tous les fichiers du même genre sur le serveur
+    foreach (glob(__CBO_ROOT_PATH__ . '/temp/iprexlot-*.pdf') as $fichier) {
+        unlink($fichier);
+    }
+
+
+    try {
+        $nom_fichier = 'iprexlot-' . sprintf("%04d", $id_lot) . '-' . date('is') . '.pdf';
+        $html2pdf = new HTML2PDF('P', 'A4', 'fr', false, 'ISO-8859-15');
+        $html2pdf->pdf->SetAutoPageBreak(false, 0);
+        $html2pdf->setDefaultFont('helvetica');        
+        $html2pdf->writeHTML(utf8_decode($content));;
+        $savefilepath = __CBO_ROOT_PATH__ . '/temp/' . $nom_fichier;
+        $html2pdf->Output($savefilepath, 'F');
+        echo __CBO_TEMP_URL__ . $nom_fichier;
+    } catch (HTML2PDF_exception $e) {
+        exit;
+    }
+
+    exit;
+} // FIN fonction
