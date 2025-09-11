@@ -25,7 +25,8 @@ function chargerClass($class) {
 		$_SESSION['classcalls'][] = $class;
 
 		//$path = __CBO_ROOT_PATH__;
-        $path = '/home/brutos/Documents/Brutos2024/iprex/iprex';
+        //$path = '/home/brutos/Documents/Brutos2024/iprex/iprex';
+		$path = __CBO_ROOT_PATH__;
         //var_dump($path);
 		require_once($path.'/class/'.$class.'.class.php');
 	}

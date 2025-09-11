@@ -58,13 +58,13 @@ Générée le 12/11/2018 à 17:24:05
 	$conf_bdd_local_port	= 3306;
 	$conf_bdd_local_bdd		= 'iprex';
 	$conf_bdd_local_user	= 'root';
-	$conf_bdd_local_pw		= 'root';
+	$conf_bdd_local_pw		= '';
 
 	$conf_bdd_prod_host		= 'localhost';
 	$conf_bdd_prod_port		= 3306;
 	$conf_bdd_prod_bdd		= 'iprex';
 	$conf_bdd_prod_user		= 'root';
-	$conf_bdd_prod_pw		= 'root';
+	$conf_bdd_prod_pw		= '';
 
 	$conf_bdd_myadmin		= 'https://localhost/phpmyadmin';
 
