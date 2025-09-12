@@ -1435,18 +1435,15 @@ function modeGenerePdf()
     }
 
     require_once(__CBO_ROOT_PATH__ . '/vendor/html2pdf/html2pdf.class.php');
-    
+
     ob_start();
     $content = genereContenuPdf($lotNegoce);
-    $content .= ob_get_clean();
-
-    var_dump($content);
+    $content .= ob_get_clean();    
 
     // On supprime tous les fichiers du même genre sur le serveur
-    foreach (glob(__CBO_ROOT_PATH__ . '/temp/iprexlot-*.pdf') as $fichier) {
+    foreach (glob(__CBO_ROOT_PATH__ . '/temp/iprexlotnegoce-*.pdf') as $fichier) {
         unlink($fichier);
     }
-
 
     try {
         $nom_fichier = 'iprexlotnegoce-' . sprintf("%04d", $id_lot) . '-' . date('is') . '.pdf';
@@ -1458,6 +1455,8 @@ function modeGenerePdf()
         $html2pdf->Output($savefilepath, 'F');
         echo __CBO_TEMP_URL__ . $nom_fichier;
     } catch (HTML2PDF_exception $e) {
+
+        echo $e;
         exit;
     }
 
@@ -1468,13 +1467,186 @@ function modeGenerePdf()
 FONCTION DEPORTEE - Génère le contenu HTML du lot pour le PDF
 -----------------------------------------------------------------------------*/
 function genereContenuPdf(LotNegoce $lotNegoce)
-{    
-    $contenu = str_replace('Œ', 'OE', $contenu);
-    // RETOUR CONTENU
-    return $contenu;
+{
+    global $cnx, $lotsNegoceManager;
+
+    $orderPrestashopManager = new OrdersPrestashopManager($cnx);
+    $tiersManager = new TiersManager($cnx);
+    $id_client_web = $tiersManager->getId_client_web();   
+
+    $contenu = '<!DOCTYPE html>
+    <html>
+    <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+      <style type="text/css">
+      
+        * { margin:0; padding: 0; }
+      
+        .header { border-bottom: 2px solid #ccc; }
+        .header img.logo { width: 200px; }
+        .text-right { text-align: right; }
+        .text-center { text-align: center; }
+        .table { border-collapse: collapse; }
+        .table-donnees th { font-size: 11px; }
+        .table-liste th { font-size: 9px; background-color: #d5d5d5; padding:3px; }
+        .table-liste td { font-size: 9px; padding-top: 3px; padding-bottom: 3px; border-bottom: 1px solid #ccc;}
+        .table-liste td.no-bb { border-bottom: none; padding-bottom: 0px; }
+        .table-liste tr.soustotal td { background-color: #d5d5d5; }
+        .titre {
+           background-color: teal;
+           color: #fff;
+           padding: 3px;
+           text-align: center;
+           font-weight: normal;
+           font-size: 14px;
+        }
+        
+        table.vtop td { vertical-align: top; }
+        
+        .w100 { width: 100%; }
+        .w75 { width: 75%; }
+        .w50 { width: 50%; }
+        .w40 { width: 40%; }
+        .w25 { width: 25%; }
+        .w33 { width: 33%; }
+        .w34 { width: 34%; }
+        .w30 { width: 30%; }
+        .w20 { width: 20%; }
+        .w30 { width: 30%; }
+        .w15 { width: 15%; }
+        .w35 { width: 35%; }
+        .w5  { width: 5%;  }
+        .w10 { width: 10%; }
+        .w15 { width: 15%; }
+        
+        .text-6 { font-size: 6px; }
+        .text-7 { font-size: 7px; }
+        .text-8 { font-size: 8px; }
+        .text-9 { font-size: 9px; }
+        .text-10 { font-size: 10px; }
+        .text-11 { font-size: 11px; }
+        .text-12 { font-size: 12px; }
+        .text-14 { font-size: 14px; }
+        .text-16 { font-size: 16px; }
+        .text-18 { font-size: 18px; }
+        .text-20 { font-size: 20px; }
+        
+        .gris-3 { color:#333; }
+        .gris-5 { color:#555; }
+        .gris-7 { color:#777; }
+        .gris-9 { color:#999; }
+        .gris-c { color:#ccc; }
+        .gris-d { color:#d5d5d5; }
+        .gris-e { color:#e5e5e5; }
+        
+        .mt-0 { margin-top: 0px; }
+        .mt-2 { margin-top: 2px; }
+        .mt-5 { margin-top: 5px; }
+        .mt-10 { margin-top: 10px; }
+        .mt-15 { margin-top: 15px; }
+        .mt-20 { margin-top: 20px; }
+        .mt-25 { margin-top: 25px; }
+        .mt-50 { margin-top: 50px; }
+        
+        .mb-0 { margin-bottom: 0px; }
+        .mb-2 { margin-bottom: 2px; }
+        .mb-5 { margin-bottom: 5px; }
+        .mb-10 { margin-bottom: 10px; }
+        .mb-15 { margin-bottom: 15px; }
+        .mb-20 { margin-bottom: 20px; }
+        .mb-25 { margin-bottom: 25px; }
+        .mb-50 { margin-bottom: 50px; }
+        
+        .mr-0 { margin-right: 0px; }
+        .mr-2 { margin-right: 2px; }
+        .mr-5 { margin-right: 5px; }
+        .mr-10 { margin-right: 10px; }
+        .mr-15 { margin-right: 15px; }
+        .mr-20 { margin-right: 20px; }
+        .mr-25 { margin-right: 25px; }
+        .mr-50 { margin-right: 50px; }
+        
+        .ml-0 { margin-left: 0px; }
+        .ml-2 { margin-left: 2px; }
+        .ml-5 { margin-left: 5px; }
+        .ml-10 { margin-left: 10px; }
+        .ml-15 { margin-left: 15px; }
+        .ml-20 { margin-left: 20px; }
+        .ml-25 { margin-left: 25px; }
+        .ml-50 { margin-left: 50px; }
+        
+        .pt-0 { padding-top: 0px; }
+        .pt-2 { padding-top: 2px; }
+        .pt-5 { padding-top: 5px; }
+        .pt-10 { padding-top: 10px; }
+        .pt-15 { padding-top: 15px; }
+        .pt-20 { padding-top: 20px; }
+        .pt-25 { padding-top: 25px; }
+        .pt-50 { padding-top: 50px; }
+        
+        .pb-0 { padding-bottom: 0px; }
+        .pb-2 { padding-bottom: 2px; }
+        .pb-5 { padding-bottom: 5px; }
+        .pb-10 { padding-bottom: 10px; }
+        .pb-15 { padding-bottom: 15px; }
+        .pb-20 { padding-bottom: 20px; }
+        .pb-25 { padding-bottom: 25px; }
+        .pb-50 { padding-bottom: 50px; }
+        
+        .pr-0 { padding-right: 0px; }
+        .pr-2 { padding-right: 2px; }
+        .pr-5 { padding-right: 5px; }
+        .pr-10 { padding-right: 10px; }
+        .pr-15 { padding-right: 15px; }
+        .pr-20 { padding-right: 20px; }
+        .pr-25 { padding-right: 25px; }
+        .pr-50 { padding-right: 50px; }
+        
+        .pl-0 { padding-left: 0px; }
+        .pl-2 { padding-left: 2px; }
+        .pl-5 { padding-left: 5px; }
+        .pl-10 { padding-left: 10px; }
+        .pl-15 { padding-left: 15px; }
+        .pl-20 { padding-left: 20px; }
+        .pl-25 { padding-left: 25px; }
+        .pl-50 { padding-left: 50px; }
+        
+        .text-danger { color: #d9534f; }
+        
+        table.table-lot-stock-expedies tr td {
+            background-color: #e5e5e5;
+        }
+        
+        table.table-lot-stock-expedies tr.lot-stock-expedies-total-client td {
+            border-top: 1px solid #cccccc;
+            border-bottom: none;
+            color:#777;
+        }
+        
+        table.table-lot-stock-expedies tr.lot-stock-expedies-client td {
+            border-bottom: none;
+        }
+        
+        table.table-lot-stock-expedies tr.lot-stock-expedies-client td,
+        table.table-lot-stock-expedies tr.lot-stock-expedies-total-client td {
+            background-color: #f5f5f5;
+        }
+    
+      </style> 
+    </head>
+    <body>';
+    
+        $contenu .=  genereEntetePagePdf($lotNegoce);
+        $contenu .= genereInformationGenerale($lotNegoce);
+        $contenu .= genereIncident($lotNegoce);
+        $contenu .= genereReception($lotNegoce);
+        $contenu .= genereProduits($lotNegoce);
+
+
+$contenu = str_replace('Œ', 'OE', $contenu);
+
+return $contenu;
 } // FIN fonction déportée
-
-
 
 /* ----------------------------------------------------------------------------
 FONCTION DEPORTEE - Génère le header du PDF (logo, n° de lot...)
@@ -1482,4 +1654,248 @@ FONCTION DEPORTEE - Génère le header du PDF (logo, n° de lot...)
 function genereEntetePagePdf(LotNegoce $lotNegoce)
 {
 
+    global $cnx, $lotsNegoceManager;       
+
+    $quantiemes = $lotsNegoceManager->getLotQuantiemes($lotNegoce);
+    
+    if (count($quantiemes) == 1) {
+        $numlot = $lotNegoce->getNum_bl() . $quantiemes[0];
+    } else {
+        $numlot = $lotNegoce->getNum_bl();
+    }
+
+    $detailsQuantiemes = '';
+    if (count($quantiemes) > 1) {
+        $detailsQuantiemes .= '<br><span class="text-9 ml-15">Quantièmes : ';
+        foreach ($quantiemes as $quantieme) {
+            $detailsQuantiemes .= '<span class="text-10"><b>' . $quantieme . '</b></span> - ';
+        }
+        $detailsQuantiemes = substr($detailsQuantiemes, 0, -3);
+        $detailsQuantiemes .= '</span>';
+    }
+    $entete = '<div class="header">
+                <table class="table w100">
+                    <tr>
+                        <td class="w33"><img src="' .__CBO_ROOT_PATH__. 'img/logo-pe-350.jpg" alt="PROFIL EXPORT" class="logo"/></td>
+                        <td class="w34 text-center pt-10">
+                            <span class="text-12">LOT</span> <span class="text-16"><b>' . $numlot . '</b>' . $detailsQuantiemes . '</span>
+                        </td>
+                        <td class="w33 text-right text-14">
+                            <p class="text-18"><b>IPREX</b></p>
+                            <p class="text-12 gris-7">Intranet PROFIL EXPORT</p>
+                        </td>
+                    </tr>                
+                </table>
+               </div>';
+
+    return $entete;
+
 } // FIN fonction déportée
+
+//Information Generale dans le tableau
+function genereInformationGenerale(LotNegoce $lotNegoce){
+    global $lotsNegoceManager;
+    // Préparation des variables
+    $na             = '<span class="gris-9 text-11"><i>Non renseigné</i></span>';
+    $tiret          = '<span class="gris-9 text-11"><i>-</i></span>';      
+    
+    $dateReception  = $lotNegoce->getDate_reception() != '' && $lotNegoce->getDate_reception() != '0000-00-00'
+        ? Outils::getDate_only_verbose($lotNegoce->getDate_reception(), true, false) : $na;
+    $numagr_client = $lotNegoce->getNumagr() != '' ? $lotNegoce->getNumagr() : $na;
+    
+    $poidsReception = $lotsNegoceManager->getPoidsLotNegoce($lotNegoce->getId()) > 0 ? number_format($lotsNegoceManager->getPoidsLotNegoce($lotNegoce->getId()), 3, '.', ' ') : $na;
+    /*$ecartReception = $lot->getPoids_abattoir() > 0 && $lot->getPoids_reception() > 0
+        ? number_format($lot->getPoids_reception() - $lot->getPoids_abattoir(), 3) . ' <span class="texte-fin text-14">Kg</span>' : $na;;*/   
+
+    // Génération du contenu HTML
+    $informationGenerale = '<table class="table w100 mt-15"><tr><th class="w100 titre">Informations générales</th></tr></table>';
+    $informationGenerale .= '<table class="table table-donnees w100 mt-10">
+                     <tr>
+                        <th class="w20">Fournisseur :</th>
+                        <td class="w30">' . $lotNegoce->getNom_fournisseur() . '</td>
+                        <th class="w20">Nombre de produits :</th>
+                        <td class="w30 pt-5 text-right">' . $lotsNegoceManager->getNbProduitsByLot($lotNegoce) . '</td>
+                     </tr>                     
+                     <tr>                        
+                        <th class="w20">Agrément  :</th>
+                        <td class="w30 ">' . $numagr_client . '</td>
+                        <th class="w20 pt-5">Date de réception :</th>
+                        <td class="w30 pt-5 text-right" >' . $dateReception . '</td>
+                    </tr>                    
+                    <tr>                        
+                        <th class="w20 pt-5">Poids réception :</th>
+                        <td class="w30 pt-5">' . $poidsReception . '</td>
+                        <th class="w20 pt-5">Poids Restant :</th>
+                        <td class="w30 pt-5">' . $na . '</td>
+                    </tr>          
+                </table>';
+
+    return $informationGenerale;
+}
+//Fin d'Information Generale
+
+ // Incidents
+ function genereIncident(LotNegoce $lotNegoce){
+    global $cnx, $incidentsManager, $contenu_incident;
+
+    $incidentsManager = new IncidentsManager($cnx);
+    $params = ['id_lot_negoce' => $lotNegoce->getId()];    
+    $incidents = $incidentsManager->getIncidentsListe($params);
+    
+    if (!empty($incidents)) {
+        $contenu_incident .= '<table class="table w100 mt-15"><tr><th class="w100 titre">Incidents</th></tr></table>';
+        $contenu_incident .= '<table class="table table-donnees w100 mt-10 text-11">
+                        <tr>
+                            <th class="w20">Incident</th>
+                            <th class="w40 text-center">Date</th>
+                            <th class="w40 text-center">Signalé par</th>
+                        </tr>';
+   
+        foreach ($incidents as $incident) {   
+            $contenu_incident .= '<tr>
+                                    <td class="w20 pt-5">' . $incident->getNom_type_incident() . '</td>
+                                    <td class="w40 pt-5 text-center">' . Outils::getDate_verbose($incident->getDate(), false) . '</td>
+                                    <td class="w40 pt-5 text-center">' . $incident->getNom_user() . '</td>
+                                    </tr>';
+        }
+        $contenu_incident .= '<tr><td colspan="3" class="w100 pt-5"> </td></tr>
+                <tr>
+                    <td colspan="3" class="w100 pt-5 text-center gris-9 text-11"><i>Plus de détails dans la partie "Commentaires" ci-après.</i></td>
+                </tr>
+            </table>';
+    }   
+    return $contenu_incident;
+ }// FIN test incidents
+ 
+
+ //Pour la receptiton 
+function genereReception(lotNegoce $lotNegoce){
+    global $cnx, $na;
+    if ($lotNegoce->getReception() != null) {
+
+        // Préparation des variables
+        $statutReception        = $lotNegoce->getDate_reception() !== '' && $lotNegoce->getDate_reception() != '0000-00-00' ? 'Réceptionné' : 'Non réceptionné';
+        $etatVisuel             = $lotNegoce->getReception()->getEtat_visuel() < 0 ? $na : '';
+        $etatVisuel             = $etatVisuel == '' ? $lotNegoce->getReception()->getEtat_visuel_verbose() : $etatVisuel;
+        $etatVisuelCss          = $lotNegoce->getReception()->getEtat_visuel() == 0 ? 'text-danger' : '';        
+        $temperaturesReception =  $lotNegoce->getTemp() > 0 ? $lotNegoce->getTemp() : $na ;
+        $conformite             = $lotNegoce->getReception()->getConformite() < 0 ? $na : $lotNegoce->getReception()->getConformite_verbose();
+        $conformiteCss          = $lotNegoce->getReception()->getConformite() == 0 ? 'text-danger' : '';
+        $nomReceptionniste      = $lotNegoce->getReception()->isConfirmee() ? $lotNegoce->getReception()->getUser_nom() : $na;
+        $visaReceptionniste     = $lotNegoce->getReception()->isConfirmee() ? Outils::getDate_verbose($lotNegoce->getReception()->getDate_confirmation(), false, ' - ') : $na;
+        $nomResponsableRcp      = $lotNegoce->getReception()->isValidee() ? $lotNegoce->getReception()->getValidateur_nom() : $na;
+        $visaResponsableRcp     = $lotNegoce->getReception()->isValidee() ? Outils::getDate_verbose($lotNegoce->getReception()->getValidation_date(), false, ' - ') : $na;
+
+        // Génération du contenu HTML
+        $contenu_reception = '<table class="table w100 mt-15"><tr><th class="w100 titre">Réception</th></tr></table>';
+        $contenu_reception .= '<table class="table table-donnees w100 mt-10">        
+                    <tr>
+                        <th class="w20">Statut :</th>
+                        <td class="w30">' . $statutReception . '</td>
+                        <th class="w20">Etat visuel :</th>
+                        <td class="w30 text-right ' . $etatVisuelCss . '">' . $etatVisuel . '</td>
+                    </tr>
+                     <tr>
+                        <th class="w20 pt-5" valign="top">Températures :</th>
+                        <td class="w30 pt-5">' . $temperaturesReception . '</td>
+                        <th class="w20 pt-5" valign="top">Conformité :</th>
+                        <td class="w30 text-right pt-5 ' . $conformiteCss . '" valign="top">' . $conformite . '</td>
+                    </tr>
+                    <tr>
+                        <th class="w20 pt-5">Receptionniste :</th>
+                        <td class="w30 pt-5">' . $nomReceptionniste . '</td>
+                        <th class="w20 pt-5">Visa :</th>
+                        <td class="w30 text-right pt-5">' . $visaReceptionniste . '</td>
+                    </tr>
+                    <tr>
+                        <th class="w20 pt-5">Responsable :</th>
+                        <td class="w30 pt-5">' . $nomResponsableRcp . '</td>
+                        <th class="w20 pt-5">Visa :</th>
+                        <td class="w30 text-right pt-5">' . $visaResponsableRcp . '</td>
+                    </tr>
+                </table>';
+    } else {
+        $contenu_reception .= '<table class="table w100 mt-15"><tr><th class="w100 titre">Réception</th></tr></table>';
+        $contenu_reception .= '<table class="table table-donnees w100 mt-10">
+                    <tr><td class="w100 text-center gris-9 text-11"><i>Non réceptionné</i></td></tr>
+                </table>';
+    }
+
+    return $contenu_reception;
+ } //Fin reception
+
+//Pour Produit
+ function genereProduits(lotNegoce $lotNegoce) {
+    global $cnx, $contenu_produits, $lotsNegoceManager, $BLigneManager;
+
+    $params                  = [];
+    $params['id_lot'] = $lotNegoce->getId();
+    $params['orderbyfroid']  = true;
+    //$params['meme_si_pas_compo'] 	 = true;
+    $froidManager     = new FroidManager($cnx);
+    $BLigneManager    = new BlManager($cnx);
+
+    $listePdtsLot = $lotsNegoceManager->getListeLotsNegoceProduits($params); 
+
+    // Génération du contenu HTML
+    $contenu_produits = '<table class="table w100 mt-15"><tr><th class="w100 titre">Produits</th></tr></table>';
+    $contenu_produits .= '<table class="table table-liste w100 mt-1">';
+
+    // Aucun Produit
+    if (empty($listePdtsLot)) {
+        $contenu_produits .= '<tr><td class="w100 text-center gris-9 text-11"><i>Aucun produit</i></td></tr>';
+        // Liste des produits
+    } else {
+        $contenu_produits .= '<tr>
+        <th class="w15">Numero de lot</th>
+        <th class="w30">Nom du produit</th>
+        <th class="w15">DLC/DDM</th>
+        <th class="w15">Nb de cartons</th>        
+        <th class="w15">Quantite</th>
+        <th class="w15">Poids réceptionné</th>        
+        </tr>';
+
+        foreach($listePdtsLot as $listePdtsLotNegoce){
+            $contenu_produits .='<tr>                        
+                        <td class="w15 pt-5">'. $listePdtsLotNegoce->getNum_lot() .'</td>                                                
+                        <td class="w20 pt-5">'. $listePdtsLotNegoce->getNom_produit() .'</td>    
+                        <td class="w18 pt-5 text-center">'. $listePdtsLotNegoce->getDlc() .'</td>    
+                        <td class="w12 pt-5 text-center">'. $listePdtsLotNegoce->getNb_cartons() .'</td>    
+                        <td class="w15 pt-5 text-center">'. $listePdtsLotNegoce->getQuantite() .'</td>   
+                        <td class="w20 pt-5">'. $listePdtsLotNegoce->getPoids() .'</td>   
+                    </tr>';
+
+            if(!empty($listePdtsLotNegoce->getId_lot_pdt_negoce())){
+                $id_lot_pdt_negoce = $listePdtsLotNegoce->getId_lot_pdt_negoce();                
+
+                $contenu_produits .= '<tr>
+                        <td></td>
+                        <th class="w15">Client</th>
+                        <td></td>
+                        <td></td>                                                
+                        <th class="w15">Poids traitement</th>
+                        <td></td>
+                </tr>';
+                $produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);
+
+                foreach ($produitsStockExpedie as $ligne) {
+                    $contenu_produits .= '
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>'.$ligne->getPoids() != "" ? number_format($ligne->getPoids(), 3, '.', ' ') . ' kg' : '-' .'</td>
+                    </tr>                
+                    ';
+                }
+                
+
+            }
+            
+            
+
+        }
+
+    }
+            $contenu_produits .= '</table>';
+        return $contenu_produits;
+}
