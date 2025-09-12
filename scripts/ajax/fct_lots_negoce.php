@@ -1421,8 +1421,7 @@ MODE - Génère un PDF des infos détaillés du lot Negoce
 function modeGenerePdf()
 {
 
-    global
-        $lotsNegoceManager;
+    global $lotsNegoceManager;
 
     $id_lot = isset($_REQUEST['id_lot']) ? intval($_REQUEST['id_lot']) : 0;
     if ($id_lot == 0) {
@@ -1436,10 +1435,12 @@ function modeGenerePdf()
     }
 
     require_once(__CBO_ROOT_PATH__ . '/vendor/html2pdf/html2pdf.class.php');
-
+    
     ob_start();
-    $content = genereContenuPdf($lot);
+    $content = genereContenuPdf($lotNegoce);
     $content .= ob_get_clean();
+
+    var_dump($content);
 
     // On supprime tous les fichiers du même genre sur le serveur
     foreach (glob(__CBO_ROOT_PATH__ . '/temp/iprexlot-*.pdf') as $fichier) {
@@ -1448,7 +1449,7 @@ function modeGenerePdf()
 
 
     try {
-        $nom_fichier = 'iprexlot-' . sprintf("%04d", $id_lot) . '-' . date('is') . '.pdf';
+        $nom_fichier = 'iprexlotnegoce-' . sprintf("%04d", $id_lot) . '-' . date('is') . '.pdf';
         $html2pdf = new HTML2PDF('P', 'A4', 'fr', false, 'ISO-8859-15');
         $html2pdf->pdf->SetAutoPageBreak(false, 0);
         $html2pdf->setDefaultFont('helvetica');        
@@ -1462,3 +1463,23 @@ function modeGenerePdf()
 
     exit;
 } // FIN fonction
+
+/* ----------------------------------------------------------------------------
+FONCTION DEPORTEE - Génère le contenu HTML du lot pour le PDF
+-----------------------------------------------------------------------------*/
+function genereContenuPdf(LotNegoce $lotNegoce)
+{    
+    $contenu = str_replace('Œ', 'OE', $contenu);
+    // RETOUR CONTENU
+    return $contenu;
+} // FIN fonction déportée
+
+
+
+/* ----------------------------------------------------------------------------
+FONCTION DEPORTEE - Génère le header du PDF (logo, n° de lot...)
+-----------------------------------------------------------------------------*/
+function genereEntetePagePdf(LotNegoce $lotNegoce)
+{
+
+} // FIN fonction déportée
