@@ -1501,6 +1501,11 @@ function genereContenuPdf(LotNegoce $lotNegoce)
            font-size: 14px;
         }
         
+        .blue {
+            background-color: #27C5F5 ;
+            color:#000;
+            }
+
         table.vtop td { vertical-align: top; }
         
         .w100 { width: 100%; }
@@ -1815,7 +1820,7 @@ function genereReception(lotNegoce $lotNegoce){
                     </tr>
                 </table>';
     } else {
-        $contenu_reception .= '<table class="table w100 mt-15"><tr><th class="w100 titre">Réception</th></tr></table>';
+        $contenu_reception = '<table class="table w100 mt-15"><tr><th class="w100 titre">Réception</th></tr></table>';
         $contenu_reception .= '<table class="table table-donnees w100 mt-10">
                     <tr><td class="w100 text-center gris-9 text-11"><i>Non réceptionné</i></td></tr>
                 </table>';
@@ -1838,64 +1843,89 @@ function genereReception(lotNegoce $lotNegoce){
     $listePdtsLot = $lotsNegoceManager->getListeLotsNegoceProduits($params); 
 
     // Génération du contenu HTML
-    $contenu_produits = '<table class="table w100 mt-15"><tr><th class="w100 titre">Produits</th></tr></table>';
-    $contenu_produits .= '<table class="table table-liste w100 mt-1">';
+    $contenu_produits = '<table class="table w100 mt-15">
+    <tr><th class="w100 titre">Produits</th></tr>
+</table>';
 
-    // Aucun Produit
-    if (empty($listePdtsLot)) {
-        $contenu_produits .= '<tr><td class="w100 text-center gris-9 text-11"><i>Aucun produit</i></td></tr>';
-        // Liste des produits
-    } else {
-        $contenu_produits .= '<tr>
+$contenu_produits .= '<table class="table table-liste w100 mt-1">';
+
+// Aucun Produit
+if (empty($listePdtsLot)) {
+    $contenu_produits .= '<tr>
+        <td class="w100 text-center gris-9 text-11"><i>Aucun produit</i></td>
+    </tr>';
+} else {
+    // En-têtes
+    $contenu_produits .= '<tr>
         <th class="w15">Numero de lot</th>
         <th class="w30">Nom du produit</th>
         <th class="w15">DLC/DDM</th>
-        <th class="w15">Nb de cartons</th>        
-        <th class="w15">Quantite</th>
-        <th class="w15">Poids réceptionné</th>        
-        </tr>';
+        <th class="w15">Nb de cartons</th>
+        <th class="w15">Quantité</th>
+        <th class="w15">Poids réceptionné</th>
+    </tr>';
 
-        foreach($listePdtsLot as $listePdtsLotNegoce){
-            $contenu_produits .='<tr>                        
-                        <td class="w15 pt-5">'. $listePdtsLotNegoce->getNum_lot() .'</td>                                                
-                        <td class="w20 pt-5">'. $listePdtsLotNegoce->getNom_produit() .'</td>    
-                        <td class="w18 pt-5 text-center">'. $listePdtsLotNegoce->getDlc() .'</td>    
-                        <td class="w12 pt-5 text-center">'. $listePdtsLotNegoce->getNb_cartons() .'</td>    
-                        <td class="w15 pt-5 text-center">'. $listePdtsLotNegoce->getQuantite() .'</td>   
-                        <td class="w20 pt-5">'. $listePdtsLotNegoce->getPoids() .'</td>   
-                    </tr>';
 
-            if(!empty($listePdtsLotNegoce->getId_lot_pdt_negoce())){
-                $id_lot_pdt_negoce = $listePdtsLotNegoce->getId_lot_pdt_negoce();                
+foreach ($listePdtsLot as $listePdtsLotNegoce) {
+    $contenu_produits .= '<tr>
+        <td class="w15 pt-5 blue">'. $listePdtsLotNegoce->getNum_lot() .'</td>
+        <td class="w20 pt-5">'. $listePdtsLotNegoce->getNom_produit() .'</td>
+        <td class="w18 pt-5 text-center">'. $listePdtsLotNegoce->getDlc() .'</td>
+        <td class="w12 pt-5 text-center">'. $listePdtsLotNegoce->getNb_cartons() .'</td>
+        <td class="w15 pt-5 text-center">'. $listePdtsLotNegoce->getQuantite() .'</td>
+        <td class="w20 pt-5">'
+            . (!empty($listePdtsLotNegoce->getPoids())
+                ? number_format($listePdtsLotNegoce->getPoids(), 1, '.', ' ') . ' kg'
+                : '-') .
+        '</td>
+    </tr>';
 
-                $contenu_produits .= '<tr>
-                        <td></td>
-                        <th class="w15">Client</th>
-                        <td></td>
-                        <td></td>                                                
-                        <th class="w15">Poids traitement</th>
-                        <td></td>
-                </tr>';
-                $produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);
+    if (!empty($listePdtsLotNegoce->getId_lot_pdt_negoce())) {
 
-                foreach ($produitsStockExpedie as $ligne) {
-                    $contenu_produits .= '
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td>'.$ligne->getPoids() != "" ? number_format($ligne->getPoids(), 3, '.', ' ') . ' kg' : '-' .'</td>
-                    </tr>                
-                    ';
-                }
+        // flags pour éviter les répétitions
+        $titreClients = false;
+        $titrePoids   = false;
+
+
+        $id_lot_pdt_negoce = $listePdtsLotNegoce->getId_lot_pdt_negoce();         
+        $produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);
+
+        foreach ($produitsStockExpedie as $ligne) {                
+            $contenu_produits .= '<tr><td></td><td>';
+            
+            // Titre Client affiché une seule fois
+            if ($titreClients === false) {
+                $contenu_produits .= 'Client :';
+                $titreClients = true;
+            }                
                 
-
-            }
+            $contenu_produits .= '</td><td>'
+                . (!empty($ligne->getLibelle()) ? $ligne->getLibelle() : $na) .                    
+                '</td><td></td>';                    
             
-            
+            $contenu_produits .= '<td>';
 
+            // Titre Poids affiché une seule fois
+            if ($titrePoids === false) {
+                $contenu_produits .= 'Poids traitement : ';
+                $titrePoids = true;
+            }                       
+
+            $contenu_produits .= '</td>
+                <td class="w15 pt-5 gris-c">'
+                    . (!empty($ligne->getPoids())
+                        ? number_format($ligne->getPoids(), 1, '.', ' ') . ' kg'
+                        : '-') .
+                '</td>
+            </tr>';
         }
-
     }
-            $contenu_produits .= '</table>';
+}
+
+   
+}
+
+$contenu_produits .= '</table>';
+
         return $contenu_produits;
 }
