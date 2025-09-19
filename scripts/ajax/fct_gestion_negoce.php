@@ -632,11 +632,16 @@ function modeModalLotInfo(){
                         <?php						
 						if (is_array($lotsNegoce->getVues()) && !empty($lotsNegoce->getVues())) {
                             $firstVue = true;
-                            foreach ($lotsNegoce->getVues() as $lotvue) {								
-                                if ($lotsNegoce->getVues()) {?>
+                            foreach ($lotsNegoce->getVues() as $lotvue) {							
+								
+                                if ($lotvue->getVue() != NULL) {
+									
+								var_dump($lotvue->getVue());
+									?>
 								<span class="badge badge-info form-control text-14 <?php echo !$firstVue ? 'margin-top-5' : ''; ?>"><?php echo $lotvue->getVue()->getNom(); ?></span>
-                            <?php } else {								
-                                    echo '&mdash;';
+                            <?php } else { ?>								
+                                    <span class="badge badge-info form-control text-14 margin-top-5">negoce </span>
+									<?php
                                 } // FN test instanciation objet Vue
 
                                 $firstVue = false;
@@ -1101,7 +1106,7 @@ function modeModalLotProduitInfo(){
 
 			global
 			$BLigneManager;	
-			$produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);			
+			$produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);
 			
 			if(empty($produitsStockExpedie)){?>
 				<div class="text-center padding-15 text-24 gris-7">

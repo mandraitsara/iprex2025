@@ -796,4 +796,20 @@ public function removeLotVue(LotNegoce $lot, $code_vue) {
 
 	} // FIN méthode
 
+
+	//get le nombre d'id
+	public function getNbProduitsNegoce($id_pdt_negoce){
+		$sql = "SELECT COUNT(id_pdt_negoce) AS nb 
+        FROM `pe_bl_lignes` 
+        WHERE `id_pdt_negoce` = :id_pdt_negoce";
+
+		$query = $this->db->prepare($sql);
+		$query->execute([':id_pdt_negoce' => $id_pdt_negoce]);
+		
+		$donnee = $query->fetch(PDO::FETCH_ASSOC);
+
+		return $donnee && isset($donnee['nb']) ? (int) $donnee['nb'] : 0;
+	}
+	//fin
+
 } // FIN classe

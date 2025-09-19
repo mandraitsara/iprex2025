@@ -230,12 +230,12 @@ function modeShowListeLotsNegoce() {
 					if (is_array($lot->getVues()) && !empty($lot->getVues())) {
 						 $firstVue = true;
                          foreach ($lot->getVues() as $lotvue) {
-							if ($lotvue->getVue() instanceof Vue) { 								
-
+							if ($lotvue->getVue() instanceof Vue) { 								                                
 								?>
-                                            <span class="badge badge-info form-control text-12 texte-fin <?php echo !$firstVue ? 'margin-top-5' : ''; ?>"><?php echo $lotvue->getVue()->getNom(); ?></span>
-                                        <?php } else { ?>
-                                            echo '&mdash;';
+                                <span class="badge badge-info form-control text-12 texte-fin <?php echo !$firstVue ? 'margin-top-5' : ''; ?>"><?php echo $lotvue->getVue()->getNom(); ?></span>
+                                        <?php } else { ?> 
+                                                    <span class="badge badge-info form-control text-12 texte-fin margin-top-5">negoce</span>
+
                                     <?php } // FN test instanciation objet Vue
 
                                                                     $firstVue = false;
@@ -1492,6 +1492,8 @@ function genereContenuPdf(LotNegoce $lotNegoce)
         .table-liste td { font-size: 9px; padding-top: 3px; padding-bottom: 3px; border-bottom: 1px solid #ccc;}
         .table-liste td.no-bb { border-bottom: none; padding-bottom: 0px; }
         .table-liste tr.soustotal td { background-color: #d5d5d5; }
+        .table-produit th { font-size: 9px; background-color: #d5d5d5; padding:3px; border-bottom: 1px solid #ccc; }
+        .table-produit tr td {border-bottom: 1px solid #ccc; padding: 3px; }
         .titre {
            background-color: teal;
            color: #fff;
@@ -1505,7 +1507,10 @@ function genereContenuPdf(LotNegoce $lotNegoce)
             background-color: #27C5F5 ;
             color:#000;
             }
-
+        .produit {
+            background-color: #757575;
+            color: #ffffff;
+            }
         table.vtop td { vertical-align: top; }
         
         .w100 { width: 100%; }
@@ -1519,7 +1524,9 @@ function genereContenuPdf(LotNegoce $lotNegoce)
         .w20 { width: 20%; }
         .w30 { width: 30%; }
         .w15 { width: 15%; }
+        .w14 { width: 14%; }
         .w35 { width: 35%; }
+        .w7 { width: 7%; }
         .w5  { width: 5%;  }
         .w10 { width: 10%; }
         .w15 { width: 15%; }
@@ -1645,9 +1652,7 @@ function genereContenuPdf(LotNegoce $lotNegoce)
         $contenu .= genereInformationGenerale($lotNegoce);
         $contenu .= genereIncident($lotNegoce);
         $contenu .= genereReception($lotNegoce);
-        $contenu .= genereProduits($lotNegoce);
-
-
+        $contenu .= genereProduits($lotNegoce);      
 $contenu = str_replace('Œ', 'OE', $contenu);
 
 return $contenu;
@@ -1830,7 +1835,7 @@ function genereReception(lotNegoce $lotNegoce){
  } //Fin reception
 
 //Pour Produit
- function genereProduits(lotNegoce $lotNegoce) {
+function genereProduits(lotNegoce $lotNegoce) {
     global $cnx, $contenu_produits, $lotsNegoceManager, $BLigneManager;
 
     $params                  = [];
@@ -1847,7 +1852,7 @@ function genereReception(lotNegoce $lotNegoce){
     <tr><th class="w100 titre">Produits</th></tr>
 </table>';
 
-$contenu_produits .= '<table class="table table-liste w100 mt-1">';
+$contenu_produits .= '<table class="table table-produit w100 mt-1">';
 
 // Aucun Produit
 if (empty($listePdtsLot)) {
@@ -1857,75 +1862,63 @@ if (empty($listePdtsLot)) {
 } else {
     // En-têtes
     $contenu_produits .= '<tr>
-        <th class="w15">Numero de lot</th>
-        <th class="w30">Nom du produit</th>
-        <th class="w15">DLC/DDM</th>
-        <th class="w15">Nb de cartons</th>
-        <th class="w15">Quantité</th>
-        <th class="w15">Poids réceptionné</th>
+                    <th class="w14">Numero de lot</th>
+                     <th class="w14">Client</th>
+					 <th class="w14">Produit</th>
+					 <th class="w14">Poids traitement</th>
+					 <th class="w14">Poids frais</th>
+					 <th class="w14">BL/BT</th>
+					 <th class="w14">Facture</th>
     </tr>';
 
 
 foreach ($listePdtsLot as $listePdtsLotNegoce) {
     $contenu_produits .= '<tr>
-        <td class="w15 pt-5 blue">'. $listePdtsLotNegoce->getNum_lot() .'</td>
-        <td class="w20 pt-5">'. $listePdtsLotNegoce->getNom_produit() .'</td>
-        <td class="w18 pt-5 text-center">'. $listePdtsLotNegoce->getDlc() .'</td>
-        <td class="w12 pt-5 text-center">'. $listePdtsLotNegoce->getNb_cartons() .'</td>
-        <td class="w15 pt-5 text-center">'. $listePdtsLotNegoce->getQuantite() .'</td>
-        <td class="w20 pt-5">'
+        <td class="w14 pt-5">'. $listePdtsLotNegoce->getNum_lot() .'</td>
+        <td class="w14 pt-5"></td>
+        <td class="w15 pt-5 produit">'. $listePdtsLotNegoce->getNom_produit() .'</td>        
+        <td class="w14 pt-5"></td>      
+        <td class="w15 pt-5">'
             . (!empty($listePdtsLotNegoce->getPoids())
                 ? number_format($listePdtsLotNegoce->getPoids(), 1, '.', ' ') . ' kg'
                 : '-') .
         '</td>
+        <td class="w14 pt-5"></td>    
+        <td class="w14 pt-5"></td>
     </tr>';
 
     if (!empty($listePdtsLotNegoce->getId_lot_pdt_negoce())) {
-
-        // flags pour éviter les répétitions
-        $titreClients = false;
-        $titrePoids   = false;
-
-
         $id_lot_pdt_negoce = $listePdtsLotNegoce->getId_lot_pdt_negoce();         
         $produitsStockExpedie = $BLigneManager->getProduitsNegoceProduitStock($id_lot_pdt_negoce);
 
-        foreach ($produitsStockExpedie as $ligne) {                
-            $contenu_produits .= '<tr><td></td><td>';
-            
-            // Titre Client affiché une seule fois
-            if ($titreClients === false) {
-                $contenu_produits .= 'Client :';
-                $titreClients = true;
-            }                
-                
-            $contenu_produits .= '</td><td>'
-                . (!empty($ligne->getLibelle()) ? $ligne->getLibelle() : $na) .                    
-                '</td><td></td>';                    
-            
-            $contenu_produits .= '<td>';
+    foreach ($produitsStockExpedie as $ligne) {          
 
-            // Titre Poids affiché une seule fois
-            if ($titrePoids === false) {
-                $contenu_produits .= 'Poids traitement : ';
-                $titrePoids = true;
-            }                       
+        $contenu_produits .='<tr>
+        <td class="w14"></td>
+        <td class="w14">'.(!empty($ligne->getLibelle()) ? $ligne->getLibelle() : '-').'</td>
+        <td class="w14"></td>
+        <td class="w14" class="gris-7">'.(!empty($ligne->getPoids())? number_format($ligne->getPoids(),1,'.','').' kg' : '-').'</td>
+        <td class="w14" ></td>
+        <td class="w14">'.(!empty($ligne->getNum_bl())?$ligne->getNum_bl() : '-').'</td>
+        <td class="w14">'.(!empty($ligne->getNum_facture())?$ligne->getNum_facture() : '-').'</td>        
 
-            $contenu_produits .= '</td>
-                <td class="w15 pt-5 gris-c">'
-                    . (!empty($ligne->getPoids())
-                        ? number_format($ligne->getPoids(), 1, '.', ' ') . ' kg'
-                        : '-') .
-                '</td>
-            </tr>';
+        </tr>       
+        ';        
         }
     }
-}
-
-   
+    }
+    
 }
 
 $contenu_produits .= '</table>';
-
+ // FOOTER
+ $contenu_produits .= '<table class="w100 gris-9">
+ <tr>
+     <td class="w50 text-8">Document édité le ' . date('d/m/Y') . ' à ' . date('H:i:s') . '</td>
+     <td class="w50 text-right text-6">&copy; 2019 IPREX / INTERSED </td>
+ </tr>
+</table>
+</body>
+</html>';
         return $contenu_produits;
 }
