@@ -992,6 +992,7 @@ function modeModalLotInfo()
             // Gestion de la pagination en mode déporté.
             modeShowLomasLot($id_lot);
 
+
             ?>
 
         </div><!-- FIN ONGLET CONTROLE LOMA  -->
@@ -3031,7 +3032,7 @@ function modeShowLomasLot($id_lot = 0)
         $id_froid =
 
             // Liste non vide, construction de la pagination...
-            $nbResults  = $lomaManager->getNb_results();
+        $nbResults  = $lomaManager->getNb_results();
         $pagination = new Pagination($page);
 
         $pagination->setUrl($filtresPagination);
@@ -3057,10 +3058,9 @@ function modeShowLomasLot($id_lot = 0)
             <?php
             // Boucle sur les loma
 
-            $froidManager = new FroidManager($cnx);
+            $froidManager = new FroidManager($cnx);            
 
-            foreach ($listeLomas as $loma) { ?>
-
+            foreach ($listeLomas as $loma) {?>            
                 <tr>
                     <td><code class="nowrap">L<?php echo sprintf("%03d", $loma->getId()); ?></code></td>
                     <td><?php echo strtoupper($loma->getCode_froid()) . sprintf("%04d", $loma->getId_froid()); ?></td>
@@ -3095,12 +3095,9 @@ function modeShowLomasLot($id_lot = 0)
                                             echo '<span class="badge badge-' . $apres_in . ' texte-fin text-11 mr-1 cursor-help" title="Test INOX (5.5mm)">IN</span>';
                                         }
 
-
-
-
-
                                         ?></td>
-                    <td><?php echo $loma->getNom_produit(); ?></td>
+                    <td><?php                     
+                    echo $loma->getCode_froid() === 'hac' ? 'Contrôle LOMA haché/piécé' : 'Contrôle LOMA en atelier' ;                                        ?></td>
                     <td><?php echo Outils::dateSqlToFr($loma->getDate_test()) . ' ';
                         echo Outils::getHeureOnly($loma->getDate_test()); ?></td>
                     <td>
@@ -3207,7 +3204,7 @@ function genereContenuPdf(Lot $lot)
     $id_client_web = $tiersManager->getId_client_web();
 
     // HEAD
-    $contenu = '<!DOCTYPE html>
+$contenu = '<!DOCTYPE html>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
