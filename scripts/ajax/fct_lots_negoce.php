@@ -18,7 +18,6 @@ require_once '../php/config.php';
 // Instanciation des Managers
 $logsManager = new LogManager($cnx);
 $lotsNegoceManager = new LotNegoceManager($cnx);
-
 $fonctionNom = 'mode'.ucfirst($mode);
 if (function_exists($fonctionNom)) {
 	$fonctionNom();
@@ -159,12 +158,13 @@ function modeShowListeLotsNegoce() {
 				<th>Fournisseur</th>
 				<th>Date de reception</th>
 				<th>Poids (Réception)</th>
+                <th>Poids (Restant)</th>
+                <th>Produits</th>                                
 				<?php if ($statut == 0) { ?>
 				<th class="text-center">Sortie</th>
 				<?php } ?>
                 <th class="text-center">Incidents</th>
-				<?php if ($statut == 1) {?>
-				<th class="text-center nowrap">Nombre Produits</th>		
+				<?php if ($statut == 1) {?>				
 				<th>Vues actuelles</th>
 				<th class="t-actions w-mini-admin-cell text-center">Visible</th>
 				<th class="t-actions w-mini-admin-cell text-center">Modifier</th>
@@ -186,7 +186,7 @@ function modeShowListeLotsNegoce() {
 				<tr data-id-lot="<?php echo $lot->getId();?>">
 				<td class="w-mini-admin-cell d-none d-xl-table-cell nowrap"><?php echo $lot->getNum_bl() != '' ? $lot->getNum_bl() : '&mdash;';?></td>
 				</td>				
-					<td class="text-right nowrap">
+					<td class="text-left nowrap">
 							<?php echo $lot->getNom_fournisseur($na); ?>
 					</td>					
 					<td class="text-center nowrap">
@@ -195,7 +195,23 @@ function modeShowListeLotsNegoce() {
 					<?php if ($statut == 0) { ?>
 						<td class="text-center nowrap"><?php echo $lot->getDate_out() != '' && $lot->getDate_out() != '0000-00-00 00:00:00' ? Outils::dateSqlToFr($lot->getDate_out()) : '&mdash;'; ?></td>
 					<?php } ?>
-					<td class="text-20 text-center"><?php echo $lotsNegoceManager->getPoidsLotNegoce($lot->getId()) > 0 ? number_format($lotsNegoceManager->getPoidsLotNegoce($lot->getId()), 3, '.', ' ') . ' <span class="texte-fin text-14">Kg</span>' : '&mdash;'; ?></td>
+					<td class="text-20 text-center"><?php echo $lotsNegoceManager->getPoidsLotNegoce($lot->getId()) > 0 ? number_format($lotsNegoceManager->getPoidsLotNegoce($lot->getId()), 3, '.', ' ') . ' Kg' : '&mdash;'; ?></td>
+
+                    <td class="text-20 text-center">
+
+                    <?php 
+                        $id_lot = $lot->getId();                        
+                            $lotNegoce = $lotsNegoceManager->getLotNegoce($id_lot);	
+                            
+                            if (!$lotNegoce instanceof LotNegoce) {
+                                exit;
+                            }
+                            poidsRestantLotNegoce($lotNegoce);
+                    ?>
+
+
+
+                    </td>
                     <td class="text-center">
 						<?php
 						$incidentsManager = new IncidentsManager($cnx);
@@ -207,7 +223,6 @@ function modeShowListeLotsNegoce() {
 						<?php }
 
 						foreach ($incidents as $incident) { ?>
-
                             <span class="fa-stack ico-incident pointeur text-12"
                                   data-id-incident="<?php echo $incident->getId()?>"
                                   data-verbose="<?php echo $incident->getNom_type_incident(); ?>"
@@ -1922,3 +1937,33 @@ $contenu_produits .= '</table>';
 </html>';
         return $contenu_produits;
 }
+
+
+
+
+//generer les poids de produits sur le tableau de Negoce
+
+function poidsRestantLotNegoce(LotNegoce $lotNegoce){
+    global $lotsNegoceManager;
+
+    if(!empty($lotNegoce)){
+         $produits = $lotNegoce->getProduits();
+         
+         foreach($produits as $negoceProduits){
+            $id_lot_pdt_negoce = $negoceProduits->getId_lot_pdt_negoce();
+            $poidsExpedie = $lotsNegoceManager->getPoidsExpedie($id_lot_pdt_negoce);
+
+         }
+    }
+    
+
+
+    //$poidsExpedie = $lotsNegoceManager->getPoidsExpedie($id_lot_pdt_negoce);
+
+
+
+}
+
+//Fin
+
+

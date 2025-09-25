@@ -1215,6 +1215,7 @@ function modeMiseEnAttenteBl() {
 	$id_langue 			= isset($_REQUEST['id_langue']) 	? intval($_REQUEST['id_langue']) 	: 0;
 	$nom_client 		= isset($_REQUEST['nom_client']) 	? trim($_REQUEST['nom_client']) 	: '';
 	$id_pdt_negoce = isset($_REQUEST['id_pdt_negoce']) 			? intval($_REQUEST['id_pdt_negoce']) 			: 0;
+	$id_lot_negoce = isset($_REQUEST['id_lot_negoce']) 			? intval($_REQUEST['id_lot_negoce']) 			: 0;
 	//$chiffrage 			= isset($_REQUEST['chiffrage']) 	? intval($_REQUEST['chiffrage']) 	: 0;
 
 	if ($id == 0) { exit('-1'); }
@@ -2967,7 +2968,7 @@ function modeAddCompoPdtBl() {
 		$ligne->setPu_ht($ligne->getPu_ht());
 		$ligne->setTva($ligne->getTva());
 		$ligne->setId_pdt_negoce($id_pdt_negoce);
-
+		$ligne->setId_lot_negoce($id_lot_negoce);
 		$ligne->setId_compo($id_compo);;
 		$ligne->setSupprime(0);
 		$ligne->setQte(1);
@@ -3531,6 +3532,8 @@ function modeAddLigneBl() {
 	$poids = isset($_REQUEST['poids']) ? floatval($_REQUEST['poids']) : 0;
 	$pu_ht = isset($_REQUEST['pu_ht']) ? floatval($_REQUEST['pu_ht']) : 0;
 	$id_taxe = isset($_REQUEST['id_taxe']) ? intval($_REQUEST['id_taxe']) : 0;
+	$id_lot_negoce = isset($_REQUEST['id_lot_negoce']) ? intval($_REQUEST['id_lot_negoce']) : 0;
+	
 
 	$id_palette = 0;
 	$id_lot = 0;
@@ -3583,6 +3586,9 @@ function modeAddLigneBl() {
 	$ligne->setPu_ht($pu_ht);
 	$ligne->setLibelle($nom);
 	$ligne->setTva($tva);
+	$ligne->setId_lot_negoce($id_lot_negoce);
+
+	
 	$id_ligne = $blsManagers->saveBlLigne($ligne);
 	echo (int)$id_ligne > 0 ? 1 : 0;
 
@@ -3597,7 +3603,6 @@ function modeAddLigneBl() {
 
 // Imprimme l'étiquette d'expédition du BL
 function modeImprimEtiquetteBl() {
-
 	global $cnx, $blsManagers;
 
 	$id_bl = isset($_REQUEST['id_bl']) ? intval($_REQUEST['id_bl']) : 0;
@@ -3831,7 +3836,8 @@ function modeFormProduitsBlManuel() {
     }
     ?>
     <input type="hidden" name="id_item" value="<?php echo $id; ?>" />
-    <input type="hidden" name="type_item" value="<?php echo $type; ?>" />
+    <input type="hidden" name="type_item" value="<?php echo $type; ?>" />		
+	<input type="hidden" name="id_lot_negoce" value="<?php echo $neg->getId_lot_negoce(); ?>" />		
     <div class="col-12 gris-5 text-13">
         <?php 
         if ($type == 'stk') {
@@ -3852,7 +3858,7 @@ function modeFormProduitsBlManuel() {
             echo $id > 0 ? 'Validez' : 'Précisez'; echo ' les détails de la ligne :';
             echo $utilisateur->isDev() && $id > 0 ? '<span class="text-11 gris-9 float-right"><i class="fa fa-user-secret mr-1"></i> '.$devTxt.' #'.$id.'</span>' : '';
         ?></p>
-        <div class="row">
+        <div class="row">			
             <div class="col-3 pr-1">
                 <div class="input-group">
                     <div class="input-group-prepend">
@@ -3940,6 +3946,7 @@ function modeAddLigneProduitBl() {
     $id_bl_ligne = isset($_REQUEST['id_bl_ligne'])  ? intval($_REQUEST['id_bl_ligne'])          : 0;
 	$qte_web     = isset($_REQUEST['quantite'])      ? intval($_REQUEST['quantite'])              : 1;
 	$id_pdt_negoce =  isset($_REQUEST['id_pdt_negoce'])  ? intval($_REQUEST['id_pdt_negoce'])  : 0;
+	$id_lot_negoce = isset($_REQUEST['id_lot_negoce']) ? intval($_REQUEST['id_lot_negoce']) : 0;		
 
 
 	// Gestion des erreurs
@@ -4149,8 +4156,7 @@ function modeAddLigneProduitBl() {
 	// Négoce -----------------------------------------------------------------------------
     } else if ($type_item == 'neg') {
 
-		$codeLog = strtoupper($type_item);
-		
+		$codeLog = strtoupper($type_item);		
         $id_pdt_neg = $id_item;
 		$pdt_neg = $negoceManager->getNegoceProduit($id_pdt_neg);		
 
@@ -4167,14 +4173,15 @@ function modeAddLigneProduitBl() {
 			if (!$ligne instanceof BlLigne) { exit('ERREUR INSTANCIATION LIGNE BL #'.$id_bl_ligne.' VIA WEB/NEG #'.$id_pdt_neg); }
 			$ligne->setId_compo(0);
 			$ligne->setId_pdt_negoce($id_pdt_negoce);
+			$ligne->setId_lot_negoce($id_lot_negoce);
 			$ligne->setId_produit($ligneTmp->getId_produit());
 			$ligne->setId_palette($ligneTmp->getId_palette());
 			$ligne->setNum_palette($ligneTmp->getNum_palette());
 			$ligne->setVendu_piece($ligneTmp->getVendu_piece());
 			$ligne->setNum_lot($ligneTmp->getNumlot());
-			$ligne->setId_lot($ligneTmp->getId_lot());
+			$ligne->setId_lot(0);
 			$ligne->setId_pays($ligneTmp->getId_pays());
-			$ligne->setLibelle($ligneTmp->getLibelle());
+			$ligne->setLibelle($ligneTmp->getLibelle());			
 		
         }
 
@@ -4252,6 +4259,8 @@ function modeAddLigneProduitBl() {
 		$ligne->setId_bl($id_bl);
 		$ligne->setId_produit_bl(0);		
 		$ligne->setId_pdt_negoce($id_pdt_negoce);
+		$ligne->setId_lot_negoce($id_lot_negoce);
+		
 		
 		if ($id_bl_ligne == 0) {
 			$ligne->setPu_ht($ligne->getPu_ht());
@@ -4262,10 +4271,10 @@ function modeAddLigneProduitBl() {
 		} else {
 			$ligne->setQte($qte_web);
 		}
+		
+		//var_dump($ligne); exit('ligne');
 
-
-		$id_ligne = $blsManagers->saveBlLigne($ligne);
-
+		$id_ligne = $blsManagers->saveBlLigne($ligne);	
 
 		if ($id_ligne == false) { exit('ERREUR SAVE LIGNE BL (FALSE)'); }
 		if (intval($id_ligne) == 0) { exit('ERREUR SAVE LIGNE BL (0)'); }
@@ -4275,6 +4284,7 @@ function modeAddLigneProduitBl() {
 		$log->setLog_texte("Création ligne #".$id_ligne." sur BL manuel #".$bl->getId()." (".$codeLog.")");
 		$logsManager->saveLog($log);
 		echo '1';
+
 		exit;
 
 	// Produit (hors stock) -----------------------------------------------------------------------------
@@ -4392,6 +4402,7 @@ function modeAddLigneProduitBl() {
 		$compo->setId_lot_pdt_froid(0);
 		$compo->setId_frais(0);
 		$compo->setId_lot_pdt_negoce($id_pdt_negoce);
+		$compo->setId_lot_negoce($id_lot_negoce);
 		$compo->setId_lot_regroupement(0);
 		$compo->setPoids($poids);
 		$compo->setNb_colis($nb_colis);
@@ -4432,6 +4443,7 @@ function modeAddLigneProduitBl() {
 			$ligne->setPoids($poids);
 			$ligne->setNb_colis($nb_colis);
 			$ligne->setId_pdt_negoce($id_pdt_negoce);
+			$ligne->setId_lot_negoce($id_lot_negoce);
 			$ligne->setQte($qte_web);
 			$ligne->setPu_ht($pu_ht);
 			$ligne->setTva($tva);
@@ -4448,6 +4460,7 @@ function modeAddLigneProduitBl() {
 			$ligne->setNumlot($num_lot_ligne);
 			$ligne->setPoids($poids);
 			$ligne->setId_pdt_negoce($id_pdt_negoce);
+			$ligne->setId_lot_negoce($id_lot_negoce);
 			$ligne->setNb_colis($nb_colis);
 
 		}

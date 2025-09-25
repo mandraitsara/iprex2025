@@ -54,6 +54,7 @@ class BlLigne {
 		$is_frais,
 		$num_facture,
 		$num_bl,
+		$id_lot_negoce,
 		$hors_stock;
 
 	public       $attributs = array();
@@ -80,6 +81,10 @@ class BlLigne {
 
 	public function getId_bl() {
 		return $this->id_bl;
+	}
+
+	public function getId_lot_negoce(){
+		return $this->id_lot_negoce;
 	}
 
 	public function getVendu_negoce(){
@@ -257,6 +262,11 @@ class BlLigne {
 
 	public function setId($id) {
 		$this->id = (int)$id;
+	}
+
+	public function setId_lot_negoce($id_lot_negoce){
+		$this->id_lot_negoce = (int)$id_lot_negoce;
+		Outils::setAttributs('id_lot_negoce',$this);
 	}
 
 	public function setId_facture($id_facture){

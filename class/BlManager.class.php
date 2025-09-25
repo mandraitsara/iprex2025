@@ -504,7 +504,7 @@ class BlManager
 		// FIN Configuration
 
 		$getter     = 'get' . ucfirst(strtolower($champClef));
-		$setter     = 'set' . ucfirst(strtolower($champClef));
+		$setter     = 'set' . ucfirst(strtolower($champClef));		
 
 		if ($objet->$getter() == '' && !empty($objet->attributs)) {
 
@@ -1169,7 +1169,7 @@ class BlManager
 			$ligne->setNumlot($pdt_negoce->getNum_lot());
 			$ligne->setId_produit($pdt_negoce->getId_pdt());
 			$ligne->setPoids($pdt_negoce->getPoids());
-			$ligne->setId_pdt_negoce($pdt_negoce->getId_lot_pdt_negoce());
+			$ligne->setId_pdt_negoce($pdt_negoce->getId_lot_pdt_negoce());			
 			$ligne->setNb_colis($pdt_negoce->getNb_cartons());
 			$ligne->setId_bl($new_id_bl);
 
@@ -1754,6 +1754,7 @@ class BlManager
 		bl.`id_produit`, 
 		bl.`numlot`, 
 		bl.`poids`, 
+		bl.`id_pdt_negoce`, 
 		bl.`date_add`
 	FROM `pe_bl_lignes` bl
 	JOIN `pe_bl` b ON b.`id` = bl.`id_bl`
@@ -1772,5 +1773,6 @@ class BlManager
 		
 		return $liste;
 	} // FIN méthode
-
+	
+	
 } // FIN classe

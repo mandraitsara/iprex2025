@@ -594,6 +594,7 @@ $(document).ready(function() {
     $('#btnAddPdtBl').click(function () {  
 
         var id_pdt = parseInt($('#selectProduitNewBl').val());
+        
         if (isNaN(id_pdt)) { id_pdt = 0; }
 
         var id_compo = parseInt($('#modalAddProduitBlBody input[name=id_compo]').val());
@@ -603,7 +604,9 @@ $(document).ready(function() {
             if (isNaN(id_compo)) { id_compo = 0; }
         }
 
-        var id_pdt_negoce = parseInt($('#modalAddProduitBlBody input[name=id_pdt_negoce]').val());
+        
+        var id_pdt_negoce = parseInt($('#modalAddProduitBlBody input[name=id_pdt_negoce]').val());      
+        
         
         if (isNaN(id_pdt_negoce)){ id_pdt_negoce = 0; }
 
@@ -621,6 +624,8 @@ $(document).ready(function() {
         // On vérifie la nb de colis
         var colis = parseFloat($('#produitsNewBl input[name=colis]').val());
         var quantite = parseFloat($('#produitsNewBl input[name=quantite]').val());
+        
+        
         if (isNaN(colis)) { colis = 0; }
         var poids = parseFloat($('#produitsNewBl input[name=poids]').val());
         if (isNaN(poids)) { poids = 0; }
@@ -1352,14 +1357,14 @@ function addLigneProduitBl() {
     var id_bl = parseInt($('#formBl input[name=id]').val());
     var id_pdt_negoce = $("#id_pdt_negoce").data('id-negoce');
 
-    //var id_pdt_negoce = parseInt($('#modalAddProduitBlBody input[name=id_pdt_negoce]').val(id_pdt_negoce));           
+    //var id_pdt_negoce = parseInt($('#modalAddProduitBlBody input[name=id_pdt_negoce]').val(id_pdt_negoce));  
     if (isNaN(id_bl)) { id_bl = 0; }
     if (id_bl === 0) { alert("ID BL non identifé !"); return false; }
     var id_client = parseInt($('#formBl select[name=id_t_fact] option:selected').val());
-    if (isNaN(id_client)) { id_client = 0; }
-    $('#modalAddProduitBlBody input[name=id_bl]').val(id_bl);
+    if (isNaN(id_client)) { id_client = 0; }    
     $('#modalAddProduitBlBody input[name=id_bl]').val(id_bl);
     $('#modalAddProduitBlBody input[name=id_pdt_negoce]').val(id_pdt_negoce);
+    $('#modalAddProduitBlBody input[name=id_lot_negoce]').val();
     $('#modalAddProduitBlBody input[name=id_client]').val(id_client);
 
     var ln = loadingBtn($('#btnAddPdtBl'));
