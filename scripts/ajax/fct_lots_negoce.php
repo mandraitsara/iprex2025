@@ -1947,21 +1947,13 @@ function poidsRestantLotNegoce(LotNegoce $lotNegoce){
     global $lotsNegoceManager;
 
     if(!empty($lotNegoce)){
-         $produits = $lotNegoce->getProduits();
-         
-         foreach($produits as $negoceProduits){
-            $id_lot_pdt_negoce = $negoceProduits->getId_lot_pdt_negoce();
-            $poidsExpedie = $lotsNegoceManager->getPoidsExpedie($id_lot_pdt_negoce);
-
-         }
+        $id_lot_negoce = $lotNegoce->getId();
+        $poidsReception = $lotsNegoceManager->getPoidsLotNegoce($id_lot_negoce);        
+        $poidsExpedie = $lotsNegoceManager->getPoidsRestant($id_lot_negoce);        
+        $poidsRestant =  floatval(floatval($poidsReception) - floatval($poidsExpedie));
+        $poidsRestants = $poidsRestant > 0 ? number_format($poidsRestant,2,'.', ' ').' Kg' : '-';        
+        echo $poidsRestants;
     }
-    
-
-
-    //$poidsExpedie = $lotsNegoceManager->getPoidsExpedie($id_lot_pdt_negoce);
-
-
-
 }
 
 //Fin
