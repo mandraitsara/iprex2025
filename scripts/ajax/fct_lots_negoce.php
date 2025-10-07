@@ -180,13 +180,11 @@ function modeShowListeLotsNegoce() {
 			$na = '<i class="far fa-question-circle text-danger fa-lg"></i>';
 			$btnPoidsReception = '<button type="button" class="btn btn-sm btn-secondary btnPoidsReceptionLot margin-right-50"><i class="fa fa-weight"></i></button>';
 
-			foreach ($listeLots as $lot) {				
-				
-				?>
+			foreach ($listeLots as $lot) {?>
 				<tr data-id-lot="<?php echo $lot->getId();?>">
-				<td class="w-mini-admin-cell d-none d-xl-table-cell nowrap"><?php echo $lot->getNum_bl() != '' ? $lot->getNum_bl() : '&mdash;';?></td>
-				</td>				
-					<td class="text-left nowrap">
+				<td class="w-mini-admin-cell d-none d-xl-table-cell nowrap "><?php echo $lot->getNum_bl() != '' ? $lot->getNum_bl() : '&mdash;';?></td>
+				</td>								
+                <td class="text-left">
 							<?php echo $lot->getNom_fournisseur($na); ?>
 					</td>					
 					<td class="text-center nowrap">
@@ -210,6 +208,17 @@ function modeShowListeLotsNegoce() {
                     ?>
 
 
+
+                    </td>
+                    <td class="nowrap"> 
+                        <table class="table">
+                            <?php 
+                                $id_lot = $lot->getId();                               
+                                    modeShowDetailsLot($id_lot);
+                                ?>
+                               
+
+                        </table>
 
                     </td>
                     <td class="text-center">
@@ -237,9 +246,8 @@ function modeShowListeLotsNegoce() {
 						// affichage des incidents s'il y en
 						?>
 
-                    </td>					
-					<?php if ($statut == 1) { ?>
-					<td class="text-center nowrap" ><?php echo  $lotsNegoceManager->getNbProduitsByLot($lot); ?></td>					
+                    </td>	                    
+					<?php if ($statut == 1) { ?>					
 					<?php if ($statut == 1) { ?>
 					<td class="w-court-admin-cell"><?php
 					if (is_array($lot->getVues()) && !empty($lot->getVues())) {
@@ -1493,11 +1501,12 @@ function genereContenuPdf(LotNegoce $lotNegoce)
     <html>
     <head>
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-      <style type="text/css">
+      <style type="text/css">     
       
         * { margin:0; padding: 0; }
       
         .header { border-bottom: 2px solid #ccc; }
+        
         .header img.logo { width: 200px; }
         .text-right { text-align: right; }
         .text-center { text-align: center; }
@@ -1527,6 +1536,7 @@ function genereContenuPdf(LotNegoce $lotNegoce)
             color: #ffffff;
             }
         table.vtop td { vertical-align: top; }
+        
         
         .w100 { width: 100%; }
         .w75 { width: 75%; }
@@ -1949,13 +1959,45 @@ function poidsRestantLotNegoce(LotNegoce $lotNegoce){
     if(!empty($lotNegoce)){
         $id_lot_negoce = $lotNegoce->getId();
         $poidsReception = $lotsNegoceManager->getPoidsLotNegoce($id_lot_negoce);        
-        $poidsExpedie = $lotsNegoceManager->getPoidsRestant($id_lot_negoce);        
+        $poidsExpedie = $lotsNegoceManager->getPoidsRestant($id_lot_negoce);                
         $poidsRestant =  floatval(floatval($poidsReception) - floatval($poidsExpedie));
         $poidsRestants = $poidsRestant > 0 ? number_format($poidsRestant,2,'.', ' ').' Kg' : '-';        
         echo $poidsRestants;
     }
 }
-
 //Fin
+
+
+function modeShowDetailsLot($id_lot = 0)
+{
+	global $cnx, $lotsNegoceManager,$mode,$na;     
+    $lot = $lotsNegoceManager->getListeNegoceProduits(['id_lot'=>$id_lot]);
+    
+
+    if(!empty($lot)){?>
+    <tr class="text-info">
+        <td>Lots</td>
+        <td>Produits</td>
+        <td>Poids (RCP)</td>
+        <td>Poids (EXP.)</td>
+        <td >Details</td>
+    </tr>
+
+<?php
+}
+    foreach($lot as $listeLot){        
+        ?>
+        <tr>
+            <td><?php echo $listeLot->getNum_lot(); ?></td>
+            <td><?php echo $listeLot->getNom_produit(); ?></td>
+            <td><?php echo number_format($listeLot->getPoids(),2,'.','') .' kg'; ?></td>
+            <td><?php echo $lotsNegoceManager->getPoidsExpedie($listeLot->getId_lot_pdt_negoce()); ?></td>
+            <td><button type="button" class="btn  btn-secondary" data-toggle="modal" data-target="#modalLotProduitInfo" data-lot-id="<?php  echo $listeLot->getId_lot_pdt_negoce() ; ?>"><i class="fa fa-ellipsis-h"></i></button></td>
+        </tr>        
+        <?php
+    }
+    
+
+} // FIN fonction
 
 

@@ -812,4 +812,30 @@ public function removeLotVue(LotNegoce $lot, $code_vue) {
 	}
 	//fin
 
+
+
+// Retourne le poids restant d'un lot de négoce
+public function getPoidsRestant($id_lot_negoce) {	
+		try {
+			$query_nb = 'SELECT SUM(`poids`) AS nb
+						 FROM `pe_bl_lignes` 
+						 WHERE `id_lot_negoce` = :id_lot_negoce AND `supprime` = 0';
+			
+			$query = $this->db->prepare($query_nb);
+			$query->bindValue(':id_lot_negoce', $id_lot_negoce, PDO::PARAM_INT);
+			$query->execute();
+			
+			$donnee = $query->fetch(PDO::FETCH_ASSOC);
+			
+			return $donnee && isset($donnee['nb']) ? floatval($donnee['nb']) : 0;
+			
+		} catch (PDOException $e) {
+			// Tu peux logger l'erreur ou afficher un message
+			error_log('Erreur SQL : ' . $e->getMessage());
+			return 0; // ou false, selon ce que tu préfères en cas d'erreur
+		}
+
+	
+} // FIN méthode	*/
+
 } // FIN classe
