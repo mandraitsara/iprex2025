@@ -222,7 +222,7 @@ function etiquetteAtelier($nom_court, Lot $lot, $copies = 1) {
                     <li>Agrément atelier découpe : <?php echo $numAgr; ?></li>
                     <li>Origine : <?php echo strtoupper($lot->getNom_origine()); ?></li>
                     <li>Date réception : <?php echo Outils::dateSqlToFr($lot->getDate_reception()); ?></li>
-                    <li>DLC : <?php echo $dlc; ?></li>
+                    <li>Date d'Abattage : <?php echo Outils::dateSqlToFr($lot->getDate_abattage()); ?></li>
                 </ul>
             </div>
 
@@ -320,7 +320,7 @@ function etiquetteScellesColis($nom_court, Lot $lot, $copies = 1) {
                 }
 
                 .agrement {
-                    margin-top; 2cm;
+                    margin-top: 2cm;
                 }
 
                 .codebarre {
