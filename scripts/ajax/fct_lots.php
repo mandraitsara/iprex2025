@@ -1196,6 +1196,8 @@ function modeModalLotInfo()
             ];
             $listeCom = $commentairesManager->getListeCommentaires($params);
 
+            
+
             // Si pas de commentaire pour ce lot ou ses traitements...
             if (empty($listeCom)) { ?>
 
@@ -1982,7 +1984,7 @@ function modeUpdLot()
     $id_espece       = isset($_REQUEST['id_espece'])       ? intval($_REQUEST['id_espece'])                       : 0;
     $type_incident   = isset($_REQUEST['incident'])        ? intval($_REQUEST['incident'])                        : 0;
     $incident_commentaire = isset($_REQUEST['incident_commentaire']) ? trim($_REQUEST['incident_commentaire'])    : '';
-
+    
     // Si on a du mal à récupérer le lot, on retourne une erreur
     if ($id_lot == 0) {
         echo '-2';
@@ -2054,6 +2056,7 @@ function modeUpdLot()
     if ($type_incident > 0 && $incident_commentaire != '') {
 
         $incidentManager = new IncidentsManager($cnx);
+        
         $commentairesManager = new CommentairesManager($cnx);
 
         $incident = new Incident([]);
@@ -2064,17 +2067,22 @@ function modeUpdLot()
 
         $incidentManager->saveIncident($incident);
 
-        $nom_incident = strtolower(Incident::TYPES_INCIDENTS[$type_incident]);
+        $typeIncident = $incidentManager->getTypeIncident($type_incident);
+        $de = in_array(substr(strtolower($typeIncident->getNom()), 0, 1), ['a', 'e', 'i', 'o', 'u', 'é', 'è', 'à']) ? "d'" : "de ";
+        
         if ($nom_incident && strlen($nom_incident) > 0) {
-            $incident_commentaire = "Incident d'" . $nom_incident . " : " . $incident_commentaire;
+            $incident_commentaire = "Incident d'". $de. strlower($typeIncident->getNom()) . " : " . $incident_commentaire;
         }
-
+        
+        $commentaire = "Incident ".$de ." ".strtolower($typeIncident->getNom()). ": ".$incident_commentaire;
         $com = new Commentaire([]);
         $com->setDate(date('Y-m-d H:i:s'));
         $com->setId_lot($lot->getId());
         $com->setIncident(1);
         $com->setId_user($utilisateur->getId());
-        $com->setCommentaire($incident_commentaire);
+        $com->setCommentaire($commentaire);        
+
+
         $commentairesManager->saveCommentaire($com);
     }
 
