@@ -628,6 +628,8 @@ $(document).ready(function() {
         
         if (isNaN(colis)) { colis = 0; }
         var poids = parseFloat($('#produitsNewBl input[name=poids]').val());
+        console.log(poids)
+        console.log(colis)
         if (isNaN(poids)) { poids = 0; }
         if (poids === 0 && colis === 0) {
             alert('Aucun nombre de colis et poids spécifié !');return false;

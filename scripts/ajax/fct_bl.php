@@ -3864,8 +3864,8 @@ function modeFormProduitsBlManuel() {
                     <div class="input-group-prepend">
                         <span class="input-group-text">Lot</span>
                     </div>					
-                    <input type="text" class="form-control" id="id_pdt_negoce" placeholder="N° de lot" data-id-negoce="<?php                           
-                        echo isset($neg) ? $neg->getId_lot_pdt_negoce() : '';
+                    <input type="text" class="form-control"  placeholder="N° de lot" data-id-negoce="<?php                           
+                        echo isset($neg) ? $neg->getId_lot_pdt_negoce() : 0;
                     ?>" name="num_lot" value="<?php
                         echo isset($compo) ? $compo->getNum_lot() : '';
                         echo isset($neg) ? $neg->getNum_lot() : '';
@@ -3880,15 +3880,15 @@ function modeFormProduitsBlManuel() {
                     <input type="text" class="form-control text-center" placeholder="" name="num_palette" value="<?php
                         echo isset($compo) ? $compo->getNumero_palette() : '';
                         echo isset($neg) ? $neg->getNumero_palette() : '';
-                    ?>" />
+                    ?>" name="palette"/>
                 </div>
             </div>
             <div class="col-2 pr-1">
                 <div class="input-group">
-                    <input type="text" class="form-control text-center inputCartons" placeholder="" name="nb_colis" value="<?php
+                    <input type="text" class="form-control text-center inputCartons" placeholder="0" name="nb_colis" value="<?php
                         echo isset($compo) ? $compo->getNb_colis() : '';
                         echo isset($neg) ? $neg->getNb_cartons() : '';
-                    ?>" />
+                    ?>" name="colis"/>
                     <div class="input-group-append">
                         <span class="input-group-text"><?php echo $type == 'neg' ? 'cartons' : 'colis'; ?></span>
                     </div>
@@ -3899,7 +3899,7 @@ function modeFormProduitsBlManuel() {
                     <input type="text" class="form-control text-center inputQuantite" placeholder="" name="quantite" value="<?php
                         echo isset($compo) ? $compo->getQuantite() : '';
                         echo isset($neg) ? $neg->getQuantite() : '';
-                    ?>" />
+                    ?>" name="quantite"/>
                     <div class="input-group-append">
                         <span class="input-group-text">Pièce</span>
                     </div>
@@ -3910,7 +3910,7 @@ function modeFormProduitsBlManuel() {
                     <input type="text" class="form-control text-right" placeholder="0.000" name="poids" value="<?php
                         echo isset($compo) ? number_format($compo->getPoids(),3,'.', ' ') : '';
                         echo isset($neg) ? number_format($neg->getPoids(),3,'.', ' ') : '';
-                    ?>" />
+                    ?>" name="poids"/>
                     <div class="input-group-append">
                         <span class="input-group-text">Kg</span>
                     </div>
@@ -4179,7 +4179,7 @@ function modeAddLigneProduitBl() {
 			$ligne->setNum_palette($ligneTmp->getNum_palette());
 			$ligne->setVendu_piece($ligneTmp->getVendu_piece());
 			$ligne->setNum_lot($ligneTmp->getNumlot());
-			$ligne->setId_lot(0);
+			$ligne->setId_lot($ligneTmp->getId_lot());
 			$ligne->setId_pays($ligneTmp->getId_pays());
 			$ligne->setLibelle($ligneTmp->getLibelle());			
 		
@@ -4401,8 +4401,8 @@ function modeAddLigneProduitBl() {
 		$compo->setId_produit($id_produit);
 		$compo->setId_lot_pdt_froid(0);
 		$compo->setId_frais(0);
-		$compo->setId_lot_pdt_negoce($id_pdt_negoce);
-		$compo->setId_lot_negoce($id_lot_negoce);
+		$compo->setId_lot_pdt_negoce(0);
+		$compo->setId_lot_negoce(0);
 		$compo->setId_lot_regroupement(0);
 		$compo->setPoids($poids);
 		$compo->setNb_colis($nb_colis);
@@ -4442,8 +4442,8 @@ function modeAddLigneProduitBl() {
 			$ligne->setNumlot($num_lot_ligne);
 			$ligne->setPoids($poids);
 			$ligne->setNb_colis($nb_colis);
-			$ligne->setId_pdt_negoce($id_pdt_negoce);
-			$ligne->setId_lot_negoce($id_lot_negoce);
+			//$ligne->setId_pdt_negoce($id_pdt_negoce);
+			//$ligne->setId_lot_negoce($id_lot_negoce);
 			$ligne->setQte($qte_web);
 			$ligne->setPu_ht($pu_ht);
 			$ligne->setTva($tva);
@@ -4459,8 +4459,8 @@ function modeAddLigneProduitBl() {
 			$ligne->setId_lot($id_lot);
 			$ligne->setNumlot($num_lot_ligne);
 			$ligne->setPoids($poids);
-			$ligne->setId_pdt_negoce($id_pdt_negoce);
-			$ligne->setId_lot_negoce($id_lot_negoce);
+			//$ligne->setId_pdt_negoce($id_pdt_negoce);
+			//$ligne->setId_lot_negoce($id_lot_negoce);
 			$ligne->setNb_colis($nb_colis);
 
 		}

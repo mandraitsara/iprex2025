@@ -2069,18 +2069,14 @@ function modeUpdLot()
 
         $typeIncident = $incidentManager->getTypeIncident($type_incident);
         $de = in_array(substr(strtolower($typeIncident->getNom()), 0, 1), ['a', 'e', 'i', 'o', 'u', 'é', 'è', 'à']) ? "d'" : "de ";
-        
-        if ($nom_incident && strlen($nom_incident) > 0) {
-            $incident_commentaire = "Incident d'". $de. strlower($typeIncident->getNom()) . " : " . $incident_commentaire;
-        }
-        
-        $commentaire = "Incident ".$de ." ".strtolower($typeIncident->getNom()). ": ".$incident_commentaire;
+        $commentaire = "Incident ".$de .strtolower($typeIncident->getNom()). ": ".$incident_commentaire;
+
         $com = new Commentaire([]);
         $com->setDate(date('Y-m-d H:i:s'));
         $com->setId_lot($lot->getId());
         $com->setIncident(1);
         $com->setId_user($utilisateur->getId());
-        $com->setCommentaire($commentaire);        
+        $com->setCommentaire($commentaire);       
 
 
         $commentairesManager->saveCommentaire($com);
