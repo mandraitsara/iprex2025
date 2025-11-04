@@ -25,11 +25,12 @@ $test = true;
 /* ******************************************************************************
  *  PARAMETRES
  ****************************************************************************** */
-$email_to = $test ? 'ppactol@boostervente.com' :  'valerie.rostang@carpentrasexpertscomptables.fr';
-$email_from = 'contact@profilexport.fr';
+$email_to = $test ? 'ppactol@boostervente.com' :  'anneMarie.GRAVOTTA@carpentrasexpertscomptables.fr';
+
+$email_from = 'info@profilexport.fr';
 $nom_cron	= 'Génération et envoi du fichier TRA pour la comptabilité';
 $chemin = str_replace('scripts/cron', 'temp',__DIR__).'/';
-$nom_fichier = "Export.TRA";
+$nom_fichier = "export.csv";
 
 /* ******************************************************************************
  *  FIN PARAMETRES
@@ -87,78 +88,26 @@ if ($show_debug) { ?>
 
 // Création/ouverture du fichier
 $tra = fopen($chemin.$nom_fichier, 'w');
+$separateur = ';';
 
 // Entête "!"
-fwrite($tra, "!\n");
+fwrite($tra, "");
 
-// Compte général - ligne 1
-$ligne = "***";                                    // Zone fixe (3)
-$ligne.= "CGN";                                    // Code enregistrement (3)
-$ligne.= "411".addEspaces('411', 17);              // Code (17)
-$ligne.= "Clients".addEspaces("Clients",35);       // Libellé (35)
-$ligne.= "COC";                                    // Nature (3)
-$ligne.= "-------";                                // Lettrable, comptes... (1) * 7
+$ligne = "journal"              . $separateur;
+$ligne.= "dateFacture"          . $separateur;
+$ligne.= "noCompte"             . $separateur;
+$ligne.= "noFacture"            . $separateur;
+$ligne.= "libelle"              . $separateur;
+$ligne.= "dateEcheance"         . $separateur;
+$ligne.= "DC"                   . $separateur;
+$ligne.= "montant"              . $separateur;
+$ligne.= "tauxTVA"              . $separateur;
+$ligne.= "codePays"             . $separateur;
+$ligne.= "devise"               . $separateur;
+$ligne.= "soldeSigne"           . $separateur;
+
 fwrite($tra, $ligne."\n");
 
-// Compte général - ligne 2
-$ligne = "***";
-$ligne.= "CGN";
-$ligne.= "44571400".addEspaces("44571400", 17);
-$ligne.= "TVA Collectee 20,00 %".addEspaces("TVA Collectee 20,00 %",35);
-$ligne.= "TIC";
-$ligne.= "-------";
-fwrite($tra, $ligne."\n");
-
-// Compte général - ligne 3
-$ligne = "***";
-$ligne.= "CGN";
-$ligne.= "70600000".addEspaces("70600000", 17);
-$ligne.= "MONTEUX".addEspaces("MONTEUX",35);
-$ligne.= "PRO";
-$ligne.= "-------";
-fwrite($tra, $ligne."\n");
-
-// Compte général - ligne 4
-$ligne = "***";
-$ligne.= "CGN";
-$ligne.= "70600000".addEspaces("70600000", 17);
-$ligne.= "ISLE".addEspaces("ISLE",35);
-$ligne.= "PRO";
-$ligne.= "-------";
-fwrite($tra, $ligne."\n");
-
-// Clients
-// Récupération de tous les clients ayant un code comptable
-$query_clients = 'SELECT DISTINCT t.`nom`, t.`code_comptable` FROM `pe_tiers` t JOIN `pe_tiers_types` tt ON tt.`id_tiers` = t.`id` WHERE t.`code_comptable` IS NOT NULL AND t.`code_comptable` != "" AND tt.`type` = 1 AND t.`supprime` = 0';
-$query = $cnx->prepare($query_clients);
-$query->execute();
-foreach ($query->fetchAll(PDO::FETCH_ASSOC) as $clt) {
-    $cc = trim(strtoupper($clt['code_comptable']));
-    $lib = cutTexte(trim($clt['nom']), 35);
-
-    $ligne = "***";                                                	// Zone fixe (3)
-	$ligne.= "CAE";                                                	// Code enregistrement (3)
-	$ligne.= $cc.addEspaces($cc, 17);                     			// Code du compte auxiliaire (17)
-	$ligne.= $lib.addEspaces(enleveAccents($lib), 35);    			//Libellé (35)
-	$ligne.= "CLI";                                                	// Nature (3)
-	$ligne.= "X";                                                  	// Lettrable (1)
-	$ligne.= "411".addEspaces("411", 17);             				// Compte collectif associé (17)
-	fwrite($tra, $ligne."\n");
-
-} // FIN boucle clients
-
-// Journaux
-$ligne = "***";                                                     // Zone fixe (3)
-$ligne.= "JAL";                                                     // Code enregistrement (3)
-$ligne.= "7".addEspaces("7", 3);                        			// Code journal (3)
-$ligne.= "Journal des ventes".addEspaces("Journal des ventes",35); 	// Libellé du journal
-$ligne.= "VTE";                                                     // Nature (3)
-$ligne.= "7".addEspaces("7", 3);                        			// Souche d'écriture (3)
-$ligne.= "SIM";                                                     // Souche d'écriture simulation (3)
-$ligne.= addEspaces("", 17);                            			// N° compte contrepartie automatique (17)
-$ligne.= addEspaces("", 3);                             			// Axe analytique d'affectation au journal (3)
-$ligne.= "LIB";                                                     // Contact principal (3)
-fwrite($tra, $ligne."\n");
 
 // Factures
 // Récupération de toutes les factures à transmettre
@@ -173,6 +122,7 @@ $query_factures = 'SELECT f.`id`,
                         f.`montant_interbev` AS interbev,
                         t.`code_comptable` AS compte,
                         t.`nom` AS nomclt,
+						p.`iso`,
 						t.`id_groupe` AS groupeclt,
                         IF (a1.`id_pays` IS NOT NULL, a1.`id_pays`, IFNULL(a2.`id_pays`, af.`id_pays`)) AS id_pays
                     FROM `pe_factures` f
@@ -180,6 +130,7 @@ $query_factures = 'SELECT f.`id`,
 						JOIN `pe_adresses` af ON af.`id_tiers` = f.`id_tiers_facturation`
                         LEFT JOIN `pe_adresses` a1 ON a1.`id_tiers` = f.`id_tiers_livraison` AND a1.`type` = 0
                         LEFT JOIN `pe_adresses` a2 ON a2.`id_tiers` = f.`id_tiers_livraison` AND a2.`type` = 1
+						LEFT JOIN `pe_pays` p ON  af.`id_pays` = p.`id`
                     WHERE f.`supprime` = 0 
                       AND f.`date` >= "'.$date_du.'" AND f.`date` < "'.$date_au.'"  ';
 
@@ -375,12 +326,19 @@ foreach ($facts as $fact) {
 
 	// Valeurs
 
+	//code pays
+
+	$code_pays = $fact['iso'];
+
+
+
 
 	$tvaInHt = $tva < 0 ? $tva*-1 : $tva;
 
     $sens1   = floatval($fact['ht']) > 0 ? "D" : "C";   // Pour les lignes "Total"
     $sens2   = floatval($fact['ht']) < 0 ? "D" : "C";   // Pour les lignes "TVA" / "Net"
-
+	
+	$soldeSigne = $sens1 == "D" ? 'positif' : 'negatif';
     $htTxt = number_format($ht, 2, ',', '');
     $tvaTxt = number_format($tvaInHt, 2, ',', '');
 
@@ -431,317 +389,239 @@ foreach ($facts as $fact) {
 
     $totalTxt = number_format($total, 2, ',', '');
     $compteAux = trim(strtoupper($fact['compte']));
-    $num_facture = trim(strtoupper($fact['num_facture']));
+    if (substr($compteAux, 0, 1) === 'C') {
+    	$compteAux = substr($compteAux, 1);
+	}
+
+	$num_facture = trim(strtoupper($fact['num_facture']));
 
 	$libMvt = trim($fact['nomclt']). ' ';
 	$groupe = $fact['groupeclt'];
 	$libMvt = cutTexte(trim($libMvt), 35);
 
     // TOTAL (411)
-	$ligne = "7".addEspaces("7", 3);                	// Code journal (3)
-	$ligne.= $dateMvt;                                  // Date mouvement (8)
-	$ligne.= "FC";                                      // Nature du mouvement (2)
-	$ligne.= "411".addEspaces("411", 17);            	// Compte général (17)
-	$ligne.= "X";                                       // Nature de la ligne de mouvement (1)
-	$ligne.= $compteAux.addEspaces($compteAux,17);      // Compte auxiliaire (17)
-	$ligne.= $num_facture.addEspaces($num_facture,35);  // Réference du mouvement interne (35)
-	$ligne.= $libMvt.addEspaces($libMvt,35);            // Libellé du mouvement (35)
-	$ligne.= addEspaces("", 3);                     	// Code du mode de paiement (3)
-    $ligne.= $dateExp;                                  // Date d'échéance du mouvement (8)
-	$ligne.= $sens1;                                    // Sens du mouvement (Débit/Crédit) (1)
-	$ligne.= addEspaces($totalTxt,20).$totalTxt;       	// Montant (20) /!\ espaces à gauche et décimale virgule !
-	$ligne.= "N";                                       // Type de mouvement (1)
-	$ligne.= addEspaces("", 8);                     	// N° de pièce (8)
-	$ligne.= "EUR";                                     // Code devise du mouvement (3)
-	$ligne.= "1,00000000";                              // Taux devise du mouvement (10)
-	$ligne.= "E--";                                     // Codification de la signification des montants (3)
+    $ligne = "VT"                   . $separateur;
+    $ligne.= $dateMvt               . $separateur;
+    $ligne.= "411" . $compteAux     . $separateur;
+    $ligne.= $num_facture           . $separateur;
+    $ligne.= $libMvt                . $separateur;
+    $ligne.= $dateExp               . $separateur;
+    $ligne.= $sens1                 . $separateur;
+    $ligne.= $totalTxt              . $separateur;
+    $ligne.= ""                     . $separateur;
+	$ligne.= $code_pays             . $separateur;	
+    $ligne.= "EUR"                  . $separateur;
+	$ligne.= $soldeSigne            . $separateur;
+
+	
+
 	fwrite($tra, $ligne."\n");
 
-	// if ($test){
-	// 	echo '<br />Montant TTC : '.$totalTxt;
-	// 	echo '<br />Montant TVA : '.$tva;
-	// 	echo '<br />' . $ligne;
-	// }
-
-	// TVA (44571400)
-    // 08/11/2021 - Mme Rostang dit que le code TVA n'est pas bon : 44570000 au lieu de 44571400
+	// TVA
     if ($tva != 0) {
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "44570000".addEspaces("44570000", 17);     			// Compte général -> TVA
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($tvaTxt,20).$tvaTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "44570000"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $tvaTxt                . $separateur;
+        $ligne.= ""                     . $separateur;		
+        $ligne.= "EUR"                  . $separateur;
+
 		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
     }
 
-
-
     // 08/11/2021 - Nouveau code comptable envoyé par Mme Rostang, les lignes doivent distinguer les comptes concernés + l'interbev à la fin
-
     //  70700300	VENTES MARCHANDISES 20%
     if ($total_ht_tva_20 != 0) {
 		if ($total_ht_tva_20 < 0) { $total_ht_tva_20*=-1; }
 		$htTxt = number_format($total_ht_tva_20, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "70700300".addEspaces("70700300", 17);     			// Code du compte comptable pour la vente TVA 20%
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70700300"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= "20"                   . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+
 		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+    
     }
 
 	//  70700200	VENTES MARCHANDISES 10%
 	if ($total_ht_tva_10 != 0) {
 		if ($total_ht_tva_10 < 0) { $total_ht_tva_10*=-1; }
-		$htTxt = number_format($total_ht_tva_10, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "70700200".addEspaces("70700200", 17);     			// Code du compte comptable pour la vente TVA 10%
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
+        $htTxt = number_format($total_ht_tva_10, 2, ',', '');
+        
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70700200"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= "10 %"                   . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+
 		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
 	}
 
 	//  70700000	VENTES MARCHANDISES 5.5%
 	if ($total_ht_tva_55 != 0) {
         if ($total_ht_tva_55 < 0) { $total_ht_tva_55*=-1; }
-		$htTxt = number_format($total_ht_tva_55, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
+        $htTxt = number_format($total_ht_tva_55, 2, ',', '');
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
 		if ($groupe == 2){
-			$ligne.= "70700001".addEspaces("70700001", 17);     		// Code du compte comptable pour la vente TVA 5.5% / EQUISUD
+			$ligne.= "70700001" . $separateur;
 		} else {
-			$ligne.= "70700000".addEspaces("70700000", 17);     		// Code du compte comptable pour la vente TVA 5.5%
+			$ligne.= "70700000" . $separateur;
 		}
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= "5.5 %"                . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+
 		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
 	}
 
  	//  70701000	VENTES MARCHANDISES INTRACOM
 	if ($total_ht_intracom != 0) {
 		if ($total_ht_intracom < 0) { $total_ht_intracom*=-1; }
 		$htTxt = number_format($total_ht_intracom, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "70701000".addEspaces("70701000", 17);     			// Code du compte comptable pour la vente INTRACOM
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
-		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70701000"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= "10 %"                   . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+        
+        fwrite($tra, $ligne."\n");
+
 	}
 
 	//  70710000	VENTES MARCHANDISES EXPORT
 	if ($total_ht_export != 0) {
 		if ($total_ht_export < 0) { $total_ht_export*=-1; }
 		$htTxt = number_format($total_ht_export, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "70710000".addEspaces("70710000", 17);     			// Code du compte comptable pour la vente EXPORT
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
-		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70710000"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+        
+        fwrite($tra, $ligne."\n");
+
 	}
 
     // 46100000     C.I.E INTERBEV
 	if ($interbev != 0) {
 		if ($interbev < 0) { $interbev*=-1; }
 		$htTxt = number_format($interbev, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "46100000".addEspaces("46100000", 17);     			// Code du compte comptable pour l'INTERBEV
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
-		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70710000"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+        
+        fwrite($tra, $ligne."\n");
+
 	}
 
     // 70810000 PRESTATIONS TRANSPORT FRANCE
     if ($total_ht_frais_france != 0) {
 		if ($total_ht_frais_france < 0) { $total_ht_frais_france*=-1; }
 		$htTxt = number_format($total_ht_frais_france, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
 		if ($groupe == 2){
-			$ligne.= "70810001".addEspaces("70810001", 17);     		// Code du compte comptable pour les frais additionnels France / EQUISUD
+			$ligne.= "70810001" . $separateur;
 		} else {
-			$ligne.= "70810000".addEspaces("70810000", 17);     		// Code du compte comptable pour les frais additionnels France
+			$ligne.= "70810000" . $separateur;
 		}
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
-		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= "20 %"                   . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+        
+        fwrite($tra, $ligne."\n");
+
     }
 
 	// 70811000 PRESTATIONS TRANSPORT INTRACOMM
 	if ($total_ht_frais_intracom != 0) {
 		if ($total_ht_frais_intracom < 0) { $total_ht_frais_intracom*=-1; }
-		$htTxt = number_format($total_ht_frais_intracom, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "70811000".addEspaces("70811000", 17);     			// Code du compte comptable pour les frais additionnels France
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
-		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+        $htTxt = number_format($total_ht_frais_intracom, 2, ',', '');
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70811000"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+        
+        fwrite($tra, $ligne."\n");
+
 	}
 
 	// 70811100 PRESTATIONS TRANSPORT EXPORT
 	if ($total_ht_frais_export != 0) {
 		if ($total_ht_frais_export < 0) { $total_ht_frais_export*=-1; }
 		$htTxt = number_format($total_ht_frais_export, 2, ',', '');
-		$ligne = "7".addEspaces("7", 3);
-		$ligne.= $dateMvt;
-		$ligne.= "FC";
-		$ligne.= "70811100".addEspaces("70811100", 17);     			// Code du compte comptable pour les frais additionnels France
-		$ligne.= " ";                                                   // Pas de nature
-		$ligne.= addEspaces("",17);                         			// Pas de compte client
-		$ligne.= $num_facture.addEspaces($num_facture,35);
-		$ligne.= $libMvt.addEspaces($libMvt,35);
-		$ligne.= addEspaces("", 3);
-		$ligne.= addEspaces("", 8);                         			// Pas de date d'expiration
-		$ligne.= $sens2;                                                // Code inversé pour balance comptable
-		$ligne.= addEspaces($htTxt,20).$htTxt;
-		$ligne.= "N";
-		$ligne.= addEspaces("", 8);
-		$ligne.= "EUR";
-		$ligne.= "1,00000000";
-		$ligne.= "E--";
-		fwrite($tra, $ligne."\n");
-		// if ($test){
-		// 	echo '<br />' . $ligne;
-		// }
+
+        $ligne = "VT"                   . $separateur;
+        $ligne.= $dateMvt               . $separateur;
+        $ligne.= "70811100"             . $separateur;
+        $ligne.= $num_facture           . $separateur;
+        $ligne.= $libMvt                . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= $sens2                 . $separateur;
+        $ligne.= $htTxt                 . $separateur;
+        $ligne.= ""                     . $separateur;
+        $ligne.= "EUR"                  . $separateur;
+        
+        fwrite($tra, $ligne."\n");
+
 	}
 
 
@@ -761,11 +641,16 @@ if ($show_debug) { ?>
 
 echo $show_debug ? '<p>Envoi par mail à '.$email_to.'... ' : '';
 
-$titre = "Factures Profil Export";
+$titre   = "Factures PROFIL EXPORT";
+$titre2  = "Factures PROFIL EXPORT - COPIE";
 $contenu = "Ci-joint le fichier TRA des dernières factures pour PROFIL EXPORT.<br>Ceci est un mail automatique, ne pas y répondre directement.";
 $fichier =  $chemin.$nom_fichier;
 
 $logsManager = new LogManager($cnx);
+// Envoi pour vérification sans traitement
+envoiMail(['ppactol@boostervente.com'], $email_from, $titre2, utf8_decode($contenu), 0, [], [$fichier]);
+
+// Envoi au destinataire
 if(envoiMail([$email_to], $email_from, $titre, utf8_decode($contenu), 0, [], [$fichier])){  //Envoi du mail
 	echo $show_debug ? 'Réussi :)</p>' : '';
 	if (!$show_debug) {
@@ -775,8 +660,6 @@ if(envoiMail([$email_to], $email_from, $titre, utf8_decode($contenu), 0, [], [$f
 		$log->setLog_texte("[CRON] - Envoi du fichier TRA à ".$email_to." réussi.");
 		$logsManager->saveLog($log);
 	}
-
-
 
 	// Update des factures avec la date pour le champ "date_compta" si le mail a bien été envoyé
     foreach ($ids_factures as $id) {
@@ -797,7 +680,7 @@ if(envoiMail([$email_to], $email_from, $titre, utf8_decode($contenu), 0, [], [$f
 } else {
 	echo $show_debug ? 'ECHEC ! :(</p><p>Factures non définies comme envoyées en BDD mais fichier généré dans /temp/</p>' : '';
 	if (!$show_debug) {
-		envoiMail(['pole-web@intersed.fr'], $email_from, "ERREUR CRON IPREX", utf8_decode("[CRON] - Echec de l'Envoi du fichier TRA à ".$email_to." !<br>Factures non définies comme envoyées en BDD mais fichier généré dans /temp/"));
+		envoiMail(['ppactol@boostervente.com'], $email_from, "ERREUR CRON IPREX", utf8_decode("[CRON] - Echec de l'Envoi du fichier TRA à ".$email_to." !<br>Factures non définies comme envoyées en BDD mais fichier généré dans /temp/"));
 	}
 }
 

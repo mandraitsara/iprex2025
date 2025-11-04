@@ -3808,121 +3808,180 @@ function modeImprimEtiquetteBl() {
 } // FIN mode
 
 // Formulaire des données précises de la ligne de produit à ajouter au BL manuel (modale ajout produit)
+
 function modeFormProduitsBlManuel() {
     global $cnx, $utilisateur;
 
     $id         = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
     $type       = isset($_REQUEST['type']) ? trim(strtolower($_REQUEST['type'])) : '';
     $typesOK    = ['', 'stk', 'neg'];
-    if (!in_array($type, $typesOK)) { exit('ERREUR TYPE INCONNU'); }
 
-	$palettesManager = new PalettesManager($cnx);
+    if (!in_array($type, $typesOK)) {
+        exit('ERREUR TYPE INCONNU');
+    }
+
+    $palettesManager = new PalettesManager($cnx);
     $produitsManager = new ProduitManager($cnx);
-	$negoceManager = new LotNegoceManager($cnx);
+    $negoceManager   = new LotNegoceManager($cnx);
+
+    // Initialisation
+    $compo = null;
+    $neg   = null;
 
     if ($type == "stk") {
-		$compo = $palettesManager->getComposition($id);
-		if (!$compo instanceof PaletteComposition) {
-			exit('ERREUR COMPO #'.$id.' NON TROUVEE (STK)');
-		}
+        $compo = $palettesManager->getComposition($id);
+        if (!$compo instanceof PaletteComposition) {
+            exit('ERREUR COMPO #'.$id.' NON TROUVÉE (STK)');
+        }
         $compo = $produitsManager->getNumLotCompo($compo);
-    } else if ($type == 'neg') {
+    } elseif ($type == 'neg') {
         $neg = $negoceManager->getNegoceProduit($id);
-		if (!$neg instanceof NegoceProduit) {
-			exit('ERREUR NEGPDT #'.$id.' NON TROUVEE');
-		}
+        if (!$neg instanceof NegoceProduit) {
+            exit('ERREUR NEGPDT #'.$id.' NON TROUVÉE');
+        }
     } else {
         $type = 'pdt';
     }
     ?>
+
     <input type="hidden" name="id_item" value="<?php echo $id; ?>" />
     <input type="hidden" name="type_item" value="<?php echo $type; ?>" />		
-	<input type="hidden" name="id_lot_negoce" value="<?php echo $neg->getId_lot_negoce(); ?>" />		
+    <input type="hidden" name="id_lot_negoce" value="<?php echo isset($neg) ? $neg->getId_lot_negoce() : ''; ?>" />		
+
     <div class="col-12 gris-5 text-13">
         <?php 
         if ($type == 'stk') {
             echo 'Produit en stock pour '.$compo->getNom_client();
             $devTxt = 'Compo';
-		} else if ($type == 'neg') {
-			echo 'Produit de négoce';
-			$devTxt = 'Pdt negoce';
-		} else {
+        } elseif ($type == 'neg') {
+            echo 'Produit de négoce';
+            $devTxt = 'Pdt negoce';
+        } else {
             echo 'Produit hors stock';
-			$devTxt = 'Hors stock';
-		}
+            $devTxt = 'Hors stock';
+        }
         ?>
     </div>
-	<div class="col">
-    <div class="alert alert-secondary">
-        <p class="gris-5 mb-0"><i class="fa fa-caret-down mr-1 gris-9"></i> <?php
-            echo $id > 0 ? 'Validez' : 'Précisez'; echo ' les détails de la ligne :';
-            echo $utilisateur->isDev() && $id > 0 ? '<span class="text-11 gris-9 float-right"><i class="fa fa-user-secret mr-1"></i> '.$devTxt.' #'.$id.'</span>' : '';
-        ?></p>
-        <div class="row">			
-            <div class="col-3 pr-1">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Lot</span>
-                    </div>					
-                    <input type="text" class="form-control"  placeholder="N° de lot" data-id-negoce="<?php                           
-                        echo isset($neg) ? $neg->getId_lot_pdt_negoce() : 0;
-                    ?>" name="num_lot" value="<?php
-                        echo isset($compo) ? $compo->getNum_lot() : '';
-                        echo isset($neg) ? $neg->getNum_lot() : '';
-                    ?>" />
-                </div>
-            </div>
-            <div class="col-3 pr-1">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">N° palette</span>
-                    </div>
-                    <input type="text" class="form-control text-center" placeholder="" name="num_palette" value="<?php
-                        echo isset($compo) ? $compo->getNumero_palette() : '';
-                        echo isset($neg) ? $neg->getNumero_palette() : '';
-                    ?>" name="palette"/>
-                </div>
-            </div>
-            <div class="col-2 pr-1">
-                <div class="input-group">
-                    <input type="text" class="form-control text-center inputCartons" placeholder="0" name="nb_colis" value="<?php
-                        echo isset($compo) ? $compo->getNb_colis() : '';
-                        echo isset($neg) ? $neg->getNb_cartons() : '';
-                    ?>" name="colis"/>
-                    <div class="input-group-append">
-                        <span class="input-group-text"><?php echo $type == 'neg' ? 'cartons' : 'colis'; ?></span>
+
+    <div class="col">
+        <div class="alert alert-secondary">
+            <p class="gris-5 mb-0">
+                <i class="fa fa-caret-down mr-1 gris-9"></i>
+                <?php
+                    echo $id > 0 ? 'Validez' : 'Précisez';
+                    echo ' les détails de la ligne :';
+                    if ($utilisateur->isDev() && $id > 0) {
+                        echo '<span class="text-11 gris-9 float-right"><i class="fa fa-user-secret mr-1"></i> '.$devTxt.' #'.$id.'</span>';
+                    }
+                ?>
+            </p>
+
+            <div class="row">			
+                <!-- LOT -->
+                <div class="col-3 pr-1">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Lot</span>
+                        </div>					
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="id_pdt_negoce" 
+                            placeholder="N° de lot"
+                            data-id-negoce="<?php echo isset($neg) ? $neg->getId_lot_pdt_negoce() : ''; ?>"
+                            name="num_lot"
+                            value="<?php
+                                echo isset($compo) ? $compo->getNum_lot() : '';
+                                echo isset($neg) ? $neg->getNum_lot() : '';
+                            ?>" 
+                        />
                     </div>
                 </div>
-            </div>
-            <div class="col-2 pr-1">
-                <div class="input-group">
-                    <input type="text" class="form-control text-center inputQuantite" placeholder="" name="quantite" value="<?php
-                        echo isset($compo) ? $compo->getQuantite() : '';
-                        echo isset($neg) ? $neg->getQuantite() : '';
-                    ?>" name="quantite"/>
-                    <div class="input-group-append">
-                        <span class="input-group-text">Pièce</span>
+
+                <!-- N° PALETTE -->
+                <div class="col-3 pr-1">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">N° palette</span>
+                        </div>
+                        <input 
+                            type="text" 
+                            class="form-control text-center" 
+                            placeholder=""
+                            name="num_palette" 
+                            value="<?php
+                                echo isset($compo) ? $compo->getNumero_palette() : '';
+                                echo isset($neg) ? $neg->getNumero_palette() : '';
+                            ?>" 
+                        />
                     </div>
                 </div>
-            </div>
-            <div class="col-2">
-                <div class="input-group">
-                    <input type="text" class="form-control text-right" placeholder="0.000" name="poids" value="<?php
-                        echo isset($compo) ? number_format($compo->getPoids(),3,'.', ' ') : '';
-                        echo isset($neg) ? number_format($neg->getPoids(),3,'.', ' ') : '';
-                    ?>" name="poids"/>
-                    <div class="input-group-append">
-                        <span class="input-group-text">Kg</span>
+
+                <!-- NB COLIS / CARTONS -->
+                <div class="col-2 pr-1">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="form-control text-center inputCartons" 
+                            placeholder="0" 
+                            name="nb_colis"
+                            value="<?php
+                                echo isset($compo) ? $compo->getNb_colis() : '';
+                                echo isset($neg) ? $neg->getNb_cartons() : '';
+                            ?>" 
+                        />
+                        <div class="input-group-append">
+                            <span class="input-group-text"><?php echo $type == 'neg' ? 'cartons' : 'colis'; ?></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUANTITÉ -->
+                <div class="col-2 pr-1">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="form-control text-center inputQuantite" 
+                            placeholder="" 
+                            name="quantite"
+                            value="<?php
+                                echo isset($compo) ? $compo->getQuantite() : '';
+                                echo isset($neg) ? $neg->getQuantite() : '';
+                            ?>" 
+                        />
+                        <div class="input-group-append">
+                            <span class="input-group-text">Pièce</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- POIDS -->
+                <div class="col-2">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            class="form-control text-right" 
+                            placeholder="0.000" 
+                            name="poids"
+                            value="<?php
+                                echo isset($compo) ? number_format($compo->getPoids(), 3, '.', ' ') : '';
+                                echo isset($neg) ? number_format($neg->getPoids(), 3, '.', ' ') : '';
+                            ?>" 
+                        />
+                        <div class="input-group-append">
+                            <span class="input-group-text">Kg</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     <?php
     exit;
-} // FIN mode
+} // FIN modeFormProduitsBlManuel
+
+
 
 // Rajoute un produit ou une compo au BL (admin)
 function modeAddLigneProduitBl() {
@@ -4288,13 +4347,14 @@ function modeAddLigneProduitBl() {
 		exit;
 
 	// Produit (hors stock) -----------------------------------------------------------------------------
-    } else {
+    } else {		
+
 		$tarifsManager = new TarifsManager($cnx);
 		$taxesManager = new TaxesManager($cnx);
 		$codeLog = 'HORSTOCK';
 	    $pdt = $produitsManager->getProduit($id_item);
 		if (!$pdt instanceof Produit) { exit('ERREUR INST OBJ PRODUIT #'.$id_item); }
-        $id_produit = $id_item;
+        $id_produit = $id_item;	
 
 		// Création lot si besoin
 		// Si le numLot n'est pas le même (s'il est vide, on aura pas de traça, le client a été prévenu en JS)
@@ -4401,8 +4461,8 @@ function modeAddLigneProduitBl() {
 		$compo->setId_produit($id_produit);
 		$compo->setId_lot_pdt_froid(0);
 		$compo->setId_frais(0);
-		$compo->setId_lot_pdt_negoce(0);
-		$compo->setId_lot_negoce(0);
+		//$compo->setId_lot_pdt_negoce(0);
+		//$compo->setId_lot_negoce(0);
 		$compo->setId_lot_regroupement(0);
 		$compo->setPoids($poids);
 		$compo->setNb_colis($nb_colis);
@@ -4430,8 +4490,9 @@ function modeAddLigneProduitBl() {
 
         $num_lot_ligne = isset($num_lot_avec_quantieme) ? $num_lot_avec_quantieme : $num_lot;
 
+		
 
-		if ($id_bl_ligne == 0) {
+		if ($id_bl_ligne == 0) {			
 			// Création ligne bl
 			$ligne = new BlLigne([]);
 			$ligne->setId_bl($bl->getId());
@@ -4449,9 +4510,11 @@ function modeAddLigneProduitBl() {
 			$ligne->setTva($tva);
 			$ligne->setDate_add(date('Y-m-d H:i:s'));
 			$ligne->setSupprime(0);
+			
 		} else {
 
-			$ligne = $blsManagers->getBlLigne($id_bl_ligne);
+			$ligne = $blsManagers->getBlLigne($id_bl_ligne);			
+			
 			if (!$ligne instanceof BlLigne) { exit('ERREUR INSTANCIATION LIGNE BL #'.$id_bl_ligne); }
 			$ligne->setId_compo($id_compo);
 			$ligne->setId_palette($id_palette);
@@ -4468,6 +4531,7 @@ function modeAddLigneProduitBl() {
 
 
 		$id_ligne = $blsManagers->saveBlLigne($ligne);
+		
 		if ($id_ligne == false) { exit('ERREUR SAVE LIGNE BL (FALSE)'); }
 		if (intval($id_ligne) == 0) { exit('ERREUR SAVE LIGNE BL (0)'); }
 
