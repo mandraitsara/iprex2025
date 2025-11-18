@@ -1303,7 +1303,7 @@ function modeSaveLoma()
     $loma->setDate_test(date('Y-m-d H:i:s'));
     $loma->setId_user_visa($utilisateur->getId());
 
-    $ressave = $lomaManager->saveLoma($loma);
+    $ressave = $lomaManager->saveLomaAtelier($loma);
     if (is_numeric($ressave)) {
         $loma->setId($ressave);
     }
@@ -1466,8 +1466,9 @@ function modeSaveLomaApres()
     $loma->setCommentaire($commentaires);
     $loma->setDate_test(date('Y-m-d H:i:s'));
     $loma->setId_user_visa($utilisateur->getId());
+    $loma->setId_lot_pdt_froid($id_lot_pdt_froid);
 
-    $ressave = $lomaManager->saveLoma($loma);
+    $ressave = $lomaManager->saveLomaAtelier($loma);
     if (is_numeric($ressave)) {
         $loma->setId($ressave);
     }
@@ -1566,6 +1567,8 @@ function modeSaveLomaEncours()
 
     // Récupération des variables
     $id_lot_pdt_froid = isset($_REQUEST['id_lot_pdt_froid']) ? intval($_REQUEST['id_lot_pdt_froid']) : 0;
+
+    
     if ($id_lot_pdt_froid == 0) {
         exit('250INXYW');
     }
@@ -1626,6 +1629,7 @@ function modeSaveLomaEncours()
 
     $lomaManager = new LomaManager($cnx);
     #Enregistrement du controle Loma du produit en cours dans la base de donnée 
+    
     $loma = $lomaManager->getLomaByIdLotPdtFroid($id_lot_pdt_froid);
     if (!$loma instanceof Loma) {
         $loma = new Loma([]);
@@ -1636,10 +1640,10 @@ function modeSaveLomaEncours()
     $loma->setTest_pdt($resultest_pdt);
     $loma->setCommentaire($commentaire);
     $loma->setDate_test(date('Y-m-d H:i:s'));
-    $loma->setId_user_visa($utilisateur->getId());
+    $loma->setId_user_visa($utilisateur->getId());    
 
+    $ressave = $lomaManager->saveLomaAtelier($loma);
 
-    $ressave = $lomaManager->saveLoma($loma);
     if (is_numeric($ressave)) {
         $loma->setId($ressave);
     }

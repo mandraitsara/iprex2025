@@ -13,7 +13,6 @@
 
  ------------------------------------------------------------------------
  */
-
 $('document').ready(function () { 
     
 //Detecter le lot s'il est déjà dans le storage. S'il n'est pas encore là, il faut qu'il aille l'etape normale.
