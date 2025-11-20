@@ -1303,7 +1303,7 @@ function modeSaveLoma()
     $loma->setDate_test(date('Y-m-d H:i:s'));
     $loma->setId_user_visa($utilisateur->getId());
 
-    $ressave = $lomaManager->saveLomaAtelier($loma);
+    $ressave = $lomaManager->saveLoma($loma);
     if (is_numeric($ressave)) {
         $loma->setId($ressave);
     }
@@ -1468,7 +1468,7 @@ function modeSaveLomaApres()
     $loma->setId_user_visa($utilisateur->getId());
     $loma->setId_lot_pdt_froid($id_lot_pdt_froid);
 
-    $ressave = $lomaManager->saveLomaAtelier($loma);
+    $ressave = $lomaManager->saveLoma($loma);
     if (is_numeric($ressave)) {
         $loma->setId($ressave);
     }
