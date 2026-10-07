@@ -8,7 +8,7 @@
 --------------------------------------------------------
 Contrôleur Ajax VUE ATELIER
 ------------------------------------------------------*/
-
+ 
 // Initialisation du mode d'appel
 $mode = isset($_REQUEST['mode']) ? $_REQUEST['mode'] : '';
 // Intégration de la configuration du FrameWork et des autorisations
